@@ -1,0 +1,7 @@
+# Vendor / rebuilt binaries — rebuild locally; do not clone PEs
+*.exe
+*.dll
+Updated/
+patched/
+v3d_files_/
+v3d_files_uncomp/
