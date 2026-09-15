@@ -1,4 +1,4 @@
-# Feature 1 — skip the rest of a sub-panel after N Missing fails
+# Feature 1 — skip a sub-panel above 30% Missing
 
 Pickup notes for a **new** Ghidra project on the **correct** Vision3D build.
 Previous mapping used the wrong install (`C:\VIT`, labeled 70.05.51.00 / binaries dated 2019-09-20). **Re-find every address.** Keep the names and the hook idea.
@@ -14,17 +14,20 @@ This repo does **not** contain `Vision3D.exe`. A patched PE on clone is what EDR
 3. Output: `Updated\Vision3D.exe` (created if missing). Do not commit it.
 
 Expected source SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`  
-Expected output SHA-256: `96aba771401acd55ea99849743541c1710b54e3f8e107a88bd33da7e624d6bfd`
+Expected output SHA-256: `41f46deb72fff52069e5d3d0721566cb550be97cb5e0d6f51b0763d395d7cdec`
 
 ---
 
 ## Goal
 
-On a multi-board panel: once **more than N** components on **one sub-panel** fail as **Missing** (presence not found), skip the **rest of that sub-panel**. Other sub-panels keep running.
+On a multi-board panel, after at least **10 parts have been inspected** on one sub-panel,
+skip the rest of that sub-panel when **more than 30%** of its inspected parts are Missing
+(presence not found). Other sub-panels keep running.
 
 This is a **new production policy**. It is not in manuals or INI.
 
-N has no setting today (acceptance **F1-D**). Do not invent a UI until the count-and-call works with a hard-coded N.
+The percentage and minimum sample have no settings today (acceptance **F1-D**). They are
+hard-coded until the count-and-call behavior is validated on the station.
 
 ---
 
@@ -40,23 +43,26 @@ Do not confuse with existing product:
 | `CTRL+S` component skip list | JEDEC / PN / refdes for the whole batch |
 | TST **Absent** | Expected-missing invert per part |
 | `Stop prod if missing Jedec` | Library file missing, not a part missing on the board |
-| Variant “tested in missing” | Programming-time, not runtime N |
+| Variant “tested in missing” | Programming-time, not a runtime Missing-rate threshold |
 | `ComputeMissingComponent` | Editor / Compose path, not production `ExecuteOne_Component` |
 
-**Missing** = presence test failed (expected part not found). Only that defect type counts toward N. Polarity, offset, and other fails do not.
+**Missing** = presence test failed (expected part not found). Only that defect type counts
+toward the numerator. Every completed component inspection counts toward the denominator;
+polarity, offset, and other failures are inspected but not Missing.
 
 ---
 
 ## Acceptance (when we test on the correct build)
 
-Use a TST with ≥2 sub-panels and several presence checks on each. Example N = 3.
+Use a TST with ≥2 sub-panels and at least 12 presence checks on each.
 
 | ID | Setup | Pass if |
 | --- | --- | --- |
-| F1-A | SP1 has **>N** Missing, then more untested presence checks. SP2 populated. | After the Nth Missing on SP1, remaining objects on **SP1** are not inspected (or NOT INSPECTED / skipped). SP2 fully inspected. Panel is not failed only because the skipped remainder was never tested. |
-| F1-B | SP1 has **exactly N** Missing. | No auto-skip. SP1 finishes normally. |
-| F1-C | Missing mixed with polarity/offset. | Only Missing counts. |
-| F1-D | N configurable. | Later. No INI key today. |
+| F1-A | SP1 has 4 Missing in its first 10 inspected parts; SP2 populated. | At 10 inspected, 40% Missing skips the remainder of **SP1**. SP2 is fully inspected. |
+| F1-B | SP1 has exactly 3 Missing among 10 inspected parts. | Exactly 30% does not auto-skip; SP1 continues normally. |
+| F1-C | Missing mixed with pass, polarity, or offset results. | Every completed part increments inspected; only Missing `0x1` increments Missing. |
+| F1-D | Percentage and minimum sample configurable. | Later. No INI keys today. |
+| F1-E | SP1 exceeds 30% before 10 parts have been inspected. | No auto-skip until the 10-part minimum is reached. |
 
 Compute/skip order in `DefaultValue.ini` `[Computing]`: `Skip order`, `Mire order`, `Code order`. Note it on the correct install; do not edit live config.
 
@@ -134,9 +140,12 @@ CZoneAnalysis::ExecuteOne_Component
     Missing bit = 0x1
         │
         ▼  ★ HOOK HERE
+  inspected_count[sub_panel] += 1
   if this result is Missing 0x1:
       missing_count[sub_panel] += 1
-      if missing_count[sub_panel] > N:
+      if inspected_count[sub_panel] >= 10 and
+         missing_count[sub_panel] * 100 >
+             inspected_count[sub_panel] * 30:
           SkipSubPanel(sub_panel_id)
 ```
 
@@ -154,16 +163,18 @@ Skip-mark path (`ExecuteSkip`) is separate. Inside `ExecuteOne_Component` the ol
 
 ### Defect bit
 
-**Missing = `0x1`.** Do not count other bits toward N.
+**Missing = `0x1`.** Do not count other bits toward the Missing numerator.
 
 ### Hook rules
 
 1. After `GetBinaryFieldDefects` in `ExecuteOne_Component`.
-2. Count only Missing `0x1`, per sub-panel.
-3. If count **> N**, call existing `SkipSubPanel`.
-4. Do not skip other sub-panels.
-5. Do not count Absent-expected, polarity, offset, etc.
-6. Copy of binaries / config only. **Do not patch the live install** until we intend to.
+2. Increment inspected for every completed component result, per sub-panel.
+3. Increment Missing only when `mask & 0x1`.
+4. After at least 10 inspections, call `SkipSubPanel` when
+   `missing * 100 > inspected * 30`.
+5. Do not skip other sub-panels.
+6. Do not count Absent-expected, polarity, offset, etc. as Missing.
+7. Copy of binaries / config only. **Do not patch the live install** until we intend to.
 
 ---
 
@@ -209,7 +220,5 @@ Old `AvVtraitLib.dll` image base `0x180000000`; `CVTrait_Chip::Run` was `0x1800f
 
 ## Next session
 
-1. Confirm the **correct** Vision3D version (Help → About / release note) and hash the two PEs into `version.md`.
-2. New Ghidra project here; import exe + `AvVtraitLib.dll`; Auto Analyze until function count is real.
-3. Re-find `ExecuteOne_Component` and `SkipSubPanel` by name; dump the Missing bit and the call that already skips.
-4. Design the N-count patch against **those** addresses. Do not paste the table above into a patch.
+Runtime-test the 30% / 10-part policy against F1-A through F1-E on the correct station.
+The binary has only been statically rebuilt and verified; it has not been executed here.

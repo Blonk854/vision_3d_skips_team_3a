@@ -63,33 +63,43 @@ Skip-mark gate is unchanged in shape: `TEST dword [rsp+0x74], 0x800001` at `0x14
 
 **`GetBinaryFieldDefects` is not in this DLL.** Both PEs import `STRUCTSUPPORT.DLL::CResult::GetBinaryFieldDefects`. Import `StructSupport.dll` later if we need the bitfield implementation. Production still consumes the mask in `ExecuteOne_Component` after ImagesAnalysis.
 
-Missing bit is still treated as **`0x1`** at the skip-mark test (`0x800001`). Count **only** that bit toward N. Do not count Absent invert (`InvertDefect_MissingComponent` exists on `CResult`).
+Missing bit is still treated as **`0x1`** at the skip-mark test (`0x800001`).
+Count only that bit toward the Missing numerator. Do not count Absent invert
+(`InvertDefect_MissingComponent` exists on `CResult`).
 
 ## Hook (unchanged idea, new VAs)
 
 After `GetBinaryFieldDefects` at `0x140736efd` (`ebx` / `[rsp+0x74]` = mask):
 
-1. If `(mask & 0x1) != 0`, increment Missing count for sub-panel `[rdi+0x14]`.
-2. If count **> N** (hard-coded for now), call `SkipSubPanel(cao, sub_panel_id)` at `0x140541080`.
-3. Do not touch the `"SKIP"` object path at `0x140736fcb`.
-4. Patch a **copy** only. Live `C:\VIT` stays read-only.
+1. Increment inspected count for sub-panel `[rdi+0x14]`.
+2. If `(mask & 0x1) != 0`, increment its Missing count.
+3. After at least 10 inspections, call `SkipSubPanel(cao, sub_panel_id)` at
+   `0x140541080` when `missing * 100 > inspected * 30`.
+4. Do not touch the `"SKIP"` object path at `0x140736fcb`.
+5. Patch a **copy** only. Live `C:\VIT` stays read-only.
 
-## Patch (2026-09-14)
+## Patch (2026-09-15)
 
 Source (immutable): `v3d_files_\Vision3D.exe`  
 SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`
 
 Output: `Updated\Vision3D.exe`  
-SHA-256: `96aba771401acd55ea99849743541c1710b54e3f8e107a88bd33da7e624d6bfd`  
+SHA-256: `41f46deb72fff52069e5d3d0721566cb550be97cb5e0d6f51b0763d395d7cdec`
 Same size as source (28,738,048). Rebuild: `python tools\patch_f1_missing_n.py`
 
 | Site | VA | What |
 | --- | --- | --- |
 | Trampoline | `0x140736f09` | JMP cave; stolen two LEAs replayed in cave |
-| Cave | `0x140d50910` | If `ebx & 1`, `inc counts[[rdi+0x14]]`; if `> 3` call `SkipSubPanel([r15+0x10], id)` |
-| `SkipList_Reset` | `0x140541050` | JMP `0x140d50980` to zero the 256 counters, then original prologue |
-| Counters | `0x14120c680` | 256 dwords, last `.data` page (not in the file; BSS zeros) |
+| Cave | `0x140d50910` | Increment inspected; increment Missing for `ebx & 1`; compare `missing * 100` with `inspected * 30` after 10 results |
+| `SkipList_Reset` | `0x140541050` | JMP `0x140d50980` to zero all 512 counter dwords, then original prologue |
+| Missing counters | `0x14120c680` | 256 dwords in the last writable `.data` page |
+| Inspected counters | `0x14120ca80` | 256 dwords following the Missing counters |
 
-**N = 3** (skip on the 4th Missing on that sub-panel). Hex-edit the immediate at VA `0x140d50931` / file `0xD4FD31` (currently `03`).
+**Threshold = more than 30% after at least 10 inspected parts.** Exactly 30%
+continues. Percentage immediate: VA `0x140d50953`, file `0xD4FD53` (`1e`).
+Minimum-inspected immediate: VA `0x140d5093d`, file `0xD4FD3D` (`0a`).
 
-Does not patch `AvVTraitLib.dll`. Does not touch `C:\VIT`. Runtime not tested here (needs a full install + dongle).
+Static verification: same PE size, 146 changed bytes limited to the two trampolines
+and code cave; fresh Ghidra import disassembled 22 hook-flow instructions and 11
+reset-flow instructions. Does not patch `AvVTraitLib.dll` or touch `C:\VIT`.
+Runtime is not tested here (needs a full install + dongle).
