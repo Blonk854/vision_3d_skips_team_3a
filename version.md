@@ -21,6 +21,12 @@ PE copies (import source):
 
 `C:\Users\s_sme\Documents\Projects\vision_3d_skips\v3d_files_\Vision3D.exe`  
 `C:\Users\s_sme\Documents\Projects\vision_3d_skips\v3d_files_\AvVTraitLib.dll`
+`C:\Users\s_sme\Documents\Projects\vision_3d_skips\v3d_files_\StructSupport.dll`
+
+Matching `StructSupport.dll`: Product/FileVersion **70.06.59.00**, size
+2,256,384 bytes, SHA-256
+`d6270dbe5c97b5ed1000c2541c1e8d495d7db6be184e45d6495d7fad75e0f832`,
+image base `0x180000000`.
 
 Ghidra project (analyzed):
 
@@ -67,6 +73,21 @@ Missing bit is still treated as **`0x1`** at the skip-mark test (`0x800001`).
 Count only that bit toward the Missing numerator. Do not count Absent invert
 (`InvertDefect_MissingComponent` exists on `CResult`).
 
+## StructSupport.dll
+
+| Symbol | VA |
+| --- | --- |
+| `CAnomalie` vtable | `0x1801274b0` |
+| `CAnomalieProd` vtable | `0x180127548` |
+| `CAnomalie::IsOk` | `0x1800900a0` |
+| `CAnomalie::RazRes` | `0x180090840` |
+| `CAnomalieProd::RazRes` | `0x1800908c0` |
+
+Vtable slot `+0x48` is `RazRes`. `CAnomalie::IsOk` requires
+`CAnomalie+0x2c == 0` and no faulty bits in `CAnomalie+0x28`.
+Vision3D's existing operator-skip branch calls slot `+0x48` and then writes
+skip cause `1` at `+0x2c`; the threshold handler uses the same sequence.
+
 ## Hook (unchanged idea, new VAs)
 
 After `GetBinaryFieldDefects` at `0x140736efd` (`ebx` / `[rsp+0x74]` = mask):
@@ -78,28 +99,48 @@ After `GetBinaryFieldDefects` at `0x140736efd` (`ebx` / `[rsp+0x74]` = mask):
 4. Do not touch the `"SKIP"` object path at `0x140736fcb`.
 5. Patch a **copy** only. Live `C:\VIT` stays read-only.
 
-## Patch (2026-09-15)
+## Patch (2026-09-16)
 
 Source (immutable): `v3d_files_\Vision3D.exe`  
 SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`
 
 Output: `Updated\Vision3D.exe`  
-SHA-256: `41f46deb72fff52069e5d3d0721566cb550be97cb5e0d6f51b0763d395d7cdec`
-Same size as source (28,738,048). Rebuild: `python tools\patch_f1_missing_n.py`
+SHA-256: `f3cf6ebffc944e2544670becf8c33c90083db3d1511f6cd9827ee29ced47c166`
+Size: 28,739,072 bytes (1,024 bytes larger than source). Rebuild:
+`python tools\patch_f1_missing_n.py`
 
 | Site | VA | What |
 | --- | --- | --- |
-| Trampoline | `0x140736f09` | JMP cave; stolen two LEAs replayed in cave |
-| Cave | `0x140d50910` | Increment inspected; increment Missing for `ebx & 1`; compare `missing * 100` with `inspected * 30` after 10 results |
-| `SkipList_Reset` | `0x140541050` | JMP `0x140d50980` to zero all 512 counter dwords, then original prologue |
-| Missing counters | `0x14120c680` | 256 dwords in the last writable `.data` page |
-| Inspected counters | `0x14120ca80` | 256 dwords following the Missing counters |
+| Trampoline | `0x140736f09` | JMP `.f1code`; stolen two LEAs replayed on the non-trigger path |
+| Handler | `0x141c98000` | Count results; call `SkipSubPanel`; normalize matching anomalies in every zone; exit through `0x14073742d` |
+| `SkipList_Reset` | `0x140541050` | JMP `0x141c98300` to zero all 512 counter dwords, then replay the original prologue |
+| Missing counters | `0x141c99000` | 256 dwords in `.f1data` |
+| Inspected counters | `0x141c99400` | 256 dwords following the Missing counters |
 
 **Threshold = more than 30% after at least 10 inspected parts.** Exactly 30%
-continues. Percentage immediate: VA `0x140d50953`, file `0xD4FD53` (`1e`).
-Minimum-inspected immediate: VA `0x140d5093d`, file `0xD4FD3D` (`0a`).
+continues. Percentage immediate: VA `0x141c9804f`, file `0x1B6824F` (`1e`).
+Minimum-inspected immediate: VA `0x141c98035`, file `0x1B68235` (`0a`).
 
-Static verification: same PE size, 146 changed bytes limited to the two trampolines
-and code cave; fresh Ghidra import disassembled 22 hook-flow instructions and 11
-reset-flow instructions. Does not patch `AvVTraitLib.dll` or touch `C:\VIT`.
-Runtime is not tested here (needs a full install + dongle).
+New section `.f1code` is RX at RVA `0x1c98000`, raw offset `0x1b68200`,
+size `0x400`. `.f1data` is zero-initialized RW at RVA `0x1c99000`, size
+`0x800`. `SizeOfImage` is `0x1c9a000`; no RWX section is introduced.
+Two sorted `RUNTIME_FUNCTION` records are appended within existing `.pdata`
+padding for the call-bearing handler frame (`0x1c98059..0x1c980e0`) and reset
+frame (`0x1c98300..0x1c98324`).
+
+On threshold, the patch calls `SkipSubPanel`, then scans the zone count represented
+by `CAO+0x2448..+0x2450` against production-zone records rooted at `CAO+0x5878`
+(zone stride `0x410`, anomaly stride `0x370`). Matching inspected anomalies call
+virtual slot `+0x48` (`CAnomalieProd::RazRes`) and receive skip cause
+`CAnomalie+0x2c = 1`. The triggering component takes the stock early cleanup
+path before its Missing mask is stored. Other sub-panels are not modified.
+
+Static verification: source hash guard passes; independent PE parsing confirms
+both new sections and permissions; all direct and indirect call/jump targets
+disassemble correctly; the reset clears `0x800` bytes; strict threshold boundary
+tests pass; and the failed SPC fixture has exactly 10 Missing records on
+sub-panel 6. A fresh Ghidra import disassembled 60 handler instructions and 11
+reset instructions. Does not patch either DLL or touch `C:\VIT`.
+
+Runtime station acceptance is not yet executed (requires the full licensed
+station, production database, repair route, and controlled boards).

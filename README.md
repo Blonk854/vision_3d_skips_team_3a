@@ -14,7 +14,7 @@ This repo does **not** contain `Vision3D.exe`. A patched PE on clone is what EDR
 3. Output: `Updated\Vision3D.exe` (created if missing). Do not commit it.
 
 Expected source SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`  
-Expected output SHA-256: `41f46deb72fff52069e5d3d0721566cb550be97cb5e0d6f51b0763d395d7cdec`
+Expected output SHA-256: `f3cf6ebffc944e2544670becf8c33c90083db3d1511f6cd9827ee29ced47c166`
 
 ---
 
@@ -23,6 +23,11 @@ Expected output SHA-256: `41f46deb72fff52069e5d3d0721566cb550be97cb5e0d6f51b0763
 On a multi-board panel, after at least **10 parts have been inspected** on one sub-panel,
 skip the rest of that sub-panel when **more than 30%** of its inspected parts are Missing
 (presence not found). Other sub-panels keep running.
+
+When triggered, the sub-panel follows the normal 2D skip path: it is added to
+Vision3D's skipped-sub-panel list, already-recorded results for that sub-panel
+are reset and marked skipped, and the triggering component exits before storing
+its Missing result. Defects on every other sub-panel remain untouched.
 
 This is a **new production policy**. It is not in manuals or INI.
 
@@ -70,18 +75,17 @@ Compute/skip order in `DefaultValue.ini` `[Computing]`: `Skip order`, `Mire orde
 
 ## Ghidra — new project (correct version)
 
-### Import these two files only
+### Import these three files only
 
 Copy them out of the **correct** install first. Do not import from the old `C:\VIT` tree unless you have confirmed that *is* the right build.
 
 | File | Why |
 | --- | --- |
 | `Vision3D.exe` | Production walk + skip sink |
-| `AvVtraitLib.dll` | Trait run + `GetBinaryFieldDefects` (Missing bit) |
+| `AvVtraitLib.dll` | Trait execution and presence results |
+| `StructSupport.dll` | `CAnomalie::RazRes`, `IsOk`, and result semantics |
 
 Do **not** import the whole install. Do **not** need `VitDataCAD.dll` for this feature (that was TST serialize / VIS export).
-
-Optional later if a call jumps out of those two: `StructSupport.dll` (mentioned next to the live trio on the old map).
 
 ### Project setup
 
@@ -176,6 +180,16 @@ Skip-mark path (`ExecuteSkip`) is separate. Inside `ExecuteOne_Component` the ol
 6. Do not count Absent-expected, polarity, offset, etc. as Missing.
 7. Copy of binaries / config only. **Do not patch the live install** until we intend to.
 
+### Normal-skip synchronization
+
+`SkipSubPanel` updates the runtime skip list and CAD/test-vector objects, but it
+does not clear `CAnomalie` production results that were recorded before the
+threshold. The patch therefore walks every production zone for the triggered
+sub-panel, invokes virtual slot `+0x48` (`CAnomalieProd::RazRes`), and then sets
+`CAnomalie+0x2C = 1`, matching Vision3D's existing operator-skip sequence.
+It then uses the same early cleanup path as a normal `"SKIP"` object so the
+triggering Missing result is never committed.
+
 ---
 
 ## Addresses from the WRONG build (hints only)
@@ -218,7 +232,16 @@ Old `AvVtraitLib.dll` image base `0x180000000`; `CVTrait_Chip::Run` was `0x1800f
 
 ---
 
-## Next session
+## Verification status
 
-Runtime-test the 30% / 10-part policy against F1-A through F1-E on the correct station.
-The binary has only been statically rebuilt and verified; it has not been executed here.
+The failed fixture confirms sub-panel 6 reaches the trigger with exactly 10
+Missing results. Automated checks pass for the strict 30% boundary, minimum
+sample, PE section layout, both trampolines, call targets, all-zone anomaly
+loop, x64 unwind records, source-overwrite protection, and counter reset. A
+fresh Ghidra import disassembles 60 handler instructions and 11 reset
+instructions.
+
+Runtime station acceptance is still required. Test the rebuilt copy against
+F1-A through F1-E, plus: skipped status in database/SPC, no repair stop when all
+other sub-panels pass, a non-Missing defect on another sub-panel, counter reset
+between panels, and a TST with no enabled optical skip marks.

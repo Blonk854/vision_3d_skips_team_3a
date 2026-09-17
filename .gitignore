@@ -5,3 +5,11 @@ Updated/
 patched/
 v3d_files_/
 v3d_files_uncomp/
+
+# Local reverse-engineering inputs, fixtures, and exports
+Documentation/
+failed_attempt/
+_ghidra*
+*.gpr
+*.rep/
+__pycache__/
