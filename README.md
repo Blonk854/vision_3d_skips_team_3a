@@ -14,7 +14,7 @@ This repo does **not** contain `Vision3D.exe`. A patched PE on clone is what EDR
 3. Output: `Updated\Vision3D.exe` (created if missing). Do not commit it.
 
 Expected source SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`  
-Expected output SHA-256: `f3cf6ebffc944e2544670becf8c33c90083db3d1511f6cd9827ee29ced47c166`
+Expected output SHA-256: `d689eeb3d1216dd9e5c493f010dd19192bb575a07dc4fd5a4132daeb2c804a51`
 
 ---
 
@@ -188,7 +188,9 @@ threshold. The patch therefore walks every production zone for the triggered
 sub-panel, invokes virtual slot `+0x48` (`CAnomalieProd::RazRes`), and then sets
 `CAnomalie+0x2C = 1`, matching Vision3D's existing operator-skip sequence.
 It then uses the same early cleanup path as a normal `"SKIP"` object so the
-triggering Missing result is never committed.
+triggering Missing result is never committed. After `SkipSubPanel`, it also
+posts the stock production-screen refresh message so section D displays the
+skipped board number.
 
 ---
 
@@ -238,10 +240,23 @@ The failed fixture confirms sub-panel 6 reaches the trigger with exactly 10
 Missing results. Automated checks pass for the strict 30% boundary, minimum
 sample, PE section layout, both trampolines, call targets, all-zone anomaly
 loop, x64 unwind records, source-overwrite protection, and counter reset. A
-fresh Ghidra import disassembles 60 handler instructions and 11 reset
+fresh Ghidra import disassembles 66 handler instructions and 11 reset
 instructions.
 
-Runtime station acceptance is still required. Test the rebuilt copy against
-F1-A through F1-E, plus: skipped status in database/SPC, no repair stop when all
-other sub-panels pass, a non-Missing defect on another sub-panel, counter reset
-between panels, and a TST with no enabled optical skip marks.
+Station trial `trial_1` using `SKIP_TRIAL_2nd.tst` confirmed sub-panel 6 was
+skipped, appeared as skipped at review, and defects on other sub-panels were
+processed normally. The test used a TST with no pre-enabled optical skips.
+
+The logs locate the bulk of the trial's long cycle in fault/image/OTR
+processing: they report 31.834 seconds of zone processing versus roughly
+4.8–5.1 seconds in nearby normal runs. Two gaps totaling 18.094 seconds end in
+failed OTR attempts to open
+`C:\VIT\Data\Libraries\MIAMI_3D\MIAMI_3D.bm`; another 5.146-second gap ends in
+empty-histogram image errors. The logs do not time the threshold handler
+directly, so they establish correlation rather than exclusive causation.
+Correct the library/OTR configuration before using this 21-defect, heavily
+taped panel as a throughput comparison.
+
+The production-screen skipped-board refresh is statically verified in this
+revision and needs one short station confirmation. Exactly 30% and counter
+reset remain statically verified boundary cases.

@@ -105,14 +105,14 @@ Source (immutable): `v3d_files_\Vision3D.exe`
 SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`
 
 Output: `Updated\Vision3D.exe`  
-SHA-256: `f3cf6ebffc944e2544670becf8c33c90083db3d1511f6cd9827ee29ced47c166`
+SHA-256: `d689eeb3d1216dd9e5c493f010dd19192bb575a07dc4fd5a4132daeb2c804a51`
 Size: 28,739,072 bytes (1,024 bytes larger than source). Rebuild:
 `python tools\patch_f1_missing_n.py`
 
 | Site | VA | What |
 | --- | --- | --- |
 | Trampoline | `0x140736f09` | JMP `.f1code`; stolen two LEAs replayed on the non-trigger path |
-| Handler | `0x141c98000` | Count results; call `SkipSubPanel`; normalize matching anomalies in every zone; exit through `0x14073742d` |
+| Handler | `0x141c98000` | Count results; call `SkipSubPanel`; post the stock UI refresh; normalize matching anomalies in every zone; exit through `0x14073742d` |
 | `SkipList_Reset` | `0x140541050` | JMP `0x141c98300` to zero all 512 counter dwords, then replay the original prologue |
 | Missing counters | `0x141c99000` | 256 dwords in `.f1data` |
 | Inspected counters | `0x141c99400` | 256 dwords following the Missing counters |
@@ -125,7 +125,7 @@ New section `.f1code` is RX at RVA `0x1c98000`, raw offset `0x1b68200`,
 size `0x400`. `.f1data` is zero-initialized RW at RVA `0x1c99000`, size
 `0x800`. `SizeOfImage` is `0x1c9a000`; no RWX section is introduced.
 Two sorted `RUNTIME_FUNCTION` records are appended within existing `.pdata`
-padding for the call-bearing handler frame (`0x1c98059..0x1c980e0`) and reset
+padding for the call-bearing handler frame (`0x1c98059..0x1c980f8`) and reset
 frame (`0x1c98300..0x1c98324`).
 
 On threshold, the patch calls `SkipSubPanel`, then scans the zone count represented
@@ -134,13 +134,32 @@ by `CAO+0x2448..+0x2450` against production-zone records rooted at `CAO+0x5878`
 virtual slot `+0x48` (`CAnomalieProd::RazRes`) and receive skip cause
 `CAnomalie+0x2c = 1`. The triggering component takes the stock early cleanup
 path before its Missing mask is stored. Other sub-panels are not modified.
+The handler reproduces the stock UI sequence using message value
+`[0x1411dcb30]` and `PostMessageA` IAT slot `0x140d5bc00`.
 
 Static verification: source hash guard passes; independent PE parsing confirms
 both new sections and permissions; all direct and indirect call/jump targets
 disassemble correctly; the reset clears `0x800` bytes; strict threshold boundary
 tests pass; and the failed SPC fixture has exactly 10 Missing records on
-sub-panel 6. A fresh Ghidra import disassembled 60 handler instructions and 11
+sub-panel 6. A fresh Ghidra import disassembled 66 handler instructions and 11
 reset instructions. Does not patch either DLL or touch `C:\VIT`.
 
-Runtime station acceptance is not yet executed (requires the full licensed
-station, production database, repair route, and controlled boards).
+Station trial `trial_1` with `SKIP_TRIAL_2nd.tst` verified the 2D-style result:
+sub-panel 6 was skipped and displayed as skipped at review, while deliberately
+introduced failures on other sub-panels remained normal failures. The TST had
+no pre-enabled optical skip marks.
+
+The station reported zone processing of `31.834|30.589` seconds versus
+approximately 4.8–5.1 seconds in nearby normal cycles. Two gaps totaling
+18.094 seconds end in failed OTR attempts to open
+`C:\VIT\Data\Libraries\MIAMI_3D\MIAMI_3D.bm`; another 5.146-second gap ends in
+empty-histogram image errors. These timestamps locate the bulk of the delay in
+fault/image/OTR processing but do not directly instrument the threshold
+handler. Repair the MIAMI_3D library/OTR configuration before comparing
+throughput with this deliberately taped, 21-defect panel.
+
+The production-screen notification was added after this trial. Static checks
+and a fresh Ghidra import verify its stock message target and `PostMessageA`
+IAT call; the final import disassembled 66 handler instructions and 11 reset
+instructions. One short station run should confirm section D now displays
+sub-panel 6.

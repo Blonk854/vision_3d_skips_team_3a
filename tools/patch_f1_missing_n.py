@@ -6,7 +6,8 @@ Hard-coded threshold: more than 30% Missing after at least 10 inspections.
 When the threshold fires, the handler:
 * enters the sub-panel in Vision3D's normal runtime skip list;
 * resets prior anomaly results for that sub-panel with CAnomalie::RazRes;
-* marks those anomalies as skipped-by-operator; and
+* marks those anomalies as skipped-by-operator;
+* posts Vision3D's normal production-screen skip notification; and
 * exits the triggering ExecuteOne_Component before it stores a defect.
 """
 from __future__ import annotations
@@ -39,6 +40,8 @@ RESET_CAVE = CAVE + 0x300
 MISSING_COUNTS = IMAGE_BASE + DATA_RVA
 INSPECTED_COUNTS = MISSING_COUNTS + 0x400
 SKIPSUB = 0x140541080
+POSTMESSAGE_IAT = 0x140D5BC00
+SKIP_UI_MESSAGE = 0x1411DCB30
 MISSING_PERCENT = 30
 MIN_INSPECTED = 10
 N_SLOTS = 256
@@ -140,6 +143,20 @@ def assemble_caves() -> tuple[bytes, dict]:
     emit(b"\xe8")
     emit(rel32(va() - 1, SKIPSUB))
 
+    # Match the stock skip-mark path's production-screen refresh.
+    emit(bytes.fromhex("498b8d38580000"))  # mov rcx,[r13+0x5838]
+    emit(bytes.fromhex("4533c9"))  # xor r9d,r9d
+    emit(bytes.fromhex("4533c0"))  # xor r8d,r8d
+    emit(bytes.fromhex("8b15"))  # mov edx,[rip+skip-ui-message]
+    message_at = len(code)
+    emit(b"\x00\x00\x00\x00")
+    struct.pack_into("<i", code, message_at, SKIP_UI_MESSAGE - va())
+    emit(bytes.fromhex("488b4940"))  # mov rcx,[rcx+0x40]
+    emit(bytes.fromhex("ff15"))  # call qword [rip+PostMessageA]
+    post_at = len(code)
+    emit(b"\x00\x00\x00\x00")
+    struct.pack_into("<i", code, post_at, POSTMESSAGE_IAT - va())
+
     # Walk every production zone. Matching anomalies that were already
     # inspected are reset and then marked with not-inspected cause 1, exactly
     # like ExecuteAll_Components' existing operator-skip branch.
@@ -171,12 +188,13 @@ def assemble_caves() -> tuple[bytes, dict]:
     mark("cleanup_done")
     emit(bytes.fromhex("4883c420"))  # add rsp,20
     emit(bytes.fromhex("415e415d415c5f5e5b"))  # pop r14,r13,r12,rdi,rsi,rbx
+    mark("handler_frame_end")
     emit(b"\xe9")
     emit(rel32(va() - 1, EXECUTE_ONE_EARLY_EXIT))
 
     mark("normal")
     meta["handler_frame_start"] = labels["handler_frame"]
-    meta["handler_frame_end"] = labels["normal"]
+    meta["handler_frame_end"] = labels["handler_frame_end"]
     emit(HOOK_ORIG)
     emit(b"\xe9")
     emit(rel32(va() - 1, HOOK_RET))
