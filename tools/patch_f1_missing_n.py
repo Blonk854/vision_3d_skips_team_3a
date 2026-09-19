@@ -9,6 +9,9 @@ When the threshold fires, the handler:
 * marks those anomalies as skipped-by-operator;
 * posts Vision3D's normal production-screen skip notification; and
 * exits the triggering ExecuteOne_Component before it stores a defect.
+
+All skipped sub-panels also participate in Vision3D's final review-routing
+decision, while retaining their normal skipped-card/database status.
 """
 from __future__ import annotations
 
@@ -30,6 +33,10 @@ EXECUTE_ONE_EARLY_EXIT = 0x14073742D
 RESET = 0x140541050  # SkipList_Reset
 RESET_CONT = 0x140541056  # MOV RBX,RCX
 RESET_ORIG = bytes.fromhex("40534883ec20")  # 6 bytes stolen
+
+REVIEW_ROUTE_TEST = 0x1406748C5
+REVIEW_ROUTE_ORIG = bytes.fromhex("f70498fffeffff")  # test card anomaly,~0x100
+REVIEW_ROUTE_PATCH = bytes.fromhex("f70498ffffffff")  # include skip bit 0x100
 
 # The source PE has room for two additional section headers. Dedicated sections
 # avoid relying on the 243-byte .text tail and on bytes beyond .data VirtualSize.
@@ -417,6 +424,7 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict:
 
     hook_off = va_to_off(HOOK)
     reset_off = va_to_off(RESET)
+    review_route_off = va_to_off(REVIEW_ROUTE_TEST)
 
     if data[hook_off : hook_off + 8] != HOOK_ORIG:
         raise SystemExit(
@@ -427,6 +435,19 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict:
         raise SystemExit(
             "reset site mismatch at 0x%x: %s"
             % (reset_off, data[reset_off : reset_off + 6].hex())
+        )
+    if (
+        data[review_route_off : review_route_off + len(REVIEW_ROUTE_ORIG)]
+        != REVIEW_ROUTE_ORIG
+    ):
+        raise SystemExit(
+            "review-route site mismatch at 0x%x: %s"
+            % (
+                review_route_off,
+                data[
+                    review_route_off : review_route_off + len(REVIEW_ROUTE_ORIG)
+                ].hex(),
+            )
         )
 
     code_raw, code_raw_size = add_feature_sections(data, cave_blob, meta)
@@ -441,6 +462,9 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict:
     if len(jmp_reset) != 6:
         raise SystemExit("reset trampoline length")
     data[reset_off : reset_off + 6] = jmp_reset
+    data[
+        review_route_off : review_route_off + len(REVIEW_ROUTE_PATCH)
+    ] = REVIEW_ROUTE_PATCH
 
     dst.parent.mkdir(parents=True, exist_ok=True)
     dst.write_bytes(data)
@@ -463,6 +487,9 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict:
         "cave_va": "0x%X" % CAVE,
         "reset_va": "0x%X" % RESET,
         "reset_cave_va": "0x%X" % reset_va,
+        "review_route_test_va": "0x%X" % REVIEW_ROUTE_TEST,
+        "review_route_mask_va": "0x%X" % (REVIEW_ROUTE_TEST + 3),
+        "review_route_mask_file_offset": "0x%X" % (review_route_off + 3),
         "missing_counts_va": "0x%X" % MISSING_COUNTS,
         "inspected_counts_va": "0x%X" % INSPECTED_COUNTS,
         "code_section_rva": "0x%X" % CODE_RVA,

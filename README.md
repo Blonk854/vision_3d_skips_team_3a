@@ -14,7 +14,7 @@ This repo does **not** contain `Vision3D.exe`. A patched PE on clone is what EDR
 3. Output: `Updated\Vision3D.exe` (created if missing). Do not commit it.
 
 Expected source SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`  
-Expected output SHA-256: `d689eeb3d1216dd9e5c493f010dd19192bb575a07dc4fd5a4132daeb2c804a51`
+Expected output SHA-256: `b696a6d609d829f70a3c8450abe5f56e9711a723b46cec69d6d6b42edfb73cb9`
 
 ---
 
@@ -192,6 +192,14 @@ triggering Missing result is never committed. After `SkipSubPanel`, it also
 posts the stock production-screen refresh message so section D displays the
 skipped board number.
 
+### Review routing
+
+Vision3D's stock `CProdCarte::ShouldItGoToReviewStation` decision masks out the
+card skip bit (`0x100`). The patch changes that single test mask from
+`0xFFFFFEFF` to `0xFFFFFFFF`, so any skipped sub-panel makes the panel stop at
+review even when no other defect is present. This changes routing only; the
+sub-panel retains its normal skipped status in result data.
+
 ---
 
 ## Addresses from the WRONG build (hints only)
@@ -245,7 +253,9 @@ instructions.
 
 Station trial `trial_1` using `SKIP_TRIAL_2nd.tst` confirmed sub-panel 6 was
 skipped, appeared as skipped at review, and defects on other sub-panels were
-processed normally. The test used a TST with no pre-enabled optical skips.
+processed normally. A follow-up confirmed that section D on the production
+screen displays the skipped sub-panel. The test used a TST with no pre-enabled
+optical skips.
 
 The logs locate the bulk of the trial's long cycle in fault/image/OTR
 processing: they report 31.834 seconds of zone processing versus roughly
@@ -257,6 +267,6 @@ directly, so they establish correlation rather than exclusive causation.
 Correct the library/OTR configuration before using this 21-defect, heavily
 taped panel as a throughput comparison.
 
-The production-screen skipped-board refresh is statically verified in this
-revision and needs one short station confirmation. Exactly 30% and counter
-reset remain statically verified boundary cases.
+The new skip-only review stop is statically verified and needs one short
+station confirmation. Exactly 30% and counter reset remain statically verified
+boundary cases.

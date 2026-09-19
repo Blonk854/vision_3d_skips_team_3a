@@ -105,7 +105,7 @@ Source (immutable): `v3d_files_\Vision3D.exe`
 SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`
 
 Output: `Updated\Vision3D.exe`  
-SHA-256: `d689eeb3d1216dd9e5c493f010dd19192bb575a07dc4fd5a4132daeb2c804a51`
+SHA-256: `b696a6d609d829f70a3c8450abe5f56e9711a723b46cec69d6d6b42edfb73cb9`
 Size: 28,739,072 bytes (1,024 bytes larger than source). Rebuild:
 `python tools\patch_f1_missing_n.py`
 
@@ -114,6 +114,7 @@ Size: 28,739,072 bytes (1,024 bytes larger than source). Rebuild:
 | Trampoline | `0x140736f09` | JMP `.f1code`; stolen two LEAs replayed on the non-trigger path |
 | Handler | `0x141c98000` | Count results; call `SkipSubPanel`; post the stock UI refresh; normalize matching anomalies in every zone; exit through `0x14073742d` |
 | `SkipList_Reset` | `0x140541050` | JMP `0x141c98300` to zero all 512 counter dwords, then replay the original prologue |
+| Review-route test | `0x1406748c5` | Change the card-anomaly test mask from `0xfffffeff` to `0xffffffff`, including skip bit `0x100` |
 | Missing counters | `0x141c99000` | 256 dwords in `.f1data` |
 | Inspected counters | `0x141c99400` | 256 dwords following the Missing counters |
 
@@ -136,6 +137,9 @@ virtual slot `+0x48` (`CAnomalieProd::RazRes`) and receive skip cause
 path before its Missing mask is stored. Other sub-panels are not modified.
 The handler reproduces the stock UI sequence using message value
 `[0x1411dcb30]` and `PostMessageA` IAT slot `0x140d5bc00`.
+At the final routing decision, the one-byte `FE` to `FF` change at VA
+`0x1406748c9` (file offset `0x673cc9`) makes a card skip sufficient to request
+review. It does not alter the skip result or database representation.
 
 Static verification: source hash guard passes; independent PE parsing confirms
 both new sections and permissions; all direct and indirect call/jump targets
@@ -158,8 +162,8 @@ fault/image/OTR processing but do not directly instrument the threshold
 handler. Repair the MIAMI_3D library/OTR configuration before comparing
 throughput with this deliberately taped, 21-defect panel.
 
-The production-screen notification was added after this trial. Static checks
-and a fresh Ghidra import verify its stock message target and `PostMessageA`
-IAT call; the final import disassembled 66 handler instructions and 11 reset
-instructions. One short station run should confirm section D now displays
-sub-panel 6.
+The production-screen notification was added after this trial and subsequently
+confirmed on the station: section D displays the skipped sub-panel. Independent
+disassembly and a fresh Ghidra import verify the new review mask as well as 66
+handler instructions and 11 reset instructions. One short station run should
+confirm a skip-only panel now stops for immediate disposition.
