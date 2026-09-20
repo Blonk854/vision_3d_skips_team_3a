@@ -9,6 +9,7 @@ v3d_files_uncomp/
 # Local reverse-engineering inputs, fixtures, and exports
 Documentation/
 failed_attempt/
+version_debug_files/
 _ghidra*
 *.gpr
 *.rep/

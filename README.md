@@ -10,11 +10,20 @@ This folder is only Feature 1 (runtime skip-after-N-missing). TST→VIS conversi
 This repo does **not** contain `Vision3D.exe`. A patched PE on clone is what EDR (CrowdStrike) will scan.
 
 1. Copy the 70.06.59.00 `Vision3D.exe` to `v3d_files_\Vision3D.exe` (or pass the path as argv).
-2. Run: `python tools\patch_f1_missing_n.py`
-3. Output: `Updated\Vision3D.exe` (created if missing). Do not commit it.
+2. Install pinned build/verification dependencies:
+   `python -m pip install -r tools\requirements.txt`
+3. Run: `python tools\patch_f1_missing_n.py`
+4. Verify: `python tools\verify_hardened_patch.py`
+5. Output: `Updated\Vision3D_concurrency_fix.exe`. Do not commit it.
+   The previous `Updated\Vision3D.exe` is preserved, not rebuilt by default.
 
 Expected source SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`  
-Expected output SHA-256: `b696a6d609d829f70a3c8450abe5f56e9711a723b46cec69d6d6b42edfb73cb9`
+Expected output SHA-256: `0ef39ff59e216bb7e9a45f6cb7ee505eac0822f6c4939d8ff1a8e04197675c13`
+
+Run `python tools\verify_hardened_patch.py --code-only` to test generated
+instructions without rebuilding a PE. Use `--output <path>` to verify a
+candidate at a different location. This is a station-test candidate, not a
+production-approved release.
 
 ---
 
@@ -26,8 +35,8 @@ skip the rest of that sub-panel when **more than 30%** of its inspected parts ar
 
 When triggered, the sub-panel follows the normal 2D skip path: it is added to
 Vision3D's skipped-sub-panel list, already-recorded results for that sub-panel
-are reset and marked skipped, and the triggering component exits before storing
-its Missing result. Defects on every other sub-panel remain untouched.
+are non-destructively marked skipped, and the triggering component exits before
+storing its Missing result. Defects on every other sub-panel remain untouched.
 
 This is a **new production policy**. It is not in manuals or INI.
 
@@ -68,6 +77,13 @@ Use a TST with ≥2 sub-panels and at least 12 presence checks on each.
 | F1-C | Missing mixed with pass, polarity, or offset results. | Every completed part increments inspected; only Missing `0x1` increments Missing. |
 | F1-D | Percentage and minimum sample configurable. | Later. No INI keys today. |
 | F1-E | SP1 exceeds 30% before 10 parts have been inspected. | No auto-skip until the 10-part minimum is reached. |
+| F1-F | First four results are Missing and result 10 is good. | Threshold is evaluated at result 10 and SP1 skips at 40%. |
+| F1-G | Two sub-panels cross concurrently. | Each is recorded once; no crash, duplicate list mutation, or cross-panel counts. |
+| F1-H | Two lanes run the same sub-panel IDs. | Counts remain isolated by the lane's CAO lifecycle. |
+| F1-I | Skip-only panel. | Section D shows the board and the panel stops at review. |
+| F1-J | Threshold skip plus defects on another sub-panel. | Skipped board stays skipped; unrelated failures remain reviewable. |
+| F1-K | Bronco/foreign-material production panel. | No access violation; final records and review routing are correct. |
+| F1-L | Start the next panel immediately after review. | Counters are retired/reset; no prior-panel carryover or reset stall. |
 
 Compute/skip order in `DefaultValue.ini` `[Computing]`: `Skip order`, `Mire order`, `Code order`. Note it on the correct install; do not edit live config.
 
@@ -143,14 +159,23 @@ CZoneAnalysis::ExecuteOne_Component
   GetBinaryFieldDefects
     Missing bit = 0x1
         │
-        ▼  ★ HOOK HERE
-  inspected_count[sub_panel] += 1
+        ▼  stock supplemental masks merge; stock current-result RazRes
+        │
+        ▼  ★ FINAL-MASK HOOK
+  atomic inspected_count[CAO, sub_panel] += 1
   if this result is Missing 0x1:
-      missing_count[sub_panel] += 1
-      if inspected_count[sub_panel] >= 10 and
-         missing_count[sub_panel] * 100 >
-             inspected_count[sub_panel] * 30:
-          SkipSubPanel(sub_panel_id)
+      atomic missing_count[CAO, sub_panel] += 1
+  if inspected_count[sub_panel] >= 10 and
+     missing_count[sub_panel] * 100 >
+         inspected_count[sub_panel] * 30:
+      atomically claim the sub-panel
+      serialize and call SkipSubPanel immediately
+      exit by stock cleanup
+
+  CProductionThread::CAPM_SetInspectionStatus (serialized)
+      validate production vectors
+      mark prior completed anomalies skipped without RazRes
+      post the stock UI message once
 ```
 
 `ExecuteAll_Components` already honors “is skipped”, so once `SkipSubPanel` runs, later components on that board should be dropped.
@@ -171,26 +196,44 @@ Skip-mark path (`ExecuteSkip`) is separate. Inside `ExecuteOne_Component` the ol
 
 ### Hook rules
 
-1. After `GetBinaryFieldDefects` in `ExecuteOne_Component`.
+1. After supplemental defects are merged and the stock current-anomaly
+   `RazRes` returns (`0x140736f47`), so `ebx` is the final stock mask.
 2. Increment inspected for every completed component result, per sub-panel.
 3. Increment Missing only when `mask & 0x1`.
-4. After at least 10 inspections, call `SkipSubPanel` when
-   `missing * 100 > inspected * 30`.
+4. After at least 10 inspections, atomically claim the sub-panel when
+   `missing * 100 > inspected * 30`; serialize and call `SkipSubPanel`
+   immediately so stock scheduling sees the skip.
 5. Do not skip other sub-panels.
 6. Do not count Absent-expected, polarity, offset, etc. as Missing.
 7. Copy of binaries / config only. **Do not patch the live install** until we intend to.
 
 ### Normal-skip synchronization
 
-`SkipSubPanel` updates the runtime skip list and CAD/test-vector objects, but it
-does not clear `CAnomalie` production results that were recorded before the
-threshold. The patch therefore walks every production zone for the triggered
-sub-panel, invokes virtual slot `+0x48` (`CAnomalieProd::RazRes`), and then sets
-`CAnomalie+0x2C = 1`, matching Vision3D's existing operator-skip sequence.
-It then uses the same early cleanup path as a normal `"SKIP"` object so the
-triggering Missing result is never committed. After `SkipSubPanel`, it also
-posts the stock production-screen refresh message so section D displays the
-skipped board number.
+Workers update both counters, evaluate the ratio and claim under the table
+lock, so the Missing and inspected counts form one consistent snapshot. The
+table lock is released before waiting for a claim or calling stock code.
+The winner calls stock `SkipSubPanel`
+immediately under a per-CAO lock so the stock scheduler can drop later work,
+then marks its own completed anomaly skipped and takes the stock early cleanup
+path. Workers never scan shared vectors, invoke global `RazRes`, or post UI.
+The original optical-SKIP call is routed through the same lock; absent contexts
+hold the table lock across that call, and retired contexts reject stale calls.
+
+The serialized `CAPM_SetInspectionStatus` wrapper first validates the production
+zone count at `CAO+0x5880`, zone stride `0x410`, anomaly-vector ordering and
+`0x370` divisibility. It then sets `CAnomalie+0x28 = 0` and `+0x2C = 1` on
+matching inspected records and posts the stock production-screen message once.
+Validation failure leaves prior anomaly data untouched and continues through
+stock review routing with the already-committed skip. That failure path does
+not release the table lock, which was already released before validation.
+
+Eight fixed contexts are keyed by the stock CAO lifecycle. Lookup scans all
+eight slots for an existing CAO before reusing the first free slot, under the
+table lock. Reference acquisitions and releases both use locked instructions
+to prevent lost updates while a worker or finalizer is active.
+`SkipList_Reset` retires one CAO context, waits for its references,
+clears it, and only then replays stock reset. An unwind-only cleanup handler
+releases the finalizer reference if a stock call throws.
 
 ### Review routing
 
@@ -244,12 +287,28 @@ Old `AvVtraitLib.dll` image base `0x180000000`; `CVTrait_Chip::Run` was `0x1800f
 
 ## Verification status
 
-The failed fixture confirms sub-panel 6 reaches the trigger with exactly 10
-Missing results. Automated checks pass for the strict 30% boundary, minimum
-sample, PE section layout, both trampolines, call targets, all-zone anomaly
-loop, x64 unwind records, source-overwrite protection, and counter reset. A
-fresh Ghidra import disassembles 66 handler instructions and 11 reset
-instructions.
+The September 20 candidate fixes four races in the September 19 build:
+unlocked reference acquisition, inconsistent threshold snapshots, duplicate
+contexts after an earlier slot is reset, and an invalid-layout double unlock.
+
+The verifier executes generated x64 instructions in Unicorn with stock calls
+stubbed. Deterministic schedules cover exact 30%, a good tenth result above
+30%, worker contention, simultaneous claims, context lookup after reset,
+reference retirement, invalid layout while another worker owns the table
+lock, table exhaustion and unsupported sub-panel IDs. Reintroducing each of
+the four defects in memory causes these regressions to fail.
+
+Artifact checks cover source/DLL/output hashes, generated payload equality,
+PE permissions, hooks/call targets, runtime/unwind metadata bytes, permitted
+source-diff spans, and absence of injected global `RazRes` calls. They do not
+prove Windows exception dispatch or live production behavior.
+
+A fresh, analysis-disabled Ghidra 12.1 import of the current candidate succeeds
+as Windows x64 PE. Station libraries remain unresolved in that disposable
+project; this does not validate the complete station dependency set.
+
+The station observations below and the prior Ghidra disassembly apply to
+earlier revisions, not to the new candidate.
 
 Station trial `trial_1` using `SKIP_TRIAL_2nd.tst` confirmed sub-panel 6 was
 skipped, appeared as skipped at review, and defects on other sub-panels were
@@ -267,6 +326,7 @@ directly, so they establish correlation rather than exclusive causation.
 Correct the library/OTR configuration before using this 21-defect, heavily
 taped panel as a throughput comparison.
 
-The new skip-only review stop is statically verified and needs one short
-station confirmation. Exactly 30% and counter reset remain statically verified
-boundary cases.
+The earlier skip-only review stop was confirmed on station. The hardened
+revision still requires the F1-A through F1-L station matrix above before
+production deployment; static verification cannot exercise Vision3D's live
+thread scheduling, database writer, SigmaLink, or station hardware.

@@ -88,82 +88,175 @@ Vtable slot `+0x48` is `RazRes`. `CAnomalie::IsOk` requires
 Vision3D's existing operator-skip branch calls slot `+0x48` and then writes
 skip cause `1` at `+0x2c`; the threshold handler uses the same sequence.
 
-## Hook (unchanged idea, new VAs)
+## Concurrency correction candidate (2026-09-20)
 
-After `GetBinaryFieldDefects` at `0x140736efd` (`ebx` / `[rsp+0x74]` = mask):
+Current default output: `Updated\Vision3D_concurrency_fix.exe`
 
-1. Increment inspected count for sub-panel `[rdi+0x14]`.
-2. If `(mask & 0x1) != 0`, increment its Missing count.
-3. After at least 10 inspections, call `SkipSubPanel(cao, sub_panel_id)` at
-   `0x140541080` when `missing * 100 > inspected * 30`.
-4. Do not touch the `"SKIP"` object path at `0x140736fcb`.
-5. Patch a **copy** only. Live `C:\VIT` stays read-only.
+SHA-256: `0ef39ff59e216bb7e9a45f6cb7ee505eac0822f6c4939d8ff1a8e04197675c13`
 
-## Patch (2026-09-16)
+Size: 28,746,240 bytes. The original source and both companion DLL hashes above
+remain mandatory. The previous `Updated\Vision3D.exe` is preserved.
+
+The existing entry point delegates to `tools\patch_f1_missing_n_rev5.py`:
+
+```powershell
+python -m pip install -r tools\requirements.txt
+python tools\verify_hardened_patch.py --code-only
+python tools\patch_f1_missing_n.py
+python tools\verify_hardened_patch.py
+```
+
+Corrections:
+
+- Worker, finalizer and optical-skip wrapper reference acquisitions now use
+  `lock inc`, matching the concurrent `lock dec` releases.
+- Context lookup searches every slot for a matching CAO before allocating the
+  first empty slot. Retiring an earlier context cannot duplicate a later one.
+- The table lock covers both count updates, threshold evaluation and claim.
+  It is released before waiting for a winner, the skip lock or a stock call.
+- Invalid-layout finalization jumps directly to reference release/review and
+  cannot clear another thread's subsequently acquired table lock.
+
+Hook addresses, section layout, frame prologues and unwind records are unchanged
+from the historical map below. Handler byte sizes are now: worker 606, reset
+240, finalizer 677, stock wrapper 317; cleanup handlers remain 27/57/61.
+
+Validation: deterministic Unicorn instruction-level concurrency regressions,
+four independently rejected defect reintroductions, complete handler decoding,
+artifact/source/DLL hashes, generated payload equality and an allowlisted PE
+byte diff all pass. Stock calls are stubbed during emulation. Windows exception
+dispatch, live scheduling, cycle time, database/SigmaLink behavior and the
+station release matrix below remain unverified for this candidate.
+
+A fresh Ghidra 12.1 import with analysis disabled succeeded using the PE loader
+and `x86:LE:64:default:windows`. The disposable project was deleted. Missing
+station-library and export warnings mean this was a PE import check, not a
+complete dependency validation or a new Ghidra analysis of injected code.
+
+## Historical hardened hook and patch (2026-09-19)
 
 Source (immutable): `v3d_files_\Vision3D.exe`  
 SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`
 
+Matching DLL guards:
+
+- `AvVTraitLib.dll`: `0f9f68b118112cea87e1735995776934d8d009e3d6d39a8a58562e3fa3e3e5f7`
+- `StructSupport.dll`: `d6270dbe5c97b5ed1000c2541c1e8d495d7db6be184e45d6495d7fad75e0f832`
+
 Output: `Updated\Vision3D.exe`  
-SHA-256: `b696a6d609d829f70a3c8450abe5f56e9711a723b46cec69d6d6b42edfb73cb9`
-Size: 28,739,072 bytes (1,024 bytes larger than source). Rebuild:
-`python tools\patch_f1_missing_n.py`
+SHA-256: `0d1bb6fda6eb4b4a79042adf14bff0679467413c2f08183504047da7b717998e`
+Size: 28,746,240 bytes (8,192 bytes larger than source).
+
+Rebuild and verify:
+
+```powershell
+python -m pip install -r tools\requirements.txt
+python tools\patch_f1_missing_n.py
+python tools\verify_hardened_patch.py
+```
 
 | Site | VA | What |
 | --- | --- | --- |
-| Trampoline | `0x140736f09` | JMP `.f1code`; stolen two LEAs replayed on the non-trigger path |
-| Handler | `0x141c98000` | Count results; call `SkipSubPanel`; post the stock UI refresh; normalize matching anomalies in every zone; exit through `0x14073742d` |
-| `SkipList_Reset` | `0x140541050` | JMP `0x141c98300` to zero all 512 counter dwords, then replay the original prologue |
-| Review-route test | `0x1406748c5` | Change the card-anomaly test mask from `0xfffffeff` to `0xffffffff`, including skip bit `0x100` |
-| Missing counters | `0x141c99000` | 256 dwords in `.f1data` |
-| Inspected counters | `0x141c99400` | 256 dwords following the Missing counters |
+| Final-mask hook | `0x140736f47` | CALL `0x141c98000`; runs after supplemental defects merge and stock current-anomaly `RazRes` |
+| Atomic worker handler | `0x141c98000` | CAO-scoped atomic count/claim, serialized immediate `SkipSubPanel`, current-anomaly normalization, stock early exit |
+| `SkipList_Reset` | `0x140541050` | JMP `0x141c98500`; retire/wait/clear one CAO context, then replay stock prologue |
+| Serial finalization call | `0x14069b4d8` | CALL `0x141c98700` before `ShouldItGoToReviewStation` |
+| Unwind cleanup | `0x141c98b00` | `UNW_FLAG_UHANDLER`; releases the finalizer reference during exceptional unwind |
+| Stock-skip wrapper | `0x140736fcb` → `0x141c98c00` | Routes optical-SKIP calls through the same per-CAO lock |
+| Stock-wrapper cleanup | `0x141c98e00` | Releases skip/table lock and lifecycle reference during unwind |
+| Review-route test | `0x1406748c5` | `0xfffffeff` → `0xffffffff`, including card skip bit `0x100` |
 
-**Threshold = more than 30% after at least 10 inspected parts.** Exactly 30%
-continues. Percentage immediate: VA `0x141c9804f`, file `0x1B6824F` (`1e`).
-Minimum-inspected immediate: VA `0x141c98035`, file `0x1B68235` (`0a`).
+The threshold remains **more than 30% after at least 10 completed
+inspections**. Exactly 30% continues. Evaluation occurs after every completed
+inspection, including a good tenth result following early Missing results.
 
-New section `.f1code` is RX at RVA `0x1c98000`, raw offset `0x1b68200`,
-size `0x400`. `.f1data` is zero-initialized RW at RVA `0x1c99000`, size
-`0x800`. `SizeOfImage` is `0x1c9a000`; no RWX section is introduced.
-Two sorted `RUNTIME_FUNCTION` records are appended within existing `.pdata`
-padding for the call-bearing handler frame (`0x1c98059..0x1c980f8`) and reset
-frame (`0x1c98300..0x1c98324`).
+### Runtime state and synchronization
 
-On threshold, the patch calls `SkipSubPanel`, then scans the zone count represented
-by `CAO+0x2448..+0x2450` against production-zone records rooted at `CAO+0x5878`
-(zone stride `0x410`, anomaly stride `0x370`). Matching inspected anomalies call
-virtual slot `+0x48` (`CAnomalieProd::RazRes`) and receive skip cause
-`CAnomalie+0x2c = 1`. The triggering component takes the stock early cleanup
-path before its Missing mask is stored. Other sub-panels are not modified.
-The handler reproduces the stock UI sequence using message value
-`[0x1411dcb30]` and `PostMessageA` IAT slot `0x140d5bc00`.
-At the final routing decision, the one-byte `FE` to `FF` change at VA
-`0x1406748c9` (file offset `0x673cc9`) makes a card skip sufficient to request
-review. It does not alter the skip result or database representation.
+- Eight fixed contexts are keyed by `CDataCaoTraitement*` (the stock owner of
+  the skip list and production-zone array).
+- Each context has 1,024 sub-panel cells with atomic inspected, Missing and
+  claim state.
+- One table lock serializes context lookup, insertion, retirement and reuse,
+  preventing duplicate contexts for the same CAO.
+- Worker and finalizer references prevent `SkipList_Reset` from clearing a
+  live context. Reset first retires the context, waits for zero references,
+  reacquires the table lock, validates identity/state again and then clears it.
+- IDs outside `0..1023` and a full eight-context table fail open to stock
+  component behavior and increment diagnostics outside all context ranges.
 
-Static verification: source hash guard passes; independent PE parsing confirms
-both new sections and permissions; all direct and indirect call/jump targets
-disassemble correctly; the reset clears `0x800` bytes; strict threshold boundary
-tests pass; and the failed SPC fixture has exactly 10 Missing records on
-sub-panel 6. A fresh Ghidra import disassembled 66 handler instructions and 11
-reset instructions. Does not patch either DLL or touch `C:\VIT`.
+The threshold winner changes its cell from state 0 to 1, acquires the per-CAO
+skip lock, calls stock `SkipSubPanel` immediately, releases the lock and
+publishes state 2. This preserves stock scheduling behavior. Every worker that
+observes state 2 clears only its own completed anomaly's defect mask, writes
+skip cause 1 and returns through `0x14073742d`. Workers never walk shared zone
+arrays, post UI or call global `RazRes`.
 
-Station trial `trial_1` with `SKIP_TRIAL_2nd.tst` verified the 2D-style result:
-sub-panel 6 was skipped and displayed as skipped at review, while deliberately
-introduced failures on other sub-panels remained normal failures. The TST had
-no pre-enabled optical skip marks.
+The stock optical-SKIP call at `0x140736fcb` is wrapped by the same lock.
+Active contexts are reference-protected, absent contexts hold the table lock
+through the stock call so no racing context can appear, and retired contexts
+drop stale late calls. Unwind-only handlers release all held locks/references
+and return `ExceptionContinueSearch`.
 
-The station reported zone processing of `31.834|30.589` seconds versus
-approximately 4.8–5.1 seconds in nearby normal cycles. Two gaps totaling
-18.094 seconds end in failed OTR attempts to open
-`C:\VIT\Data\Libraries\MIAMI_3D\MIAMI_3D.bm`; another 5.146-second gap ends in
-empty-histogram image errors. These timestamps locate the bulk of the delay in
-fault/image/OTR processing but do not directly instrument the threshold
-handler. Repair the MIAMI_3D library/OTR configuration before comparing
-throughput with this deliberately taped, 21-defect panel.
+### Serialized commit
 
-The production-screen notification was added after this trial and subsequently
-confirmed on the station: section D displays the skipped sub-panel. Independent
-disassembly and a fresh Ghidra import verify the new review mask as well as 66
-handler instructions and 11 reset instructions. One short station run should
-confirm a skip-only panel now stops for immediate disposition.
+`CProductionThread::CAPM_SetInspectionStatus` is the serialized commit point.
+The wrapper:
+
+1. acquires a reference to the matching CAO context;
+2. pre-validates `CAO+0x5880`, production base `CAO+0x5878`, zone stride
+   `0x410`, begin/end ordering, anomaly stride `0x370` and per-zone cap;
+3. sets `CAnomalie+0x28 = 0` and `CAnomalie+0x2c = 1` on matching inspected
+   prior records without freeing result trees;
+4. atomically publishes state 3;
+5. posts message `[0x1411dcb30]` through `PostMessageA` IAT `0x140d5bc00`
+   once, retrying on a failed post; and
+6. calls stock `CProdCarte::ShouldItGoToReviewStation`.
+
+The stock skip-list update occurs immediately in the worker and does not depend
+on anomaly-vector layout. Validation gates only the later reconciliation walk.
+Invalid layout records a diagnostic, preserves the committed stock skip and
+continues through review routing without walking prior anomaly records.
+
+### PE layout and verification
+
+- `.f1code`: RVA `0x1c98000`, raw `0x1b68200`, size `0x2000`, RX.
+- `.f1data`: RVA `0x1c9a000`, virtual size `0x29000`, no raw payload, RW.
+- `SizeOfImage`: `0x1cc3000`; no RWX section.
+- Four sorted `RUNTIME_FUNCTION` entries are appended in existing `.pdata`
+  padding. Worker, finalizer and stock-wrapper unwind info references
+  unwind-only cleanup handlers that return `ExceptionContinueSearch`.
+- Generator guards original bytes at every hook, all three source hashes,
+  section-header/pdata capacity and the exact final output hash.
+- `tools\verify_hardened_patch.py` independently checks threshold boundaries,
+  panel isolation, reset/reference behavior, section permissions, branch and
+  call targets, validated reconciliation, unwind bytes/handler targets,
+  and absence of worker/global `RazRes`.
+- A fresh Ghidra import of the final hash disassembled 119 worker, 55 reset,
+  164 finalizer, 67 stock-wrapper and 7/14/14 cleanup instructions.
+
+The script patches neither DLL and never writes `C:\VIT`.
+
+## Station history and required release matrix
+
+The earlier revision passed the small-panel trial: sub-panel 6 was skipped,
+shown in section D, unrelated defects remained normal, and a skip-only panel
+stopped at review. The Bronco production run then exposed the old mixed-array
+bound crash; this hardened revision removes that worker-side scan entirely.
+
+Before production release, execute:
+
+1. 4/10 Missing: skip at result 10; other sub-panels complete.
+2. 3/10 Missing: no threshold skip.
+3. Early Missing with a good tenth result: evaluate and skip if still above 30%.
+4. Threshold skip plus unrelated defects: both representations remain correct.
+5. Skip-only: section D displays it and review stops.
+6. Two simultaneous threshold sub-panels: one stock skip insertion each.
+7. Two lanes using identical sub-panel IDs: no count/state crossover.
+8. IDs near 1,023 and an unsupported ID: supported works; unsupported fails open.
+9. Immediate next-panel start: no stale counts, reset delay or context reuse.
+10. Bronco/foreign-material panel in production mode: no crash and correct DB/UI.
+11. Repeat at least 20 panels while monitoring cycle time and Vision3D logs.
+
+The previous trial's long cycle remains attributable to OTR/model/image errors
+(`MIAMI_3D.bm` open failures and empty histograms), not to the threshold
+handler. Correct that station configuration before throughput comparison.

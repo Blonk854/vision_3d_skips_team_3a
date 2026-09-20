@@ -504,12 +504,21 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict:
 
 
 def main() -> int:
-    src = pathlib.Path(sys.argv[1]) if len(sys.argv) > 1 else SRC_DEFAULT
-    dst = pathlib.Path(sys.argv[2]) if len(sys.argv) > 2 else OUT_DEFAULT
-    info = patch(src, dst)
-    for k, v in info.items():
-        print("%s=%s" % (k, v))
-    return 0
+    # Keep the long-standing entry point while the hardened implementation is
+    # isolated in a separately reviewable module.
+    try:
+        from .patch_f1_missing_n_rev5 import main as hardened_main
+    except ImportError:
+        from patch_f1_missing_n_rev5 import main as hardened_main
+
+    return hardened_main()
+
+
+# Imports of the historical module must also receive the hardened builder.
+try:
+    from .patch_f1_missing_n_rev5 import patch as patch
+except ImportError:
+    from patch_f1_missing_n_rev5 import patch as patch
 
 
 if __name__ == "__main__":
