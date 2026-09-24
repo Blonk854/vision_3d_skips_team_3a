@@ -1,0 +1,208 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x140541040",
+    "0x140541050",
+    "--output",
+    "maps/rev2a_skip_ui_list_storage.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\n/* public: class CUIntArray const & __ptr64 __cdecl CDataCaoTraitement::SkipList_Get(void)const\r\n   __ptr64 */\r\n\r\nCUIntArray * __thiscall CDataCaoTraitement::SkipList_Get(CDataCaoTraitement *this)\r\n\r\n{\r\n                    /* 0x541040  231  ?SkipList_Get@CDataCaoTraitement@@QEBAAEBVCUIntArray@@XZ */\r\n  return (CUIntArray *)(this + 0x23e0);\r\n}\r\n\r\n",
+      "entry": "140541040",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1410289c0",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": "1406adaf0",
+          "caller_name": "FUN_1406adaf0",
+          "from": "1406adb3a",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140541040",
+          "bytes": "488d81e0230000",
+          "references": [],
+          "text": "LEA RAX,[RCX + 0x23e0]"
+        },
+        {
+          "address": "140541047",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "CDataCaoTraitement::SkipList_Get",
+      "requested_address": "140541040"
+    },
+    {
+      "decompilation": "\r\n/* public: void __cdecl CDataCaoTraitement::SkipList_Reset(void) __ptr64 */\r\n\r\nvoid __thiscall CDataCaoTraitement::SkipList_Reset(CDataCaoTraitement *this)\r\n\r\n{\r\n                    /* 0x541050  232  ?SkipList_Reset@CDataCaoTraitement@@QEAAXXZ */\r\n  CUIntArray::SetSize((CUIntArray *)(this + 0x23e0),0,-1);\r\n  ClearTestVectorForSkip(this);\r\n  return;\r\n}\r\n\r\n",
+      "entry": "140541050",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1410289c4",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412c3b44",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": "140692af0",
+          "caller_name": "FUN_140692af0",
+          "from": "1406937d7",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "14068f0f0",
+          "caller_name": "FUN_14068f0f0",
+          "from": "14068f7d7",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1404ae9d0",
+          "caller_name": "FUN_1404ae9d0",
+          "from": "1404aebe9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406a06b0",
+          "caller_name": "ExecuteSkip",
+          "from": "1406a085e",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406a20d0",
+          "caller_name": "FUN_1406a20d0",
+          "from": "1406a2d87",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140541050",
+          "bytes": "4053",
+          "references": [],
+          "text": "PUSH RBX"
+        },
+        {
+          "address": "140541052",
+          "bytes": "4883ec20",
+          "references": [],
+          "text": "SUB RSP,0x20"
+        },
+        {
+          "address": "140541056",
+          "bytes": "488bd9",
+          "references": [],
+          "text": "MOV RBX,RCX"
+        },
+        {
+          "address": "140541059",
+          "bytes": "4983c8ff",
+          "references": [],
+          "text": "OR R8,-0x1"
+        },
+        {
+          "address": "14054105d",
+          "bytes": "4881c1e0230000",
+          "references": [],
+          "text": "ADD RCX,0x23e0"
+        },
+        {
+          "address": "140541064",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "140541066",
+          "bytes": "e861ed2300",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::CUIntArray::SetSize",
+              "to": "14077fdcc",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14077fdcc"
+        },
+        {
+          "address": "14054106b",
+          "bytes": "488bcb",
+          "references": [],
+          "text": "MOV RCX,RBX"
+        },
+        {
+          "address": "14054106e",
+          "bytes": "4883c420",
+          "references": [],
+          "text": "ADD RSP,0x20"
+        },
+        {
+          "address": "140541072",
+          "bytes": "5b",
+          "references": [],
+          "text": "POP RBX"
+        },
+        {
+          "address": "140541073",
+          "bytes": "e9f864feff",
+          "references": [
+            {
+              "symbol": "CDataCaoTraitement::ClearTestVectorForSkip",
+              "to": "140527570",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "JMP 0x140527570"
+        }
+      ],
+      "name": "CDataCaoTraitement::SkipList_Reset",
+      "requested_address": "140541050"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

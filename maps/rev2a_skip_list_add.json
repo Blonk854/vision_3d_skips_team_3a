@@ -1,0 +1,95 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x140541020",
+    "--output",
+    "maps/rev2a_skip_list_add.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\n/* public: void __cdecl CDataCaoTraitement::SkipList_Add(unsigned int) __ptr64 */\r\n\r\nvoid __thiscall CDataCaoTraitement::SkipList_Add(CDataCaoTraitement *this,uint param_1)\r\n\r\n{\r\n                    /* 0x541020  230  ?SkipList_Add@CDataCaoTraitement@@QEAAXI@Z */\r\n  CUIntArray::SetAtGrow((CUIntArray *)(this + 0x23e0),*(__int64 *)(this + 0x23f0),param_1);\r\n  return;\r\n}\r\n\r\n",
+      "entry": "140541020",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1410289bc",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": "1404ae9d0",
+          "caller_name": "FUN_1404ae9d0",
+          "from": "1404aec17",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406a06b0",
+          "caller_name": "ExecuteSkip",
+          "from": "1406a0e60",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140541020",
+          "bytes": "4881c1e0230000",
+          "references": [],
+          "text": "ADD RCX,0x23e0"
+        },
+        {
+          "address": "140541027",
+          "bytes": "448bc2",
+          "references": [],
+          "text": "MOV R8D,EDX"
+        },
+        {
+          "address": "14054102a",
+          "bytes": "488b5110",
+          "references": [],
+          "text": "MOV RDX,qword ptr [RCX + 0x10]"
+        },
+        {
+          "address": "14054102e",
+          "bytes": "e99fed2300",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::CUIntArray::SetAtGrow",
+              "to": "14077fdd2",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "JMP 0x14077fdd2"
+        }
+      ],
+      "name": "CDataCaoTraitement::SkipList_Add",
+      "requested_address": "140541020"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

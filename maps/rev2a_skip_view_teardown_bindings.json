@@ -1,0 +1,346 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    ".\\tools\\ghidra_scripts\\ExtractEntryGateEvidence.py",
+    "--output",
+    "maps/rev2a_skip_view_teardown_bindings.json",
+    "0x1406abf00",
+    "0x1406ac2d0",
+    "0x140780540"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid * FUN_1406abf00(void *param_1,ulonglong param_2)\r\n\r\n{\r\n  FUN_1406abc60();\r\n  if ((param_2 & 1) != 0) {\r\n    if ((param_2 & 4) == 0) {\r\n      operator_delete(param_1);\r\n      return param_1;\r\n    }\r\n    thunk_FUN_1404556c0(param_1,0x7018);\r\n  }\r\n  return param_1;\r\n}\r\n\r\n",
+      "entry": "1406abf00",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412d00d8",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eac658",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1406abf00",
+          "bytes": "48895c2408",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x8],RBX"
+        },
+        {
+          "address": "1406abf05",
+          "bytes": "57",
+          "references": [],
+          "text": "PUSH RDI"
+        },
+        {
+          "address": "1406abf06",
+          "bytes": "4883ec20",
+          "references": [],
+          "text": "SUB RSP,0x20"
+        },
+        {
+          "address": "1406abf0a",
+          "bytes": "8bfa",
+          "references": [],
+          "text": "MOV EDI,EDX"
+        },
+        {
+          "address": "1406abf0c",
+          "bytes": "488bd9",
+          "references": [],
+          "text": "MOV RBX,RCX"
+        },
+        {
+          "address": "1406abf0f",
+          "bytes": "e84cfdffff",
+          "references": [
+            {
+              "symbol": "FUN_1406abc60",
+              "to": "1406abc60",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1406abc60"
+        },
+        {
+          "address": "1406abf14",
+          "bytes": "40f6c701",
+          "references": [],
+          "text": "TEST DIL,0x1"
+        },
+        {
+          "address": "1406abf18",
+          "bytes": "7426",
+          "references": [
+            {
+              "symbol": "LAB_1406abf40",
+              "to": "1406abf40",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x1406abf40"
+        },
+        {
+          "address": "1406abf1a",
+          "bytes": "488bcb",
+          "references": [],
+          "text": "MOV RCX,RBX"
+        },
+        {
+          "address": "1406abf1d",
+          "bytes": "40f6c704",
+          "references": [],
+          "text": "TEST DIL,0x4"
+        },
+        {
+          "address": "1406abf21",
+          "bytes": "7513",
+          "references": [
+            {
+              "symbol": "LAB_1406abf36",
+              "to": "1406abf36",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1406abf36"
+        },
+        {
+          "address": "1406abf23",
+          "bytes": "e886350d00",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::operator_delete",
+              "to": "14077f4ae",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14077f4ae"
+        },
+        {
+          "address": "1406abf28",
+          "bytes": "488bc3",
+          "references": [],
+          "text": "MOV RAX,RBX"
+        },
+        {
+          "address": "1406abf2b",
+          "bytes": "488b5c2430",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RBX,qword ptr [RSP + 0x30]"
+        },
+        {
+          "address": "1406abf30",
+          "bytes": "4883c420",
+          "references": [],
+          "text": "ADD RSP,0x20"
+        },
+        {
+          "address": "1406abf34",
+          "bytes": "5f",
+          "references": [],
+          "text": "POP RDI"
+        },
+        {
+          "address": "1406abf35",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        },
+        {
+          "address": "1406abf36",
+          "bytes": "ba18700000",
+          "references": [],
+          "text": "MOV EDX,0x7018"
+        },
+        {
+          "address": "1406abf3b",
+          "bytes": "e8d081e9ff",
+          "references": [
+            {
+              "symbol": "thunk_FUN_1404556c0",
+              "to": "140544110",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x140544110"
+        },
+        {
+          "address": "1406abf40",
+          "bytes": "488bc3",
+          "references": [],
+          "text": "MOV RAX,RBX"
+        },
+        {
+          "address": "1406abf43",
+          "bytes": "488b5c2430",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RBX,qword ptr [RSP + 0x30]"
+        },
+        {
+          "address": "1406abf48",
+          "bytes": "4883c420",
+          "references": [],
+          "text": "ADD RSP,0x20"
+        },
+        {
+          "address": "1406abf4c",
+          "bytes": "5f",
+          "references": [],
+          "text": "POP RDI"
+        },
+        {
+          "address": "1406abf4d",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1406abf00",
+      "requested_address": "1406abf00"
+    },
+    {
+      "decompilation": "\r\nundefined ** thunk_FUN_1406ac4c0(void)\r\n\r\n{\r\n  return &PTR_LAB_140eace80;\r\n}\r\n\r\n",
+      "entry": "1406ac2d0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eac6b0",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1406ac2d0",
+          "bytes": "e9eb010000",
+          "references": [
+            {
+              "symbol": "FUN_1406ac4c0",
+              "to": "1406ac4c0",
+              "type": "UNCONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JMP 0x1406ac4c0"
+        }
+      ],
+      "name": "thunk_FUN_1406ac4c0",
+      "requested_address": "1406ac2d0"
+    },
+    {
+      "decompilation": "\r\nvoid __thiscall CScrollView::CalcWindowRect(CScrollView *this,tagRECT *param_1,uint param_2)\r\n\r\n{\r\n                    /* WARNING: Could not recover jumptable at 0x000140780540. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n  CalcWindowRect(this,param_1,param_2);\r\n  return;\r\n}\r\n\r\n",
+      "entry": "140780540",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eac730",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eba958",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eba560",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140ed94d0",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140ed90c0",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140ed9de8",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140edb518",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140780540",
+          "bytes": "ff25d2e15d00",
+          "references": [
+            {
+              "symbol": "PTR_CalcWindowRect_140d5e718",
+              "to": "140d5e718",
+              "type": "INDIRECTION"
+            },
+            {
+              "symbol": "MFC140.DLL::CScrollView::CalcWindowRect",
+              "to": "EXTERNAL:000018b5",
+              "type": "COMPUTED_JUMP"
+            }
+          ],
+          "text": "JMP qword ptr [0x140d5e718]"
+        }
+      ],
+      "name": "MFC140.DLL::CScrollView::CalcWindowRect",
+      "requested_address": "140780540"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

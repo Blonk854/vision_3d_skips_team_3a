@@ -1,0 +1,481 @@
+{
+  "targets": [
+    {
+      "entry": "14045c740",
+      "name": "FUN_14045c740",
+      "body": 410,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomopen_14045c740.c",
+      "xrefs": [
+        {
+          "from": "1412bac88",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "140f1db20",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "140dd9b48",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        }
+      ]
+    },
+    {
+      "entry": "14045bf10",
+      "name": "FUN_14045bf10",
+      "body": 125,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomopen_14045bf10.c",
+      "xrefs": [
+        {
+          "from": "1412babec",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "14045c78e",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_14045c740",
+          "entry": "14045c740",
+          "body": 410
+        }
+      ]
+    },
+    {
+      "entry": "14045bf90",
+      "name": "FUN_14045bf90",
+      "body": 62,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomopen_14045bf90.c",
+      "xrefs": [
+        {
+          "from": "1412babf8",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "14045b4f0",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_14045adc0",
+          "entry": "14045adc0",
+          "body": 1954
+        },
+        {
+          "from": "14045c767",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_14045c740",
+          "entry": "14045c740",
+          "body": 410
+        }
+      ]
+    },
+    {
+      "entry": "1405f4730",
+      "name": "FUN_1405f4730",
+      "body": 3461,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomopen_1405f4730.c",
+      "xrefs": [
+        {
+          "from": "1412ca330",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "140fa0fa0",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "14045c8b3",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_14045c740",
+          "entry": "14045c740",
+          "body": 410
+        },
+        {
+          "from": "1405e3cc0",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e3c60",
+          "entry": "1405e3c60",
+          "body": 347
+        },
+        {
+          "from": "1405f2898",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405f27d0",
+          "entry": "1405f27d0",
+          "body": 228
+        }
+      ]
+    },
+    {
+      "entry": "1405f9270",
+      "name": "FUN_1405f9270",
+      "body": 5935,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomopen_1405f9270.c",
+      "xrefs": [
+        {
+          "from": "1412ca36c",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "140fa04f0",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "14045c7ae",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_14045c740",
+          "entry": "14045c740",
+          "body": 410
+        }
+      ]
+    },
+    {
+      "entry": "1405ddc30",
+      "name": "FUN_1405ddc30",
+      "body": 50,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomopen_1405ddc30.c",
+      "xrefs": [
+        {
+          "from": "1412c94f0",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "14045c77b",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_14045c740",
+          "entry": "14045c740",
+          "body": 410
+        },
+        {
+          "from": "1405f47a5",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405f4730",
+          "entry": "1405f4730",
+          "body": 3461
+        },
+        {
+          "from": "1404fd927",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1404fd910",
+          "entry": "1404fd910",
+          "body": 103
+        },
+        {
+          "from": "1406e2329",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406e2310",
+          "entry": "1406e2310",
+          "body": 63
+        },
+        {
+          "from": "1405e4a1b",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e49c0",
+          "entry": "1405e49c0",
+          "body": 334
+        },
+        {
+          "from": "1406dc459",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406dc440",
+          "entry": "1406dc440",
+          "body": 63
+        },
+        {
+          "from": "1404fda87",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1404fda70",
+          "entry": "1404fda70",
+          "body": 65
+        },
+        {
+          "from": "1406e2669",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406e2650",
+          "entry": "1406e2650",
+          "body": 63
+        },
+        {
+          "from": "1406e26a9",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406e2690",
+          "entry": "1406e2690",
+          "body": 63
+        },
+        {
+          "from": "1404fef39",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1404feef0",
+          "entry": "1404feef0",
+          "body": 174
+        },
+        {
+          "from": "1404ff0b6",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1404ff070",
+          "entry": "1404ff070",
+          "body": 153
+        },
+        {
+          "from": "1405d0e0d",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405d0db0",
+          "entry": "1405d0db0",
+          "body": 2390
+        },
+        {
+          "from": "1405e8c89",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e8c10",
+          "entry": "1405e8c10",
+          "body": 646
+        },
+        {
+          "from": "1405d7d29",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405d7c10",
+          "entry": "1405d7c10",
+          "body": 588
+        },
+        {
+          "from": "1405d8df7",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405d8d80",
+          "entry": "1405d8d80",
+          "body": 1487
+        },
+        {
+          "from": "1405f5531",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405f54d0",
+          "entry": "1405f54d0",
+          "body": 391
+        },
+        {
+          "from": "1405fd7bf",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405fd780",
+          "entry": "1405fd780",
+          "body": 1471
+        },
+        {
+          "from": "1405e4889",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e4830",
+          "entry": "1405e4830",
+          "body": 348
+        },
+        {
+          "from": "1406e64bf",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406e64a0",
+          "entry": "1406e64a0",
+          "body": 255
+        },
+        {
+          "from": "1405e58fd",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e58e0",
+          "entry": "1405e58e0",
+          "body": 293
+        },
+        {
+          "from": "1405ebc84",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405ebbd0",
+          "entry": "1405ebbd0",
+          "body": 683
+        },
+        {
+          "from": "1405e6bf7",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e6be0",
+          "entry": "1405e6be0",
+          "body": 209
+        },
+        {
+          "from": "1405e7899",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e7890",
+          "entry": "1405e7890",
+          "body": 231
+        },
+        {
+          "from": "1405e7989",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e7980",
+          "entry": "1405e7980",
+          "body": 231
+        },
+        {
+          "from": "1405fbdd3",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405fbd40",
+          "entry": "1405fbd40",
+          "body": 3195
+        },
+        {
+          "from": "1405e7cb2",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e7c90",
+          "entry": "1405e7c90",
+          "body": 113
+        },
+        {
+          "from": "1405e7d72",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e7d10",
+          "entry": "1405e7d10",
+          "body": 142
+        },
+        {
+          "from": "1405e7dcb",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e7da0",
+          "entry": "1405e7da0",
+          "body": 154
+        },
+        {
+          "from": "1405e7e5f",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e7e40",
+          "entry": "1405e7e40",
+          "body": 127
+        },
+        {
+          "from": "1405e800a",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e7ff0",
+          "entry": "1405e7ff0",
+          "body": 129
+        },
+        {
+          "from": "1405e80a2",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e8080",
+          "entry": "1405e8080",
+          "body": 82
+        },
+        {
+          "from": "1405e8105",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e80e0",
+          "entry": "1405e80e0",
+          "body": 91
+        },
+        {
+          "from": "1405e81ae",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e8180",
+          "entry": "1405e8180",
+          "body": 101
+        },
+        {
+          "from": "1405e8200",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e81f0",
+          "entry": "1405e81f0",
+          "body": 99
+        },
+        {
+          "from": "1405e8272",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e8260",
+          "entry": "1405e8260",
+          "body": 51
+        },
+        {
+          "from": "1405e9d4c",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405e9cd0",
+          "entry": "1405e9cd0",
+          "body": 1190
+        },
+        {
+          "from": "1405fb1bb",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1405fb150",
+          "entry": "1405fb150",
+          "body": 643
+        },
+        {
+          "from": "1406dd953",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406dd810",
+          "entry": "1406dd810",
+          "body": 469
+        },
+        {
+          "from": "1406dde09",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406dddf0",
+          "entry": "1406dddf0",
+          "body": 63
+        },
+        {
+          "from": "1406e0ca1",
+          "type": "UNCONDITIONAL_CALL",
+          "function": "FUN_1406e0c50",
+          "entry": "1406e0c50",
+          "body": 168
+        }
+      ]
+    },
+    {
+      "entry": "14045c8e0",
+      "name": "FUN_14045c8e0",
+      "body": 179,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomopen_14045c8e0.c",
+      "xrefs": [
+        {
+          "from": "1412bac94",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "140f1dbb0",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "140dd9b80",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        }
+      ]
+    }
+  ],
+  "callers_of_open": []
+}

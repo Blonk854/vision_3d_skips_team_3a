@@ -1,0 +1,887 @@
+{
+  "vtables": [
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd88e0",
+      "refs": []
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd88e8",
+      "refs": [
+        {
+          "from": "140454fe7",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "140454fee",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "1404530b9",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        },
+        {
+          "from": "1404530c0",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        }
+      ]
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9be8",
+      "refs": []
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9bf0",
+      "refs": [
+        {
+          "from": "140454ff1",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "140454ff8",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "1404530c3",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        },
+        {
+          "from": "1404530ca",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        }
+      ]
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9c00",
+      "refs": []
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9c08",
+      "refs": [
+        {
+          "from": "140454fff",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "140455006",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "1404530d1",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        },
+        {
+          "from": "1404530d8",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        }
+      ]
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9c58",
+      "refs": []
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9c60",
+      "refs": [
+        {
+          "from": "14045500d",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "140455014",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "1404530df",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        },
+        {
+          "from": "1404530e6",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        }
+      ]
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9c80",
+      "refs": []
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9c88",
+      "refs": [
+        {
+          "from": "14045501b",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "140455022",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "1404530ed",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        },
+        {
+          "from": "1404530f4",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        }
+      ]
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9ca0",
+      "refs": []
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9ca8",
+      "refs": [
+        {
+          "from": "140455029",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "140455030",
+          "function": "FUN_140454fd0",
+          "entry": "140454fd0",
+          "body": 259
+        },
+        {
+          "from": "1404530fb",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        },
+        {
+          "from": "140453102",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        }
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "label": "hit_test_or_similar_0x538",
+      "off": 1336,
+      "pfn": "14076a554",
+      "name": "PROFUISM.DLL::CExtGridWnd::_impl_AdvGetStyle",
+      "body": 6
+    },
+    {
+      "label": "OnClickLbtnUp_0x1250",
+      "off": 4688,
+      "pfn": "14076dbd4",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellHorizontalAlignment",
+      "body": 6
+    },
+    {
+      "label": "OnClickLbtnDown_0x1258",
+      "off": 4696,
+      "pfn": "14076dcee",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnUpInnerCell",
+      "body": 6
+    },
+    {
+      "label": "OnClickLbtnDbl_0x1260",
+      "off": 4704,
+      "pfn": "14076dce8",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDownInnerCell",
+      "body": 6
+    },
+    {
+      "label": "OnClickRbtnUp_0x1268",
+      "off": 4712,
+      "pfn": "14045c740",
+      "name": "FUN_14045c740",
+      "body": 410
+    },
+    {
+      "label": "OnClickRbtnDown_0x1270",
+      "off": 4720,
+      "pfn": "14076dd12",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+      "body": 6
+    },
+    {
+      "label": "OnClickRbtnDbl_0x1278",
+      "off": 4728,
+      "pfn": "14076dd0c",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDownInnerCell",
+      "body": 6
+    },
+    {
+      "label": "OnClickMbtnUp_0x1280",
+      "off": 4736,
+      "pfn": "14076dd06",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDoubleInnerCell",
+      "body": 6
+    },
+    {
+      "label": "OnClickMbtnDown_0x1288",
+      "off": 4744,
+      "pfn": "14076dd00",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnUpInnerCell",
+      "body": 6
+    },
+    {
+      "label": "OnClickMbtnDbl_0x1290",
+      "off": 4752,
+      "pfn": "14076dcfa",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDownInnerCell",
+      "body": 6
+    },
+    {
+      "label": "context_0x1298",
+      "off": 4760,
+      "pfn": "14076dcf4",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDoubleInnerCell",
+      "body": 6
+    },
+    {
+      "label": "hover_empty_0x12a8",
+      "off": 4776,
+      "pfn": "14076dd2a",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::SelectAll",
+      "body": 6
+    }
+  ],
+  "dumped": [
+    {
+      "label": "FUN_14045c740",
+      "pfn": "14045c740",
+      "body": 410,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_14045c740.c",
+      "decomp_len": 3861
+    },
+    {
+      "label": "FUN_14045c1d0",
+      "pfn": "14045c1d0",
+      "body": 343,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_14045c1d0.c",
+      "decomp_len": 3250
+    },
+    {
+      "label": "FUN_14045c8e0",
+      "pfn": "14045c8e0",
+      "body": 179,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_14045c8e0.c",
+      "decomp_len": 655
+    },
+    {
+      "label": "FUN_14045a660",
+      "pfn": "14045a660",
+      "body": 78,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_14045a660.c",
+      "decomp_len": 276
+    },
+    {
+      "label": "FUN_14045c660",
+      "pfn": "14045c660",
+      "body": 69,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_14045c660.c",
+      "decomp_len": 396
+    },
+    {
+      "label": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcMouseScrollLines",
+      "pfn": "14076a134",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_14076a134.c",
+      "decomp_len": 318
+    },
+    {
+      "label": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnSwDoMouseWheel",
+      "pfn": "14076a14c",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_14076a14c.c",
+      "decomp_len": 316
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridWnd::OnGbwCellJoinQueryInfo",
+      "pfn": "140769c7e",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769c7e.c",
+      "decomp_len": 391
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwCellJoinAdjustCoordinates",
+      "pfn": "140769c78",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769c78.c",
+      "decomp_len": 450
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwCalcVisibleItemRect",
+      "pfn": "140769c66",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769c66.c",
+      "decomp_len": 564
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwWalkVisibleAreas",
+      "pfn": "140769d68",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d68.c",
+      "decomp_len": 394
+    },
+    {
+      "label": "PROFUISM.DLL::CExtReportGridWnd::OnGbwPaintCell",
+      "pfn": "140769cd8",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769cd8.c",
+      "decomp_len": 562
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridWnd::OnGbwQueryBackColor",
+      "pfn": "140769cf6",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769cf6.c",
+      "decomp_len": 571
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryGridLinesColor",
+      "pfn": "140769d0e",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d0e.c",
+      "decomp_len": 343
+    },
+    {
+      "label": "PROFUISM.DLL::CExtReportGridWnd::OnGbwQueryCellGridLines",
+      "pfn": "140769d02",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d02.c",
+      "decomp_len": 674
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridWnd::OnGbwQueryEmptyAreaLinesMetrics",
+      "pfn": "140769d08",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d08.c",
+      "decomp_len": 527
+    },
+    {
+      "label": "PROFUISM.DLL::CExtReportGridWnd::OnGbwAdjustRects",
+      "pfn": "140769c4e",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769c4e.c",
+      "decomp_len": 453
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwPaintExtraSpaceH",
+      "pfn": "140769ce4",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769ce4.c",
+      "decomp_len": 543
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwPaintExtraSpaceV",
+      "pfn": "140769cea",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769cea.c",
+      "decomp_len": 543
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryVisibleColumnRange",
+      "pfn": "140769d2c",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d2c.c",
+      "decomp_len": 395
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryVisibleRowRange",
+      "pfn": "140769d32",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d32.c",
+      "decomp_len": 389
+    },
+    {
+      "label": "PROFUISM.DLL::CExtReportGridWnd::OnGbwEraseArea",
+      "pfn": "140769cae",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769cae.c",
+      "decomp_len": 373
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryCellBorderHtSpaces",
+      "pfn": "140769cfc",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769cfc.c",
+      "decomp_len": 354
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryPixelColumnOffset",
+      "pfn": "140769d14",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d14.c",
+      "decomp_len": 368
+    },
+    {
+      "label": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryPixelRowOffset",
+      "pfn": "140769d1a",
+      "body": 6,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomvt_140769d1a.c",
+      "decomp_len": 362
+    }
+  ],
+  "scan_interesting": [
+    {
+      "off": 16,
+      "pfn": "14045a660",
+      "name": "FUN_14045a660",
+      "body": 78
+    },
+    {
+      "off": 904,
+      "pfn": "14076a134",
+      "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcMouseScrollLines",
+      "body": 6
+    },
+    {
+      "off": 912,
+      "pfn": "14076a14c",
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnSwDoMouseWheel",
+      "body": 6
+    },
+    {
+      "off": 1728,
+      "pfn": "140769c7e",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwCellJoinQueryInfo",
+      "body": 6
+    },
+    {
+      "off": 1736,
+      "pfn": "140769c78",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwCellJoinAdjustCoordinates",
+      "body": 6
+    },
+    {
+      "off": 1768,
+      "pfn": "140769c66",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwCalcVisibleItemRect",
+      "body": 6
+    },
+    {
+      "off": 1776,
+      "pfn": "140769d68",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwWalkVisibleAreas",
+      "body": 6
+    },
+    {
+      "off": 1784,
+      "pfn": "140769cd8",
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwPaintCell",
+      "body": 6
+    },
+    {
+      "off": 1792,
+      "pfn": "140769cf6",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwQueryBackColor",
+      "body": 6
+    },
+    {
+      "off": 1800,
+      "pfn": "140769d0e",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryGridLinesColor",
+      "body": 6
+    },
+    {
+      "off": 1808,
+      "pfn": "140769d02",
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwQueryCellGridLines",
+      "body": 6
+    },
+    {
+      "off": 1816,
+      "pfn": "140769d08",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwQueryEmptyAreaLinesMetrics",
+      "body": 6
+    },
+    {
+      "off": 1824,
+      "pfn": "140769c4e",
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwAdjustRects",
+      "body": 6
+    },
+    {
+      "off": 1832,
+      "pfn": "140769ce4",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwPaintExtraSpaceH",
+      "body": 6
+    },
+    {
+      "off": 1840,
+      "pfn": "140769cea",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwPaintExtraSpaceV",
+      "body": 6
+    },
+    {
+      "off": 1912,
+      "pfn": "140769d2c",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryVisibleColumnRange",
+      "body": 6
+    },
+    {
+      "off": 1920,
+      "pfn": "140769d32",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryVisibleRowRange",
+      "body": 6
+    },
+    {
+      "off": 1928,
+      "pfn": "140769cae",
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwEraseArea",
+      "body": 6
+    },
+    {
+      "off": 1936,
+      "pfn": "140769cfc",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryCellBorderHtSpaces",
+      "body": 6
+    },
+    {
+      "off": 1944,
+      "pfn": "140769d14",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryPixelColumnOffset",
+      "body": 6
+    },
+    {
+      "off": 1952,
+      "pfn": "140769d1a",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryPixelRowOffset",
+      "body": 6
+    },
+    {
+      "off": 1960,
+      "pfn": "140769d5c",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwSetCursor",
+      "body": 6
+    },
+    {
+      "off": 1968,
+      "pfn": "140769c6c",
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwCanResizeColumn",
+      "body": 6
+    },
+    {
+      "off": 1976,
+      "pfn": "140769c72",
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwCanResizeRow",
+      "body": 6
+    },
+    {
+      "off": 1984,
+      "pfn": "140769d26",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryTrackingCellMenu",
+      "body": 6
+    },
+    {
+      "off": 1992,
+      "pfn": "140769cd2",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwHoverRemove",
+      "body": 6
+    },
+    {
+      "off": 2000,
+      "pfn": "140769ccc",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwHoverRecalc",
+      "body": 6
+    },
+    {
+      "off": 2008,
+      "pfn": "140769cc6",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwHoverCell",
+      "body": 6
+    },
+    {
+      "off": 2016,
+      "pfn": "14076dd18",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "body": 6
+    },
+    {
+      "off": 2024,
+      "pfn": "140769c5a",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellSysKeyEvent",
+      "body": 6
+    },
+    {
+      "off": 2032,
+      "pfn": "140769c54",
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellKeyEvent",
+      "body": 6
+    },
+    {
+      "off": 2040,
+      "pfn": "140769d20",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQuerySupportedAccelCommands",
+      "body": 6
+    },
+    {
+      "off": 2048,
+      "pfn": "140769c48",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAccelCommand",
+      "body": 6
+    },
+    {
+      "off": 2056,
+      "pfn": "140769c60",
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwBeginEdit",
+      "body": 6
+    },
+    {
+      "off": 2064,
+      "pfn": "140769d50",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwSelectionCanModify",
+      "body": 6
+    },
+    {
+      "off": 2072,
+      "pfn": "140769d56",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwSelectionChanged",
+      "body": 6
+    },
+    {
+      "off": 2080,
+      "pfn": "140769cc0",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwFocusChanging",
+      "body": 6
+    },
+    {
+      "off": 2088,
+      "pfn": "140769cba",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwFocusChanged",
+      "body": 6
+    },
+    {
+      "off": 2096,
+      "pfn": "140769d38",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwResizingAdjustComputedTrackExtent",
+      "body": 6
+    },
+    {
+      "off": 2104,
+      "pfn": "140769d4a",
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwResizingStateUpdate",
+      "body": 6
+    },
+    {
+      "off": 2112,
+      "pfn": "140769d3e",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwResizingAdjustHtInfo",
+      "body": 6
+    },
+    {
+      "off": 2120,
+      "pfn": "140769d44",
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwResizingStateApply",
+      "body": 6
+    },
+    {
+      "off": 2176,
+      "pfn": "140769c90",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwContentTipWndGet",
+      "body": 6
+    },
+    {
+      "off": 2184,
+      "pfn": "140769c84",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwContentTip",
+      "body": 6
+    },
+    {
+      "off": 2192,
+      "pfn": "140769c8a",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwContentTipCancel",
+      "body": 6
+    },
+    {
+      "off": 2200,
+      "pfn": "140769d62",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwTooltip",
+      "body": 6
+    },
+    {
+      "off": 2208,
+      "pfn": "140769cb4",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwExpand",
+      "body": 6
+    },
+    {
+      "off": 2216,
+      "pfn": "140769cde",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwPaintExpandedItemContent",
+      "body": 6
+    },
+    {
+      "off": 2224,
+      "pfn": "140769cf0",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwProcessVkBeginEdit",
+      "body": 6
+    },
+    {
+      "off": 2232,
+      "pfn": "140769ca8",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwDataDndIsAllowed",
+      "body": 6
+    },
+    {
+      "off": 2240,
+      "pfn": "140769ca2",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwDataDndGetStartOffset",
+      "body": 6
+    },
+    {
+      "off": 2248,
+      "pfn": "140769c96",
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwDataDndCanStart",
+      "body": 6
+    },
+    {
+      "off": 2256,
+      "pfn": "140769c9c",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwDataDndDo",
+      "body": 6
+    },
+    {
+      "off": 2408,
+      "pfn": "140769f9c",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGridTrackCellMousePressing",
+      "body": 6
+    },
+    {
+      "off": 3120,
+      "pfn": "140769e22",
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGridCellPopupListBoxItemClick",
+      "body": 6
+    },
+    {
+      "off": 4336,
+      "pfn": "14045c660",
+      "name": "FUN_14045c660",
+      "body": 69
+    },
+    {
+      "off": 4696,
+      "pfn": "14076dcee",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnUpInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4704,
+      "pfn": "14076dce8",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDownInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4712,
+      "pfn": "14045c740",
+      "name": "FUN_14045c740",
+      "body": 410
+    },
+    {
+      "off": 4720,
+      "pfn": "14076dd12",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4728,
+      "pfn": "14076dd0c",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDownInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4736,
+      "pfn": "14076dd06",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDoubleInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4744,
+      "pfn": "14076dd00",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnUpInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4752,
+      "pfn": "14076dcfa",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDownInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4760,
+      "pfn": "14076dcf4",
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDoubleInnerCell",
+      "body": 6
+    },
+    {
+      "off": 4768,
+      "pfn": "14045c8e0",
+      "name": "FUN_14045c8e0",
+      "body": 179
+    },
+    {
+      "off": 4848,
+      "pfn": "14045c1d0",
+      "name": "FUN_14045c1d0",
+      "body": 343
+    },
+    {
+      "off": 4888,
+      "pfn": "14076a49a",
+      "name": "PROFUISM.DLL::CExtMouseCaptureSink::SetCapture",
+      "body": 6
+    }
+  ]
+}

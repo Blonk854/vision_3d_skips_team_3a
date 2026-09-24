@@ -4,10 +4,24 @@ from __future__ import annotations
 import argparse
 import hashlib
 import itertools
+import os
 import pathlib
 import struct
+import subprocess
 import sys
 from dataclasses import dataclass
+
+
+def require_verifier_runtime() -> None:
+    if not __debug__:
+        raise SystemExit("verifier integrity failure: optimized Python is unsupported")
+    if os.environ.get("PYTHONOPTIMIZE"):
+        raise SystemExit(
+            "verifier integrity failure: PYTHONOPTIMIZE must be unset or empty"
+        )
+
+
+require_verifier_runtime()
 
 import pefile
 from capstone import CS_ARCH_X86, CS_MODE_64, Cs
@@ -21,6 +35,21 @@ import patch_f1_missing_n_rev5 as patcher
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "v3d_files_" / "Vision3D.exe"
 OUTPUT = ROOT / "Updated" / "Vision3D_concurrency_fix.exe"
+
+STATE_OPEN = 0
+STATE_CLAIMING = 1
+STATE_SKIP_COMMITTED = 2
+STATE_RECONCILED = 3
+STATE_FAILED_DISABLED = 4
+
+
+def require(condition: bool, invariant: str) -> None:
+    if not condition:
+        raise RuntimeError("validation failure: %s" % invariant)
+
+
+def is_committed_state(state: int) -> bool:
+    return state in (STATE_SKIP_COMMITTED, STATE_RECONCILED)
 
 
 def digest(path: pathlib.Path) -> str:
@@ -39,7 +68,7 @@ class Cell:
     trigger_calls: int = 0
 
     def inspect(self, is_missing: bool) -> None:
-        if self.state >= 1:
+        if self.state != STATE_OPEN:
             return
         self.inspected += 1
         if is_missing:
@@ -48,11 +77,15 @@ class Cell:
             self.inspected >= patcher.MIN_INSPECTED
             and self.missing * 100
             > self.inspected * patcher.MISSING_PERCENT
-            and self.state == 0
+            and self.state == STATE_OPEN
         ):
-            self.state = 1
+            self.state = STATE_CLAIMING
             self.trigger_calls += 1
-            self.state = 2
+            self.state = STATE_SKIP_COMMITTED
+
+    def fail_claim(self) -> None:
+        if self.state == STATE_CLAIMING:
+            self.state = STATE_FAILED_DISABLED
 
 
 @dataclass
@@ -89,10 +122,11 @@ def verify_model() -> None:
         (4, 9, False),
     ]
     for missing, inspected, expected in boundaries:
-        assert (
+        actual = (
             inspected >= patcher.MIN_INSPECTED
             and missing * 100 > inspected * patcher.MISSING_PERCENT
-        ) is expected
+        )
+        require(actual is expected, "policy boundary %d/%d" % (missing, inspected))
 
     # Any ordering of six Missing and six good completions must claim once.
     for missing_positions in itertools.combinations(range(12), 6):
@@ -100,16 +134,19 @@ def verify_model() -> None:
         cell = Cell()
         for index in range(12):
             cell.inspect(index in missing_set)
-        assert cell.trigger_calls == 1
+        require(cell.trigger_calls == 1, "exactly one threshold claim")
 
     # Independent panel/CAO contexts with identical sub-panel IDs do not mix.
     panels = {"cao_a": Cell(), "cao_b": Cell()}
     for _ in range(10):
         panels["cao_a"].inspect(True)
         panels["cao_b"].inspect(False)
-    assert panels["cao_a"].state == 2
-    assert panels["cao_b"].state == 0
-    assert panels["cao_b"].missing == 0
+    require(
+        panels["cao_a"].state == STATE_SKIP_COMMITTED,
+        "CAO A reaches skip-committed",
+    )
+    require(panels["cao_b"].state == STATE_OPEN, "CAO B remains open")
+    require(panels["cao_b"].missing == 0, "CAO counters remain isolated")
 
     # A reset retires all state instead of carrying counts into a new panel.
     old = Cell()
@@ -117,23 +154,81 @@ def verify_model() -> None:
         old.inspect(True)
     fresh = Cell()
     fresh.inspect(True)
-    assert fresh.inspected == 1 and fresh.missing == 1 and fresh.state == 0
+    require(
+        fresh.inspected == 1
+        and fresh.missing == 1
+        and fresh.state == STATE_OPEN,
+        "retirement clears panel counters",
+    )
 
     # Retirement disables new workers and cannot reuse storage until holders
     # from the old lifecycle release their references.
     context = Context()
-    assert context.acquire_worker()
-    assert context.begin_reset()
-    assert not context.acquire_worker()
-    assert not context.can_clear()
+    require(context.acquire_worker(), "active context accepts worker")
+    require(context.begin_reset(), "active context begins retirement")
+    require(not context.acquire_worker(), "retiring context rejects worker")
+    require(not context.can_clear(), "held reference blocks context clear")
     context.release_worker()
-    assert context.can_clear()
+    require(context.can_clear(), "retired unreferenced context can clear")
 
     # Per-CAO skip-list serialization admits only one mutator at a time.
     context = Context()
     context.skip_lock = True
     second_winner_may_enter = not context.skip_lock
-    assert not second_winner_may_enter
+    require(not second_winner_may_enter, "skip-list mutation is serialized")
+
+    for state in range(5):
+        require(
+            is_committed_state(state) is (state in (2, 3)),
+            "exact committed-state membership for state %d" % state,
+        )
+    require(not is_committed_state(5), "unknown state is not committed")
+
+    failed = Cell(state=STATE_CLAIMING)
+    failed.fail_claim()
+    require(failed.state == STATE_FAILED_DISABLED, "claiming failure publishes state 4")
+    for state in (STATE_OPEN, STATE_SKIP_COMMITTED, STATE_RECONCILED, STATE_FAILED_DISABLED):
+        cell = Cell(state=state)
+        cell.fail_claim()
+        require(cell.state == state, "failure cleanup does not downgrade state %d" % state)
+
+
+def verify_optimized_execution_refusal(revision: str) -> None:
+    command = [
+        sys.executable,
+        "-O",
+        str(pathlib.Path(__file__).resolve()),
+        "--revision",
+        revision,
+        "--code-only",
+    ]
+    environment = os.environ.copy()
+    environment.pop("PYTHONOPTIMIZE", None)
+    result = subprocess.run(
+        command,
+        capture_output=True,
+        text=True,
+        check=False,
+        env=environment,
+    )
+    combined_output = result.stdout + result.stderr
+    require(result.returncode != 0, "optimized verifier exits nonzero")
+    require("PASS" not in combined_output, "optimized verifier emits no PASS")
+
+
+def verify_forced_failure_refusal(revision: str) -> None:
+    command = [
+        sys.executable,
+        str(pathlib.Path(__file__).resolve()),
+        "--revision",
+        revision,
+        "--code-only",
+        "--force-failure",
+    ]
+    result = subprocess.run(command, capture_output=True, text=True, check=False)
+    combined_output = result.stdout + result.stderr
+    require(result.returncode != 0, "forced verifier failure exits nonzero")
+    require("PASS" not in combined_output, "forced verifier failure emits no PASS")
 
 
 class HandlerEmulator:
@@ -599,14 +694,24 @@ def verify_binary(output_path: pathlib.Path = OUTPUT) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--revision", choices=("rev5",), required=True)
     parser.add_argument("--code-only", action="store_true")
     parser.add_argument("--output", type=pathlib.Path, default=OUTPUT)
+    parser.add_argument("--force-failure", action="store_true", help=argparse.SUPPRESS)
     arguments = parser.parse_args()
+    require(not arguments.force_failure, "forced verifier regression")
+    verify_optimized_execution_refusal(arguments.revision)
+    verify_forced_failure_refusal(arguments.revision)
     verify_model()
     verify_machine_code()
+    print("interpreter=%s" % sys.executable)
+    print("python=%s" % sys.version.replace("\n", " "))
+    print("PYTHONOPTIMIZE=%r" % os.environ.get("PYTHONOPTIMIZE"))
+    print("verifier integrity regressions: PASS")
     print("state model: PASS")
     print("machine-code concurrency regressions: PASS (stock calls stubbed)")
     if arguments.code_only:
+        print("verifier_exit_status=0")
         return 0
     verify_binary(arguments.output)
     print("PE sections and hooks: PASS")
@@ -614,6 +719,7 @@ def main() -> int:
     print("runtime-function metadata: PASS")
     print("source/DLL identities and intended byte-diff spans: PASS")
     print("global RazRes calls: ABSENT")
+    print("verifier_exit_status=0")
     return 0
 
 

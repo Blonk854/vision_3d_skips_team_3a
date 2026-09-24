@@ -1,0 +1,36 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "--pointer-to",
+    "0x1407368d0",
+    "--output",
+    "maps/rev2a_pointer_scan_control_2.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [
+    {
+      "address": "1407368d0",
+      "hits": []
+    }
+  ],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

@@ -1,0 +1,370 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x14068ee00",
+    "0x14068d9d0",
+    "--output",
+    "maps/rev2a_skip_document_close_overrides.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nundefined8 FUN_14068ee00(longlong param_1)\r\n\r\n{\r\n  HWND hWnd;\r\n  \r\n  hWnd = (HWND)0x0;\r\n  if (*(longlong *)(param_1 + 0x5838) != 0) {\r\n    hWnd = *(HWND *)(*(longlong *)(param_1 + 0x5838) + 0x40);\r\n  }\r\n  PostMessageA(hWnd,0x111,0xb24c,0);\r\n  return 1;\r\n}\r\n\r\n",
+      "entry": "14068ee00",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412cf664",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140ea3978",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "14068ee00",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "14068ee04",
+          "bytes": "488b8938580000",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RCX + 0x5838]"
+        },
+        {
+          "address": "14068ee0b",
+          "bytes": "4885c9",
+          "references": [],
+          "text": "TEST RCX,RCX"
+        },
+        {
+          "address": "14068ee0e",
+          "bytes": "7404",
+          "references": [
+            {
+              "symbol": "LAB_14068ee14",
+              "to": "14068ee14",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x14068ee14"
+        },
+        {
+          "address": "14068ee10",
+          "bytes": "488b4940",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RCX + 0x40]"
+        },
+        {
+          "address": "14068ee14",
+          "bytes": "4533c9",
+          "references": [],
+          "text": "XOR R9D,R9D"
+        },
+        {
+          "address": "14068ee17",
+          "bytes": "ba11010000",
+          "references": [],
+          "text": "MOV EDX,0x111"
+        },
+        {
+          "address": "14068ee1c",
+          "bytes": "41b84cb20000",
+          "references": [],
+          "text": "MOV R8D,0xb24c"
+        },
+        {
+          "address": "14068ee22",
+          "bytes": "ff15d8cd6c00",
+          "references": [
+            {
+              "symbol": "PTR_PostMessageA_140d5bc00",
+              "to": "140d5bc00",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::PostMessageA",
+              "to": "EXTERNAL:00001c1f",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5bc00]"
+        },
+        {
+          "address": "14068ee28",
+          "bytes": "b801000000",
+          "references": [],
+          "text": "MOV EAX,0x1"
+        },
+        {
+          "address": "14068ee2d",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "14068ee31",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_14068ee00",
+      "requested_address": "14068ee00"
+    },
+    {
+      "decompilation": "\r\nvoid FUN_14068d9d0(CDocument *param_1)\r\n\r\n{\r\n  undefined4 uVar1;\r\n  AFX_MODULE_STATE *pAVar2;\r\n  undefined8 uVar3;\r\n  \r\n  FUN_1406928d0();\r\n  FUN_14063b430(*(undefined8 *)(param_1 + 0x3850));\r\n  uVar1 = *(undefined4 *)(param_1 + 0x3924);\r\n  pAVar2 = AfxGetModuleState();\r\n  uVar3 = __RTDynamicCast(*(undefined8 *)(pAVar2 + 8),0,&CWinApp::RTTI_Type_Descriptor,\r\n                          &CAVisionApp::RTTI_Type_Descriptor,0);\r\n  FUN_1404e03f0(uVar3,uVar1);\r\n  CDocument::OnCloseDocument(param_1);\r\n  return;\r\n}\r\n\r\n",
+      "entry": "14068d9d0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412cf634",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140ea3980",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "14068d9d0",
+          "bytes": "48895c2408",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x8],RBX"
+        },
+        {
+          "address": "14068d9d5",
+          "bytes": "57",
+          "references": [],
+          "text": "PUSH RDI"
+        },
+        {
+          "address": "14068d9d6",
+          "bytes": "4883ec30",
+          "references": [],
+          "text": "SUB RSP,0x30"
+        },
+        {
+          "address": "14068d9da",
+          "bytes": "488bf9",
+          "references": [],
+          "text": "MOV RDI,RCX"
+        },
+        {
+          "address": "14068d9dd",
+          "bytes": "e8ee4e0000",
+          "references": [
+            {
+              "symbol": "FUN_1406928d0",
+              "to": "1406928d0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1406928d0"
+        },
+        {
+          "address": "14068d9e2",
+          "bytes": "488b8f50380000",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RDI + 0x3850]"
+        },
+        {
+          "address": "14068d9e9",
+          "bytes": "e842dafaff",
+          "references": [
+            {
+              "symbol": "FUN_14063b430",
+              "to": "14063b430",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14063b430"
+        },
+        {
+          "address": "14068d9ee",
+          "bytes": "8b9f24390000",
+          "references": [],
+          "text": "MOV EBX,dword ptr [RDI + 0x3924]"
+        },
+        {
+          "address": "14068d9f4",
+          "bytes": "e8fd1d0f00",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::AfxGetModuleState",
+              "to": "14077f7f6",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14077f7f6"
+        },
+        {
+          "address": "14068d9f9",
+          "bytes": "4c8d0df076a400",
+          "references": [
+            {
+              "symbol": "CAVisionApp::RTTI_Type_Descriptor",
+              "to": "1410d50f0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R9,[0x1410d50f0]"
+        },
+        {
+          "address": "14068da00",
+          "bytes": "c744242000000000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x18]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x20],0x0"
+        },
+        {
+          "address": "14068da08",
+          "bytes": "4c8d05c176a400",
+          "references": [
+            {
+              "symbol": "CWinApp::RTTI_Type_Descriptor",
+              "to": "1410d50d0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x1410d50d0]"
+        },
+        {
+          "address": "14068da0f",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "14068da11",
+          "bytes": "488b4808",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RAX + 0x8]"
+        },
+        {
+          "address": "14068da15",
+          "bytes": "e81e881100",
+          "references": [
+            {
+              "symbol": "VCRUNTIME140.DLL::__RTDynamicCast",
+              "to": "1407a6238",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1407a6238"
+        },
+        {
+          "address": "14068da1a",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "14068da1d",
+          "bytes": "8bd3",
+          "references": [],
+          "text": "MOV EDX,EBX"
+        },
+        {
+          "address": "14068da1f",
+          "bytes": "e8cc29e5ff",
+          "references": [
+            {
+              "symbol": "FUN_1404e03f0",
+              "to": "1404e03f0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404e03f0"
+        },
+        {
+          "address": "14068da24",
+          "bytes": "488bcf",
+          "references": [],
+          "text": "MOV RCX,RDI"
+        },
+        {
+          "address": "14068da27",
+          "bytes": "488b5c2440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RBX,qword ptr [RSP + 0x40]"
+        },
+        {
+          "address": "14068da2c",
+          "bytes": "4883c430",
+          "references": [],
+          "text": "ADD RSP,0x30"
+        },
+        {
+          "address": "14068da30",
+          "bytes": "5f",
+          "references": [],
+          "text": "POP RDI"
+        },
+        {
+          "address": "14068da31",
+          "bytes": "e9f0230f00",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::CDocument::OnCloseDocument",
+              "to": "14077fe26",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "JMP 0x14077fe26"
+        }
+      ],
+      "name": "FUN_14068d9d0",
+      "requested_address": "14068d9d0"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

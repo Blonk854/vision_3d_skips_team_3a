@@ -1,0 +1,299 @@
+{
+  "ctor_callers": [
+    {
+      "from": "14045b6e4",
+      "entry": "14045b6c0",
+      "name": "FUN_14045b6c0",
+      "body": 51,
+      "type": "UNCONDITIONAL_CALL"
+    },
+    {
+      "from": "1404e181d",
+      "entry": "1404e17f0",
+      "name": "FUN_1404e17f0",
+      "body": 69,
+      "type": "UNCONDITIONAL_CALL"
+    }
+  ],
+  "setparent": [],
+  "dumped": [
+    {
+      "entry": "14045b6c0",
+      "name": "FUN_14045b6c0",
+      "body": 51,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomparent_14045b6c0.c"
+    },
+    {
+      "entry": "1404e17f0",
+      "name": "FUN_1404e17f0",
+      "body": 69,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomparent_1404e17f0.c"
+    },
+    {
+      "entry": "1404564b0",
+      "name": "FUN_1404564b0",
+      "body": 419,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomparent_1404564b0.c"
+    },
+    {
+      "entry": "14045bfd0",
+      "name": "FUN_14045bfd0",
+      "body": 143,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_anomparent_14045bfd0.c"
+    }
+  ],
+  "anom_syms": [
+    {
+      "name": "PTR_s_CAnomaliesGridWnd_140dd88b0",
+      "address": "140dd88b0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd88e0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd88e8",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9be8",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9bf0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9c00",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9c08",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9c58",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9c60",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9c80",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9c88",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable_meta_ptr",
+      "address": "140dd9ca0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::vftable",
+      "address": "140dd9ca8",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "s_CAnomaliesGridWnd_140dda2d8",
+      "address": "140dda2d8",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "PTR_s_CAnomaliesGridView_140e3d540",
+      "address": "140e3d540",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridView::vftable_meta_ptr",
+      "address": "140e3d570",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridView::vftable",
+      "address": "140e3d578",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "s_CAnomaliesGridView_140e3d8f0",
+      "address": "140e3d8f0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "s_CProductionDoc::FM_CopyAnomalies_140ea7480",
+      "address": "140ea7480",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "s_CProductionDoc::FM_ManageAnomali_140ea74a8",
+      "address": "140ea74a8",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Complete_Object_Locator",
+      "address": "140eee680",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Class_Hierarchy_Descriptor",
+      "address": "140eee6a8",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Base_Class_Array",
+      "address": "140eee6c0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Base_Class_Descriptor_at_(0,-1,0,64)",
+      "address": "140eee758",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Complete_Object_Locator",
+      "address": "140eeee88",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Complete_Object_Locator",
+      "address": "140eeeeb0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Complete_Object_Locator",
+      "address": "140eeeed8",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Complete_Object_Locator",
+      "address": "140eeef00",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Complete_Object_Locator",
+      "address": "140eeef28",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridView::RTTI_Complete_Object_Locator",
+      "address": "140f00f70",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridView::RTTI_Class_Hierarchy_Descriptor",
+      "address": "140f00f98",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridView::RTTI_Base_Class_Array",
+      "address": "140f00fb0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridView::RTTI_Base_Class_Descriptor_at_(0,-1,0,64)",
+      "address": "140f00fe0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridView::RTTI_Type_Descriptor",
+      "address": "1410c7a40",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "CAnomaliesGridWnd::RTTI_Type_Descriptor",
+      "address": "1410c85b0",
+      "function": null,
+      "entry": null,
+      "body": null
+    },
+    {
+      "name": "boost::_bi::bind_t<void,boost::_mfi::mf2<void,CProductionDoc,std::vector<CAnomalieProd,std::allocator<CAnomalieProd>_>*___ptr64,ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_>,boost::_bi::list3<boost::_bi::value<CProductionDoc*___ptr64>,boost::_bi::value<std::vector<CAnomalieProd,std::allocator<CAnomalieProd>_>*___ptr64>,boost::_bi::value<ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_>_>_>::RTTI_Type_Descriptor",
+      "address": "1410df670",
+      "function": null,
+      "entry": null,
+      "body": null
+    }
+  ]
+}

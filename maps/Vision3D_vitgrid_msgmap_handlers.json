@@ -1,0 +1,320 @@
+{
+  "program": "Vision3D.exe",
+  "targets": [
+    {
+      "label": "LBTNDBL",
+      "string": "ID_VITREPORTGRID_CLICK_LBTNDBL_INNER",
+      "inits": [
+        {
+          "init": "1401bcd00",
+          "name": "FUN_1401bcd00",
+          "string_at": "140dd3e88",
+          "dat": "141158ab4",
+          "body": 28
+        },
+        {
+          "init": "140067b50",
+          "name": "FUN_140067b50",
+          "string_at": "140dd3e88",
+          "dat": "1410fad60",
+          "body": 28
+        },
+        {
+          "init": "1401a56a0",
+          "name": "FUN_1401a56a0",
+          "string_at": "140dd3e88",
+          "dat": "141152824",
+          "body": 28
+        },
+        {
+          "init": "1400a4600",
+          "name": "FUN_1400a4600",
+          "string_at": "140dd3e88",
+          "dat": "1411096e8",
+          "body": 28
+        },
+        {
+          "init": "1400e2d70",
+          "name": "FUN_1400e2d70",
+          "string_at": "140dd3e88",
+          "dat": "14111c954",
+          "body": 28
+        },
+        {
+          "init": "14005da40",
+          "name": "FUN_14005da40",
+          "string_at": "140dd3e88",
+          "dat": "1410f7ec0",
+          "body": 28
+        },
+        {
+          "init": "14019bc10",
+          "name": "FUN_14019bc10",
+          "string_at": "140dd3e88",
+          "dat": "14114f8b8",
+          "body": 28
+        },
+        {
+          "init": "14001b2d0",
+          "name": "FUN_14001b2d0",
+          "string_at": "140dd3e88",
+          "dat": "1410e2968",
+          "body": 28
+        },
+        {
+          "init": "14021a6d0",
+          "name": "FUN_14021a6d0",
+          "string_at": "140dd3e88",
+          "dat": "141172884",
+          "body": 28
+        },
+        {
+          "init": "1402d25c0",
+          "name": "FUN_1402d25c0",
+          "string_at": "140dd3e88",
+          "dat": "1411a82fc",
+          "body": 28
+        },
+        {
+          "init": "14010f310",
+          "name": "FUN_14010f310",
+          "string_at": "140dd3e88",
+          "dat": "141126db8",
+          "body": 28
+        },
+        {
+          "init": "14010d1f0",
+          "name": "FUN_14010d1f0",
+          "string_at": "140dd3e88",
+          "dat": "141126768",
+          "body": 28
+        }
+      ],
+      "dats": [
+        "1410e2968",
+        "1410f7ec0",
+        "1410fad60",
+        "1411096e8",
+        "14111c954",
+        "141126768",
+        "141126db8",
+        "14114f8b8",
+        "141152824",
+        "141158ab4",
+        "141172884",
+        "1411a82fc"
+      ],
+      "msgmap_hits": []
+    },
+    {
+      "label": "LBTNDWN",
+      "string": "ID_VITREPORTGRID_CLICK_LBTNDWN_INNER",
+      "inits": [
+        {
+          "init": "1401bcd20",
+          "name": "FUN_1401bcd20",
+          "string_at": "140dd3e30",
+          "dat": "141158ab0",
+          "body": 28
+        },
+        {
+          "init": "140067b70",
+          "name": "FUN_140067b70",
+          "string_at": "140dd3e30",
+          "dat": "1410fad5c",
+          "body": 28
+        },
+        {
+          "init": "1401a56c0",
+          "name": "FUN_1401a56c0",
+          "string_at": "140dd3e30",
+          "dat": "141152820",
+          "body": 28
+        },
+        {
+          "init": "1400a4620",
+          "name": "FUN_1400a4620",
+          "string_at": "140dd3e30",
+          "dat": "1411096e4",
+          "body": 28
+        },
+        {
+          "init": "1400e2d90",
+          "name": "FUN_1400e2d90",
+          "string_at": "140dd3e30",
+          "dat": "14111c950",
+          "body": 28
+        },
+        {
+          "init": "14005da60",
+          "name": "FUN_14005da60",
+          "string_at": "140dd3e30",
+          "dat": "1410f7ebc",
+          "body": 28
+        },
+        {
+          "init": "14019bc30",
+          "name": "FUN_14019bc30",
+          "string_at": "140dd3e30",
+          "dat": "14114f8b4",
+          "body": 28
+        },
+        {
+          "init": "14001b2f0",
+          "name": "FUN_14001b2f0",
+          "string_at": "140dd3e30",
+          "dat": "1410e2964",
+          "body": 28
+        },
+        {
+          "init": "14021a6f0",
+          "name": "FUN_14021a6f0",
+          "string_at": "140dd3e30",
+          "dat": "141172880",
+          "body": 28
+        },
+        {
+          "init": "1402d25e0",
+          "name": "FUN_1402d25e0",
+          "string_at": "140dd3e30",
+          "dat": "1411a82f8",
+          "body": 28
+        },
+        {
+          "init": "14010f330",
+          "name": "FUN_14010f330",
+          "string_at": "140dd3e30",
+          "dat": "141126db4",
+          "body": 28
+        },
+        {
+          "init": "14010d210",
+          "name": "FUN_14010d210",
+          "string_at": "140dd3e30",
+          "dat": "141126764",
+          "body": 28
+        }
+      ],
+      "dats": [
+        "1410e2964",
+        "1410f7ebc",
+        "1410fad5c",
+        "1411096e4",
+        "14111c950",
+        "141126764",
+        "141126db4",
+        "14114f8b4",
+        "141152820",
+        "141158ab0",
+        "141172880",
+        "1411a82f8"
+      ],
+      "msgmap_hits": []
+    },
+    {
+      "label": "LBTNUP",
+      "string": "ID_VITREPORTGRID_CLICK_LBTNUP_INNER",
+      "inits": [
+        {
+          "init": "1401bcd40",
+          "name": "FUN_1401bcd40",
+          "string_at": "140dd3e08",
+          "dat": "141158aac",
+          "body": 28
+        },
+        {
+          "init": "140067b90",
+          "name": "FUN_140067b90",
+          "string_at": "140dd3e08",
+          "dat": "1410fad58",
+          "body": 28
+        },
+        {
+          "init": "1401a56e0",
+          "name": "FUN_1401a56e0",
+          "string_at": "140dd3e08",
+          "dat": "141152478",
+          "body": 28
+        },
+        {
+          "init": "1400a4640",
+          "name": "FUN_1400a4640",
+          "string_at": "140dd3e08",
+          "dat": "1411096e0",
+          "body": 28
+        },
+        {
+          "init": "1400e2db0",
+          "name": "FUN_1400e2db0",
+          "string_at": "140dd3e08",
+          "dat": "14111c94c",
+          "body": 28
+        },
+        {
+          "init": "14005da80",
+          "name": "FUN_14005da80",
+          "string_at": "140dd3e08",
+          "dat": "1410f7eb8",
+          "body": 28
+        },
+        {
+          "init": "14019bc50",
+          "name": "FUN_14019bc50",
+          "string_at": "140dd3e08",
+          "dat": "14114f8b0",
+          "body": 28
+        },
+        {
+          "init": "14001b310",
+          "name": "FUN_14001b310",
+          "string_at": "140dd3e08",
+          "dat": "1410e2960",
+          "body": 28
+        },
+        {
+          "init": "14021a710",
+          "name": "FUN_14021a710",
+          "string_at": "140dd3e08",
+          "dat": "14117287c",
+          "body": 28
+        },
+        {
+          "init": "1402d2600",
+          "name": "FUN_1402d2600",
+          "string_at": "140dd3e08",
+          "dat": "1411a82f4",
+          "body": 28
+        },
+        {
+          "init": "14010f350",
+          "name": "FUN_14010f350",
+          "string_at": "140dd3e08",
+          "dat": "141126db0",
+          "body": 28
+        },
+        {
+          "init": "14010d230",
+          "name": "FUN_14010d230",
+          "string_at": "140dd3e08",
+          "dat": "141126760",
+          "body": 28
+        }
+      ],
+      "dats": [
+        "1410e2960",
+        "1410f7eb8",
+        "1410fad58",
+        "1411096e0",
+        "14111c94c",
+        "141126760",
+        "141126db0",
+        "14114f8b0",
+        "141152478",
+        "141158aac",
+        "14117287c",
+        "1411a82f4"
+      ],
+      "msgmap_hits": []
+    }
+  ]
+}

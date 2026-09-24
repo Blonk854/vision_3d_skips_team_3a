@@ -1,0 +1,264 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x1406b1840",
+    "--output",
+    "maps/rev2a_skip_document_posted_command.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid FUN_1406b1840(longlong param_1)\r\n\r\n{\r\n  int iVar1;\r\n  AFX_MODULE_STATE *pAVar2;\r\n  undefined8 uVar3;\r\n  \r\n  pAVar2 = AfxGetModuleState();\r\n  uVar3 = __RTDynamicCast(*(undefined8 *)(pAVar2 + 8),0,&CWinApp::RTTI_Type_Descriptor,\r\n                          &CAVisionApp::RTTI_Type_Descriptor,0);\r\n  iVar1 = FUN_1404e0b60(uVar3,3);\r\n  if ((iVar1 != 0) && (*(char *)(*(longlong *)(param_1 + 0xe8) + 0x382d) == '\\0')) {\r\n    FUN_140697ab0();\r\n    FUN_1406abfe0(param_1);\r\n    return;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1406b1840",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412d0378",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1406b1840",
+          "bytes": "4053",
+          "references": [],
+          "text": "PUSH RBX"
+        },
+        {
+          "address": "1406b1842",
+          "bytes": "4883ec30",
+          "references": [],
+          "text": "SUB RSP,0x30"
+        },
+        {
+          "address": "1406b1846",
+          "bytes": "488bd9",
+          "references": [],
+          "text": "MOV RBX,RCX"
+        },
+        {
+          "address": "1406b1849",
+          "bytes": "e8a8df0c00",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::AfxGetModuleState",
+              "to": "14077f7f6",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14077f7f6"
+        },
+        {
+          "address": "1406b184e",
+          "bytes": "4c8d0d9b38a200",
+          "references": [
+            {
+              "symbol": "CAVisionApp::RTTI_Type_Descriptor",
+              "to": "1410d50f0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R9,[0x1410d50f0]"
+        },
+        {
+          "address": "1406b1855",
+          "bytes": "c744242000000000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x18]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x20],0x0"
+        },
+        {
+          "address": "1406b185d",
+          "bytes": "4c8d056c38a200",
+          "references": [
+            {
+              "symbol": "CWinApp::RTTI_Type_Descriptor",
+              "to": "1410d50d0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x1410d50d0]"
+        },
+        {
+          "address": "1406b1864",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1406b1866",
+          "bytes": "488b4808",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RAX + 0x8]"
+        },
+        {
+          "address": "1406b186a",
+          "bytes": "e8c9490f00",
+          "references": [
+            {
+              "symbol": "VCRUNTIME140.DLL::__RTDynamicCast",
+              "to": "1407a6238",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1407a6238"
+        },
+        {
+          "address": "1406b186f",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "1406b1872",
+          "bytes": "ba03000000",
+          "references": [],
+          "text": "MOV EDX,0x3"
+        },
+        {
+          "address": "1406b1877",
+          "bytes": "e8e4f2e2ff",
+          "references": [
+            {
+              "symbol": "FUN_1404e0b60",
+              "to": "1404e0b60",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404e0b60"
+        },
+        {
+          "address": "1406b187c",
+          "bytes": "85c0",
+          "references": [],
+          "text": "TEST EAX,EAX"
+        },
+        {
+          "address": "1406b187e",
+          "bytes": "7422",
+          "references": [
+            {
+              "symbol": "LAB_1406b18a2",
+              "to": "1406b18a2",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x1406b18a2"
+        },
+        {
+          "address": "1406b1880",
+          "bytes": "488b8be8000000",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RBX + 0xe8]"
+        },
+        {
+          "address": "1406b1887",
+          "bytes": "80b92d38000000",
+          "references": [],
+          "text": "CMP byte ptr [RCX + 0x382d],0x0"
+        },
+        {
+          "address": "1406b188e",
+          "bytes": "7512",
+          "references": [
+            {
+              "symbol": "LAB_1406b18a2",
+              "to": "1406b18a2",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1406b18a2"
+        },
+        {
+          "address": "1406b1890",
+          "bytes": "e81b62feff",
+          "references": [
+            {
+              "symbol": "FUN_140697ab0",
+              "to": "140697ab0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x140697ab0"
+        },
+        {
+          "address": "1406b1895",
+          "bytes": "488bcb",
+          "references": [],
+          "text": "MOV RCX,RBX"
+        },
+        {
+          "address": "1406b1898",
+          "bytes": "4883c430",
+          "references": [],
+          "text": "ADD RSP,0x30"
+        },
+        {
+          "address": "1406b189c",
+          "bytes": "5b",
+          "references": [],
+          "text": "POP RBX"
+        },
+        {
+          "address": "1406b189d",
+          "bytes": "e93ea7ffff",
+          "references": [
+            {
+              "symbol": "FUN_1406abfe0",
+              "to": "1406abfe0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "JMP 0x1406abfe0"
+        },
+        {
+          "address": "1406b18a2",
+          "bytes": "4883c430",
+          "references": [],
+          "text": "ADD RSP,0x30"
+        },
+        {
+          "address": "1406b18a6",
+          "bytes": "5b",
+          "references": [],
+          "text": "POP RBX"
+        },
+        {
+          "address": "1406b18a7",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1406b1840",
+      "requested_address": "1406b1840"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

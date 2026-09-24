@@ -1,0 +1,125 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x14075d040",
+    "--output",
+    "maps/rev2a_skip_capm_document_neighbor.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nlonglong FUN_14075d040(longlong param_1,int param_2,undefined8 param_3)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 = *(longlong *)(param_1 + 0x2f0) - *(longlong *)(param_1 + 0x2e8);\r\n  if (param_2 < (int)(lVar1 >> 3)) {\r\n    lVar1 = *(longlong *)(param_1 + 0x2e8);\r\n    *(undefined8 *)(lVar1 + (longlong)param_2 * 8) = param_3;\r\n    return CONCAT71((int7)((ulonglong)lVar1 >> 8),1);\r\n  }\r\n  return (ulonglong)(uint7)(lVar1 >> 0xb) << 8;\r\n}\r\n\r\n",
+      "entry": "14075d040",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eddcb8",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "14075d040",
+          "bytes": "488b81f0020000",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX + 0x2f0]"
+        },
+        {
+          "address": "14075d047",
+          "bytes": "482b81e8020000",
+          "references": [],
+          "text": "SUB RAX,qword ptr [RCX + 0x2e8]"
+        },
+        {
+          "address": "14075d04e",
+          "bytes": "48c1f803",
+          "references": [],
+          "text": "SAR RAX,0x3"
+        },
+        {
+          "address": "14075d052",
+          "bytes": "3bd0",
+          "references": [],
+          "text": "CMP EDX,EAX"
+        },
+        {
+          "address": "14075d054",
+          "bytes": "7d11",
+          "references": [
+            {
+              "symbol": "LAB_14075d067",
+              "to": "14075d067",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JGE 0x14075d067"
+        },
+        {
+          "address": "14075d056",
+          "bytes": "488b81e8020000",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX + 0x2e8]"
+        },
+        {
+          "address": "14075d05d",
+          "bytes": "4863d2",
+          "references": [],
+          "text": "MOVSXD RDX,EDX"
+        },
+        {
+          "address": "14075d060",
+          "bytes": "4c8904d0",
+          "references": [],
+          "text": "MOV qword ptr [RAX + RDX*0x8],R8"
+        },
+        {
+          "address": "14075d064",
+          "bytes": "b001",
+          "references": [],
+          "text": "MOV AL,0x1"
+        },
+        {
+          "address": "14075d066",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        },
+        {
+          "address": "14075d067",
+          "bytes": "32c0",
+          "references": [],
+          "text": "XOR AL,AL"
+        },
+        {
+          "address": "14075d069",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_14075d040",
+      "requested_address": "14075d040"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

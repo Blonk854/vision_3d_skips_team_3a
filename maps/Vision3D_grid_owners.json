@@ -1,0 +1,413 @@
+{
+  "symbols": [
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+      "addr": "EXTERNAL:0000117c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+      "addr": "EXTERNAL:0000117d"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+      "addr": "EXTERNAL:0000117e"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+      "addr": "EXTERNAL:0000117f"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+      "addr": "EXTERNAL:00001180"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+      "addr": "EXTERNAL:00001181"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellHorizontalAlignment",
+      "addr": "EXTERNAL:00001182"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+      "addr": "EXTERNAL:00001183"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+      "addr": "EXTERNAL:00001184"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "addr": "EXTERNAL:00001185"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "addr": "EXTERNAL:00001186"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "addr": "EXTERNAL:00001187"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "addr": "EXTERNAL:00001188"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "addr": "EXTERNAL:00001189"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "addr": "EXTERNAL:0000118a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+      "addr": "EXTERNAL:0000118b"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+      "addr": "EXTERNAL:0000118c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "addr": "EXTERNAL:0000118d"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "addr": "EXTERNAL:0000118e"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "addr": "EXTERNAL:0000118f"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "addr": "EXTERNAL:00001190"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddRow",
+      "addr": "EXTERNAL:00001191"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearAll",
+      "addr": "EXTERNAL:00001192"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+      "addr": "EXTERNAL:00001193"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+      "addr": "EXTERNAL:00001194"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteSelectedRows",
+      "addr": "EXTERNAL:00001195"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeselectAll",
+      "addr": "EXTERNAL:00001196"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToExcel",
+      "addr": "EXTERNAL:00001197"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+      "addr": "EXTERNAL:00001198"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+      "addr": "EXTERNAL:00001199"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:0000119a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:0000119b"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:0000119c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:0000119d"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:0000119e"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:0000119f"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:000011a0"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "addr": "EXTERNAL:000011a1"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "addr": "EXTERNAL:000011a2"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "addr": "EXTERNAL:000011a3"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "addr": "EXTERNAL:000011a4"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "addr": "EXTERNAL:000011a5"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColName",
+      "addr": "EXTERNAL:000011a6"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+      "addr": "EXTERNAL:000011a7"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+      "addr": "EXTERNAL:000011a8"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "addr": "EXTERNAL:000011a9"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "addr": "EXTERNAL:000011aa"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetSelectedRowsList",
+      "addr": "EXTERNAL:000011ab"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasHeaderColumn",
+      "addr": "EXTERNAL:000011ac"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasSelection",
+      "addr": "EXTERNAL:000011ad"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::IsInitialized",
+      "addr": "EXTERNAL:000011ae"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::LoadStringA",
+      "addr": "EXTERNAL:000011af"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDownInnerCell",
+      "addr": "EXTERNAL:000011b0"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnUpInnerCell",
+      "addr": "EXTERNAL:000011b1"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDoubleInnerCell",
+      "addr": "EXTERNAL:000011b2"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDownInnerCell",
+      "addr": "EXTERNAL:000011b3"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnUpInnerCell",
+      "addr": "EXTERNAL:000011b4"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDoubleInnerCell",
+      "addr": "EXTERNAL:000011b5"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDownInnerCell",
+      "addr": "EXTERNAL:000011b6"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+      "addr": "EXTERNAL:000011b7"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "addr": "EXTERNAL:000011b8"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::PreTranslateMessage",
+      "addr": "EXTERNAL:000011b9"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Redraw",
+      "addr": "EXTERNAL:000011ba"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::SelectAll",
+      "addr": "EXTERNAL:000011bb"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::CVitExtReportGridWnd",
+      "addr": "EXTERNAL:000011ee"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetThisClass",
+      "addr": "EXTERNAL:00001270"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetMessageMap",
+      "addr": "EXTERNAL:00001276"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetPrintString",
+      "addr": "EXTERNAL:00001277"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetRuntimeClass",
+      "addr": "EXTERNAL:00001278"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDoubleInnerCell",
+      "addr": "EXTERNAL:00001279"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnShowContextMenu",
+      "addr": "EXTERNAL:0000127a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::SetStyleColumnAutoSizing",
+      "addr": "EXTERNAL:000012fa"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearRows",
+      "addr": "EXTERNAL:00001389"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetThisMessageMap",
+      "addr": "EXTERNAL:0000138a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Init",
+      "addr": "EXTERNAL:0000138b"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::~CVitExtReportGridWnd",
+      "addr": "EXTERNAL:0000138d"
+    }
+  ],
+  "ext_refs": [
+    {
+      "name": "CVitExtReportGridWnd",
+      "address": "NO ADDRESS",
+      "refs": [],
+      "ref_count": 0
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::CVitExtReportGridWnd",
+      "address": "EXTERNAL:000011ee",
+      "refs": [
+        {
+          "from": "140d53dc0",
+          "type": "DATA",
+          "function": null,
+          "entry": null,
+          "body": null
+        },
+        {
+          "from": "14057d507",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14057d4e0",
+          "entry": "14057d4e0",
+          "body": 504
+        },
+        {
+          "from": "14063cadb",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14063cad0",
+          "entry": "14063cad0",
+          "body": 133
+        },
+        {
+          "from": "14055a8ab",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14055a8a0",
+          "entry": "14055a8a0",
+          "body": 126
+        },
+        {
+          "from": "1404530b2",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_140453090",
+          "entry": "140453090",
+          "body": 260
+        },
+        {
+          "from": "14060bbeb",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14060bbe0",
+          "entry": "14060bbe0",
+          "body": 126
+        }
+      ],
+      "ref_count": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd",
+      "address": "NO ADDRESS",
+      "refs": [],
+      "ref_count": 0
+    }
+  ],
+  "dumped": [
+    {
+      "from": "14057d507",
+      "type": "COMPUTED_CALL",
+      "function": "FUN_14057d4e0",
+      "entry": "14057d4e0",
+      "body": 504,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_gridowner_14057d4e0.c"
+    },
+    {
+      "from": "1404530b2",
+      "type": "COMPUTED_CALL",
+      "function": "FUN_140453090",
+      "entry": "140453090",
+      "body": 260,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_gridowner_140453090.c"
+    },
+    {
+      "from": "14063cadb",
+      "type": "COMPUTED_CALL",
+      "function": "FUN_14063cad0",
+      "entry": "14063cad0",
+      "body": 133,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_gridowner_14063cad0.c"
+    },
+    {
+      "from": "14055a8ab",
+      "type": "COMPUTED_CALL",
+      "function": "FUN_14055a8a0",
+      "entry": "14055a8a0",
+      "body": 126,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_gridowner_14055a8a0.c"
+    },
+    {
+      "from": "14060bbeb",
+      "type": "COMPUTED_CALL",
+      "function": "FUN_14060bbe0",
+      "entry": "14060bbe0",
+      "body": 126,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_gridowner_14060bbe0.c"
+    }
+  ]
+}

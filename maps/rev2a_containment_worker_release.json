@@ -1,0 +1,424 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x1406aac40",
+    "--output",
+    "maps/rev2a_containment_worker_release.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid FUN_1406aac40(longlong *param_1)\r\n\r\n{\r\n  longlong *plVar1;\r\n  int *piVar2;\r\n  int iVar3;\r\n  longlong *plVar4;\r\n  longlong *plVar5;\r\n  longlong lVar6;\r\n  longlong *plVar7;\r\n  \r\n  plVar4 = (longlong *)*param_1;\r\n  plVar7 = (longlong *)*plVar4;\r\n  *plVar4 = (longlong)plVar4;\r\n  *(longlong *)(*param_1 + 8) = *param_1;\r\n  param_1[1] = 0;\r\n  if (plVar7 != (longlong *)*param_1) {\r\n    do {\r\n      plVar4 = (longlong *)*plVar7;\r\n      plVar5 = (longlong *)plVar7[4];\r\n      if (plVar5 != (longlong *)0x0) {\r\n        LOCK();\r\n        plVar1 = plVar5 + 1;\r\n        lVar6 = *plVar1;\r\n        *(int *)plVar1 = (int)*plVar1 + -1;\r\n        UNLOCK();\r\n        if ((int)lVar6 == 1) {\r\n          (**(code **)(*plVar5 + 8))(plVar5);\r\n          LOCK();\r\n          piVar2 = (int *)((longlong)plVar5 + 0xc);\r\n          iVar3 = *piVar2;\r\n          *piVar2 = *piVar2 + -1;\r\n          UNLOCK();\r\n          if (iVar3 == 1) {\r\n            (**(code **)(*plVar5 + 0x10))(plVar5);\r\n          }\r\n        }\r\n      }\r\n      operator_delete(plVar7);\r\n      plVar7 = plVar4;\r\n    } while (plVar4 != (longlong *)*param_1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1406aac40",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412d0018",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140fd3fb8",
+          "type": "DATA"
+        },
+        {
+          "caller": "14069a890",
+          "caller_name": "FUN_14069a890",
+          "from": "14069a8ab",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1406aac40",
+          "bytes": "4156",
+          "references": [],
+          "text": "PUSH R14"
+        },
+        {
+          "address": "1406aac42",
+          "bytes": "4883ec30",
+          "references": [],
+          "text": "SUB RSP,0x30"
+        },
+        {
+          "address": "1406aac46",
+          "bytes": "48c7442420feffffff",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x18]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x20],-0x2"
+        },
+        {
+          "address": "1406aac4f",
+          "bytes": "48895c2440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x40],RBX"
+        },
+        {
+          "address": "1406aac54",
+          "bytes": "4889742448",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x10]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x48],RSI"
+        },
+        {
+          "address": "1406aac59",
+          "bytes": "48897c2450",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x18]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x50],RDI"
+        },
+        {
+          "address": "1406aac5e",
+          "bytes": "4c8bf1",
+          "references": [],
+          "text": "MOV R14,RCX"
+        },
+        {
+          "address": "1406aac61",
+          "bytes": "488b01",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX]"
+        },
+        {
+          "address": "1406aac64",
+          "bytes": "488b38",
+          "references": [],
+          "text": "MOV RDI,qword ptr [RAX]"
+        },
+        {
+          "address": "1406aac67",
+          "bytes": "488900",
+          "references": [],
+          "text": "MOV qword ptr [RAX],RAX"
+        },
+        {
+          "address": "1406aac6a",
+          "bytes": "488b01",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX]"
+        },
+        {
+          "address": "1406aac6d",
+          "bytes": "48894008",
+          "references": [],
+          "text": "MOV qword ptr [RAX + 0x8],RAX"
+        },
+        {
+          "address": "1406aac71",
+          "bytes": "48c7410800000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x8],0x0"
+        },
+        {
+          "address": "1406aac79",
+          "bytes": "483b39",
+          "references": [],
+          "text": "CMP RDI,qword ptr [RCX]"
+        },
+        {
+          "address": "1406aac7c",
+          "bytes": "744d",
+          "references": [
+            {
+              "symbol": "LAB_1406aaccb",
+              "to": "1406aaccb",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x1406aaccb"
+        },
+        {
+          "address": "1406aac7e",
+          "bytes": "6690",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1406aac80",
+          "bytes": "488b37",
+          "references": [],
+          "text": "MOV RSI,qword ptr [RDI]"
+        },
+        {
+          "address": "1406aac83",
+          "bytes": "488b5f20",
+          "references": [],
+          "text": "MOV RBX,qword ptr [RDI + 0x20]"
+        },
+        {
+          "address": "1406aac87",
+          "bytes": "4885db",
+          "references": [],
+          "text": "TEST RBX,RBX"
+        },
+        {
+          "address": "1406aac8a",
+          "bytes": "742e",
+          "references": [
+            {
+              "symbol": "LAB_1406aacba",
+              "to": "1406aacba",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x1406aacba"
+        },
+        {
+          "address": "1406aac8c",
+          "bytes": "83c8ff",
+          "references": [],
+          "text": "OR EAX,0xffffffff"
+        },
+        {
+          "address": "1406aac8f",
+          "bytes": "f00fc14308",
+          "references": [],
+          "text": "XADD.LOCK dword ptr [RBX + 0x8],EAX"
+        },
+        {
+          "address": "1406aac94",
+          "bytes": "83f801",
+          "references": [],
+          "text": "CMP EAX,0x1"
+        },
+        {
+          "address": "1406aac97",
+          "bytes": "7521",
+          "references": [
+            {
+              "symbol": "LAB_1406aacba",
+              "to": "1406aacba",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1406aacba"
+        },
+        {
+          "address": "1406aac99",
+          "bytes": "488b03",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RBX]"
+        },
+        {
+          "address": "1406aac9c",
+          "bytes": "488bcb",
+          "references": [],
+          "text": "MOV RCX,RBX"
+        },
+        {
+          "address": "1406aac9f",
+          "bytes": "ff5008",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0x8]"
+        },
+        {
+          "address": "1406aaca2",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1406aaca3",
+          "bytes": "83c8ff",
+          "references": [],
+          "text": "OR EAX,0xffffffff"
+        },
+        {
+          "address": "1406aaca6",
+          "bytes": "f00fc1430c",
+          "references": [],
+          "text": "XADD.LOCK dword ptr [RBX + 0xc],EAX"
+        },
+        {
+          "address": "1406aacab",
+          "bytes": "83f801",
+          "references": [],
+          "text": "CMP EAX,0x1"
+        },
+        {
+          "address": "1406aacae",
+          "bytes": "750a",
+          "references": [
+            {
+              "symbol": "LAB_1406aacba",
+              "to": "1406aacba",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1406aacba"
+        },
+        {
+          "address": "1406aacb0",
+          "bytes": "488b03",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RBX]"
+        },
+        {
+          "address": "1406aacb3",
+          "bytes": "488bcb",
+          "references": [],
+          "text": "MOV RCX,RBX"
+        },
+        {
+          "address": "1406aacb6",
+          "bytes": "ff5010",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0x10]"
+        },
+        {
+          "address": "1406aacb9",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1406aacba",
+          "bytes": "488bcf",
+          "references": [],
+          "text": "MOV RCX,RDI"
+        },
+        {
+          "address": "1406aacbd",
+          "bytes": "e8ec470d00",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::operator_delete",
+              "to": "14077f4ae",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14077f4ae"
+        },
+        {
+          "address": "1406aacc2",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1406aacc3",
+          "bytes": "488bfe",
+          "references": [],
+          "text": "MOV RDI,RSI"
+        },
+        {
+          "address": "1406aacc6",
+          "bytes": "493b36",
+          "references": [],
+          "text": "CMP RSI,qword ptr [R14]"
+        },
+        {
+          "address": "1406aacc9",
+          "bytes": "75b5",
+          "references": [
+            {
+              "symbol": "LAB_1406aac80",
+              "to": "1406aac80",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1406aac80"
+        },
+        {
+          "address": "1406aaccb",
+          "bytes": "488b5c2440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RBX,qword ptr [RSP + 0x40]"
+        },
+        {
+          "address": "1406aacd0",
+          "bytes": "488b742448",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x10]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RSI,qword ptr [RSP + 0x48]"
+        },
+        {
+          "address": "1406aacd5",
+          "bytes": "488b7c2450",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x18]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RDI,qword ptr [RSP + 0x50]"
+        },
+        {
+          "address": "1406aacda",
+          "bytes": "4883c430",
+          "references": [],
+          "text": "ADD RSP,0x30"
+        },
+        {
+          "address": "1406aacde",
+          "bytes": "415e",
+          "references": [],
+          "text": "POP R14"
+        },
+        {
+          "address": "1406aace0",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1406aac40",
+      "requested_address": "1406aac40"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

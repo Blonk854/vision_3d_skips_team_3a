@@ -1,0 +1,10 @@
+# Release verifier environment: CPython 3.14 x64 on Windows AMD64.
+# Regenerate and independently review hashes before changing any version.
+keystone-engine==0.9.2 \
+    --hash=sha256:c91db1ff16d9d094e00d1827107d1b4afd5e63ce19b491a0140e660635000e8b
+capstone==5.0.7 \
+    --hash=sha256:4ab8bcb7da8f221ff45926ca168ca33e76f7237d06fbf3c10780002faa2670e1
+pefile==2024.8.26 \
+    --hash=sha256:76f8b485dcd3b1bb8166f1128d395fa3d87af26360c2358fb75b80019b957c6f
+unicorn==2.1.4 \
+    --hash=sha256:d7107500c64ce5c168fbff6bef9485b5db1350050036f4cea568650cf8bdbdf5

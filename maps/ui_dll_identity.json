@@ -1,0 +1,22 @@
+[
+  {
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\v3d_files_\\DyTools0.dll",
+    "name": "DyTools0.dll",
+    "size": 2742784,
+    "sha256": "f5421b5509236d6a5ba7b20c6e764f0af5e0be131bf2b08e2bbe774ac805767e",
+    "pe_offset": 296,
+    "machine": "0x8664",
+    "optional_magic": "0x20b",
+    "image_base": "0x180000000"
+  },
+  {
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\v3d_files_\\ProfUISm.dll",
+    "name": "ProfUISm.dll",
+    "size": 20520960,
+    "sha256": "7292f99502237dcf88092112ba5ad692e5fe9afa64e4f6ea9a22ced5c0d5036a",
+    "pe_offset": 296,
+    "machine": "0x8664",
+    "optional_magic": "0x20b",
+    "image_base": "0x180000000"
+  }
+]

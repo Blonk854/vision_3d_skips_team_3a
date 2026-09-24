@@ -1,0 +1,1232 @@
+{
+  "program": "ProfUISm.dll",
+  "hits": [
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::CExtPPVW<CExtReportGridWnd>",
+      "entry": "18016e8d0",
+      "body": 156
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::StringPair_t",
+      "entry": "180174f00",
+      "body": 74
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::StringPair_t",
+      "entry": "180174f50",
+      "body": 34
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::~CExtPPVW<CExtReportGridWnd>",
+      "entry": "180176880",
+      "body": 110
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::~StringPair_t",
+      "entry": "180178170",
+      "body": 34
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::operator=",
+      "entry": "18017c550",
+      "body": 23
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::operator==",
+      "entry": "18017c910",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::operator!=",
+      "entry": "18017ca20",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::operator<",
+      "entry": "18017d0f0",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::operator<=",
+      "entry": "18017d1d0",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::operator>",
+      "entry": "18017d2b0",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::operator>=",
+      "entry": "18017d390",
+      "body": 19
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::DoPrintPreview",
+      "entry": "180198550",
+      "body": 151
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnCmdMsg",
+      "entry": "1801a0860",
+      "body": 10
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnEndPrintPreview",
+      "entry": "1801a1eb0",
+      "body": 162
+    },
+    {
+      "name": "CExtFormulaGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801ab170",
+      "body": 1047,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_1801ab170.c",
+      "decomp_len": 6360
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnGetPrintableWnd",
+      "entry": "1801ad290",
+      "body": 55
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnRecalcBars",
+      "entry": "1801b3400",
+      "body": 54
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnSwDoMouseWheel",
+      "entry": "1801b35e0",
+      "body": 40
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnSwRecalcLayout",
+      "entry": "1801b3780",
+      "body": 307
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnSwUpdateScrollBars",
+      "entry": "1801b3a20",
+      "body": 25
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::PreTranslateMessage",
+      "entry": "1801b50a0",
+      "body": 10
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::WindowProc",
+      "entry": "1801bdee0",
+      "body": 10
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::__PPVW_Impl_OnCmdMsg",
+      "entry": "1801c3cd0",
+      "body": 768
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::__PPVW_Impl_PreTranslateMessage",
+      "entry": "1801c4390",
+      "body": 85
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::__PPVW_Impl_WindowProc",
+      "entry": "1801c47d0",
+      "body": 436
+    },
+    {
+      "name": "CExtGridBaseWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801ff170",
+      "body": 59,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_1801ff170.c",
+      "decomp_len": 638
+    },
+    {
+      "name": "CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801ff1b0",
+      "body": 1373,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_1801ff1b0.c",
+      "decomp_len": 8053
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::IsPrintPreviewAvailable",
+      "entry": "18035f7a0",
+      "body": 119
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemArray",
+      "entry": "180360520",
+      "body": 203
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemArrayImpl",
+      "entry": "1803606c0",
+      "body": 234
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemIndent",
+      "entry": "180360900",
+      "body": 141
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnPrepareDC",
+      "entry": "180362ec0",
+      "body": 61
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnPreparePrinting",
+      "entry": "1803674e0",
+      "body": 14116
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderAutoPreview",
+      "entry": "18036e130",
+      "body": 316
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderGroupRow",
+      "entry": "18036e6e0",
+      "body": 998
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderSingleCellAtCenter",
+      "entry": "18036f820",
+      "body": 614
+    },
+    {
+      "name": "CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderSingleCellAtTopOrBottom",
+      "entry": "180370290",
+      "body": 613
+    },
+    {
+      "name": "CExtPropertyGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "18037e940",
+      "body": 1037,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_18037e940.c",
+      "decomp_len": 4317
+    },
+    {
+      "name": "CExtReportGridWnd::_GetBaseClass",
+      "entry": "180389ad0",
+      "body": 5
+    },
+    {
+      "name": "CExtReportGridWnd::CreateObject",
+      "entry": "180389ae0",
+      "body": 51
+    },
+    {
+      "name": "CExtReportGridWnd::CExtReportGridWnd",
+      "entry": "18038a1f0",
+      "body": 370
+    },
+    {
+      "name": "CExtReportGridWnd::~CExtReportGridWnd",
+      "entry": "18038a660",
+      "body": 220
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::AssignFromOther",
+      "entry": "18038b660",
+      "body": 47
+    },
+    {
+      "name": "CExtReportGridWnd::BestFitRow",
+      "entry": "18038b690",
+      "body": 371
+    },
+    {
+      "name": "CExtReportGridWnd::ColumnCountGet",
+      "entry": "18038bae0",
+      "body": 23
+    },
+    {
+      "name": "CExtReportGridWnd::ColumnHide",
+      "entry": "18038bc60",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::ColumnUnHideAll",
+      "entry": "18038bee0",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::StringPair_t::CompareWithOther",
+      "entry": "18038bef0",
+      "body": 75
+    },
+    {
+      "name": "CExtReportGridWnd::EnsureVisibleColumn",
+      "entry": "18038cb50",
+      "body": 17
+    },
+    {
+      "name": "CExtReportGridWnd::EnsureVisibleRow",
+      "entry": "18038cb70",
+      "body": 17
+    },
+    {
+      "name": "CExtReportGridWnd::FilterStateClearAll",
+      "entry": "18038cc20",
+      "body": 300
+    },
+    {
+      "name": "CExtReportGridWnd::FilterStateForOuterRowSerialize",
+      "entry": "18038cd50",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::GetMessageMap",
+      "entry": "18038cda0",
+      "body": 5
+    },
+    {
+      "name": "CExtReportGridWnd::GetReportData",
+      "entry": "18038cdb0",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::GetReportData",
+      "entry": "18038cdc0",
+      "body": 5
+    },
+    {
+      "name": "CExtReportGridWnd::GetRuntimeClass",
+      "entry": "18038cee0",
+      "body": 8
+    },
+    {
+      "name": "CExtReportGridWnd::GetScrollBarCtrl",
+      "entry": "18038cf40",
+      "body": 100
+    },
+    {
+      "name": "CExtReportGridWnd::GetThisClass",
+      "entry": "18038d030",
+      "body": 8
+    },
+    {
+      "name": "CExtReportGridWnd::GetThisMessageMap",
+      "entry": "18038d080",
+      "body": 8
+    },
+    {
+      "name": "CExtReportGridWnd::GridSortOrderSetup",
+      "entry": "18038d210",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::OnAdjustTreeRowFilteredState",
+      "entry": "18038de00",
+      "body": 219
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwAdjustRects",
+      "entry": "18038e4d0",
+      "body": 423
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "18038e680",
+      "body": 291,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_18038e680.c",
+      "decomp_len": 1881
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwBeginEdit",
+      "entry": "18038e7b0",
+      "body": 276
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwEraseArea",
+      "entry": "18038f5d0",
+      "body": 96
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwPaintCell",
+      "entry": "18038f640",
+      "body": 1072
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwQueryCellGridLines",
+      "entry": "18038fa70",
+      "body": 331
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwResizingStateUpdate",
+      "entry": "18038fbc0",
+      "body": 32
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridCalcOuterDropTarget",
+      "entry": "18038fbe0",
+      "body": 258
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridCellGetToolTipText",
+      "entry": "18038fcf0",
+      "body": 193
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridCellInputComplete",
+      "entry": "18038fdc0",
+      "body": 321
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridCellQueryTextColor",
+      "entry": "18038ff10",
+      "body": 235
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridFilterQueryFilteredState",
+      "entry": "180390000",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridFilterSortCommand",
+      "entry": "180390010",
+      "body": 262
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridHookCellPaintBackground",
+      "entry": "180390120",
+      "body": 270
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridHookCellPaintForeground",
+      "entry": "180390230",
+      "body": 5
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridHookOuterCellDND",
+      "entry": "180390240",
+      "body": 872
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridOuterDragOut",
+      "entry": "1803905b0",
+      "body": 105
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridQueryCenteredDndAlignment",
+      "entry": "180390620",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridQueryDataProvider",
+      "entry": "180390630",
+      "body": 72
+    },
+    {
+      "name": "CExtReportGridWnd::OnGridTrackOuterCellDND",
+      "entry": "180390680",
+      "body": 150
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridAutoPreviewAreaPaint",
+      "entry": "180392370",
+      "body": 203
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridAutoPreviewAreaQueryTextColor",
+      "entry": "180392440",
+      "body": 131
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnCategoryAdded",
+      "entry": "1803924d0",
+      "body": 120
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnCategoryRemoved",
+      "entry": "180392550",
+      "body": 208
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnChooserAdjustLocation",
+      "entry": "180392620",
+      "body": 314
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnChooserNoFieldsAvailableLabel",
+      "entry": "180392760",
+      "body": 87
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnChooserQueryCaption",
+      "entry": "1803927c0",
+      "body": 87
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnCtxMenuConstruct",
+      "entry": "180392820",
+      "body": 960
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnCtxMenuGetCtxColumn",
+      "entry": "180392be0",
+      "body": 8
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridColumnCtxMenuTrack",
+      "entry": "180392bf0",
+      "body": 305
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridCommandProfileInit",
+      "entry": "180392d40",
+      "body": 575
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridCommandProfileQueryName",
+      "entry": "180392f80",
+      "body": 14
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridCommandProfileShutdown",
+      "entry": "180392f90",
+      "body": 49
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridCreateCategoryComboBox",
+      "entry": "180392fd0",
+      "body": 144
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridCreateColumnChooser",
+      "entry": "180393060",
+      "body": 202
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridCreateGroupArea",
+      "entry": "180393130",
+      "body": 162
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridEmptyDataMessage",
+      "entry": "1803931e0",
+      "body": 87
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridFormatGroupRowText",
+      "entry": "180393240",
+      "body": 368
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridFormatSortByToolTipText",
+      "entry": "1803933b0",
+      "body": 193
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridGroupAreaQueryEmptyText",
+      "entry": "180393480",
+      "body": 87
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridItemInitializeOuterCells",
+      "entry": "1803934e0",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridPaintGroupRow",
+      "entry": "1803934f0",
+      "body": 1090
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridPaintHeaderRowBackground",
+      "entry": "180393940",
+      "body": 214
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridQueryColumnKeepActiveOnGroupingBehavior",
+      "entry": "180393a20",
+      "body": 132
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridQueryItemExtraSpace",
+      "entry": "180393ab0",
+      "body": 274
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridReportSortOrderUpdateComplete",
+      "entry": "180393bd0",
+      "body": 69
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportGridSortOrderVerificationFailed",
+      "entry": "180393c20",
+      "body": 500
+    },
+    {
+      "name": "CExtReportGridWnd::OnReportMaxGroupColumnCountReached",
+      "entry": "180393e20",
+      "body": 282
+    },
+    {
+      "name": "CExtReportGridWnd::OnSiwDrawFocusRect",
+      "entry": "180393f60",
+      "body": 14
+    },
+    {
+      "name": "CExtReportGridWnd::OnSiwPaintForeground",
+      "entry": "180394130",
+      "body": 443
+    },
+    {
+      "name": "CExtReportGridWnd::OnSiwWalkItemsH",
+      "entry": "180394340",
+      "body": 1342
+    },
+    {
+      "name": "CExtReportGridWnd::OnSwUpdateScrollBars",
+      "entry": "180394af0",
+      "body": 14
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeGridFilterCalcPlainUniqueValuesForColumn",
+      "entry": "180394c00",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeGridPaintExpandButton",
+      "entry": "180394c20",
+      "body": 794
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeGridQueryColumnOutline",
+      "entry": "180394f40",
+      "body": 65
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeGridQueryDrawOutline",
+      "entry": "180394f90",
+      "body": 553
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeGridQueryKbCollapseEnabled",
+      "entry": "1803951c0",
+      "body": 103
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeGridQueryKbExpandEnabled",
+      "entry": "180395230",
+      "body": 3
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeGridQueryKbJumpParentEnabled",
+      "entry": "180395240",
+      "body": 103
+    },
+    {
+      "name": "CExtReportGridWnd::OnTreeQueryPlainGridModeVeticalLayout",
+      "entry": "1803952b0",
+      "body": 97
+    },
+    {
+      "name": "CExtReportGridWnd::PostNcDestroy",
+      "entry": "1803953e0",
+      "body": 61
+    },
+    {
+      "name": "CExtReportGridWnd::PreSubclassWindow",
+      "entry": "1803954d0",
+      "body": 32
+    },
+    {
+      "name": "CExtReportGridWnd::ReportAutoPreviewModeGet",
+      "entry": "180395960",
+      "body": 20
+    },
+    {
+      "name": "CExtReportGridWnd::ReportAutoPreviewModeSet",
+      "entry": "180395980",
+      "body": 170
+    },
+    {
+      "name": "CExtReportGridWnd::ReportCategoryComboBoxGet",
+      "entry": "180395a30",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportCategoryComboBoxGet",
+      "entry": "180395a40",
+      "body": 63
+    },
+    {
+      "name": "CExtReportGridWnd::ReportCategoryComboBoxIsVisible",
+      "entry": "180395a80",
+      "body": 141
+    },
+    {
+      "name": "CExtReportGridWnd::ReportCategoryComboBoxShow",
+      "entry": "180395b10",
+      "body": 211
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnActivate",
+      "entry": "180395bf0",
+      "body": 151
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnActivate",
+      "entry": "180395c90",
+      "body": 960
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnAdjustIconAlignmentH",
+      "entry": "180396060",
+      "body": 34
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnAdjustIconAlignmentV",
+      "entry": "180396090",
+      "body": 34
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnAdjustStylesByMask",
+      "entry": "1803960c0",
+      "body": 252
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnAdjustTextAlignmentH",
+      "entry": "1803961c0",
+      "body": 34
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnAdjustTextAlignmentV",
+      "entry": "1803961f0",
+      "body": 34
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnChooserGet",
+      "entry": "180396220",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnChooserGet",
+      "entry": "180396230",
+      "body": 87
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnChooserIsVisible",
+      "entry": "180396290",
+      "body": 141
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnChooserShow",
+      "entry": "180396320",
+      "body": 264
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGet",
+      "entry": "180396430",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGet",
+      "entry": "180396440",
+      "body": 197
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGetAvailableCategoryNames",
+      "entry": "180396510",
+      "body": 313
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGetContent",
+      "entry": "180396650",
+      "body": 191
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGetCount",
+      "entry": "180396710",
+      "body": 98
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGetNext",
+      "entry": "180396780",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGetNext",
+      "entry": "1803967a0",
+      "body": 415
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnGetStartPosition",
+      "entry": "180396940",
+      "body": 287
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnIsActive",
+      "entry": "180396a60",
+      "body": 113
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnIsActive",
+      "entry": "180396ae0",
+      "body": 61
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnIsRegistered",
+      "entry": "180396b20",
+      "body": 19
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnProportionalResizingGet",
+      "entry": "180396b40",
+      "body": 68
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnProportionalResizingSet",
+      "entry": "180396b90",
+      "body": 191
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnRegister",
+      "entry": "180396c50",
+      "body": 492
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnRename",
+      "entry": "180396e40",
+      "body": 851
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnUnRegister",
+      "entry": "1803971a0",
+      "body": 283
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnUnRegister",
+      "entry": "1803972c0",
+      "body": 446
+    },
+    {
+      "name": "CExtReportGridWnd::ReportColumnUnRegisterCategory",
+      "entry": "180397480",
+      "body": 261
+    },
+    {
+      "name": "CExtReportGridWnd::ReportFilterStateLoad",
+      "entry": "180397590",
+      "body": 428
+    },
+    {
+      "name": "CExtReportGridWnd::ReportFilterStateSave",
+      "entry": "180397740",
+      "body": 459
+    },
+    {
+      "name": "CExtReportGridWnd::ReportFilterStateSerialize",
+      "entry": "180397920",
+      "body": 1315
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtBottom",
+      "entry": "180397e50",
+      "body": 160
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtBottom",
+      "entry": "180397ef0",
+      "body": 23
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtLeft",
+      "entry": "180397f10",
+      "body": 125
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtLeft",
+      "entry": "180397f90",
+      "body": 23
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtRight",
+      "entry": "180397fb0",
+      "body": 152
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtRight",
+      "entry": "180398050",
+      "body": 23
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtTop",
+      "entry": "180398070",
+      "body": 160
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellGetOuterAtTop",
+      "entry": "180398110",
+      "body": 23
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellSetOuterAtBottom",
+      "entry": "180398130",
+      "body": 179
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellSetOuterAtLeft",
+      "entry": "1803981f0",
+      "body": 178
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellSetOuterAtRight",
+      "entry": "1803982b0",
+      "body": 212
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridCellSetOuterAtTop",
+      "entry": "180398390",
+      "body": 179
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridGetStyle",
+      "entry": "180398450",
+      "body": 7
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridGetStyleEx",
+      "entry": "180398460",
+      "body": 7
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridModifyStyle",
+      "entry": "180398470",
+      "body": 165
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridModifyStyleEx",
+      "entry": "180398520",
+      "body": 165
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridStateLoad",
+      "entry": "1803985d0",
+      "body": 452
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridStateSave",
+      "entry": "1803987a0",
+      "body": 489
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGridStateSerialize",
+      "entry": "1803989a0",
+      "body": 5958
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGroupAreaGet",
+      "entry": "18039a0f0",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGroupAreaGet",
+      "entry": "18039a100",
+      "body": 63
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGroupAreaIsVisible",
+      "entry": "18039a140",
+      "body": 141
+    },
+    {
+      "name": "CExtReportGridWnd::ReportGroupAreaShow",
+      "entry": "18039a1d0",
+      "body": 238
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemFocusGet",
+      "entry": "18039a2c0",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemFocusGet",
+      "entry": "18039a2d0",
+      "body": 50
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemFromTreeItem",
+      "entry": "18039a310",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemFromTreeItem",
+      "entry": "18039a320",
+      "body": 16
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemGetCell",
+      "entry": "18039a450",
+      "body": 78
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemGetCell",
+      "entry": "18039a4a0",
+      "body": 23
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemGetCell",
+      "entry": "18039a4c0",
+      "body": 28
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemGetCell",
+      "entry": "18039a4e0",
+      "body": 112
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemIsRegistered",
+      "entry": "18039a630",
+      "body": 88
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemModifySelectionForUnRegistering",
+      "entry": "18039a690",
+      "body": 354
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemRegister",
+      "entry": "18039a800",
+      "body": 158
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemRegister",
+      "entry": "18039a8a0",
+      "body": 279
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemSetCell",
+      "entry": "18039ab00",
+      "body": 79
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemSetCell",
+      "entry": "18039ab50",
+      "body": 103
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemUnRegister",
+      "entry": "18039ace0",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemUnRegisterAll",
+      "entry": "18039acf0",
+      "body": 92
+    },
+    {
+      "name": "CExtReportGridWnd::ReportItemUnRegisterSelection",
+      "entry": "18039ad50",
+      "body": 801
+    },
+    {
+      "name": "CExtReportGridWnd::ReportSortOrderGet",
+      "entry": "18039b090",
+      "body": 10
+    },
+    {
+      "name": "CExtReportGridWnd::ReportSortOrderGet",
+      "entry": "18039b0a0",
+      "body": 26
+    },
+    {
+      "name": "CExtReportGridWnd::ReportSortOrderMaxGroupColumnCountGet",
+      "entry": "18039b0c0",
+      "body": 7
+    },
+    {
+      "name": "CExtReportGridWnd::ReportSortOrderMaxGroupColumnCountSet",
+      "entry": "18039b0d0",
+      "body": 116
+    },
+    {
+      "name": "CExtReportGridWnd::ReportSortOrderSet",
+      "entry": "18039b1d0",
+      "body": 327
+    },
+    {
+      "name": "CExtReportGridWnd::ReportSortOrderUpdate",
+      "entry": "18039c130",
+      "body": 624
+    },
+    {
+      "name": "CExtReportGridWnd::ReportSortOrderVerify",
+      "entry": "18039c4b0",
+      "body": 187
+    },
+    {
+      "name": "CExtReportGridWnd::RowCountGet",
+      "entry": "18039c570",
+      "body": 74
+    },
+    {
+      "name": "CExtReportGridWnd::SelectionGetForCell",
+      "entry": "18039c5c0",
+      "body": 7
+    },
+    {
+      "name": "CExtReportGridWnd::SelectionGetForCellPainting",
+      "entry": "18039c5d0",
+      "body": 170
+    },
+    {
+      "name": "CExtReportGridWnd::WindowProc",
+      "entry": "18039d650",
+      "body": 173
+    },
+    {
+      "name": "CExtReportGridWnd::_CreateHelper",
+      "entry": "18039d820",
+      "body": 607
+    },
+    {
+      "name": "CExtReportGridWnd::_GetReportData",
+      "entry": "18039da80",
+      "body": 5
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdBestFitContextField",
+      "entry": "18039dc80",
+      "body": 180
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdColumnAlignmentByType",
+      "entry": "18039dd40",
+      "body": 29
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdColumnAlignmentCenter",
+      "entry": "18039dd60",
+      "body": 32
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdColumnAlignmentLeft",
+      "entry": "18039dd80",
+      "body": 32
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdColumnAlignmentRight",
+      "entry": "18039dda0",
+      "body": 32
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdGroupByContextField",
+      "entry": "18039ddc0",
+      "body": 434
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdRemoveColumn",
+      "entry": "18039df80",
+      "body": 227
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdShowHideFieldChooser",
+      "entry": "18039e070",
+      "body": 50
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdShowHideGroupByBox",
+      "entry": "18039e0b0",
+      "body": 50
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdSortAscending",
+      "entry": "18039e0f0",
+      "body": 255
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgColumnCtxCmdSortDescending",
+      "entry": "18039e1f0",
+      "body": 255
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdBestFitContextField",
+      "entry": "18039e2f0",
+      "body": 188
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdColumnAlignmentByType",
+      "entry": "18039e3b0",
+      "body": 135
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdColumnAlignmentCenter",
+      "entry": "18039e440",
+      "body": 138
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdColumnAlignmentLeft",
+      "entry": "18039e4d0",
+      "body": 138
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdColumnAlignmentRight",
+      "entry": "18039e560",
+      "body": 138
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdGroupByContextField",
+      "entry": "18039e5f0",
+      "body": 259
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdRemoveColumn",
+      "entry": "18039e700",
+      "body": 118
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdShowHideFieldChooser",
+      "entry": "18039e780",
+      "body": 77
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdShowHideGroupByBox",
+      "entry": "18039e7d0",
+      "body": 77
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdSortAscending",
+      "entry": "18039e820",
+      "body": 191
+    },
+    {
+      "name": "CExtReportGridWnd::_OnRgUpdateColumnCtxCmdSortDescending",
+      "entry": "18039e8e0",
+      "body": 191
+    },
+    {
+      "name": "CExtReportGridWnd::_ReportColumnAdjustStylesByMask_Impl",
+      "entry": "18039e9a0",
+      "body": 415
+    },
+    {
+      "name": "CExtReportGridWnd::_ReportItemUnRegisterImpl",
+      "entry": "18039eb40",
+      "body": 579
+    },
+    {
+      "name": "CExtReportGridWnd::_SelectSubtreeForUnRegistering",
+      "entry": "18039ee60",
+      "body": 245
+    },
+    {
+      "name": "CExtReportGridWnd::_SelectionAreaConvert",
+      "entry": "18039ef60",
+      "body": 45
+    },
+    {
+      "name": "CExtReportGridWnd::stat_cbItemClickForColumnVisibility",
+      "entry": "18039f280",
+      "body": 229
+    },
+    {
+      "name": "CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "180479290",
+      "body": 402,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_180479290.c",
+      "decomp_len": 2256
+    }
+  ]
+}

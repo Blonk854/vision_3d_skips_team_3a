@@ -1,0 +1,247 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    "tools\\ghidra_scripts\\ExtractEntryGateEvidence.py",
+    "--program",
+    "mfc140.dll",
+    "--output",
+    "maps\\rev2a_mfc140_mdi_parent.json",
+    "0x1802782e0",
+    "0x180279250"
+  ],
+  "compiler": "windows",
+  "function_count": 17765,
+  "functions": [
+    {
+      "decompilation": "\r\nundefined8 FUN_1802782e0(void)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n                    /* 0x2782e0  2217   */\r\n  lVar1 = FUN_1801381e0();\r\n  return *(undefined8 *)(lVar1 + 8);\r\n}\r\n\r\n",
+      "entry": "1802782e0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180411c04",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802ddaea",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1802782e0",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "1802782e4",
+          "bytes": "e8f7feebff",
+          "references": [
+            {
+              "symbol": "FUN_1801381e0",
+              "to": "1801381e0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1801381e0"
+        },
+        {
+          "address": "1802782e9",
+          "bytes": "488b4008",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RAX + 0x8]"
+        },
+        {
+          "address": "1802782ed",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "1802782f1",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1802782e0",
+      "requested_address": "1802782e0"
+    },
+    {
+      "decompilation": "\r\nvoid FUN_180279250(longlong param_1)\r\n\r\n{\r\n  HWND pHVar1;\r\n  \r\n                    /* 0x279250  5687   */\r\n  if ((*(longlong *)(param_1 + 0x48) == 0) && (*(longlong *)(param_1 + 0x40) == 0)) {\r\n    pHVar1 = GetActiveWindow();\r\n    FUN_18028f480(pHVar1);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "entry": "180279250",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180411d54",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802ddb8a",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180326e88",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1803276b8",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180338268",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "180279250",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "180279254",
+          "bytes": "488b4148",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX + 0x48]"
+        },
+        {
+          "address": "180279258",
+          "bytes": "4885c0",
+          "references": [],
+          "text": "TEST RAX,RAX"
+        },
+        {
+          "address": "18027925b",
+          "bytes": "7517",
+          "references": [
+            {
+              "symbol": "LAB_180279274",
+              "to": "180279274",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x180279274"
+        },
+        {
+          "address": "18027925d",
+          "bytes": "488b4140",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX + 0x40]"
+        },
+        {
+          "address": "180279261",
+          "bytes": "4885c0",
+          "references": [],
+          "text": "TEST RAX,RAX"
+        },
+        {
+          "address": "180279264",
+          "bytes": "750e",
+          "references": [
+            {
+              "symbol": "LAB_180279274",
+              "to": "180279274",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x180279274"
+        },
+        {
+          "address": "180279266",
+          "bytes": "ff155c4d0500",
+          "references": [
+            {
+              "symbol": "PTR_GetActiveWindow_1802cdfc8",
+              "to": "1802cdfc8",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::GetActiveWindow",
+              "to": "EXTERNAL:000001b8",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x1802cdfc8]"
+        },
+        {
+          "address": "18027926c",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "18027926f",
+          "bytes": "e80c620100",
+          "references": [
+            {
+              "symbol": "FUN_18028f480",
+              "to": "18028f480",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x18028f480"
+        },
+        {
+          "address": "180279274",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "180279278",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_180279250",
+      "requested_address": "180279250"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe",
+  "source_size": 5784856
+}

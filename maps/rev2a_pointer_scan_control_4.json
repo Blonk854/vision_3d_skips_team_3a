@@ -1,0 +1,60 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "--pointer-to",
+    "0x14045c740",
+    "--output",
+    "maps/rev2a_pointer_scan_control_4.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [
+    {
+      "address": "14045c740",
+      "direct_references": [
+        {
+          "from": "1412bac88",
+          "stored_qword": "45c8da0045c740",
+          "type": "DATA"
+        },
+        {
+          "from": "140f1db20",
+          "stored_qword": "ffffffff0045c740",
+          "type": "DATA"
+        },
+        {
+          "from": "140dd9b48",
+          "stored_qword": "14045c740",
+          "type": "DATA"
+        }
+      ],
+      "hits": [
+        {
+          "at": "140dd9b48",
+          "next_function": "14076dd12",
+          "next_function_name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+          "next_qword": "14076dd12"
+        }
+      ]
+    }
+  ],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

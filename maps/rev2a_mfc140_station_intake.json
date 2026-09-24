@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "mode": "read-only PE and Authenticode intake; no DLL loading or target execution",
+  "path": "v3d_files_/mfc140.dll",
+  "provenance": "User supplied this file as coming from the machine on 2026-09-22; original installed path and loaded-module identity not supplied.",
+  "source_sha256": "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe",
+  "source_size": 5784856,
+  "machine": 34404,
+  "optional_magic": 523,
+  "image_base": 6442450944,
+  "file_version": "14.23.27820.0",
+  "authenticode": {
+    "status": "Valid",
+    "signer": "CN=Microsoft Corporation, O=Microsoft Corporation, L=Redmond, S=Washington, C=US",
+    "thumbprint": "62009AAABDAE749FD47D19150958329BF6FF4B34",
+    "scope": "Host signature verification of this file; not a malware verdict or target Windows 7 trust validation."
+  },
+  "export_base": 256,
+  "export_functions": 14028,
+  "export_names": 0,
+  "traced_exports": [
+    {"ordinal": 3959, "rva": "0x21ab10", "forwarded": false, "prefix": "48895c241048896c2418565741564883"},
+    {"ordinal": 8850, "rva": "0x21f890", "forwarded": false, "prefix": "48895c24084889742410574883ec2083"},
+    {"ordinal": 11881, "rva": "0x279280", "forwarded": false, "prefix": "e99bf0ffffcccccccccccccccccccccc"}
+  ],
+  "limitations": [
+    "Acquisition and architecture/runtime-generation mismatch are resolved for static investigation, not the lifecycle gate.",
+    "Original station path, loaded-module hash, and complete runtime dependency compatibility remain unverified.",
+    "Export presence and instruction prefixes do not establish message pumping, modal reentry, or destruction behavior.",
+    "No Ghidra import, native DLL loading, target execution, binary modification, or security-control change was performed."
+  ]
+}

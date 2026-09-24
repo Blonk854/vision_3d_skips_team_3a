@@ -1,0 +1,63 @@
+{
+  "program": "DyTools0.dll",
+  "image_base": "180000000",
+  "functions": 14500,
+  "click_handlers": [
+    {
+      "name": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801153d0",
+      "body": 822,
+      "callees": [
+        {
+          "name": "PROFUISM.DLL::CExtGridHitTestInfo::IsHoverEmpty",
+          "entry": "EXTERNAL:00000343"
+        },
+        {
+          "name": "__security_check_cookie",
+          "entry": "18011f950"
+        },
+        {
+          "name": "PROFUISM.DLL::CExtGridHitTestInfo::IsHoverInner",
+          "entry": "EXTERNAL:00000344"
+        },
+        {
+          "name": "PROFUISM.DLL::CExtGridHitTestInfo::CExtGridHitTestInfo",
+          "entry": "EXTERNAL:00000342"
+        },
+        {
+          "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "EXTERNAL:00000352"
+        },
+        {
+          "name": "USER32.DLL::PostMessageA",
+          "entry": "EXTERNAL:000009af"
+        }
+      ],
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_click_1801153d0.c"
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "18011c79c",
+      "body": 6,
+      "callees": [],
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_click_18011c79c.c"
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "18011ceec",
+      "body": 6,
+      "callees": [],
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_click_18011ceec.c"
+    }
+  ],
+  "vit_symbols_sample": [
+    {
+      "name": "CVitExtReportGridWnd::CVitExtReportGridWnd",
+      "address": "1801124c0"
+    },
+    {
+      "name": "CVitExtReportGridWnd",
+      "address": "NO ADDRESS"
+    }
+  ]
+}

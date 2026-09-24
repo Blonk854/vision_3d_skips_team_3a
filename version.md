@@ -2,6 +2,42 @@
 
 Confirmed 2026-09-14. Do **not** reuse addresses from `C:\VIT` (70.05.51.00 / 2019-09-20).
 
+## Qualification waiver, 2026-09-22
+
+The user removed the isolated Windows 7 Embedded x64 environment requirement
+and accepted proceeding with the associated qualification risk. See
+[W7-QUAL-01](plans/robust_patch_revision_2a.md#w7-qual-01---accepted-qualification-waiver).
+Native target compatibility, unwind/exception dispatch, owner-state selection,
+and callback-retirement qualification remain **waived - unverified**, not passed.
+Unavailable target testing no longer blocks progress by itself. Available offline
+checks and remaining implementation contracts still apply; no native execution,
+installation, or production release is authorized by this waiver. Historical
+statements requiring isolated target qualification are superseded within this
+scope; recorded observations and failures are unchanged.
+
+## Synchronous exception cleanup, 2026-09-22
+
+The offline verifier now pins the synchronous body's C++ unwind/IP-state maps
+and executes 15 bounded cleanup-action fixtures. Stock cleanup destroys local
+vector storage and routes string/logger destruction; no selected action directly
+performs the explicit inspection-slot release. Exceptional slot ownership and
+outer caller containment remain unresolved, not inferred from local destruction.
+Imported and virtual destructors are stubbed; native exception dispatch is not
+tested and remains covered by W7-QUAL-01. This local-cleanup checkpoint passed
+36 tests. No Rev6 artifact or installation change was made. See the
+[cleanup evidence](plans/robust_patch_revision_2a_status.md#synchronous-c-exception-cleanup-evidence-2026-09-22).
+
+## Slot retirement and caller unwind, 2026-09-22
+
+Latest verifier: **39 tests pass in 17.189 seconds**. Twenty bounded release and
+deletion cases demonstrate decrement-before-delete, repeated-release risk,
+storage-helper failures before unlocking/retirement, and an ignored semaphore
+failure. The immediate dispatcher and receiver have no local catch. Imported
+storage operations and higher handlers remain unverified; these passing tests
+record failure counterexamples, not a cleared exception gate or native failures.
+No binary changes or new hooks were made, and W7-QUAL-01 is unchanged. See
+[slot-retirement evidence](plans/robust_patch_revision_2a_status.md#synchronous-slot-retirement-and-caller-unwind-2026-09-22).
+
 ## Identity
 
 | | Vision3D.exe | AvVTraitLib.dll |
@@ -28,11 +64,249 @@ Matching `StructSupport.dll`: Product/FileVersion **70.06.59.00**, size
 `d6270dbe5c97b5ed1000c2541c1e8d495d7db6be184e45d6495d7fad75e0f832`,
 image base `0x180000000`.
 
+Matching-version `BaseTools.dll` was supplied by the user as the original file
+on 2026-09-21. Product/FileVersion **70.06.59.00**, size 1,910,272 bytes,
+SHA-256 `a41b4b00cf464da7da886f2303e6161f4474bda29b32793d39e4c6cfc39547f8`,
+image base `0x180000000`, AMD64. Its exact exported
+`?Stop@CViThread@@QEAA_NAEAKK@Z` is at RVA `0x7e1a0` (ordinal 1151).
+This version/export match and user-supplied provenance do not independently
+establish the DLL deployed on any station. See
+[the static stop evidence](maps/rev2a_basetools_stop.json).
+
+Matching-version `ViVirtualMachine.dll` and `ViVirtualMachineBuilder.dll`
+were supplied on 2026-09-23. Both are AMD64, Product/FileVersion
+**70.06.59.00**, preferred base `0x180000000`, and neither has an
+Authenticode signature. Builder size 1,013,248 bytes, SHA-256
+`5e808e294d1f19fa7b8bd5e2d994d4820963d5c1fdea064e572457c9597679b7`.
+Machine size 1,144,320 bytes, SHA-256
+`5b62adea102b62a272860bfba72cb787bf74bd006f44fe97453df5121efeeb60`.
+The builder forwards `CVMachineController::CVMachineController` into the
+machine DLL. These copies were not loaded or executed, and their paths do
+not establish the station's loaded modules. See the destroy-path detach
+evidence in [document lifecycle](maps/document-lifecycle.md).
+
 Ghidra project (analyzed):
 
 `C:\Users\s_sme\Documents\Projects\vision_3d_skips\v3d_files_uncomp\V3D_SKIP.gpr`
 
 Programs in project: `/Vision3D.exe` (138 607 functions), `/AvVTraitLib.dll` (144 752 functions). Both `Analyzed=true`.
+
+## Lifecycle evidence additions (2026-09-22)
+
+Manual-skip writer continuation for the exact EXE hash above:
+[explicit stores](maps/rev2a_skip_policy_stores.json),
+[registry and sampled writers](maps/rev2a_skip_policy_writers.json),
+[single-lane paths](maps/rev2a_skip_policy_single_lane.json),
+[dialog stores and production continuation](maps/rev2a_skip_policy_dialog_stores.json),
+and [permission-gated dialog handler](maps/rev2a_skip_policy_dialog_handler.json).
+RegistryRead `0x1404ddcd0` assigns `Production.ManualSkipLane1 != 0` at
+`0x1404de097`; dialog command `0x820` sets dialog `+0xa40` at `0x1405c4b23`,
+and standard start copies it to application `+0x18d` at `0x1404dbb56`.
+Remote single start clears the byte at `0x1404d4564`. Single-lane operation
+alone therefore does not supply a zero-policy invariant. Four bounded registry
+conversion fixtures pass; no native target execution, policy restriction,
+patch-site expansion, or gate promotion is implied. See
+[scope and limitations](maps/document-lifecycle.md#manual-skip-policy-writers).
+
+Reset/reuse continuation for the exact EXE hash above:
+[reset callers](maps/rev2a_skip_reset_callers.json) retain PrepareExecData
+`0x14068f0f0`, ReloadDoc `0x140692af0`, and HandlerProduction `0x1406a20d0`.
+Preparation decision `0x14068f74e..0x14068f7dc` selects no reset, reapplication
+at `0x14068f7ca`, or reset at `0x14068f7d7`. The new
+[reapply extraction](maps/rev2a_skip_prepare_reapply.json), `0x14052e910`,
+queries membership at `0x14052e9d3`/`0x14052eafc` and invokes CAD virtual
+`+0xd8`. ReloadDoc resets at `0x1406937d7` and restores snapshot entries at
+`0x140693811`. The cycle-start branch at `0x1406a2d7a` bypasses reset
+`0x1406a2d87` when lane-zero application byte `+0x18d` is nonzero.
+Stock bytes and bounded decision fixtures are checked in the existing verifier;
+see [limitations and next proof](maps/document-lifecycle.md#reset-and-reuse-boundaries).
+This does not promote the reset/reuse gate or change the approved patch design.
+
+Station-supplied [mfc140.dll](v3d_files_/mfc140.dll) intake: AMD64/PE32+,
+version `14.23.27820.0`, size 5,784,856, preferred base `0x180000000`, SHA-256
+`0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe`.
+Host Authenticode: Valid/Microsoft. Ordinal 3959/8850/11881 RVAs are
+`0x21ab10`/`0x21f890`/`0x279280`; raw export and stock-EXE import checks pass.
+The [intake record](maps/rev2a_mfc140_station_intake.json) supersedes the
+acquisition deferral, not lifecycle proof. Original installed path and loaded
+module identity remain unverified. At intake no DLL loading, Ghidra import,
+target execution, or binary modification occurred; that run passed 24 tests.
+Subsequent [MFC static analysis](maps/document-lifecycle.md#station-mfc-static-analysis)
+used separate project `MFC140_STATION`, with PDB analyzers, Function ID, and
+Decompiler Parameter ID disabled. Analysis completed in 151 seconds. Import
+consulted host dependency/export metadata; inferred names are not proof of
+station dependencies. Twenty-eight reports retain 51 byte-verified functions: the
+unfiltered pump, nested modal-pump path, guarded base close, bound virtuals,
+application recovery receiver, production-frame destruction, and view teardown.
+The constructor proves document vtable `0x140ea3868`, correcting the previous
+eight-byte-late anchor; close is at `+0x118`, deleting wrapper at `+0x8`.
+The production frame factory installs vtable `0x140ea1720`; `+0xd0` binds
+ordinal 3803 / `0x1802abb20`, which sends `WM_MDIDESTROY`. Application
+`+0x208` binds ordinal 5167 / `0x1801d0230`, whose cached paths preserve
+`+0x120` even with feature bits clear. The allocated receiver's close methods
+perform recovery bookkeeping. The production-view vtable `0x140eac650` binds
+inherited `WM_NCDESTROY` to deleting-wrapper dispatch through `+0x250`.
+The destructor chain reaches MFC `RemoveView`, which unlinks/decrements the
+view list before clearing `view+0xe8` at `0x18021fb0d`, then notifies document
+slot `+0xf0`. Clearing auto-delete flag `+0x120` selects frame-count updates
+instead of close; it does not suppress all callbacks. Actual pool/block-release,
+document-update, and iterator instructions now run in six fixtures. For an empty
+list with auto-delete disabled, all three frame-update passes return without
+visibility or frame calls. Other cases cover hidden views with visibility stubbed;
+the imported allocator remains stubbed.
+
+Window detach `0x18028f560` calls noncreating map lookup `0x18028f3c8` and
+key removal `0x180236b90` before clearing HWND `+0x40` and field `+0xd0`.
+Thirteen fixtures execute cached or fresh module/thread-state selection, actual map mutation,
+and empty-map bucket/block cleanup, checking missing/colliding keys and
+zero/one/two-block release. Freed storage is overwritten by allocator stubs;
+the HWND and document fields stay live during cleanup. A decoy TLS state is
+untouched. Windows TLS, critical-section calls, CRT division, and allocation
+remain stubbed. Nine thread-slot cases separately check cached, missing, invalid,
+and unallocated state, stopping before factories, allocation, or failure handling.
+The fresh-state case executes factory, zero-filled allocation wrapper, constructor,
+and publication into an existing TLS array. A two-case constructor test proves
+map `+0x28` is preserved; its initial zero comes from allocation. In two constructed
+owner-mismatch cases, detach clears the view and returns the HWND while another
+slot's owning map retains its entry. Successful initialization is therefore not
+ownership recovery. Correct owner-thread/module/map selection must be established
+on the target; no station occurrence of this mismatch is asserted. TLS growth,
+default-module fallback, and native allocation/exception handling are unqualified.
+Windows delivery of this static detach path and live callback retirement remain
+unresolved. Full suite: **34 tests pass in 5.578 seconds**,
+including six stubbed MFC pump scenarios, thirteen cached receiver cases, and
+three frame destruction cases, plus the six integrated detach cases, thirteen window
+map cases, nine thread-slot cases, two constructor cases, and six document-callback
+branch cases. The constructor, import-binding, and detach tests passed in 0.332 seconds. OS delivery and
+earlier teardown reentry remain unproved.
+No native DLL execution, modified PE, or Rev6 builder was produced.
+The same verifier later passes **41 tests in 17.701 seconds**, including the
+`CMainFrame` title-slot and active-document checks in
+[document lifecycle](maps/document-lifecycle.md).
+That result does not pass a lifecycle gate.
+It now passes **42 tests in 17.815 seconds**. The added check binds the
+system `mdiclient` created at frame `+0x1d8` and reproduces, on this
+development host's user32 only, `WM_DESTROY` of an MDI child before
+`WM_MDIDESTROY` returns. That does not identify the production view's parent
+and does not pass a lifecycle gate.
+The same verifier then passes **43 tests in 18.301 seconds**. The added check
+covers the supplied `AvImgBuffer.dll`: `CZoneStorage` construction can throw
+`bad allocation` after `SlotDelete` has entered its critical section and
+before it leaves. That does not pass exception containment.
+It then passes **44 tests in 20.423 seconds**. The added check covers the
+supplied `HwCommonTools.dll`: receiver unwind state 16 destroys the live
+`CZoneData` through a noexcept destructor with no catch. That does not pass
+exception containment.
+It then passes **45 tests in 21.204 seconds**. The added check parents the
+production view dialog to the `CProductionChild` HWND. The view's destroy
+clears that child's `+0x170`; the title read uses the top frame's separate
+field. That does not pass a lifecycle gate.
+It then passes **46 tests in 20.760 seconds**. The added check follows
+`CProductionView` from template `+0xc0` through the create context and
+`MDICREATESTRUCT+0x30` into `OnCreateClient`. That does not pass a lifecycle
+gate.
+It then passes **47 tests in 21.272 seconds**. The added check shows the
+title function reads the frame's own `+0x170` first and skips the active
+child's document when that read is non-null. The view destroy clears the
+child frame, and the EXE does not import SetActiveView. The title still
+returns the production document when the top frame's own field holds that
+view. That does not pass a lifecycle gate.
+It then passes **48 tests in 21.366 seconds**. The added check shows the
+production templates register `CProductionDoc`, whose slot `+0x320` calls
+ordinals 1504 and 1032. The helper that writes `+0x170` from document
+`+0x258` is the `CDocProcess` slot, registered under resource ids `0x7c8`,
+`0x7ca`, and `0x7cb`. That does not pass a lifecycle gate.
+It then passes **49 tests in 21.312 seconds**. The added check follows the
+production view's print-preview slot through ordinal 9697. Its
+SetActiveView call uses the nearest `CFrameWnd`; `CProductionChild` derives
+from `CMDIChildWnd` and `CFrameWnd`, so that path selects the child frame.
+That does not pass a lifecycle gate.
+It then passes **50 tests in 21.303 seconds**. A development-host user32
+probe confirms that `DestroyWindow` removes an already queued instance of
+the exact registered SKIP message and that a later post to the stale HWND
+fails. This is not Windows 7 qualification and does not cover producer-side
+object dereferences or posts racing before destruction. No lifecycle gate
+is promoted.
+It then passes **51 tests in 23.948 seconds**. The added check shows the
+constructor stores zero at `document+0x5838`, `OnInitialUpdate` is the only
+later write and stores the view, and the three SKIP posts use that pointer's
+HWND without testing it. Production close destroys listed view frames before
+the destructor releases the skip arrays. An empty view list can still reach
+that destructor. No lifecycle gate is promoted.
+It then passes **52 tests in 24.325 seconds**. The added check shows a null
+HWND post is a thread message. The SKIP handler occurs only in the production
+view map, and the application map has no registered-message entry. On this
+development host `DispatchMessageA` does not deliver that thread message to a
+window procedure. The embedded menu-bar pretranslate and a nonzero
+`frame+0x120` can still observe it. No lifecycle gate is promoted.
+It then passes **53 tests in 28.805 seconds**. The added check shows
+`CExtMenuControlBar` slot `+0xa90` returns zero for a registered id and its
+`SendMessageA` sites use `0x157` or `WM_CANCELMODE`. `CMainFrame` then
+tail-jumps ordinal 11812, which calls `[frame+0x120]+0xb8` only when that
+qword is nonzero. Construction stores zero, and the three frame vtables do
+not store a replacement. No lifecycle gate is promoted.
+It then passes **54 tests in 29.330 seconds**. The added check shows the
+production view map has no `WM_CREATE` entry and bases on the `CFormView`
+map. That handler restores the create context from `view+0x138` and jumps to
+`CView::OnCreate`, which calls `AddView` when the context document is
+non-null. `AddView` links the view and increments `document+0x70` before
+ordinal 8734 selects the non-close slot. `CFormView::Create` installs a
+`WH_CBT` hook and saves the create context before
+`CreateDialogIndirectParamA`. The procedure stored at module-state `+0x70`
+is the remaining delivery link. No lifecycle gate is promoted.
+It then passes **55 tests in 29.461 seconds**. The added check shows the
+create hook stores the view at thread-state `+0x28`, attaches its HWND, and
+subclasses to module-state `+0x70`. The view constructor stores
+`AfxGetModuleState()` at `+0x38`. The process state and the DLL static state
+store procedures that call `AfxWndProc`. Message 1 reaches `CWnd::OnWndMsg`,
+follows the production map's base, and calls the `CFormView` `WM_CREATE`
+handler. No lifecycle gate is promoted.
+
+Target OS, user reported: Windows 7 Embedded x64. Development-host tests are
+not station validation. The previously supplied `mfc140.dll` version 14.0.24210.0, size
+4,705,072 bytes, SHA-256
+`f8becf698ba1068cfc32e72e210215a1ed4368cdd5f21ea45bf393677dbd77c6`
+is x86 (`Machine=0x014c`, PE32, image base `0x10000000`), not AMD64. It is
+rejected as the dependency of the mapped x64 EXE and was not imported.
+Its ordinal 8850/11881 RVAs `0x95c80`/`0x278ee0` are recorded only for intake,
+not as evidence of the x64 pump or close implementations. See
+[the intake record](maps/document-lifecycle.md#supplied-mfc-intake-2026-09-22).
+
+The [document lifecycle map](maps/document-lifecycle.md) records the retained
+publication, live SKIP-array access, UI-command, supervisor pump, and teardown
+addresses for this exact EXE. Supporting descendant entries are `0x1404e0b60`,
+`0x140697ab0`, and `0x1406abfe0`. The
+[helper `0x140675f90`](maps/rev2a_skip_posted_ui_helper.json) tail-calls
+`InvalidateRect` via IAT `0x140d5bc90` on HWND at `view+0x8b0`.
+
+The [document constructor `0x14067dea0`](maps/rev2a_skip_document_sheet_construction.json)
+calls sheet constructor `0x1406c3a30` at `0x14067dfef` with `document+0x3990`.
+Its [vtable installation](maps/rev2a_skip_embedded_window_binding.json) at
+`0x1406c3a5d` writes `0x140eb0360`; RTTI pointer `0x140eb0358` selects locator
+`0x140f14428`, identifying `SkipProductionElmt_Sheet`. The
+[sheet destructor](maps/rev2a_skip_embedded_window_destructor.json) is `0x1406c3bf0`.
+Slot `0x140eb0640` (`+0x2e0`) selects
+[thunk `0x14077f754`](maps/rev2a_skip_embedded_window_virtual.json), IAT
+`0x140d5ec88`, `mfc140.dll` ordinal 3959, labeled `CPropertySheet::DoModal`.
+These records use the exact stock EXE hash above and resolve static bindings
+only; the supplied MFC's corresponding static paths are now mapped above.
+Live runtime behavior remains unverified and no gate is promoted.
+
+Supplied `DyTools0.dll`: AMD64, size 2,742,784, image base `0x180000000`, SHA-256
+`f5421b5509236d6a5ba7b20c6e764f0af5e0be131bf2b08e2bbe774ac805767e`.
+EXE call `0x14064b8fb` uses IAT `0x140d53fc0` for `?DoEvents@@YAXXZ`, DLL export
+ordinal 1468 at `0x1800772b0`. Peeks at `0x1800772c9` / `0x1800772fe` are
+unfiltered; thread lookup is `0x1800772d3`, virtual `+0xc8` call `0x1800772e3`.
+See the [stock-byte-verified body](maps/rev2a_skip_doevents.json).
+
+Application vtable `0x140e39770` (installed at `0x1404ce01f`) maps `+0xc8` to
+`0x14077f982`, IAT `0x140d5fd20`, `mfc140.dll` ordinal 11881. Base document-close
+thunk `0x14077fe26` maps IAT `0x140d5f5f8` to MFC ordinal 8850. These are import
+bindings; the supplied station MFC bodies have subsequently been analyzed as
+recorded above. Loaded-module identity and runtime behavior remain unverified.
+The historical 20-method run included five bounded DoEvents fixtures; the
+current 32-method result supersedes it. No lifecycle gate or runtime
+qualification is claimed.
 
 ## Vision3D.exe — Feature 1 addresses
 
@@ -235,6 +509,28 @@ continues through review routing without walking prior anomaly records.
   164 finalizer, 67 stock-wrapper and 7/14/14 cleanup instructions.
 
 The script patches neither DLL and never writes `C:\VIT`.
+
+## Review-station handoff anchors (70.06.59.00)
+
+Static mapping confirms that `CMsgPanelProd::SendPanelToReviewStation` is a
+message-field setter, not a file-transfer function.
+
+| Stage | VA | Confirmed behavior |
+| --- | --- | --- |
+| Review gate | `0x140674820` | Writes `CProdCarte+0x40` |
+| Serialized gate call | `0x14069b4d8` | CAPM commit calls review gate |
+| Prepare messages | `0x14068fab0` | Builds panel result and consumes route byte |
+| Route-field call | `0x140690572` | Calls `0x14067c710` |
+| Mark for repair | `0x14067c710` | Stores inverted value at `CMsgPanelProd+0x0c` |
+| Results event | `0x14067c5b0` | Wakes communication thread |
+| Communication handler | `0x14067c480` | Calls `SendResults` at `0x14067c56c` |
+| Send results | `0x14067c7b0` | Sends ready anomaly images, then panel message |
+| Network wrapper | `0x14064e110` | Calls imported `CTalkToSuperviseur::Send` |
+
+Review images come from `CAnomalie+0x188` memory populated by
+`CVitImgFileRecorderHelper::Save` with mask `0x4`; `.ois` (`0x1`) and `.otr`
+(`0x2`) writes are separate recorder branches. Full map:
+[`maps/review-station-handoff.md`](maps/review-station-handoff.md).
 
 ## Station history and required release matrix
 

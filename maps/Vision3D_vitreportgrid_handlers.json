@@ -1,0 +1,1249 @@
+{
+  "program": "Vision3D.exe",
+  "string_hits": [
+    {
+      "string": "ID_VITREPORTGRID_CLICK_LBTNUP_INNER",
+      "address": "140dd3e08",
+      "refs": [
+        {
+          "from": "1401bcd44",
+          "function": "FUN_1401bcd40",
+          "entry": "1401bcd40"
+        },
+        {
+          "from": "140067b94",
+          "function": "FUN_140067b90",
+          "entry": "140067b90"
+        },
+        {
+          "from": "1401a56e4",
+          "function": "FUN_1401a56e0",
+          "entry": "1401a56e0"
+        },
+        {
+          "from": "1400a4644",
+          "function": "FUN_1400a4640",
+          "entry": "1400a4640"
+        },
+        {
+          "from": "1400e2db4",
+          "function": "FUN_1400e2db0",
+          "entry": "1400e2db0"
+        },
+        {
+          "from": "14005da84",
+          "function": "FUN_14005da80",
+          "entry": "14005da80"
+        },
+        {
+          "from": "14019bc54",
+          "function": "FUN_14019bc50",
+          "entry": "14019bc50"
+        },
+        {
+          "from": "14001b314",
+          "function": "FUN_14001b310",
+          "entry": "14001b310"
+        },
+        {
+          "from": "14021a714",
+          "function": "FUN_14021a710",
+          "entry": "14021a710"
+        },
+        {
+          "from": "1402d2604",
+          "function": "FUN_1402d2600",
+          "entry": "1402d2600"
+        },
+        {
+          "from": "14010f354",
+          "function": "FUN_14010f350",
+          "entry": "14010f350"
+        },
+        {
+          "from": "14010d234",
+          "function": "FUN_14010d230",
+          "entry": "14010d230"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_LBTNDWN_INNER",
+      "address": "140dd3e30",
+      "refs": [
+        {
+          "from": "1401bcd24",
+          "function": "FUN_1401bcd20",
+          "entry": "1401bcd20"
+        },
+        {
+          "from": "140067b74",
+          "function": "FUN_140067b70",
+          "entry": "140067b70"
+        },
+        {
+          "from": "1401a56c4",
+          "function": "FUN_1401a56c0",
+          "entry": "1401a56c0"
+        },
+        {
+          "from": "1400a4624",
+          "function": "FUN_1400a4620",
+          "entry": "1400a4620"
+        },
+        {
+          "from": "1400e2d94",
+          "function": "FUN_1400e2d90",
+          "entry": "1400e2d90"
+        },
+        {
+          "from": "14005da64",
+          "function": "FUN_14005da60",
+          "entry": "14005da60"
+        },
+        {
+          "from": "14019bc34",
+          "function": "FUN_14019bc30",
+          "entry": "14019bc30"
+        },
+        {
+          "from": "14001b2f4",
+          "function": "FUN_14001b2f0",
+          "entry": "14001b2f0"
+        },
+        {
+          "from": "14021a6f4",
+          "function": "FUN_14021a6f0",
+          "entry": "14021a6f0"
+        },
+        {
+          "from": "1402d25e4",
+          "function": "FUN_1402d25e0",
+          "entry": "1402d25e0"
+        },
+        {
+          "from": "14010f334",
+          "function": "FUN_14010f330",
+          "entry": "14010f330"
+        },
+        {
+          "from": "14010d214",
+          "function": "FUN_14010d210",
+          "entry": "14010d210"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_LBTNDBL_INNER",
+      "address": "140dd3e88",
+      "refs": [
+        {
+          "from": "1401bcd04",
+          "function": "FUN_1401bcd00",
+          "entry": "1401bcd00"
+        },
+        {
+          "from": "140067b54",
+          "function": "FUN_140067b50",
+          "entry": "140067b50"
+        },
+        {
+          "from": "1401a56a4",
+          "function": "FUN_1401a56a0",
+          "entry": "1401a56a0"
+        },
+        {
+          "from": "1400a4604",
+          "function": "FUN_1400a4600",
+          "entry": "1400a4600"
+        },
+        {
+          "from": "1400e2d74",
+          "function": "FUN_1400e2d70",
+          "entry": "1400e2d70"
+        },
+        {
+          "from": "14005da44",
+          "function": "FUN_14005da40",
+          "entry": "14005da40"
+        },
+        {
+          "from": "14019bc14",
+          "function": "FUN_14019bc10",
+          "entry": "14019bc10"
+        },
+        {
+          "from": "14001b2d4",
+          "function": "FUN_14001b2d0",
+          "entry": "14001b2d0"
+        },
+        {
+          "from": "14021a6d4",
+          "function": "FUN_14021a6d0",
+          "entry": "14021a6d0"
+        },
+        {
+          "from": "1402d25c4",
+          "function": "FUN_1402d25c0",
+          "entry": "1402d25c0"
+        },
+        {
+          "from": "14010f314",
+          "function": "FUN_14010f310",
+          "entry": "14010f310"
+        },
+        {
+          "from": "14010d1f4",
+          "function": "FUN_14010d1f0",
+          "entry": "14010d1f0"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_RBTNUP_INNER",
+      "address": "140dd3ee0",
+      "refs": [
+        {
+          "from": "1401bce04",
+          "function": "FUN_1401bce00",
+          "entry": "1401bce00"
+        },
+        {
+          "from": "140067c54",
+          "function": "FUN_140067c50",
+          "entry": "140067c50"
+        },
+        {
+          "from": "1401a57a4",
+          "function": "FUN_1401a57a0",
+          "entry": "1401a57a0"
+        },
+        {
+          "from": "1400a4704",
+          "function": "FUN_1400a4700",
+          "entry": "1400a4700"
+        },
+        {
+          "from": "1400e2e74",
+          "function": "FUN_1400e2e70",
+          "entry": "1400e2e70"
+        },
+        {
+          "from": "14005db44",
+          "function": "FUN_14005db40",
+          "entry": "14005db40"
+        },
+        {
+          "from": "14019bd14",
+          "function": "FUN_14019bd10",
+          "entry": "14019bd10"
+        },
+        {
+          "from": "14001b3d4",
+          "function": "FUN_14001b3d0",
+          "entry": "14001b3d0"
+        },
+        {
+          "from": "14021a7d4",
+          "function": "FUN_14021a7d0",
+          "entry": "14021a7d0"
+        },
+        {
+          "from": "1402d26c4",
+          "function": "FUN_1402d26c0",
+          "entry": "1402d26c0"
+        },
+        {
+          "from": "14010f414",
+          "function": "FUN_14010f410",
+          "entry": "14010f410"
+        },
+        {
+          "from": "14010d2f4",
+          "function": "FUN_14010d2f0",
+          "entry": "14010d2f0"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_RBTNDWN_INNER",
+      "address": "140dd3f20",
+      "refs": [
+        {
+          "from": "1401bcde4",
+          "function": "FUN_1401bcde0",
+          "entry": "1401bcde0"
+        },
+        {
+          "from": "140067c34",
+          "function": "FUN_140067c30",
+          "entry": "140067c30"
+        },
+        {
+          "from": "1401a5784",
+          "function": "FUN_1401a5780",
+          "entry": "1401a5780"
+        },
+        {
+          "from": "1400a46e4",
+          "function": "FUN_1400a46e0",
+          "entry": "1400a46e0"
+        },
+        {
+          "from": "1400e2e54",
+          "function": "FUN_1400e2e50",
+          "entry": "1400e2e50"
+        },
+        {
+          "from": "14005db24",
+          "function": "FUN_14005db20",
+          "entry": "14005db20"
+        },
+        {
+          "from": "14019bcf4",
+          "function": "FUN_14019bcf0",
+          "entry": "14019bcf0"
+        },
+        {
+          "from": "14001b3b4",
+          "function": "FUN_14001b3b0",
+          "entry": "14001b3b0"
+        },
+        {
+          "from": "14021a7b4",
+          "function": "FUN_14021a7b0",
+          "entry": "14021a7b0"
+        },
+        {
+          "from": "1402d26a4",
+          "function": "FUN_1402d26a0",
+          "entry": "1402d26a0"
+        },
+        {
+          "from": "14010f3f4",
+          "function": "FUN_14010f3f0",
+          "entry": "14010f3f0"
+        },
+        {
+          "from": "14010d2d4",
+          "function": "FUN_14010d2d0",
+          "entry": "14010d2d0"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_RBTNDBL_INNER",
+      "address": "140dd3f68",
+      "refs": [
+        {
+          "from": "1401bcdc4",
+          "function": "FUN_1401bcdc0",
+          "entry": "1401bcdc0"
+        },
+        {
+          "from": "140067c14",
+          "function": "FUN_140067c10",
+          "entry": "140067c10"
+        },
+        {
+          "from": "1401a5764",
+          "function": "FUN_1401a5760",
+          "entry": "1401a5760"
+        },
+        {
+          "from": "1400a46c4",
+          "function": "FUN_1400a46c0",
+          "entry": "1400a46c0"
+        },
+        {
+          "from": "1400e2e34",
+          "function": "FUN_1400e2e30",
+          "entry": "1400e2e30"
+        },
+        {
+          "from": "14005db04",
+          "function": "FUN_14005db00",
+          "entry": "14005db00"
+        },
+        {
+          "from": "14019bcd4",
+          "function": "FUN_14019bcd0",
+          "entry": "14019bcd0"
+        },
+        {
+          "from": "14001b394",
+          "function": "FUN_14001b390",
+          "entry": "14001b390"
+        },
+        {
+          "from": "14021a794",
+          "function": "FUN_14021a790",
+          "entry": "14021a790"
+        },
+        {
+          "from": "1402d2684",
+          "function": "FUN_1402d2680",
+          "entry": "1402d2680"
+        },
+        {
+          "from": "14010f3d4",
+          "function": "FUN_14010f3d0",
+          "entry": "14010f3d0"
+        },
+        {
+          "from": "14010d2b4",
+          "function": "FUN_14010d2b0",
+          "entry": "14010d2b0"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_MBTNUP_INNER",
+      "address": "140dd3fb0",
+      "refs": [
+        {
+          "from": "1401bcda4",
+          "function": "FUN_1401bcda0",
+          "entry": "1401bcda0"
+        },
+        {
+          "from": "140067bf4",
+          "function": "FUN_140067bf0",
+          "entry": "140067bf0"
+        },
+        {
+          "from": "1401a5744",
+          "function": "FUN_1401a5740",
+          "entry": "1401a5740"
+        },
+        {
+          "from": "1400a46a4",
+          "function": "FUN_1400a46a0",
+          "entry": "1400a46a0"
+        },
+        {
+          "from": "1400e2e14",
+          "function": "FUN_1400e2e10",
+          "entry": "1400e2e10"
+        },
+        {
+          "from": "14005dae4",
+          "function": "FUN_14005dae0",
+          "entry": "14005dae0"
+        },
+        {
+          "from": "14019bcb4",
+          "function": "FUN_14019bcb0",
+          "entry": "14019bcb0"
+        },
+        {
+          "from": "14001b374",
+          "function": "FUN_14001b370",
+          "entry": "14001b370"
+        },
+        {
+          "from": "14021a774",
+          "function": "FUN_14021a770",
+          "entry": "14021a770"
+        },
+        {
+          "from": "1402d2664",
+          "function": "FUN_1402d2660",
+          "entry": "1402d2660"
+        },
+        {
+          "from": "14010f3b4",
+          "function": "FUN_14010f3b0",
+          "entry": "14010f3b0"
+        },
+        {
+          "from": "14010d294",
+          "function": "FUN_14010d290",
+          "entry": "14010d290"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_MBTNDWN_INNER",
+      "address": "140dd3ff8",
+      "refs": [
+        {
+          "from": "1401bcd84",
+          "function": "FUN_1401bcd80",
+          "entry": "1401bcd80"
+        },
+        {
+          "from": "140067bd4",
+          "function": "FUN_140067bd0",
+          "entry": "140067bd0"
+        },
+        {
+          "from": "1401a5724",
+          "function": "FUN_1401a5720",
+          "entry": "1401a5720"
+        },
+        {
+          "from": "1400a4684",
+          "function": "FUN_1400a4680",
+          "entry": "1400a4680"
+        },
+        {
+          "from": "1400e2df4",
+          "function": "FUN_1400e2df0",
+          "entry": "1400e2df0"
+        },
+        {
+          "from": "14005dac4",
+          "function": "FUN_14005dac0",
+          "entry": "14005dac0"
+        },
+        {
+          "from": "14019bc94",
+          "function": "FUN_14019bc90",
+          "entry": "14019bc90"
+        },
+        {
+          "from": "14001b354",
+          "function": "FUN_14001b350",
+          "entry": "14001b350"
+        },
+        {
+          "from": "14021a754",
+          "function": "FUN_14021a750",
+          "entry": "14021a750"
+        },
+        {
+          "from": "1402d2644",
+          "function": "FUN_1402d2640",
+          "entry": "1402d2640"
+        },
+        {
+          "from": "14010f394",
+          "function": "FUN_14010f390",
+          "entry": "14010f390"
+        },
+        {
+          "from": "14010d274",
+          "function": "FUN_14010d270",
+          "entry": "14010d270"
+        }
+      ]
+    },
+    {
+      "string": "ID_VITREPORTGRID_CLICK_MBTNDBL_INNER",
+      "address": "140dd4048",
+      "refs": [
+        {
+          "from": "1401bcd64",
+          "function": "FUN_1401bcd60",
+          "entry": "1401bcd60"
+        },
+        {
+          "from": "140067bb4",
+          "function": "FUN_140067bb0",
+          "entry": "140067bb0"
+        },
+        {
+          "from": "1401a5704",
+          "function": "FUN_1401a5700",
+          "entry": "1401a5700"
+        },
+        {
+          "from": "1400a4664",
+          "function": "FUN_1400a4660",
+          "entry": "1400a4660"
+        },
+        {
+          "from": "1400e2dd4",
+          "function": "FUN_1400e2dd0",
+          "entry": "1400e2dd0"
+        },
+        {
+          "from": "14005daa4",
+          "function": "FUN_14005daa0",
+          "entry": "14005daa0"
+        },
+        {
+          "from": "14019bc74",
+          "function": "FUN_14019bc70",
+          "entry": "14019bc70"
+        },
+        {
+          "from": "14001b334",
+          "function": "FUN_14001b330",
+          "entry": "14001b330"
+        },
+        {
+          "from": "14021a734",
+          "function": "FUN_14021a730",
+          "entry": "14021a730"
+        },
+        {
+          "from": "1402d2624",
+          "function": "FUN_1402d2620",
+          "entry": "1402d2620"
+        },
+        {
+          "from": "14010f374",
+          "function": "FUN_14010f370",
+          "entry": "14010f370"
+        },
+        {
+          "from": "14010d254",
+          "function": "FUN_14010d250",
+          "entry": "14010d250"
+        }
+      ]
+    }
+  ],
+  "dumped": [
+    {
+      "function": "FUN_1401bcd40",
+      "entry": "1401bcd40",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcd40.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_140067b90",
+      "entry": "140067b90",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067b90.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1401a56e0",
+      "entry": "1401a56e0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a56e0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1400a4640",
+      "entry": "1400a4640",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a4640.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1400e2db0",
+      "entry": "1400e2db0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2db0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14005da80",
+      "entry": "14005da80",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005da80.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14019bc50",
+      "entry": "14019bc50",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bc50.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14001b310",
+      "entry": "14001b310",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b310.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14021a710",
+      "entry": "14021a710",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a710.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1402d2600",
+      "entry": "1402d2600",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d2600.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14010f350",
+      "entry": "14010f350",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f350.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14010d230",
+      "entry": "14010d230",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d230.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1401bcd20",
+      "entry": "1401bcd20",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcd20.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_140067b70",
+      "entry": "140067b70",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067b70.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401a56c0",
+      "entry": "1401a56c0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a56c0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400a4620",
+      "entry": "1400a4620",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a4620.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400e2d90",
+      "entry": "1400e2d90",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2d90.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14005da60",
+      "entry": "14005da60",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005da60.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14019bc30",
+      "entry": "14019bc30",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bc30.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14001b2f0",
+      "entry": "14001b2f0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b2f0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14021a6f0",
+      "entry": "14021a6f0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a6f0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1402d25e0",
+      "entry": "1402d25e0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d25e0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010f330",
+      "entry": "14010f330",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f330.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010d210",
+      "entry": "14010d210",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d210.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401bcd00",
+      "entry": "1401bcd00",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcd00.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_140067b50",
+      "entry": "140067b50",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067b50.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401a56a0",
+      "entry": "1401a56a0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a56a0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400a4600",
+      "entry": "1400a4600",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a4600.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400e2d70",
+      "entry": "1400e2d70",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2d70.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14005da40",
+      "entry": "14005da40",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005da40.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14019bc10",
+      "entry": "14019bc10",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bc10.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14001b2d0",
+      "entry": "14001b2d0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b2d0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14021a6d0",
+      "entry": "14021a6d0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a6d0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1402d25c0",
+      "entry": "1402d25c0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d25c0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010f310",
+      "entry": "14010f310",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f310.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010d1f0",
+      "entry": "14010d1f0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d1f0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401bce00",
+      "entry": "1401bce00",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bce00.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_140067c50",
+      "entry": "140067c50",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067c50.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1401a57a0",
+      "entry": "1401a57a0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a57a0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1400a4700",
+      "entry": "1400a4700",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a4700.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1400e2e70",
+      "entry": "1400e2e70",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2e70.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14005db40",
+      "entry": "14005db40",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005db40.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14019bd10",
+      "entry": "14019bd10",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bd10.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14001b3d0",
+      "entry": "14001b3d0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b3d0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14021a7d0",
+      "entry": "14021a7d0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a7d0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1402d26c0",
+      "entry": "1402d26c0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d26c0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14010f410",
+      "entry": "14010f410",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f410.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14010d2f0",
+      "entry": "14010d2f0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d2f0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1401bcde0",
+      "entry": "1401bcde0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcde0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_140067c30",
+      "entry": "140067c30",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067c30.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401a5780",
+      "entry": "1401a5780",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a5780.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400a46e0",
+      "entry": "1400a46e0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a46e0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400e2e50",
+      "entry": "1400e2e50",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2e50.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14005db20",
+      "entry": "14005db20",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005db20.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14019bcf0",
+      "entry": "14019bcf0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bcf0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14001b3b0",
+      "entry": "14001b3b0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b3b0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14021a7b0",
+      "entry": "14021a7b0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a7b0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1402d26a0",
+      "entry": "1402d26a0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d26a0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010f3f0",
+      "entry": "14010f3f0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f3f0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010d2d0",
+      "entry": "14010d2d0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d2d0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401bcdc0",
+      "entry": "1401bcdc0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcdc0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_140067c10",
+      "entry": "140067c10",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067c10.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401a5760",
+      "entry": "1401a5760",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a5760.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400a46c0",
+      "entry": "1400a46c0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a46c0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400e2e30",
+      "entry": "1400e2e30",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2e30.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14005db00",
+      "entry": "14005db00",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005db00.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14019bcd0",
+      "entry": "14019bcd0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bcd0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14001b390",
+      "entry": "14001b390",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b390.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14021a790",
+      "entry": "14021a790",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a790.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1402d2680",
+      "entry": "1402d2680",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d2680.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010f3d0",
+      "entry": "14010f3d0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f3d0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010d2b0",
+      "entry": "14010d2b0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d2b0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401bcda0",
+      "entry": "1401bcda0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcda0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_140067bf0",
+      "entry": "140067bf0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067bf0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1401a5740",
+      "entry": "1401a5740",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a5740.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1400a46a0",
+      "entry": "1400a46a0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a46a0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1400e2e10",
+      "entry": "1400e2e10",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2e10.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14005dae0",
+      "entry": "14005dae0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005dae0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14019bcb0",
+      "entry": "14019bcb0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bcb0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14001b370",
+      "entry": "14001b370",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b370.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14021a770",
+      "entry": "14021a770",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a770.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1402d2660",
+      "entry": "1402d2660",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d2660.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14010f3b0",
+      "entry": "14010f3b0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f3b0.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_14010d290",
+      "entry": "14010d290",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d290.c",
+      "c_bytes": 220
+    },
+    {
+      "function": "FUN_1401bcd80",
+      "entry": "1401bcd80",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcd80.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_140067bd0",
+      "entry": "140067bd0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067bd0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401a5720",
+      "entry": "1401a5720",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a5720.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400a4680",
+      "entry": "1400a4680",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a4680.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400e2df0",
+      "entry": "1400e2df0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2df0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14005dac0",
+      "entry": "14005dac0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005dac0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14019bc90",
+      "entry": "14019bc90",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bc90.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14001b350",
+      "entry": "14001b350",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b350.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14021a750",
+      "entry": "14021a750",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a750.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1402d2640",
+      "entry": "1402d2640",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d2640.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010f390",
+      "entry": "14010f390",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f390.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010d270",
+      "entry": "14010d270",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d270.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401bcd60",
+      "entry": "1401bcd60",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401bcd60.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_140067bb0",
+      "entry": "140067bb0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_140067bb0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1401a5700",
+      "entry": "1401a5700",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1401a5700.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400a4660",
+      "entry": "1400a4660",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400a4660.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1400e2dd0",
+      "entry": "1400e2dd0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1400e2dd0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14005daa0",
+      "entry": "14005daa0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14005daa0.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14019bc70",
+      "entry": "14019bc70",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14019bc70.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14001b330",
+      "entry": "14001b330",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14001b330.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14021a730",
+      "entry": "14021a730",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14021a730.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_1402d2620",
+      "entry": "1402d2620",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_1402d2620.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010f370",
+      "entry": "14010f370",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010f370.c",
+      "c_bytes": 221
+    },
+    {
+      "function": "FUN_14010d250",
+      "entry": "14010d250",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_vitgrid_14010d250.c",
+      "c_bytes": 221
+    }
+  ]
+}

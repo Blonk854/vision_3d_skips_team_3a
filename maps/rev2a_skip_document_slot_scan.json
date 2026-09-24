@@ -1,0 +1,316 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "--indirect-slot",
+    "0xe8",
+    "--output",
+    "maps/rev2a_skip_document_slot_scan.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [],
+  "ghidra_version": "12.1",
+  "indirect_slots": [
+    {
+      "hits": [
+        {
+          "address": "1404b01ee",
+          "bytes": "ff90e8000000",
+          "caller": "1404afd90",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404d255b",
+          "bytes": "41ff90e8000000",
+          "caller": "1404d24c0",
+          "text": "CALL qword ptr [R8 + 0xe8]"
+        },
+        {
+          "address": "1404dc83c",
+          "bytes": "ff90e8000000",
+          "caller": "1404dc5c0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404dc84f",
+          "bytes": "ff90e8000000",
+          "caller": "1404dc5c0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404dcd8e",
+          "bytes": "ff90e8000000",
+          "caller": "1404dc9e0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404dcda1",
+          "bytes": "ff90e8000000",
+          "caller": "1404dc9e0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404dede2",
+          "bytes": "ff90e8000000",
+          "caller": "1404decd0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404dee20",
+          "bytes": "ff90e8000000",
+          "caller": "1404decd0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404e0461",
+          "bytes": "ff90e8000000",
+          "caller": "1404e03f0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404e04d7",
+          "bytes": "41ff90e8000000",
+          "caller": "1404e03f0",
+          "text": "CALL qword ptr [R8 + 0xe8]"
+        },
+        {
+          "address": "1404e065d",
+          "bytes": "ff90e8000000",
+          "caller": "1404e0550",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404e0695",
+          "bytes": "ff90e8000000",
+          "caller": "1404e0550",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404e07bf",
+          "bytes": "41ff90e8000000",
+          "caller": "1404e0700",
+          "text": "CALL qword ptr [R8 + 0xe8]"
+        },
+        {
+          "address": "1404e0810",
+          "bytes": "ff90e8000000",
+          "caller": "1404e0700",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404e0847",
+          "bytes": "ff90e8000000",
+          "caller": "1404e0700",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404edf01",
+          "bytes": "41ff91e8000000",
+          "caller": "1404ede40",
+          "text": "CALL qword ptr [R9 + 0xe8]"
+        },
+        {
+          "address": "1404ee0a0",
+          "bytes": "41ff91e8000000",
+          "caller": "1404ee040",
+          "text": "CALL qword ptr [R9 + 0xe8]"
+        },
+        {
+          "address": "1404ee0f8",
+          "bytes": "ff90e8000000",
+          "caller": "1404ee040",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404ee163",
+          "bytes": "ff90e8000000",
+          "caller": "1404ee040",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1404ee826",
+          "bytes": "41ff91e8000000",
+          "caller": "1404ee730",
+          "text": "CALL qword ptr [R9 + 0xe8]"
+        },
+        {
+          "address": "1404ee944",
+          "bytes": "41ff91e8000000",
+          "caller": "1404ee910",
+          "text": "CALL qword ptr [R9 + 0xe8]"
+        },
+        {
+          "address": "1404f108d",
+          "bytes": "ff90e8000000",
+          "caller": "1404f0f70",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "140559995",
+          "bytes": "41ff91e8000000",
+          "caller": "140559910",
+          "text": "CALL qword ptr [R9 + 0xe8]"
+        },
+        {
+          "address": "1405db36b",
+          "bytes": "ff90e8000000",
+          "caller": "1405db340",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1405dc4cb",
+          "bytes": "ff90e8000000",
+          "caller": "1405dc4a0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1405dc53b",
+          "bytes": "ff90e8000000",
+          "caller": "1405dc510",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1405e4de0",
+          "bytes": "ff92e8000000",
+          "caller": "1405e4dc0",
+          "text": "CALL qword ptr [RDX + 0xe8]"
+        },
+        {
+          "address": "1405e6596",
+          "bytes": "41ff92e8000000",
+          "caller": "1405e6490",
+          "text": "CALL qword ptr [R10 + 0xe8]"
+        },
+        {
+          "address": "14060b5f2",
+          "bytes": "ff90e8000000",
+          "caller": "14060b5d0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "14067fdc0",
+          "bytes": "ff90e8000000",
+          "caller": "14067fc20",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1406892e7",
+          "bytes": "ff90e8000000",
+          "caller": "1406892c0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "14068e24b",
+          "bytes": "ff90e8000000",
+          "caller": "14068dc20",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "140691ebd",
+          "bytes": "ff90e8000000",
+          "caller": "140691c80",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "140697119",
+          "bytes": "ff90e8000000",
+          "caller": "1406970f0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "140697178",
+          "bytes": "ff90e8000000",
+          "caller": "140697140",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1406971dd",
+          "bytes": "ff90e8000000",
+          "caller": "1406971b0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1406972f7",
+          "bytes": "ff90e8000000",
+          "caller": "140697200",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1406973bf",
+          "bytes": "ff90e8000000",
+          "caller": "140697200",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "14069744c",
+          "bytes": "ff90e8000000",
+          "caller": "140697200",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "14069745f",
+          "bytes": "ff90e8000000",
+          "caller": "140697200",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "14069762c",
+          "bytes": "ff90e8000000",
+          "caller": "1406975e0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "140697b98",
+          "bytes": "ff90e8000000",
+          "caller": "140697b00",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "140697c80",
+          "bytes": "ff90e8000000",
+          "caller": "140697c40",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1406a7430",
+          "bytes": "ff90e8000000",
+          "caller": "1406a7250",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "1407355d1",
+          "bytes": "ff90e8000000",
+          "caller": "1407354b0",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        },
+        {
+          "address": "140735bb0",
+          "bytes": "ff90e8000000",
+          "caller": "140735910",
+          "text": "CALL qword ptr [RAX + 0xe8]"
+        }
+      ],
+      "scanned_instructions": 2639324,
+      "scope": "saved Listing; explicit CALL/JMP qword ptr [register + slot] only",
+      "slot": "0xe8"
+    }
+  ],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

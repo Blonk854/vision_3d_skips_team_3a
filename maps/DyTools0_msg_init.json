@@ -1,0 +1,56 @@
+[
+  {
+    "addr": "180040af0",
+    "name": "FUN_180040af0",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040af0.c",
+    "preview": "\r\nvoid FUN_180040af0(void)\r\n\r\n{\r\n  DAT_18026ddf0 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_LBTNDBL_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040b10",
+    "name": "FUN_180040b10",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040b10.c",
+    "preview": "\r\nvoid FUN_180040b10(void)\r\n\r\n{\r\n  DAT_18026ddec = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_LBTNDWN_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040b30",
+    "name": "FUN_180040b30",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040b30.c",
+    "preview": "\r\nvoid FUN_180040b30(void)\r\n\r\n{\r\n  DAT_18026dde8 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_LBTNUP_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040b50",
+    "name": "FUN_180040b50",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040b50.c",
+    "preview": "\r\nvoid FUN_180040b50(void)\r\n\r\n{\r\n  DAT_18026de08 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_MBTNDBL_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040b70",
+    "name": "FUN_180040b70",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040b70.c",
+    "preview": "\r\nvoid FUN_180040b70(void)\r\n\r\n{\r\n  DAT_18026de04 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_MBTNDWN_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040b90",
+    "name": "FUN_180040b90",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040b90.c",
+    "preview": "\r\nvoid FUN_180040b90(void)\r\n\r\n{\r\n  DAT_18026de00 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_MBTNUP_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040bb0",
+    "name": "FUN_180040bb0",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040bb0.c",
+    "preview": "\r\nvoid FUN_180040bb0(void)\r\n\r\n{\r\n  DAT_18026ddfc = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_RBTNDBL_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040bd0",
+    "name": "FUN_180040bd0",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040bd0.c",
+    "preview": "\r\nvoid FUN_180040bd0(void)\r\n\r\n{\r\n  DAT_18026ddf8 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_RBTNDWN_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  },
+  {
+    "addr": "180040bf0",
+    "name": "FUN_180040bf0",
+    "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_msginit_180040bf0.c",
+    "preview": "\r\nvoid FUN_180040bf0(void)\r\n\r\n{\r\n  DAT_18026ddf4 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_RBTNUP_INNER\");\r\n  return;\r\n}\r\n\r\n"
+  }
+]

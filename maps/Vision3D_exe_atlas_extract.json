@@ -1,0 +1,6240 @@
+{
+  "program": "Vision3D.exe",
+  "language": "x86:LE:64:default",
+  "image_base": "140000000",
+  "functions_total": 131008,
+  "functions_named_non_FUN": 33534,
+  "mode_counts": {
+    "other": 2162,
+    "library": 326,
+    "production": 204,
+    "review": 168,
+    "ui": 1748,
+    "compose": 208
+  },
+  "top_classes": [
+    {
+      "class": "CExtPaintManager",
+      "count": 285
+    },
+    {
+      "class": "CExtGridWnd",
+      "count": 176
+    },
+    {
+      "class": "CDataCaoTraitement",
+      "count": 142
+    },
+    {
+      "class": "CExtPaintManagerOffice2007_Impl",
+      "count": 142
+    },
+    {
+      "class": "CExtPopupMenuWnd",
+      "count": 137
+    },
+    {
+      "class": "CExtGridCell",
+      "count": 133
+    },
+    {
+      "class": "CExtReportGridWnd",
+      "count": 127
+    },
+    {
+      "class": "CExtControlBar",
+      "count": 126
+    },
+    {
+      "class": "CWnd",
+      "count": 114
+    },
+    {
+      "class": "CExtToolControlBar",
+      "count": 105
+    },
+    {
+      "class": "CExtPaintManagerNativeXP",
+      "count": 102
+    },
+    {
+      "class": "CExtGridBaseWnd",
+      "count": 98
+    },
+    {
+      "class": "CExtTreeGridWnd",
+      "count": 90
+    },
+    {
+      "class": "CVitExtReportGridWnd",
+      "count": 72
+    },
+    {
+      "class": "CExtPaintManagerXP",
+      "count": 65
+    },
+    {
+      "class": "CExtPaintManagerOffice2003",
+      "count": 53
+    },
+    {
+      "class": "CHtmlView",
+      "count": 49
+    },
+    {
+      "class": "MFC140.DLL",
+      "count": 48
+    },
+    {
+      "class": "CExtPropertyItem",
+      "count": 47
+    },
+    {
+      "class": "CDocument",
+      "count": 47
+    },
+    {
+      "class": "CWinApp",
+      "count": 46
+    },
+    {
+      "class": "CCAD_Base",
+      "count": 44
+    },
+    {
+      "class": "CFrameWnd",
+      "count": 39
+    },
+    {
+      "class": "archive",
+      "count": 37
+    },
+    {
+      "class": "CExtScrollWnd",
+      "count": 34
+    },
+    {
+      "class": "COleServerDoc",
+      "count": 33
+    },
+    {
+      "class": "CView",
+      "count": 33
+    },
+    {
+      "class": "CExtNcFrameImpl",
+      "count": 33
+    },
+    {
+      "class": "CExtPropertyGridCtrl",
+      "count": 30
+    },
+    {
+      "class": "CExtPaintManagerStudio2010",
+      "count": 28
+    },
+    {
+      "class": "CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>",
+      "count": 28
+    },
+    {
+      "class": "CExtGridCellComboBox",
+      "count": 28
+    },
+    {
+      "class": "CRichEditView",
+      "count": 26
+    },
+    {
+      "class": "CExtPaintManagerStudio2005",
+      "count": 24
+    },
+    {
+      "class": "CExtAnimationSite",
+      "count": 24
+    },
+    {
+      "class": "CExtScrollItemWnd",
+      "count": 23
+    },
+    {
+      "class": "CExtPPVW_Printable",
+      "count": 23
+    },
+    {
+      "class": "CExtGridCellBool",
+      "count": 23
+    },
+    {
+      "class": "CExtPPVW<CExtReportGridWnd>",
+      "count": 22
+    },
+    {
+      "class": "CPropertyPage",
+      "count": 21
+    },
+    {
+      "class": "CExtPaintManagerOffice2007_R1",
+      "count": 21
+    },
+    {
+      "class": "ccUIShapes",
+      "count": 20
+    },
+    {
+      "class": "cv",
+      "count": 20
+    },
+    {
+      "class": "CPropertySheet",
+      "count": 20
+    },
+    {
+      "class": "CDC",
+      "count": 20
+    },
+    {
+      "class": "CMDIFrameWnd",
+      "count": 20
+    },
+    {
+      "class": "CExtPaintManagerStudio2008",
+      "count": 19
+    },
+    {
+      "class": "CModel_Shape",
+      "count": 19
+    },
+    {
+      "class": "CCmdTarget",
+      "count": 19
+    },
+    {
+      "class": "CDialog",
+      "count": 19
+    },
+    {
+      "class": "CExtCheckListWnd",
+      "count": 18
+    },
+    {
+      "class": "CMDIChildWnd",
+      "count": 17
+    },
+    {
+      "class": "CExtPaintManagerOffice2010_Impl",
+      "count": 17
+    },
+    {
+      "class": "CExtSliderWnd",
+      "count": 16
+    },
+    {
+      "class": "CExtHookSink",
+      "count": 16
+    },
+    {
+      "class": "CExtHookSpy",
+      "count": 16
+    },
+    {
+      "class": "AVVTRAITLIB.DLL",
+      "count": 16
+    },
+    {
+      "class": "DYTOOLS0.DLL",
+      "count": 16
+    },
+    {
+      "class": "ccUIObject",
+      "count": 14
+    },
+    {
+      "class": "CRichEditDoc",
+      "count": 14
+    },
+    {
+      "class": "API-MS-WIN-CRT-MATH-L1-1-0.DLL",
+      "count": 14
+    },
+    {
+      "class": "API-MS-WIN-CRT-RUNTIME-L1-1-0.DLL",
+      "count": 14
+    },
+    {
+      "class": "CFormView",
+      "count": 13
+    },
+    {
+      "class": "CExtResDlg",
+      "count": 13
+    },
+    {
+      "class": "CExtPropertyCategory",
+      "count": 13
+    },
+    {
+      "class": "CExtGridCellCheckBox",
+      "count": 13
+    },
+    {
+      "class": "CFile",
+      "count": 13
+    },
+    {
+      "class": "CControlBar",
+      "count": 13
+    },
+    {
+      "class": "CExtResizableDialog",
+      "count": 12
+    },
+    {
+      "class": "CModelShape_Component",
+      "count": 12
+    },
+    {
+      "class": "CComposant",
+      "count": 12
+    },
+    {
+      "class": "CCAD_OCV_Reader",
+      "count": 12
+    },
+    {
+      "class": "char_traits<char>_>",
+      "count": 12
+    },
+    {
+      "class": "CExtPropertyValue",
+      "count": 11
+    },
+    {
+      "class": "CResult",
+      "count": 11
+    },
+    {
+      "class": "CSkip_bloc",
+      "count": 11
+    },
+    {
+      "class": "CArchive",
+      "count": 11
+    },
+    {
+      "class": "CListBox",
+      "count": 11
+    },
+    {
+      "class": "char_traits<char>_>_>",
+      "count": 11
+    },
+    {
+      "class": "CExtPPVW_MetafileCache",
+      "count": 10
+    },
+    {
+      "class": "CExtResizablePropertySheet",
+      "count": 10
+    },
+    {
+      "class": "CExtPopupBaseWnd",
+      "count": 10
+    },
+    {
+      "class": "Mat",
+      "count": 10
+    },
+    {
+      "class": "CAnomalieProd",
+      "count": 10
+    },
+    {
+      "class": "CDataMatrixInt",
+      "count": 10
+    },
+    {
+      "class": "CMire",
+      "count": 10
+    },
+    {
+      "class": "CListCtrl",
+      "count": 10
+    },
+    {
+      "class": "VCRUNTIME140.DLL",
+      "count": 10
+    },
+    {
+      "class": "CMenu",
+      "count": 9
+    },
+    {
+      "class": "CAnomalie",
+      "count": 9
+    },
+    {
+      "class": "CComponentDescription",
+      "count": 9
+    },
+    {
+      "class": "CCAD_ZoneMatriciel",
+      "count": 9
+    },
+    {
+      "class": "CAD_Region",
+      "count": 9
+    },
+    {
+      "class": "CStringArray",
+      "count": 9
+    },
+    {
+      "class": "CComboBox",
+      "count": 9
+    },
+    {
+      "class": "char_traits<char>,std",
+      "count": 8
+    },
+    {
+      "class": "SAcquisitionCapabilities",
+      "count": 8
+    },
+    {
+      "class": "CExtNCW<CExtResizableDialog>",
+      "count": 8
+    },
+    {
+      "class": "CExtResizablePropertyPage",
+      "count": 8
+    },
+    {
+      "class": "CExtWS<CExtAPPG<CExtResPP>,301>",
+      "count": 8
+    },
+    {
+      "class": "CExtGridCellString",
+      "count": 8
+    },
+    {
+      "class": "CCAD_BaseContainer",
+      "count": 8
+    },
+    {
+      "class": "CPad",
+      "count": 8
+    },
+    {
+      "class": "CGroupPad",
+      "count": 8
+    },
+    {
+      "class": "CFileFind",
+      "count": 8
+    },
+    {
+      "class": "COleDocument",
+      "count": 8
+    },
+    {
+      "class": "COleLinkingDoc",
+      "count": 8
+    },
+    {
+      "class": "CRichEditCtrl",
+      "count": 8
+    },
+    {
+      "class": "CTabCtrl",
+      "count": 8
+    },
+    {
+      "class": "CExtWS<CExtAPSH<CExtResPS>,301>",
+      "count": 7
+    },
+    {
+      "class": "CExtWS<CExtADLG<CExtResDlg>,301>",
+      "count": 7
+    },
+    {
+      "class": "CExtPaintManagerOffice2007_R2_Obsidian",
+      "count": 7
+    },
+    {
+      "class": "extended_type_info_typeid_0",
+      "count": 7
+    },
+    {
+      "class": "CModel",
+      "count": 7
+    },
+    {
+      "class": "Vit_xml_oarchive>",
+      "count": 7
+    },
+    {
+      "class": "CDPoints",
+      "count": 7
+    },
+    {
+      "class": "CStdioFile",
+      "count": 7
+    },
+    {
+      "class": "CExtResPS",
+      "count": 6
+    },
+    {
+      "class": "basic_iarchive",
+      "count": 6
+    },
+    {
+      "class": "ccUILineSeg",
+      "count": 6
+    }
+  ],
+  "class_samples": {
+    "CExtPaintManager": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdjustControlFont",
+        "entry": "14076a8e4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdjustDialogTemplate",
+        "entry": "14076a8ea"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdjustIcon",
+        "entry": "14076a8f0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdjustMenuDC",
+        "entry": "14076a902"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdvTip_CalcRgn",
+        "entry": "14076a90e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdvTip_GetFont",
+        "entry": "14076a920"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdvTip_GetTextColor",
+        "entry": "14076a932"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManager::AdvTip_PaintBackground",
+        "entry": "14076a944"
+      }
+    ],
+    "CExtGridWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::AdvGetStyle",
+        "entry": "140769978"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::AdvModifyStyle",
+        "entry": "14076997e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BestFitColumn",
+        "entry": "140769984"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BestFitColumns",
+        "entry": "14076998a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BestFitRows",
+        "entry": "140769996"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BseGetStyle",
+        "entry": "14076999c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BseGetStyleEx",
+        "entry": "1407699a2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BseModifyStyle",
+        "entry": "1407699a8"
+      }
+    ],
+    "CDataCaoTraitement": [
+      {
+        "name": "CDataCaoTraitement::ClearInspectProgram",
+        "entry": "14045b690"
+      },
+      {
+        "name": "CDataCaoTraitement::FM_Get",
+        "entry": "14045b710"
+      },
+      {
+        "name": "CDataCaoTraitement::FM_Has3D_PathResult",
+        "entry": "14045b750"
+      },
+      {
+        "name": "CDataCaoTraitement::Get2D_PanelROI",
+        "entry": "14045bd50"
+      },
+      {
+        "name": "CDataCaoTraitement::Get3D_PanelROI",
+        "entry": "14045bd60"
+      },
+      {
+        "name": "CDataCaoTraitement::GetAllInspectedElmt",
+        "entry": "14045bee0"
+      },
+      {
+        "name": "CDataCaoTraitement::GetLibraryMemorySize_Go",
+        "entry": "14045c060"
+      },
+      {
+        "name": "CDataCaoTraitement::GetNonTestedComponentList",
+        "entry": "14045c080"
+      }
+    ],
+    "CExtPaintManagerOffice2007_Impl": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::AdjustMenuDC",
+        "entry": "14076a908"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::AdvTip_CalcRgn",
+        "entry": "14076a91a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::AdvTip_GetFont",
+        "entry": "14076a92c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::AdvTip_GetTextColor",
+        "entry": "14076a93e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::AdvTip_PaintBackground",
+        "entry": "14076a950"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::Animation_GetParameters",
+        "entry": "14076a962"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::CreateCaptionFont",
+        "entry": "14076aa82"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::CreateDefaultFont",
+        "entry": "14076aa8e"
+      }
+    ],
+    "CExtPopupMenuWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::CreatePopupMenu",
+        "entry": "14076c774"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::DestroyWindow",
+        "entry": "14076c77a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::ExportToMenu",
+        "entry": "14076c780"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::GetCmdReceiverHWND",
+        "entry": "14076c786"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::GetMessageMap",
+        "entry": "14076c792"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::GetRuntimeClass",
+        "entry": "14076c798"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::GetScreenTip",
+        "entry": "14076c79e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPopupMenuWnd::GetSite",
+        "entry": "14076c7a4"
+      }
+    ],
+    "CExtGridCell": [
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::OnKey",
+        "entry": "140763e00"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::OnSetCheck",
+        "entry": "14076c2b8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::AssignColors",
+        "entry": "14076c2c4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::AssignJoin",
+        "entry": "14076c2ca"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareColors",
+        "entry": "14076c2e2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareEx",
+        "entry": "14076c2e8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareJoin",
+        "entry": "14076c2ee"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareStyleOnly",
+        "entry": "14076c2f4"
+      }
+    ],
+    "CExtReportGridWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::BestFitRow",
+        "entry": "140769990"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnCountGet",
+        "entry": "1407699b4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnHide",
+        "entry": "1407699c0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnUnHideAll",
+        "entry": "1407699d2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::EnsureVisibleColumn",
+        "entry": "140769a08"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::EnsureVisibleRow",
+        "entry": "140769a20"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::FilterStateClearAll",
+        "entry": "140769a38"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::FilterStateForOuterRowSerialize",
+        "entry": "140769a44"
+      }
+    ],
+    "CExtControlBar": [
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::AnimationSite_GetSafeHWND",
+        "entry": "14076cb22"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::AutoHideHeightGet",
+        "entry": "14076cb6a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::AutoHideHeightSet",
+        "entry": "14076cb70"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::AutoHideModeGet",
+        "entry": "14076cb76"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::AutoHideModeSet",
+        "entry": "14076cb7c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::AutoHideWidthGet",
+        "entry": "14076cb82"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::AutoHideWidthSet",
+        "entry": "14076cb88"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtControlBar::Create",
+        "entry": "14076cb9a"
+      }
+    ],
+    "CWnd": [
+      {
+        "name": "MFC140.DLL::CWnd::~CWnd",
+        "entry": "1406304a0"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::GetAccessibilityHitTest",
+        "entry": "1406b4680"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::Create",
+        "entry": "14077f52c"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::CreateEx",
+        "entry": "14077f532"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::CreateEx",
+        "entry": "14077f538"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::DestroyWindow",
+        "entry": "14077f53e"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::CalcWindowRect",
+        "entry": "14077f544"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::GetMenu",
+        "entry": "14077f54a"
+      }
+    ],
+    "CExtToolControlBar": [
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::AnimationSite_OnProgressShutdownTimer",
+        "entry": "14076cb4c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::CalcDynamicLayout",
+        "entry": "14076cb8e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::CalcFixedLayout",
+        "entry": "14076cb94"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::DoHelpHitTest",
+        "entry": "14076cbb2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::DoPaint",
+        "entry": "14076cbb8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::GetButtonRect",
+        "entry": "14076cc00"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::GetCustomizeSite",
+        "entry": "14076cc0c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtToolControlBar::GetRuntimeClass",
+        "entry": "14076cc12"
+      }
+    ],
+    "CExtPaintManagerNativeXP": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::AdvTip_CalcRgn",
+        "entry": "14076a914"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::AdvTip_GetFont",
+        "entry": "14076a926"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::AdvTip_GetTextColor",
+        "entry": "14076a938"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::AdvTip_PaintBackground",
+        "entry": "14076a94a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::Animation_GetParameters",
+        "entry": "14076a95c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::Bar_LayoutNcAreaButton",
+        "entry": "14076a986"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::Bar_MiniDockFrameGetNcMetrics",
+        "entry": "14076a998"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::Duration_GetDropDownButtonExtraSpace",
+        "entry": "14076ab0c"
+      }
+    ],
+    "CExtGridBaseWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::RowRemoveAll",
+        "entry": "14074ac90"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::ColumnCountSet",
+        "entry": "1407699ba"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultColumnWidthGet",
+        "entry": "1407699de"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultColumnWidthSet",
+        "entry": "1407699e4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultRowHeightGet",
+        "entry": "1407699ea"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultRowHeightSet",
+        "entry": "1407699f0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::EnsureVisibleColumnIsLocked",
+        "entry": "140769a0e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::EnsureVisibleColumnLock",
+        "entry": "140769a14"
+      }
+    ],
+    "CExtTreeGridWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::FilterStateForOuterColumnSerialize",
+        "entry": "140769a3e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::FocusSet",
+        "entry": "140769a50"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::HitTest",
+        "entry": "140769abc"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinAdjustCoordinates",
+        "entry": "140769ad4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinGet",
+        "entry": "140769ada"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinSet",
+        "entry": "140769ae0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinTest",
+        "entry": "140769ae6"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCopyMove",
+        "entry": "140769aec"
+      }
+    ],
+    "CVitExtReportGridWnd": [
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::~CVitExtReportGridWnd",
+        "entry": "14055ac50"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Init",
+        "entry": "14076dba4"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearRows",
+        "entry": "14076dbaa"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+        "entry": "14076dbb0"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+        "entry": "14076dbb6"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+        "entry": "14076dbbc"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+        "entry": "14076dbc2"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+        "entry": "14076dbc8"
+      }
+    ],
+    "CExtPaintManagerXP": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::AdjustIcon",
+        "entry": "14076a8fc"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::DockMarker_AdjustBmps",
+        "entry": "14076aab2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::FixedBar_AdjustClientRect",
+        "entry": "14076ab5a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::FixedBar_GetRoundedAreaMerics",
+        "entry": "14076ab6c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::FixedBar_GetRowDistance",
+        "entry": "14076ab7e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::FixedBar_IsPaintRowBkMode",
+        "entry": "14076ab96"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::GetIconAlphaAdjustPercent",
+        "entry": "14076ac0e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerXP::GetIconAlphaColor",
+        "entry": "14076ac2c"
+      }
+    ],
+    "CExtPaintManagerOffice2003": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::AdjustIcon",
+        "entry": "14076a8f6"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::DockMarker_AdjustBmps",
+        "entry": "14076aaa0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::DockMarker_AdjustHighlightedArea",
+        "entry": "14076aabe"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::DockMarker_AdjustHighlightedLayer",
+        "entry": "14076aaca"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::FixedBar_AdjustClientRect",
+        "entry": "14076ab54"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::FixedBar_GetRoundedAreaMerics",
+        "entry": "14076ab66"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::FixedBar_GetRowDistance",
+        "entry": "14076ab78"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::FixedBar_IsPaintRowBkMode",
+        "entry": "14076ab8a"
+      }
+    ],
+    "CHtmlView": [
+      {
+        "name": "MFC140.DLL::CHtmlView::CHtmlView",
+        "entry": "1407807ec"
+      },
+      {
+        "name": "MFC140.DLL::CHtmlView::GetEventSinkMap",
+        "entry": "1407807f8"
+      },
+      {
+        "name": "MFC140.DLL::CHtmlView::GetSource",
+        "entry": "1407807fe"
+      },
+      {
+        "name": "MFC140.DLL::CHtmlView::LoadFromResource",
+        "entry": "140780804"
+      },
+      {
+        "name": "MFC140.DLL::CHtmlView::CreateControlSite",
+        "entry": "14078080a"
+      },
+      {
+        "name": "MFC140.DLL::CHtmlView::Create",
+        "entry": "140780810"
+      },
+      {
+        "name": "MFC140.DLL::CHtmlView::PreTranslateMessage",
+        "entry": "140780816"
+      },
+      {
+        "name": "MFC140.DLL::CHtmlView::PreCreateWindow",
+        "entry": "14078081c"
+      }
+    ],
+    "MFC140.DLL": [
+      {
+        "name": "MFC140.DLL::operator_delete",
+        "entry": "14077f4ae"
+      },
+      {
+        "name": "MFC140.DLL::AfxFindResourceHandle",
+        "entry": "14077f6a0"
+      },
+      {
+        "name": "MFC140.DLL::AfxThrowInvalidArgException",
+        "entry": "14077f6a6"
+      },
+      {
+        "name": "MFC140.DLL::DDX_Control",
+        "entry": "14077f6ac"
+      },
+      {
+        "name": "MFC140.DLL::DDX_Text",
+        "entry": "14077f76c"
+      },
+      {
+        "name": "MFC140.DLL::AfxMessageBox",
+        "entry": "14077f77e"
+      },
+      {
+        "name": "MFC140.DLL::AfxMessageBox",
+        "entry": "14077f784"
+      },
+      {
+        "name": "MFC140.DLL::operator_delete[]",
+        "entry": "14077f78a"
+      }
+    ],
+    "CExtPropertyItem": [
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::AdjustIntersection",
+        "entry": "14076c05a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::Apply",
+        "entry": "14076c060"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::BuildCompoundTextActive",
+        "entry": "14076c066"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::BuildCompoundTextDefault",
+        "entry": "14076c072"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::BuildLinearList",
+        "entry": "14076c07e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::CanBeInsertedIntoPropertyGrid",
+        "entry": "14076c08a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::ChildrenHaveDifferentActiveValues",
+        "entry": "14076c090"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyItem::ChildrenHaveDifferentDefaultValues",
+        "entry": "14076c096"
+      }
+    ],
+    "CDocument": [
+      {
+        "name": "MFC140.DLL::CDocument::UpdateAllViews",
+        "entry": "14077fd72"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::GetThisClass",
+        "entry": "14077fdde"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::CDocument",
+        "entry": "14077fde4"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::SetTitle",
+        "entry": "14077fdea"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::SetPathName",
+        "entry": "14077fdf0"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::ClearPathName",
+        "entry": "14077fdf6"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::GetFirstViewPosition",
+        "entry": "14077fdfc"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::GetNextView",
+        "entry": "14077fe02"
+      }
+    ],
+    "CWinApp": [
+      {
+        "name": "MFC140.DLL::CWinApp::GetRuntimeClass",
+        "entry": "14077f9a0"
+      },
+      {
+        "name": "MFC140.DLL::CWinApp::CWinApp",
+        "entry": "14077f9a6"
+      },
+      {
+        "name": "MFC140.DLL::CWinApp::LoadStdProfileSettings",
+        "entry": "14077f9ac"
+      },
+      {
+        "name": "MFC140.DLL::CWinApp::EnableShellOpen",
+        "entry": "14077f9b2"
+      },
+      {
+        "name": "MFC140.DLL::CWinApp::SetRegistryKey",
+        "entry": "14077f9b8"
+      },
+      {
+        "name": "MFC140.DLL::CWinApp::RegisterShellFileTypes",
+        "entry": "14077f9be"
+      },
+      {
+        "name": "MFC140.DLL::CWinApp::GetProfileIntA",
+        "entry": "14077f9c4"
+      },
+      {
+        "name": "MFC140.DLL::CWinApp::WriteProfileInt",
+        "entry": "14077f9ca"
+      }
+    ],
+    "CCAD_Base": [
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::ChangeName",
+        "entry": "14076d898"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::ChangeNameBibTrait",
+        "entry": "14076d89e"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::ChangePartNumber",
+        "entry": "14076d8a4"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::Duplique",
+        "entry": "14076d8aa"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::EnableSkip",
+        "entry": "14076d8b0"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::EnableSkipTemporaire",
+        "entry": "14076d8b6"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::EnableUsed",
+        "entry": "14076d8bc"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CCAD_Base::GetIDToPlaceLightBox",
+        "entry": "14076d8c2"
+      }
+    ],
+    "CFrameWnd": [
+      {
+        "name": "MFC140.DLL::CFrameWnd::~CFrameWnd",
+        "entry": "1406304b0"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::ActivateFrame",
+        "entry": "140630e60"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::Create",
+        "entry": "14077fc40"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetActiveDocument",
+        "entry": "14077fc46"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetActiveFrame",
+        "entry": "14077fc4c"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetMessageString",
+        "entry": "14077fc52"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::RecalcLayout",
+        "entry": "14077fc58"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetMenu",
+        "entry": "14077fc5e"
+      }
+    ],
+    "archive": [
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,C3dFlattenReference>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,C3dFlattenReference>",
+        "entry": "140452410"
+      },
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CROIInstruction>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CROIInstruction>",
+        "entry": "1404524a0"
+      },
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CRoi3dInstruction>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CRoi3dInstruction>",
+        "entry": "1404524d0"
+      },
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CShapeFlattenDefinition>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CShapeFlattenDefinition>",
+        "entry": "140452500"
+      },
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CTopoInfo>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CTopoInfo>",
+        "entry": "140452530"
+      },
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CViUnitLength>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CViUnitLength>",
+        "entry": "140452560"
+      },
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CViUnitPolygon>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CViUnitPolygon>",
+        "entry": "140452590"
+      },
+      {
+        "name": "boost::archive::detail::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CViUnitRect>::oserializer<basictools::serialization::archive::Vit_xml_oarchive,CViUnitRect>",
+        "entry": "1404525c0"
+      }
+    ],
+    "CExtScrollWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcClientSizes",
+        "entry": "14076a12e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcMouseScrollLines",
+        "entry": "14076a134"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcPopOverRect",
+        "entry": "14076a13a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcPopOverScrollBarRects",
+        "entry": "14076a140"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwDoRedraw",
+        "entry": "14076a152"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwDoScrollWindow",
+        "entry": "14076a164"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwEnableScrollBarCtrl",
+        "entry": "14076a16a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwEnsurePointAvail",
+        "entry": "14076a170"
+      }
+    ],
+    "COleServerDoc": [
+      {
+        "name": "MFC140.DLL::COleServerDoc::~COleServerDoc",
+        "entry": "14060b4b0"
+      },
+      {
+        "name": "MFC140.DLL::COleServerDoc::OnSaveDocument",
+        "entry": "14060b6f0"
+      },
+      {
+        "name": "MFC140.DLL::COleServerDoc::OnUpdateDocument",
+        "entry": "1407800fc"
+      },
+      {
+        "name": "MFC140.DLL::COleServerDoc::OnClose",
+        "entry": "140780102"
+      },
+      {
+        "name": "MFC140.DLL::COleServerDoc::OnSetHostNames",
+        "entry": "140780108"
+      },
+      {
+        "name": "MFC140.DLL::COleServerDoc::OnExecOleCmd",
+        "entry": "14078010e"
+      },
+      {
+        "name": "MFC140.DLL::COleServerDoc::GetDocObjectServer",
+        "entry": "140780114"
+      },
+      {
+        "name": "MFC140.DLL::COleServerDoc::GetInterfaceHook",
+        "entry": "14078011a"
+      }
+    ],
+    "CView": [
+      {
+        "name": "MFC140.DLL::CView::~CView",
+        "entry": "1406dc2f0"
+      },
+      {
+        "name": "MFC140.DLL::CView::PreCreateWindow",
+        "entry": "140755a20"
+      },
+      {
+        "name": "MFC140.DLL::CView::DoPreparePrinting",
+        "entry": "140759980"
+      },
+      {
+        "name": "MFC140.DLL::CView::GetThisClass",
+        "entry": "14077fad8"
+      },
+      {
+        "name": "MFC140.DLL::CView::CView",
+        "entry": "14077fade"
+      },
+      {
+        "name": "MFC140.DLL::CView::IsSelected",
+        "entry": "14077fae4"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnScroll",
+        "entry": "14077faea"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnScrollBy",
+        "entry": "14077faf0"
+      }
+    ],
+    "CExtNcFrameImpl": [
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_GetMinMaxInfo",
+        "entry": "14076a650"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_AdjustVistaDwmCompatibilityIssues",
+        "entry": "14076a68c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_CalcWindowRect",
+        "entry": "14076a692"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_CheckCursor",
+        "entry": "14076a698"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_DelayRgnAdjustment",
+        "entry": "14076a69e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_FilterWindowProc",
+        "entry": "14076a6a4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_GetForceEmptyNcBorder",
+        "entry": "14076a6aa"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_GetFrameWindow",
+        "entry": "14076a6b0"
+      }
+    ],
+    "CExtPropertyGridCtrl": [
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::Create",
+        "entry": "14076c0a8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::GetActiveGrid",
+        "entry": "14076c0de"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::GetMessageMap",
+        "entry": "14076c0e4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::GetRuntimeClass",
+        "entry": "14076c0f0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::OnCmdMsg",
+        "entry": "14076c19e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::OnPgcCellAreaConfigure",
+        "entry": "14076c1c2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::OnPgcCellAreaGetRTC",
+        "entry": "14076c1c8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPropertyGridCtrl::OnPgcContextMenuReconstruct",
+        "entry": "14076c1ce"
+      }
+    ],
+    "CExtPaintManagerStudio2010": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::ConstructorTranslateColors",
+        "entry": "14076aa10"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::DockMarker_GetAlpha",
+        "entry": "14076aae8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::FixedBar_IsPaintRowBkMode",
+        "entry": "14076ab90"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::GetRuntimeClass",
+        "entry": "14076ad4c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::InitTranslatedColors",
+        "entry": "14076af98"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::InitTranslatedColorsIndex",
+        "entry": "14076b00a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::OnPaintToolBarGradient",
+        "entry": "14076b0f4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2010::OnQueryPaintManagerName",
+        "entry": "14076b19c"
+      }
+    ],
+    "CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>": [
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontCharsetGet",
+        "entry": "14076c31e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontCharsetSet",
+        "entry": "14076c324"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontCharsetSetDefault",
+        "entry": "14076c32a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontFaceNameGet",
+        "entry": "14076c330"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontFaceNameSet",
+        "entry": "14076c336"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontFaceNameSetDefault",
+        "entry": "14076c33c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontHeightGet",
+        "entry": "14076c348"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontHeightSet",
+        "entry": "14076c34e"
+      }
+    ],
+    "CExtGridCellComboBox": [
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::Assign",
+        "entry": "14076d0ec"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::Empty",
+        "entry": "14076d0f8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::IconGetSize",
+        "entry": "14076d104"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnCompareItems",
+        "entry": "14076d110"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnCreateListBoxItemFont",
+        "entry": "14076d116"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnInplaceControlPreTranslateMessage",
+        "entry": "14076d11c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnInplaceControlTextInputComplete",
+        "entry": "14076d128"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnKey",
+        "entry": "14076d12e"
+      }
+    ],
+    "CRichEditView": [
+      {
+        "name": "MFC140.DLL::CRichEditView::OnEndPrinting",
+        "entry": "14066d730"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditView::OnPrint",
+        "entry": "14066d820"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditView::SetCharFormat",
+        "entry": "1407801bc"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditView::CRichEditView",
+        "entry": "14078042c"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditView::IsSelected",
+        "entry": "140780432"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditView::OnInitialUpdate",
+        "entry": "140780438"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditView::OnFindNext",
+        "entry": "14078043e"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditView::OnReplaceSel",
+        "entry": "140780444"
+      }
+    ],
+    "CExtPaintManagerStudio2005": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::DockMarker_AdjustBmps",
+        "entry": "14076aaa6"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::GetAutoHideTabsType",
+        "entry": "14076aba8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::GetIconAlphaAdjustPercent",
+        "entry": "14076ac08"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::GetIconAlphaColor",
+        "entry": "14076ac26"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::GetRuntimeClass",
+        "entry": "14076ad40"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::GetShadowAdjustColor",
+        "entry": "14076ade2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::GetTabOneNoteItemColors",
+        "entry": "14076ae24"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2005::GetThemeAccentTabColors",
+        "entry": "14076ae48"
+      }
+    ],
+    "CExtAnimationSite": [
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_ClientGetAt",
+        "entry": "14076cae6"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_ClientGetCount",
+        "entry": "14076caec"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_ClientGetIndexOf",
+        "entry": "14076caf2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_ClientInsertAt",
+        "entry": "14076caf8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_ClientProgressStart",
+        "entry": "14076cafe"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_ClientProgressStop",
+        "entry": "14076cb04"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_ClientRemove",
+        "entry": "14076cb0a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtAnimationSite::AnimationSite_Done",
+        "entry": "14076cb10"
+      }
+    ],
+    "CExtScrollItemWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::Create",
+        "entry": "1407699d8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::OnSiwGetDefaultFont",
+        "entry": "14076a0bc"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::OnSiwGetLighterOrDarkerBrush",
+        "entry": "14076a0c8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::OnSiwGetReadOnlyBackgroundColor",
+        "entry": "14076a0ce"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::OnSiwGetReadOnlyTextColor",
+        "entry": "14076a0d4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::OnSiwGetSysColor",
+        "entry": "14076a0da"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::OnSiwGetVisibleRange",
+        "entry": "14076a0e0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollItemWnd::OnSiwQueryFocusedControlState",
+        "entry": "14076a0f2"
+      }
+    ],
+    "CExtPPVW_Printable": [
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::DoPrintDoc",
+        "entry": "1407699f6"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::DoReGenerateReport",
+        "entry": "140769a02"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::IsPrintPreviewMode",
+        "entry": "140769ac8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::IsPrinterAvailable",
+        "entry": "140769ace"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::OnBeginPrintPreview",
+        "entry": "140769bee"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::OnBeginPrinting",
+        "entry": "140769bf4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::OnDrawPageHeaderFooterGutters",
+        "entry": "140769c36"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW_Printable::OnEndPrinting",
+        "entry": "140769c42"
+      }
+    ],
+    "CExtGridCellBool": [
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::Assign",
+        "entry": "14076d29c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::Compare",
+        "entry": "14076d2a2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::DataGet",
+        "entry": "14076d2a8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::DataSet",
+        "entry": "14076d2ae"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::Empty",
+        "entry": "14076d2b4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::GetVariant",
+        "entry": "14076d2c0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::LabelTextGet",
+        "entry": "14076d2c6"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellBool::LabelTextSet",
+        "entry": "14076d2cc"
+      }
+    ],
+    "CExtPPVW<CExtReportGridWnd>": [
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::DoPrintPreview",
+        "entry": "1407699fc"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::IsPrintPreviewAvailable",
+        "entry": "140769ac2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemArray",
+        "entry": "140769c06"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemArrayImpl",
+        "entry": "140769c0c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemIndent",
+        "entry": "140769c12"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCmdMsg",
+        "entry": "140769c18"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnEndPrintPreview",
+        "entry": "140769c3c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnGetPrintableWnd",
+        "entry": "140769d74"
+      }
+    ],
+    "CPropertyPage": [
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnWizardBack",
+        "entry": "140731040"
+      },
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnApply",
+        "entry": "14077f700"
+      },
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnReset",
+        "entry": "14077f706"
+      },
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnSetActive",
+        "entry": "14077f70c"
+      },
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnKillActive",
+        "entry": "14077f712"
+      },
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnQueryCancel",
+        "entry": "14077f718"
+      },
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnWizardBack",
+        "entry": "14077f71e"
+      },
+      {
+        "name": "MFC140.DLL::CPropertyPage::OnWizardNext",
+        "entry": "14077f724"
+      }
+    ],
+    "CExtPaintManagerOffice2007_R1": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::GetRuntimeClass",
+        "entry": "14076acb0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::InitTranslatedColors",
+        "entry": "14076af14"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::OnQueryPaintManagerName",
+        "entry": "14076b106"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::PaintPushButton",
+        "entry": "14076b628"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::Ribbon_CalcButtonSize",
+        "entry": "14076b994"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::Ribbon_FileButtonCalcLayout",
+        "entry": "14076ba24"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::Ribbon_FileButtonPaint",
+        "entry": "14076ba54"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_R1::Ribbon_GetContentPadding",
+        "entry": "14076ba6c"
+      }
+    ],
+    "ccUIShapes": [
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::backKid",
+        "entry": "14076d65e"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::back_",
+        "entry": "14076d664"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::closerSib",
+        "entry": "14076d670"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::dragAnimate_",
+        "entry": "14076d688"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::fartherSib",
+        "entry": "14076d69a"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::frontKid",
+        "entry": "14076d6ac"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::front_",
+        "entry": "14076d6b2"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIShapes::getColor",
+        "entry": "14076d6b8"
+      }
+    ],
+    "cv": [
+      {
+        "name": "OPENCV_CORE411.DLL::cv::fastFree",
+        "entry": "14076d766"
+      },
+      {
+        "name": "OPENCV_CORE411.DLL::cv::error",
+        "entry": "14076d76c"
+      },
+      {
+        "name": "OPENCV_CORE411.DLL::cv::operator-",
+        "entry": "14076d784"
+      },
+      {
+        "name": "OPENCV_CORE411.DLL::cv::operator*",
+        "entry": "14076d78a"
+      },
+      {
+        "name": "OPENCV_CORE411.DLL::cv::operator==",
+        "entry": "14076d790"
+      },
+      {
+        "name": "OPENCV_CORE411.DLL::cv::noArray",
+        "entry": "14076d796"
+      },
+      {
+        "name": "OPENCV_CORE411.DLL::cv::operator+",
+        "entry": "14076d7d8"
+      },
+      {
+        "name": "OPENCV_CORE411.DLL::cv::operator+",
+        "entry": "14076d7de"
+      }
+    ],
+    "CPropertySheet": [
+      {
+        "name": "MFC140.DLL::CPropertySheet::Create",
+        "entry": "14077f74e"
+      },
+      {
+        "name": "MFC140.DLL::CPropertySheet::DoModal",
+        "entry": "14077f754"
+      },
+      {
+        "name": "MFC140.DLL::CPropertySheet::AddPage",
+        "entry": "14077f75a"
+      },
+      {
+        "name": "MFC140.DLL::CPropertySheet::OnCommand",
+        "entry": "14077f760"
+      },
+      {
+        "name": "MFC140.DLL::CPropertySheet::ContinueModal",
+        "entry": "14077f766"
+      },
+      {
+        "name": "MFC140.DLL::CPropertySheet::GetPageCount",
+        "entry": "14077fb92"
+      },
+      {
+        "name": "MFC140.DLL::CPropertySheet::GetActiveIndex",
+        "entry": "14077fb98"
+      },
+      {
+        "name": "MFC140.DLL::CPropertySheet::GetActivePage",
+        "entry": "14078003c"
+      }
+    ],
+    "CDC": [
+      {
+        "name": "MFC140.DLL::CDC::FromHandle",
+        "entry": "14077ff76"
+      },
+      {
+        "name": "MFC140.DLL::CDC::Attach",
+        "entry": "14077ff7c"
+      },
+      {
+        "name": "MFC140.DLL::CDC::CDC",
+        "entry": "14077ff82"
+      },
+      {
+        "name": "MFC140.DLL::CDC::~CDC",
+        "entry": "14077ff88"
+      },
+      {
+        "name": "MFC140.DLL::CDC::SelectGdiObject",
+        "entry": "14077ff8e"
+      },
+      {
+        "name": "MFC140.DLL::CDC::SetBkMode",
+        "entry": "140780048"
+      },
+      {
+        "name": "MFC140.DLL::CDC::SelectObject",
+        "entry": "1407802be"
+      },
+      {
+        "name": "MFC140.DLL::CDC::SelectObject",
+        "entry": "1407804da"
+      }
+    ],
+    "CMDIFrameWnd": [
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::MDIGetActive",
+        "entry": "140780078"
+      },
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::GetRuntimeClass",
+        "entry": "140780306"
+      },
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::CMDIFrameWnd",
+        "entry": "14078030c"
+      },
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::CreateClient",
+        "entry": "140780312"
+      },
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::GetWindowMenuPopup",
+        "entry": "140780318"
+      },
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::PreCreateWindow",
+        "entry": "14078031e"
+      },
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::LoadFrame",
+        "entry": "140780324"
+      },
+      {
+        "name": "MFC140.DLL::CMDIFrameWnd::OnCreateClient",
+        "entry": "14078032a"
+      }
+    ],
+    "CExtPaintManagerStudio2008": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::DockMarker_AdjustBmps",
+        "entry": "14076aaac"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::DockMarker_GetAlpha",
+        "entry": "14076aae2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::DockMarker_IsAdjustBmpsRequired",
+        "entry": "14076aafa"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::GetMenuIconAreaWidth",
+        "entry": "14076ac68"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::GetRuntimeClass",
+        "entry": "14076ad46"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::GetThemeDockingType",
+        "entry": "14076ae60"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::InitTranslatedColors",
+        "entry": "14076af92"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerStudio2008::IsMenuMustCombineExcludeArea",
+        "entry": "14076b028"
+      }
+    ],
+    "CModel_Shape": [
+      {
+        "name": "AVMATCHMAKER.DLL::CModel_Shape::GetLightInfo",
+        "entry": "14076d958"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CModel_Shape::IsActivated",
+        "entry": "14076d95e"
+      },
+      {
+        "name": "AVMATCHMAKER.DLL::CModel_Shape::IsTreatmentRealignmentSupported",
+        "entry": "14076d96a"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::CModel_Shape::operator=",
+        "entry": "14076da5a"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::CModel_Shape::AfterEdit",
+        "entry": "14076da60"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::CModel_Shape::AfterEditOK",
+        "entry": "14076da66"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::CModel_Shape::ApplyAnalysisFunctionMask",
+        "entry": "14076da6c"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::CModel_Shape::BeforeEdit",
+        "entry": "14076da72"
+      }
+    ],
+    "CCmdTarget": [
+      {
+        "name": "MFC140.DLL::CCmdTarget::IsInvokeAllowed",
+        "entry": "14077f4de"
+      },
+      {
+        "name": "MFC140.DLL::CCmdTarget::GetDispatchIID",
+        "entry": "14077f4e4"
+      },
+      {
+        "name": "MFC140.DLL::CCmdTarget::GetTypeInfoCount",
+        "entry": "14077f4ea"
+      },
+      {
+        "name": "MFC140.DLL::CCmdTarget::GetTypeLibCache",
+        "entry": "14077f4f0"
+      },
+      {
+        "name": "MFC140.DLL::CCmdTarget::GetTypeLib",
+        "entry": "14077f4f6"
+      },
+      {
+        "name": "MFC140.DLL::CCmdTarget::GetCommandMap",
+        "entry": "14077f4fc"
+      },
+      {
+        "name": "MFC140.DLL::CCmdTarget::GetDispatchMap",
+        "entry": "14077f502"
+      },
+      {
+        "name": "MFC140.DLL::CCmdTarget::GetConnectionMap",
+        "entry": "14077f508"
+      }
+    ],
+    "CDialog": [
+      {
+        "name": "MFC140.DLL::CDialog::Create",
+        "entry": "14077f6c4"
+      },
+      {
+        "name": "MFC140.DLL::CDialog::CreateIndirect",
+        "entry": "14077f6ca"
+      },
+      {
+        "name": "MFC140.DLL::CDialog::CreateIndirect",
+        "entry": "14077f6d0"
+      },
+      {
+        "name": "MFC140.DLL::CDialog::DoModal",
+        "entry": "14077f6d6"
+      },
+      {
+        "name": "MFC140.DLL::CDialog::OnSetFont",
+        "entry": "14077f6dc"
+      },
+      {
+        "name": "MFC140.DLL::CDialog::OnCmdMsg",
+        "entry": "14077f6e2"
+      },
+      {
+        "name": "MFC140.DLL::CDialog::CheckAutoCenter",
+        "entry": "14077f6e8"
+      },
+      {
+        "name": "MFC140.DLL::CDialog::SetOccDialogInfo",
+        "entry": "14077f6ee"
+      }
+    ],
+    "CExtCheckListWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::~CExtCheckListWnd",
+        "entry": "140731f80"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::CompareItem",
+        "entry": "14076d1b2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::DeleteItem",
+        "entry": "14076d1b8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::DrawItem",
+        "entry": "14076d1be"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::GetMessageMap",
+        "entry": "14076d1c4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::GetRuntimeClass",
+        "entry": "14076d1ca"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::MeasureItem",
+        "entry": "14076d1d0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtCheckListWnd::OnPaintItemCheck",
+        "entry": "14076d1d6"
+      }
+    ],
+    "CMDIChildWnd": [
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::DestroyWindow",
+        "entry": "1404fd9c0"
+      },
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::GetRuntimeClass",
+        "entry": "14077fd0c"
+      },
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::CMDIChildWnd",
+        "entry": "14077fd12"
+      },
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::Create",
+        "entry": "14077fd18"
+      },
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::GetTrackingID",
+        "entry": "14077fd1e"
+      },
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::PreCreateWindow",
+        "entry": "14077fd24"
+      },
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::LoadFrame",
+        "entry": "14077fd2a"
+      },
+      {
+        "name": "MFC140.DLL::CMDIChildWnd::DestroyWindow",
+        "entry": "14077fd30"
+      }
+    ],
+    "CExtPaintManagerOffice2010_Impl": [
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::PaintDocumentClientAreaBkgnd",
+        "entry": "14076b3ee"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::PaintPageNavigatorSplitter",
+        "entry": "14076b5ec"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::PaintPageNavigatorSplitterDots",
+        "entry": "14076b604"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::PaintPushButton",
+        "entry": "14076b640"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::PaintPushButtonMdiRight",
+        "entry": "14076b664"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::PaintTabButton",
+        "entry": "14076b754"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::QueryObjectTextColor",
+        "entry": "14076b83e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtPaintManagerOffice2010_Impl::RibbonLayout_CalcQatbAboveRibbonHorzStart",
+        "entry": "14076b922"
+      }
+    ],
+    "CExtSliderWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::~CExtSliderWnd",
+        "entry": "1407471e0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::GetMessageMap",
+        "entry": "14076d242"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::GetRuntimeClass",
+        "entry": "14076d248"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::OnAdvancedPopupMenuTipWndDisplay",
+        "entry": "14076d24e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::OnAdvancedPopupMenuTipWndGet",
+        "entry": "14076d254"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::OnQueryMaxTipWidth",
+        "entry": "14076d25a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::OnSliderDrawChannel",
+        "entry": "14076d260"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSliderWnd::OnSliderDrawTics",
+        "entry": "14076d266"
+      }
+    ],
+    "CExtHookSink": [
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::IsAutoDeleteHookWndSink",
+        "entry": "14076a578"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::OnHookCmdMsg",
+        "entry": "14076a590"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::OnHookEraseBackgroundMsg",
+        "entry": "14076a596"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::OnHookNcPaintMsg",
+        "entry": "14076a59c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::OnHookNotifyMsg",
+        "entry": "14076a5a2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::OnHookPaintMsg",
+        "entry": "14076a5a8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::OnHookPrintMsg",
+        "entry": "14076a5ae"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSink::OnHookWndAttach",
+        "entry": "14076a5b4"
+      }
+    ],
+    "CExtHookSpy": [
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnCallWindowProcIn",
+        "entry": "14076a806"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnCallWindowProcOut",
+        "entry": "14076a80c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnGetMsgProc",
+        "entry": "14076a812"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnKey",
+        "entry": "14076a818"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnMouseClick",
+        "entry": "14076a81e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnMouseMove",
+        "entry": "14076a824"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnMouseWheel",
+        "entry": "14076a82a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtHookSpy::HSLL_OnSysMsgProc",
+        "entry": "14076a830"
+      }
+    ],
+    "AVVTRAITLIB.DLL": [
+      {
+        "name": "AVVTRAITLIB.DLL::Lib_GetpConsole",
+        "entry": "14076d97c"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::Lib_ReleasepConsole",
+        "entry": "14076d982"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::Lib_PelPoolInit",
+        "entry": "14076d988"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::Lib_SetAvisionParam",
+        "entry": "14076d98e"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::LibSetCorrespondenceService",
+        "entry": "14076d994"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::Lib_SetDocTemplate",
+        "entry": "14076d99a"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::Lib_SharedLibraryConfiguration",
+        "entry": "14076d9a0"
+      },
+      {
+        "name": "AVVTRAITLIB.DLL::UnloadMatlabDlls",
+        "entry": "14076d9a6"
+      }
+    ],
+    "DYTOOLS0.DLL": [
+      {
+        "name": "DYTOOLS0.DLL::GetStringArrayFromVariant",
+        "entry": "14076dd30"
+      },
+      {
+        "name": "DYTOOLS0.DLL::AfxMsgRedBox",
+        "entry": "14076dd36"
+      },
+      {
+        "name": "DYTOOLS0.DLL::InitWinsock",
+        "entry": "14076dd3c"
+      },
+      {
+        "name": "DYTOOLS0.DLL::ModuloAngleDg",
+        "entry": "14076dd6c"
+      },
+      {
+        "name": "DYTOOLS0.DLL::RotatePoint_Dg",
+        "entry": "14076dd72"
+      },
+      {
+        "name": "DYTOOLS0.DLL::AfxMsgBox",
+        "entry": "14076ddba"
+      },
+      {
+        "name": "DYTOOLS0.DLL::AfxMsgRedBox",
+        "entry": "14076ddfc"
+      },
+      {
+        "name": "DYTOOLS0.DLL::RotatePoint_Rad",
+        "entry": "14076de26"
+      }
+    ],
+    "ccUIObject": [
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::click_",
+        "entry": "14076d66a"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::dblClick_",
+        "entry": "14076d676"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::disable",
+        "entry": "14076d682"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::dragStart_",
+        "entry": "14076d68e"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::enable",
+        "entry": "14076d694"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::frame",
+        "entry": "14076d6a0"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::keyboard_",
+        "entry": "14076d6d6"
+      },
+      {
+        "name": "COGDISP14_X64.DLL::ccUIObject::mouseDown_",
+        "entry": "14076d6dc"
+      }
+    ],
+    "CRichEditDoc": [
+      {
+        "name": "MFC140.DLL::CRichEditDoc::CRichEditDoc",
+        "entry": "1407801c2"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditDoc::GetView",
+        "entry": "1407801ce"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditDoc::OnGetEmbeddedItem",
+        "entry": "1407801d4"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditDoc::SetPathName",
+        "entry": "1407801da"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditDoc::SetTitle",
+        "entry": "1407801e0"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditDoc::GetPrimarySelectedItem",
+        "entry": "1407801e6"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditDoc::DeleteContents",
+        "entry": "1407801ec"
+      },
+      {
+        "name": "MFC140.DLL::CRichEditDoc::GetStartPosition",
+        "entry": "1407801f2"
+      }
+    ]
+  },
+  "class_method_strings_count": 826,
+  "class_method_strings_sample": [
+    {
+      "string": "SharedData::ISerializable",
+      "address": "140dd9e80"
+    },
+    {
+      "string": "CZone3dInstruction::FromV3ToV4",
+      "address": "140dda170"
+    },
+    {
+      "string": "algo::CZWindowAreas",
+      "address": "140dda258"
+    },
+    {
+      "string": "algo::CJEDECPathOptions",
+      "address": "140dda270"
+    },
+    {
+      "string": "cv::Mat::Mat",
+      "address": "140dde488"
+    },
+    {
+      "string": "CCalibClamp::CCalibClamp",
+      "address": "140ddfcd0"
+    },
+    {
+      "string": "CCalibClamp::StartCalibration",
+      "address": "140ddfcf8"
+    },
+    {
+      "string": "CCalibClamp::RunCalibration",
+      "address": "140ddfdf0"
+    },
+    {
+      "string": "CCalibClampDlg::OnInitDialog",
+      "address": "140de1df0"
+    },
+    {
+      "string": "CCalibClampDlg::IsCalibrationNeeded",
+      "address": "140de1e38"
+    },
+    {
+      "string": "CCalibClampDlg::UnloadPanel",
+      "address": "140de1f30"
+    },
+    {
+      "string": "CCalibClampDlg::PreProcessingCalibration",
+      "address": "140de1f50"
+    },
+    {
+      "string": "CCalibClampDlg::PostProcessingCalibration",
+      "address": "140de1fd0"
+    },
+    {
+      "string": "CCalibClampDlg::RunCalibration",
+      "address": "140de2000"
+    },
+    {
+      "string": "CCalibProfilometerDlg::CCalibProfilometerDlg",
+      "address": "140de6d60"
+    },
+    {
+      "string": "CCalibProfilometerDlg::OnOK",
+      "address": "140de7270"
+    },
+    {
+      "string": "CCalibProfilometerDlg::OnCancel",
+      "address": "140de72f0"
+    },
+    {
+      "string": "CCalibProfilometerDlg::OnInitDialog",
+      "address": "140de7310"
+    },
+    {
+      "string": "CCalibProfilometerDlg::EnableButtonCalibration",
+      "address": "140de7358"
+    },
+    {
+      "string": "CCalibProfilometerDlg::OnButtonCalibrateProfilometer",
+      "address": "140de7388"
+    },
+    {
+      "string": "CCalibProfilometerDlg::SetErrorCalibration",
+      "address": "140de73d8"
+    },
+    {
+      "string": "CCalibProfilometerDlg::SetResultCalibration",
+      "address": "140de7408"
+    },
+    {
+      "string": "CCalibProfilometerDlg::Check_HotPixel",
+      "address": "140de74d0"
+    },
+    {
+      "string": "CCalibProfilometerDlg::recursive_copy",
+      "address": "140de75d0"
+    },
+    {
+      "string": "CCalibProfilometerDlg::RunCalibration",
+      "address": "140de76c8"
+    },
+    {
+      "string": "CCalibProfilometerDlg::CleanBackupDirectory",
+      "address": "140de7760"
+    },
+    {
+      "string": "CCalibProfilometerDlg::BackupCalibrationFiles",
+      "address": "140de7840"
+    },
+    {
+      "string": "CCalibProfilometerDlg::RestoreCalibrationFiles",
+      "address": "140de78f0"
+    },
+    {
+      "string": "CCalibProfilometerDlg::OnTimer",
+      "address": "140de7920"
+    },
+    {
+      "string": "CCalibProfilometerDlg::GetProgression",
+      "address": "140de79a8"
+    },
+    {
+      "string": "CCalibProfilometerDlg::ReadProgression",
+      "address": "140de79d0"
+    },
+    {
+      "string": "CCalibProfilometerDlg::GetOutputResultXML",
+      "address": "140de7a30"
+    },
+    {
+      "string": "CCalibProfilometerDlg::IsDefaultCalibrationFromXml",
+      "address": "140de7ab0"
+    },
+    {
+      "string": "CCalibProfilometerDlg::IsCalib3DMatchedWith2D",
+      "address": "140de7ae8"
+    },
+    {
+      "string": "CCalibProfilometerDlg::IsCalib3DMatchedWith3DSensor",
+      "address": "140de7b68"
+    },
+    {
+      "string": "CCalibProfilometerDlg::ReadMasterCameraCalibration",
+      "address": "140de7d08"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetProgIdKey",
+      "address": "140ded630"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetActivateKey",
+      "address": "140ded698"
+    },
+    {
+      "string": "CCOMObjectMgr::IsRequired",
+      "address": "140ded6f8"
+    },
+    {
+      "string": "CCOMObjectMgr::IsInitialized",
+      "address": "140ded778"
+    },
+    {
+      "string": "CCOMObjectMgr::InitCOM",
+      "address": "140ded798"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::CreateAndInit",
+      "address": "140ded8a8"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::InitCOMObject",
+      "address": "140dedcc8"
+    },
+    {
+      "string": "CCOMObjectMgr::CloseCOM",
+      "address": "140dedd68"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::Close",
+      "address": "140dedde0"
+    },
+    {
+      "string": "CCOMObjectMgr::GetDescription",
+      "address": "140dedfb8"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetDescription",
+      "address": "140dedfd8"
+    },
+    {
+      "string": "CCOMObjectMgr::DisplaySetup",
+      "address": "140dee048"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::DisplaySetup",
+      "address": "140dee068"
+    },
+    {
+      "string": "CCOMObjectMgr::AskPermissionToLaunchProduction",
+      "address": "140dee090"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::AskPermissionToLaunchProduction",
+      "address": "140dee0c0"
+    },
+    {
+      "string": "CCOMObjectMgr::AskPermissionToStartProduction",
+      "address": "140dee168"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::AskPermissionToStartProduction",
+      "address": "140dee198"
+    },
+    {
+      "string": "CCOMObjectMgr::AskPermissionToStopProduction",
+      "address": "140dee240"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::AskPermissionToStopProduction",
+      "address": "140dee270"
+    },
+    {
+      "string": "CCOMObjectMgr::GetConveyorLength",
+      "address": "140dee318"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetConveyorLength",
+      "address": "140dee340"
+    },
+    {
+      "string": "CCOMObjectMgr::GetInspectionProgram",
+      "address": "140dee3a0"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetInspectionProgram",
+      "address": "140dee3c8"
+    },
+    {
+      "string": "CCOMObjectMgr::NextWork",
+      "address": "140dee428"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::NextWork",
+      "address": "140dee470"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::LoadNewRecipe",
+      "address": "140dee6f8"
+    },
+    {
+      "string": "CCOMObjectMgr::ReportRecipeInfoToCOMObject",
+      "address": "140dee7a8"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::ReportRecipeInfoToCOMObject",
+      "address": "140dee7d8"
+    },
+    {
+      "string": "CCOMObjectMgr::ValidateIDCodes",
+      "address": "140dee840"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::ValidateIDCodes",
+      "address": "140dee860"
+    },
+    {
+      "string": "CCOMObjectMgr::AskForExternalCommand",
+      "address": "140deea68"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::AskForExternalCommand",
+      "address": "140deea90"
+    },
+    {
+      "string": "CCOMObjectMgr::AskListOfSubPanelsToSkip",
+      "address": "140deee60"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::AskListOfSubPanelsToSkip",
+      "address": "140deee88"
+    },
+    {
+      "string": "CCOMObjectMgr::SendPanelAndSubPanelStates",
+      "address": "140deef70"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::SendPanelAndSubPanelStates",
+      "address": "140deefa0"
+    },
+    {
+      "string": "CCOMObjectMgr::AskFreeFieldsToComModule",
+      "address": "140def0a0"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::AskFreeFieldsToComModule",
+      "address": "140def0c8"
+    },
+    {
+      "string": "CCOMObjectMgr::WaitPermissionToUnloadBoard",
+      "address": "140def130"
+    },
+    {
+      "string": "CCOMObjectMgr::GetRequiredPanelUnloadingMode",
+      "address": "140def288"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::ReportUserChoice",
+      "address": "140def2b8"
+    },
+    {
+      "string": "CCOMObjectMgr::SendPanelResults",
+      "address": "140def2e8"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::SendPanelResults",
+      "address": "140def308"
+    },
+    {
+      "string": "CCOMObjectMgr::DoesManagePreviousMachineResults",
+      "address": "140def5c8"
+    },
+    {
+      "string": "CCOMObjectMgr::GetPreviousMachineResults",
+      "address": "140def5f8"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetPreviousMachineResults",
+      "address": "140def658"
+    },
+    {
+      "string": "CCOMObjectMgr::ConvertPinNumberToVITRules",
+      "address": "140def8d0"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::ConvertPinNumberToVITRules",
+      "address": "140def900"
+    },
+    {
+      "string": "CCOMObjectMgr::WhatShallWeDoInCaseOfUnknownComponent",
+      "address": "140defa08"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::WhatShallWeDoInCaseOfUnknownComponent",
+      "address": "140defa40"
+    },
+    {
+      "string": "CCOMObjectMgr::GetSpecificDefectTypeToManage",
+      "address": "140defba0"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetSpecificDefectTypeToManage",
+      "address": "140defbd0"
+    },
+    {
+      "string": "CCOMObjectMgr::NewMachineEvent",
+      "address": "140defc60"
+    },
+    {
+      "string": "CCOMObjectMgr::MachineStateChanged",
+      "address": "140defc80"
+    },
+    {
+      "string": "CCOMObjectMgr::ReportEvents",
+      "address": "140defca8"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::SendNewMachineEvent",
+      "address": "140defd08"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::SendMachineStateChange",
+      "address": "140defdf0"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetComputerNameA",
+      "address": "140defe80"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::RegisterInterfaceIfExist",
+      "address": "140e18070"
+    },
+    {
+      "string": "CCOMObjectMgr::CCOMObject::GetInterfacePtr",
+      "address": "140e18138"
+    },
+    {
+      "string": "CAVisionApp::AcquireImage",
+      "address": "140e3a170"
+    },
+    {
+      "string": "CAVisionApp::RegistrySaveProductionQuick",
+      "address": "140e3a270"
+    },
+    {
+      "string": "CAVisionApp::RegistrySaveProductionQuickDual",
+      "address": "140e3a328"
+    },
+    {
+      "string": "CAVisionApp::RegistrySaveProductionQuickBi",
+      "address": "140e3a388"
+    },
+    {
+      "string": "CAVisionApp::InitInstance",
+      "address": "140e3a3b8"
+    },
+    {
+      "string": "CAVisionApp::RegistryRead",
+      "address": "140e3aa00"
+    },
+    {
+      "string": "CAVisionApp::ReadRegistry",
+      "address": "140e3aa58"
+    },
+    {
+      "string": "CAVisionApp::WriteRegistry",
+      "address": "140e3ab70"
+    },
+    {
+      "string": "CAVisionApp::OnProductionStartPassThrough",
+      "address": "140e3abe0"
+    },
+    {
+      "string": "CAVisionApp::OnProductionStartQuick",
+      "address": "140e3ac10"
+    },
+    {
+      "string": "CAVisionApp::ProductionStartQuick",
+      "address": "140e3ac60"
+    },
+    {
+      "string": "CAVisionApp::OnProductionStartQuickDual",
+      "address": "140e3ad00"
+    },
+    {
+      "string": "CAVisionApp::OnProductionStartQuickBi",
+      "address": "140e3adb0"
+    },
+    {
+      "string": "CAVisionApp::LaunchSingleProdRemoteOrder",
+      "address": "140e3ae80"
+    },
+    {
+      "string": "CAVisionApp::LaunchBiProdRemoteOrder",
+      "address": "140e3aeb0"
+    },
+    {
+      "string": "CAVisionApp::LaunchDualProdRemoteOrder",
+      "address": "140e3aed8"
+    },
+    {
+      "string": "CAVisionApp::OnProductionStartStandard",
+      "address": "140e3af00"
+    },
+    {
+      "string": "CAVisionApp::ProductionStartStandard",
+      "address": "140e3af88"
+    },
+    {
+      "string": "CAVisionApp::OnProductionStartDual",
+      "address": "140e3b0b0"
+    },
+    {
+      "string": "CAVisionApp::ProductionStartDual",
+      "address": "140e3b130"
+    },
+    {
+      "string": "CAVisionApp::MakeProductionCalibCheck",
+      "address": "140e3b1c8"
+    },
+    {
+      "string": "CAVisionApp::OnProductionStartBi",
+      "address": "140e3b268"
+    },
+    {
+      "string": "CAVisionApp::ProductionStartBi",
+      "address": "140e3b2b0"
+    },
+    {
+      "string": "CAVisionApp::OnFileOpenTest",
+      "address": "140e3b358"
+    },
+    {
+      "string": "CAVisionApp::OnFileOpenTCR",
+      "address": "140e3b390"
+    },
+    {
+      "string": "CAVisionApp::OnFileOpenVIS",
+      "address": "140e3b3b0"
+    },
+    {
+      "string": "CAVisionApp::OpenOneDocumentWithFileSharing",
+      "address": "140e3b3f8"
+    },
+    {
+      "string": "CAVisionApp::OnCalibration",
+      "address": "140e3b458"
+    },
+    {
+      "string": "CAVisionApp::FindLibraryEditorAndOpenIt",
+      "address": "140e3b4c0"
+    },
+    {
+      "string": "CAVisionApp::ExitInstance",
+      "address": "140e3b550"
+    },
+    {
+      "string": "CAVisionApp::CheckTEMPDir",
+      "address": "140e3b598"
+    },
+    {
+      "string": "CAVisionApp::RemoveMRCCacheFiles",
+      "address": "140e3b648"
+    },
+    {
+      "string": "CAVisionApp::OpenDocumentFile",
+      "address": "140e3b718"
+    },
+    {
+      "string": "CAVisionApp::OnFileOpenLibrary",
+      "address": "140e3b7e8"
+    },
+    {
+      "string": "CAVisionApp::OnOtrOneComp",
+      "address": "140e3b858"
+    },
+    {
+      "string": "CAVisionApp::OtrOneComp",
+      "address": "140e3b8e0"
+    },
+    {
+      "string": "CAVisionApp::OnOpenOtr",
+      "address": "140e3b9a0"
+    },
+    {
+      "string": "CAVisionApp::OnCommandProductionRecentFile",
+      "address": "140e3b9b8"
+    },
+    {
+      "string": "CAVisionApp::OnCallVisWizard",
+      "address": "140e3ba48"
+    },
+    {
+      "string": "CAVisionApp::OnProcessDataImportModule",
+      "address": "140e3bab0"
+    },
+    {
+      "string": "CAVisionApp::LoadMachineCalibrationFiles",
+      "address": "140e3bb58"
+    },
+    {
+      "string": "CAVisionApp::LoadMachineCalibrationFiles_Clamp",
+      "address": "140e3c2a0"
+    },
+    {
+      "string": "CAVisionApp::CheckAndSignalIfTheMachineNeedAGreyLevelCalibration",
+      "address": "140e3c310"
+    },
+    {
+      "string": "CAVisionApp::OnEditeIniFile_Calibration",
+      "address": "140e3c478"
+    },
+    {
+      "string": "CAVisionApp::OnEditeIniFile_DefaultValue",
+      "address": "140e3c4b0"
+    },
+    {
+      "string": "CAVisionApp::OnEditeIniFile_Parameter",
+      "address": "140e3c4e0"
+    },
+    {
+      "string": "CAVisionApp::OnEditeIniFile_ParameterPrivate",
+      "address": "140e3c518"
+    },
+    {
+      "string": "CAVisionApp::IsProductionStarted",
+      "address": "140e3c560"
+    },
+    {
+      "string": "CAVisionApp::SwitchDualProdDisplayMode",
+      "address": "140e3c588"
+    },
+    {
+      "string": "CAVisionApp::SwapDualProdDisplayedProd",
+      "address": "140e3c5d0"
+    },
+    {
+      "string": "CAVisionApp::SetBiProdDisplayedProd",
+      "address": "140e3c648"
+    },
+    {
+      "string": "CAVisionApp::OnIdle",
+      "address": "140e3c670"
+    },
+    {
+      "string": "CAVisionApp::SetProfUISTheme",
+      "address": "140e3c950"
+    },
+    {
+      "string": "CAVisionApp::CheckIfCalibrationIsUpToDate",
+      "address": "140e3d0d0"
+    },
+    {
+      "string": "CCAD_Zone2D_PropSheet::CaptureAllImages",
+      "address": "140e3e4c8"
+    },
+    {
+      "string": "CCAD_Zone_Light2D::OnInitDialog",
+      "address": "140e3f310"
+    },
+    {
+      "string": "CCalibration::AcquireImage",
+      "address": "140e44098"
+    },
+    {
+      "string": "CCalibration::MesPixelSize",
+      "address": "140e44178"
+    },
+    {
+      "string": "CCalibration::CheckCalibration",
+      "address": "140e44208"
+    },
+    {
+      "string": "CCalibration::DumpToFile",
+      "address": "140e44510"
+    },
+    {
+      "string": "CChild2::OnPadFileImport",
+      "address": "140e46598"
+    },
+    {
+      "string": "CCpCpk::StartCpCpk",
+      "address": "140e47870"
+    },
+    {
+      "string": "CCpCpk::SaveDataCollection",
+      "address": "140e479b0"
+    },
+    {
+      "string": "CCpCpk::SaveDetailedStatistic",
+      "address": "140e47a60"
+    },
+    {
+      "string": "CCpCpk::SaveGlobalStatistics",
+      "address": "140e47bf0"
+    },
+    {
+      "string": "CCpCpk::SaveTemporalEvolution",
+      "address": "140e47d48"
+    },
+    {
+      "string": "CCpCpkHelper::GetImagesNormalRun",
+      "address": "140e47fb0"
+    },
+    {
+      "string": "CCpCpkHelper::GetImagesDetailedStat",
+      "address": "140e48010"
+    },
+    {
+      "string": "CCpCpkReport::SaveToPdf",
+      "address": "140e48f20"
+    },
+    {
+      "string": "CCpCpkReport::GetSoftVersion",
+      "address": "140e490a8"
+    },
+    {
+      "string": "CCpCpkReport::GetUpdatedData",
+      "address": "140e490c8"
+    },
+    {
+      "string": "C3dFlattenReference::Serialize",
+      "address": "140e4c8b0"
+    },
+    {
+      "string": "CComponentsToRefAreasIds::Serialize",
+      "address": "140e4cea8"
+    },
+    {
+      "string": "CString_Pos::Serialize",
+      "address": "140e4db88"
+    },
+    {
+      "string": "CString_Result::Serialize",
+      "address": "140e4dba0"
+    },
+    {
+      "string": "CResult_Text::Serialize",
+      "address": "140e4dbc0"
+    },
+    {
+      "string": "CDataCaoTraitement::IsProgramCompatibleWithThisHead",
+      "address": "140e4df10"
+    },
+    {
+      "string": "CDataCaoTraitement::PIT_IsActivated",
+      "address": "140e4ea70"
+    },
+    {
+      "string": "CDataCaoTraitement::PIT_Clear",
+      "address": "140e4eaf0"
+    },
+    {
+      "string": "CDataCaoTraitement::PIT_InitPanelROI",
+      "address": "140e4ebb0"
+    },
+    {
+      "string": "CDataCaoTraitement::PIT_UpdateAcquisitionBuffer",
+      "address": "140e4ec18"
+    },
+    {
+      "string": "CDataCaoTraitement::CheckCoherencyBetweenCADandLibrary",
+      "address": "140e4f330"
+    },
+    {
+      "string": "CDataCaoTraitement::InitialyseRunContextPads",
+      "address": "140e4f3f0"
+    },
+    {
+      "string": "CDataCaoTraitement::GenerateFileSVG",
+      "address": "140e4f640"
+    },
+    {
+      "string": "CDataCaoTraitement::CheckDataFor3dPathAlgo",
+      "address": "140e4fc80"
+    },
+    {
+      "string": "CDataCaoTraitement::PV_Prepare3dData_InitVectJEDECPathProperties",
+      "address": "140e50810"
+    },
+    {
+      "string": "CDataCaoTraitement::LaunchGlobalWarpAcquisition",
+      "address": "140e50900"
+    },
+    {
+      "string": "CDataCaoTraitement::ComputeGlobalWarp",
+      "address": "140e50a38"
+    },
+    {
+      "string": "CDataCaoTraitement::Function3D_GetFullPanel3DAcquisition",
+      "address": "140e50a90"
+    },
+    {
+      "string": "CDataCaoTraitement::PIT_Add2D_ZoneData",
+      "address": "140e50c08"
+    },
+    {
+      "string": "CDataCaoTraitement::PIT_Add3D_ZoneData",
+      "address": "140e50d40"
+    },
+    {
+      "string": "CAddRealImage::RunFiducials",
+      "address": "140e52330"
+    },
+    {
+      "string": "CAddRealImage::ApplySimilarities",
+      "address": "140e52430"
+    },
+    {
+      "string": "CDlgAddRealImage::OnButtonPCBI_File",
+      "address": "140e525a8"
+    },
+    {
+      "string": "CDlgAddRealImage::OnOK",
+      "address": "140e52688"
+    },
+    {
+      "string": "CDlgAddRealImage::OnRealImageUpdated",
+      "address": "140e526e0"
+    },
+    {
+      "string": "CDlgAxisCvPageAxis::AcquireImage",
+      "address": "140e53b70"
+    },
+    {
+      "string": "CDlgAxisCvPageAxis::OnBtnSet0machine",
+      "address": "140e53c08"
+    },
+    {
+      "string": "CDlgAxisCvPageAxis::CVMCListenerHelper::OnVMachineControllerStateChange",
+      "address": "140e53c30"
+    },
+    {
+      "string": "CDlgAxisCvPageAxis::OnShowWindow",
+      "address": "140e53ca0"
+    },
+    {
+      "string": "CDlgAxisCvToolbox::OnBtnDumpAcquisition",
+      "address": "140e54f28"
+    },
+    {
+      "string": "CDlgCpCpk::OnButtonBrowseClicked",
+      "address": "140e5bd00"
+    },
+    {
+      "string": "CDlgCpCpk::ShowImage",
+      "address": "140e5bd50"
+    },
+    {
+      "string": "CDlgCpCpk::ParseFileRunNormal",
+      "address": "140e5bde8"
+    },
+    {
+      "string": "CDlgCpCpk::ParseFileDetailStatistic",
+      "address": "140e5be20"
+    },
+    {
+      "string": "CDlgCpCpk::ParseFileTemporalEvolution",
+      "address": "140e5be48"
+    },
+    {
+      "string": "CDlgCpCpk::ParseFile",
+      "address": "140e5be70"
+    },
+    {
+      "string": "CDlgCpCpk::OnSelListFileChanged",
+      "address": "140e5bed0"
+    },
+    {
+      "string": "CDlgCpCpk::OnSelListXYChanged",
+      "address": "140e5bf40"
+    },
+    {
+      "string": "CGridCpCpkFile::Init",
+      "address": "140e5bff0"
+    },
+    {
+      "string": "CGridCpCpkFile::AddFileName",
+      "address": "140e5c018"
+    },
+    {
+      "string": "CGridCpCpkFile::OnSize",
+      "address": "140e5c038"
+    },
+    {
+      "string": "CGridCpCpkFile::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e5c050"
+    },
+    {
+      "string": "CGridXY::Init",
+      "address": "140e5c0d0"
+    },
+    {
+      "string": "CGridXY::AddPoint",
+      "address": "140e5c0f0"
+    },
+    {
+      "string": "CGridXY::OnSize",
+      "address": "140e5c108"
+    },
+    {
+      "string": "CGridXY::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e5c118"
+    },
+    {
+      "string": "CDlgPadTransform::OnInitDialog",
+      "address": "140e5e0e0"
+    },
+    {
+      "string": "CDlgPadTransform::OnDeletePadSelection",
+      "address": "140e5e110"
+    },
+    {
+      "string": "CForeignMaterials::ApplyMireContextThread",
+      "address": "140e5ede0"
+    },
+    {
+      "string": "CForeignMaterials::ApplyMireContextWait",
+      "address": "140e5eef0"
+    },
+    {
+      "string": "CForeignMaterials::InspectionThread",
+      "address": "140e5ef50"
+    },
+    {
+      "string": "CForeignMaterials::InspectionRun",
+      "address": "140e5f150"
+    },
+    {
+      "string": "CForeignMaterials::InspectionWait",
+      "address": "140e5f200"
+    },
+    {
+      "string": "CForeignMaterials::Refine",
+      "address": "140e5f258"
+    },
+    {
+      "string": "CForeignMaterials::GetData",
+      "address": "140e5f448"
+    },
+    {
+      "string": "CForeignMaterials::GetAllPointList",
+      "address": "140e5f520"
+    },
+    {
+      "string": "CForeignMaterials::AcquireAdditionalZones",
+      "address": "140e5f568"
+    },
+    {
+      "string": "CForeignMaterials::FullImage2D_Set",
+      "address": "140e5f660"
+    },
+    {
+      "string": "CForeignMaterials::AdditionalZone2D_Wait",
+      "address": "140e5f6f0"
+    },
+    {
+      "string": "CForeignMaterials::OnSDObjectAvailable",
+      "address": "140e5f770"
+    },
+    {
+      "string": "CLibraryHelperExportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e60b70"
+    },
+    {
+      "string": "CMacroEditorGridWnd::ComputeRefValue",
+      "address": "140e62f38"
+    },
+    {
+      "string": "CPadImport::ParseProjectFile",
+      "address": "140e631a0"
+    },
+    {
+      "string": "CPadImport::DeleteExistingPads",
+      "address": "140e631e0"
+    },
+    {
+      "string": "CPadImport::CheckFiducials",
+      "address": "140e63200"
+    },
+    {
+      "string": "CPadImport::ImportAndRefreshPads",
+      "address": "140e63390"
+    },
+    {
+      "string": "CPadManager::SynchronizePadsWithLibrary",
+      "address": "140e639b8"
+    },
+    {
+      "string": "CPadManager::GetMapJedecCompDescription",
+      "address": "140e63c88"
+    },
+    {
+      "string": "CPadManager::GetMapCompTopoID_GroupPadIndex",
+      "address": "140e63cb0"
+    },
+    {
+      "string": "CPadManager::CheckLibraryCoherency",
+      "address": "140e63ce0"
+    },
+    {
+      "string": "CPadManager::CheckCoherency_GrouPad_ComponentDescription",
+      "address": "140e63e58"
+    },
+    {
+      "string": "CPanelImageTraceabilityDlg::OnInitDialog",
+      "address": "140e64a70"
+    },
+    {
+      "string": "CMappingTools::AcquireImage",
+      "address": "140e64c18"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::GetTargetFolder",
+      "address": "140e65050"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::Handler",
+      "address": "140e650e0"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::OnFreeSpaceThreshold",
+      "address": "140e65170"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::OnSDObjectAvailable",
+      "address": "140e651c8"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::PushImage",
+      "address": "140e652b0"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::PopImages",
+      "address": "140e65358"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::SaveImage",
+      "address": "140e653a0"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::Start",
+      "address": "140e65540"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::Stop",
+      "address": "140e655f0"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::WaitAvailable",
+      "address": "140e65678"
+    },
+    {
+      "string": "CParallelZonesProcessingParameters::SynchronizeWithIniFile",
+      "address": "140e657e8"
+    },
+    {
+      "string": "CParallelZonesProcessingParameters::ApplyRules",
+      "address": "140e65aa8"
+    },
+    {
+      "string": "CRecentProductionFiles::Add",
+      "address": "140e67e10"
+    },
+    {
+      "string": "CRecentProductionFiles::Init",
+      "address": "140e67e70"
+    },
+    {
+      "string": "CRecentProductionFiles::RegistryRead",
+      "address": "140e67ea8"
+    },
+    {
+      "string": "CRecentProductionFiles::RegistryWrite",
+      "address": "140e67ef0"
+    },
+    {
+      "string": "CRecentProductionFiles::Remove",
+      "address": "140e67f50"
+    },
+    {
+      "string": "CRemoteAcquisition::Close",
+      "address": "140e69780"
+    },
+    {
+      "string": "CRemoteAcquisition::VerifyMonitoringFolder",
+      "address": "140e69820"
+    },
+    {
+      "string": "CRemoteAcquisition::SetFolderPath",
+      "address": "140e698c8"
+    },
+    {
+      "string": "CRemoteAcquisition::StartMonitoring",
+      "address": "140e69930"
+    },
+    {
+      "string": "CRemoteAcquisition::StopMonitoring",
+      "address": "140e69a48"
+    },
+    {
+      "string": "CRemoteAcquisition::DoJob",
+      "address": "140e69b18"
+    },
+    {
+      "string": "CRemoteAcquisition::ReadAndAcquire",
+      "address": "140e69be8"
+    },
+    {
+      "string": "CRemoteAcquisition::ReadMonitoringFile",
+      "address": "140e69e18"
+    },
+    {
+      "string": "CRemoteAcquisition::AcquireRemoteImage",
+      "address": "140e69eb8"
+    },
+    {
+      "string": "CRemoteAcquisition::SaveImages",
+      "address": "140e6a000"
+    },
+    {
+      "string": "CRemoteAcquisition::SaveImageToDisk",
+      "address": "140e6a148"
+    },
+    {
+      "string": "CRemoteAcquisition::IsAcquisitionAsynchrone",
+      "address": "140e6a1a0"
+    },
+    {
+      "string": "CRemoteAcquisition::IsCommandAsked",
+      "address": "140e6a1d0"
+    },
+    {
+      "string": "CRemoteAcquisition::ExecuteRemoteCommand",
+      "address": "140e6a218"
+    },
+    {
+      "string": "CRemoteAcquisition::DeleteMonitoringFile",
+      "address": "140e6a828"
+    },
+    {
+      "string": "CRemoteAcquisition::CreateFileResult",
+      "address": "140e6a8f0"
+    },
+    {
+      "string": "CRemoteAcquisition::GetRemoteAcquisitionImg2DParams",
+      "address": "140e6a968"
+    },
+    {
+      "string": "CRemoteAcquisition::GetRemoteAcquisitionImg3DParams",
+      "address": "140e6aa18"
+    },
+    {
+      "string": "CRemoteAcquisition::GetRemoteAcquisitionRoi",
+      "address": "140e6adb8"
+    },
+    {
+      "string": "CRemoteAcquisition::GetRemoteAcquisitionZoneID",
+      "address": "140e6ade8"
+    },
+    {
+      "string": "CRemoteAcquisition::GetRemoteAcquisitionAxisParams",
+      "address": "140e6ae18"
+    },
+    {
+      "string": "CRemoteAcquisition::GetRemoteAcquisitionZoneData",
+      "address": "140e6ae50"
+    },
+    {
+      "string": "CRemoteAcquisition::UpdateScanInstructionFromAxisParams",
+      "address": "140e6aff8"
+    },
+    {
+      "string": "CRemoteAcquisition::GetXmlTree",
+      "address": "140e6b158"
+    },
+    {
+      "string": "CRemoteAcquisition::GetRemoteAcquisitionAxisCoordinateParams",
+      "address": "140e6b178"
+    },
+    {
+      "string": "CRemoteAcquisition::OnVMachineControllerStateChange",
+      "address": "140e6b1b8"
+    },
+    {
+      "string": "CRemoteAcquisition::OnSDObjectAvailable",
+      "address": "140e6b210"
+    },
+    {
+      "string": "CDirectoryChangeHandler_Receiver::On_FileAdded",
+      "address": "140e6b2d0"
+    },
+    {
+      "string": "CDirectoryChangeHandler_Receiver::On_FileRemoved",
+      "address": "140e6b320"
+    },
+    {
+      "string": "CDirectoryChangeHandler_Receiver::On_FileModified",
+      "address": "140e6b380"
+    },
+    {
+      "string": "CDirectoryChangeHandler_Receiver::On_FileNameChanged",
+      "address": "140e6b3e0"
+    },
+    {
+      "string": "CDirectoryChangeHandler_Receiver::On_WatchStarted",
+      "address": "140e6b440"
+    },
+    {
+      "string": "CDirectoryChangeHandler_Receiver::On_WatchStopped",
+      "address": "140e6b4a0"
+    },
+    {
+      "string": "CRemoteAcquisition::GetXmlElement",
+      "address": "140e6b978"
+    },
+    {
+      "string": "CRemoteAcquisition::GetXmlAttribute",
+      "address": "140e6b9a0"
+    },
+    {
+      "string": "CTCRData::bBuildDoc",
+      "address": "140e6d580"
+    },
+    {
+      "string": "CDlgMapping::OnInitDialog",
+      "address": "140e6fe60"
+    },
+    {
+      "string": "CDlgMapping::OnCommandStartStopCheckMapping",
+      "address": "140e6feb0"
+    },
+    {
+      "string": "CDlgMapping::CreateDirectoryA",
+      "address": "140e6ff00"
+    },
+    {
+      "string": "CDlgMapping::OnCommandStartStopMapping",
+      "address": "140e6ff50"
+    },
+    {
+      "string": "CDlgMapping::OnMessageCpCpkEnd",
+      "address": "140e6ff90"
+    },
+    {
+      "string": "CDlgMapping::OnMessageMappingProgress",
+      "address": "140e6ffc8"
+    },
+    {
+      "string": "CDlgMapping::StartCheckMapping",
+      "address": "140e6fff0"
+    },
+    {
+      "string": "CDlgPcbiViewer::OnButtonBrowsePcbi",
+      "address": "140e70890"
+    },
+    {
+      "string": "CDlgPcbiViewer::OnClickBtnShow3D",
+      "address": "140e70a20"
+    },
+    {
+      "string": "CPropertyGridSettings::OnPgcInputComplete",
+      "address": "140e714b8"
+    },
+    {
+      "string": "CDlgRemoteAcquisition::OnButtonMonitorClicked",
+      "address": "140e71e50"
+    },
+    {
+      "string": "CDlgSelectTst::OnChangeFilter",
+      "address": "140e72730"
+    },
+    {
+      "string": "CDlgSelectTst::OnInitDialog",
+      "address": "140e72750"
+    },
+    {
+      "string": "CDlgSelectTst::OnMessageFilePathSelected",
+      "address": "140e72770"
+    },
+    {
+      "string": "CDocCompose::IsAcquisitionFinish_StopButtonEnable",
+      "address": "140e77560"
+    },
+    {
+      "string": "CDocCompose::SetRunning",
+      "address": "140e77598"
+    },
+    {
+      "string": "CDocCompose::AddComponents",
+      "address": "140e775b0"
+    },
+    {
+      "string": "CDocCompose::AddPanel",
+      "address": "140e775e8"
+    },
+    {
+      "string": "CDocCompose::CreateTstFile",
+      "address": "140e77618"
+    },
+    {
+      "string": "CDocCompose::OnCommandRealImageAdd",
+      "address": "140e77680"
+    },
+    {
+      "string": "CDocCompose::OnCommandExRealImageDelete",
+      "address": "140e776d8"
+    },
+    {
+      "string": "CDocCompose::OnCommandOpenTSTWizardOn3DPage",
+      "address": "140e777a8"
+    },
+    {
+      "string": "CDocCompose::SetOnTest",
+      "address": "140e777e0"
+    },
+    {
+      "string": "CDocCompose::GetSimilarities",
+      "address": "140e77818"
+    },
+    {
+      "string": "CDocCompose::Serialize",
+      "address": "140e778e0"
+    },
+    {
+      "string": "CDocCompose::LoadBib",
+      "address": "140e779e0"
+    },
+    {
+      "string": "CDocCompose::AddTraceabilityZonesToInspectionProgram",
+      "address": "140e77af8"
+    },
+    {
+      "string": "CDocCompose::FaireAcquisition_Asynchro_PrepareInspectionProgram",
+      "address": "140e77b70"
+    },
+    {
+      "string": "CDocCompose::FaireAcquisition_Asynchro_ReceiveZoneStorage",
+      "address": "140e77cd0"
+    },
+    {
+      "string": "CDocCompose::OnSDObjectAvailable",
+      "address": "140e77db8"
+    },
+    {
+      "string": "CDocCompose::Reloadbib",
+      "address": "140e77f28"
+    },
+    {
+      "string": "CDocCompose::OnOpenDocument",
+      "address": "140e77f40"
+    },
+    {
+      "string": "CDocCompose::OnExecPanel_Total_DemoMode",
+      "address": "140e78040"
+    },
+    {
+      "string": "CDocCompose::ExecPanel_Total",
+      "address": "140e780f0"
+    },
+    {
+      "string": "CDocCompose::OnExecPanel_StepByStep",
+      "address": "140e78190"
+    },
+    {
+      "string": "CDocCompose::OnExecPanel_OnlyFiducial",
+      "address": "140e781b8"
+    },
+    {
+      "string": "CDocCompose::OnEditExecSubPanels",
+      "address": "140e787e0"
+    },
+    {
+      "string": "CDocCompose::FaitTableImage",
+      "address": "140e78808"
+    },
+    {
+      "string": "CDocCompose::ApplyGlobalOffset",
+      "address": "140e78828"
+    },
+    {
+      "string": "CDocCompose::OnOuvertureBib",
+      "address": "140e78870"
+    },
+    {
+      "string": "CDocCompose::OnVMachineControllerStateChange",
+      "address": "140e78890"
+    },
+    {
+      "string": "CDocCompose::OnSaveDocument",
+      "address": "140e788d8"
+    },
+    {
+      "string": "CDocCompose::CheckVISCommentChar",
+      "address": "140e789b8"
+    },
+    {
+      "string": "CDocCompose::GenereVisFile",
+      "address": "140e78b08"
+    },
+    {
+      "string": "CDocCompose::InsertCAD",
+      "address": "140e78e30"
+    },
+    {
+      "string": "CDocCompose::Rename",
+      "address": "140e78e70"
+    },
+    {
+      "string": "CDocCompose::DeleteLines",
+      "address": "140e78e88"
+    },
+    {
+      "string": "CDocCompose::DeleteLine",
+      "address": "140e78ea8"
+    },
+    {
+      "string": "CDocCompose::SetAtCAD",
+      "address": "140e78ec0"
+    },
+    {
+      "string": "CDocCompose::OnEditFindComp",
+      "address": "140e78f08"
+    },
+    {
+      "string": "CDocCompose::CheckExecutable",
+      "address": "140e78f28"
+    },
+    {
+      "string": "CDocCompose::EditZone",
+      "address": "140e78f48"
+    },
+    {
+      "string": "CDocCompose::RenameAllCADBase",
+      "address": "140e78f60"
+    },
+    {
+      "string": "CDocCompose::EditObjectCAO",
+      "address": "140e78f80"
+    },
+    {
+      "string": "CDocCompose::EditFiducialFor3dProgrammation",
+      "address": "140e79098"
+    },
+    {
+      "string": "CDocCompose::UpdateOcvFile",
+      "address": "140e790c8"
+    },
+    {
+      "string": "CDocCompose::DeleteFiducial",
+      "address": "140e79108"
+    },
+    {
+      "string": "CDocCompose::pGetBibAssocie",
+      "address": "140e791a8"
+    },
+    {
+      "string": "CDocCompose::PIT_IsActivated",
+      "address": "140e79208"
+    },
+    {
+      "string": "CDocCompose::SetGuiLibraryComponentModelFamilyListFilter",
+      "address": "140e79278"
+    },
+    {
+      "string": "CDocCompose::ShapeAutoDetectDiameter",
+      "address": "140e792d8"
+    },
+    {
+      "string": "CDocCompose::ShapeAutoDetectDiameter_3DPanelImg",
+      "address": "140e793c8"
+    },
+    {
+      "string": "CDocCompose::HeadMachineType_CheckIfConversionIsNecessaryAndConvert",
+      "address": "140e79400"
+    },
+    {
+      "string": "CDocCompose::HeadMachineType_Convert_Library",
+      "address": "140e795b0"
+    },
+    {
+      "string": "CDocCompose::HeadMachineType_Convert_TST",
+      "address": "140e795e0"
+    },
+    {
+      "string": "CDocCompose::GetMatFromFIP",
+      "address": "140e79620"
+    },
+    {
+      "string": "CDocCompose::OnEditZoneTraval",
+      "address": "140e796d0"
+    },
+    {
+      "string": "CDocCompose::UpdateTitle",
+      "address": "140e79710"
+    },
+    {
+      "string": "CDocCompose::InitBufferZoneStorage",
+      "address": "140e797e0"
+    },
+    {
+      "string": "CDocCompose::PrepareVecteurAll",
+      "address": "140e79a90"
+    },
+    {
+      "string": "CDocCompose::LoadPCBi",
+      "address": "140e7a368"
+    },
+    {
+      "string": "CDocCompose::ExecuteArray",
+      "address": "140e7bd48"
+    },
+    {
+      "string": "CDocCompose::FM_PostProcess",
+      "address": "140e7c1d0"
+    },
+    {
+      "string": "CDocCompose::ExecuteArray_ForeignMaterials_AfficheResult_Console",
+      "address": "140e7c320"
+    },
+    {
+      "string": "CDocCompose::CheckPcbi3DImageAvailability",
+      "address": "140e7c478"
+    },
+    {
+      "string": "CDocCompose::CheckIfPCBiImageDefinitionIsCompatibleWithTstSetting",
+      "address": "140e7c550"
+    },
+    {
+      "string": "CDocCompose::ExecuteArrayForLibrary",
+      "address": "140e7c620"
+    },
+    {
+      "string": "CDocCompose::CreateComponentCtrE_OIS_File",
+      "address": "140e7c7a8"
+    },
+    {
+      "string": "CDocCompose::ExecOneComp",
+      "address": "140e7c9d0"
+    },
+    {
+      "string": "CDocCompose::SharedLibrary_OpenLibDocAndResetReserveListe",
+      "address": "140e7c9f0"
+    },
+    {
+      "string": "CDocCompose::SharedLibrary_ReserveFamilyIfNecessary",
+      "address": "140e7ca30"
+    },
+    {
+      "string": "CDocCompose::SharedLibrary_UnreserveFamilyIfNecessary",
+      "address": "140e7caa0"
+    },
+    {
+      "string": "CDocCompose::ExecOneZone",
+      "address": "140e7cad8"
+    },
+    {
+      "string": "CDocCompose::FaitUnePhoto",
+      "address": "140e7caf8"
+    },
+    {
+      "string": "CDocCompose::RecalMires",
+      "address": "140e7cb18"
+    },
+    {
+      "string": "CDocCompose::GetF1F2OrdonatedFiducialVector",
+      "address": "140e7cd90"
+    },
+    {
+      "string": "CDocCompose::GetSimilarityFromFiducials_ExecOneFiducial",
+      "address": "140e7cde0"
+    },
+    {
+      "string": "CDocCompose::ExecuteVecteur_Skip_DataMatrix",
+      "address": "140e7ced0"
+    },
+    {
+      "string": "CDocCompose::AcquireAndCheckSkip",
+      "address": "140e7cf00"
+    },
+    {
+      "string": "CDocCompose::ExecuteDatamatrix",
+      "address": "140e7cf70"
+    },
+    {
+      "string": "CDocCompose::CadView_LanceAnalysePanel_Topo",
+      "address": "140e7d000"
+    },
+    {
+      "string": "CDocCompose::CadView_LanceAnalysePanel_OneCarte",
+      "address": "140e7d030"
+    },
+    {
+      "string": "CDocCompose::CheckCompJoker",
+      "address": "140e7d878"
+    },
+    {
+      "string": "CDocCompose::CreeOneZoneJoker",
+      "address": "140e7d898"
+    },
+    {
+      "string": "CDocCompose::CreeOneZoneCentree",
+      "address": "140e7d8b8"
+    },
+    {
+      "string": "CDocCompose::CreeOneZone",
+      "address": "140e7d8d8"
+    },
+    {
+      "string": "CDocCompose::SetZone0",
+      "address": "140e7d978"
+    },
+    {
+      "string": "CDocCompose::AffectCADElementsToSections",
+      "address": "140e7d9c8"
+    },
+    {
+      "string": "CDocCompose::AffectCADElementToSections",
+      "address": "140e7d9f8"
+    },
+    {
+      "string": "CDocCompose::SetSectionByRectEnglobant",
+      "address": "140e7dac0"
+    },
+    {
+      "string": "CDocCompose::SetZoneIfNecessary",
+      "address": "140e7db48"
+    },
+    {
+      "string": "CDocCompose::Affecte_composants_multizones",
+      "address": "140e7db68"
+    },
+    {
+      "string": "CDocCompose::FindCalqueNum",
+      "address": "140e7db98"
+    },
+    {
+      "string": "CDocCompose::RUSTINE_ResizeMultizonesAreaIfNeed",
+      "address": "140e7dbb8"
+    },
+    {
+      "string": "CEditColorCalibrationFile::CLedResultsGrid::AddLine",
+      "address": "140e80180"
+    },
+    {
+      "string": "CEnterCB::OnInitDialog",
+      "address": "140e820e0"
+    },
+    {
+      "string": "CEquipmentProxyClient::OnConveyorStateChange",
+      "address": "140e825a0"
+    }
+  ],
+  "focus_strings_count": 1328,
+  "focus_strings": [
+    {
+      "string": "images",
+      "address": "140dd23c8"
+    },
+    {
+      "string": "image",
+      "address": "140dd4218"
+    },
+    {
+      "string": "ImageCamA",
+      "address": "140dd4378"
+    },
+    {
+      "string": "ImageCamB",
+      "address": "140dd43a8"
+    },
+    {
+      "string": "ImageMerged",
+      "address": "140dd43d0"
+    },
+    {
+      "string": "boost::format_error: format generic failure",
+      "address": "140ddf978"
+    },
+    {
+      "string": "Images",
+      "address": "140ddfcec"
+    },
+    {
+      "string": "InMotorFailure",
+      "address": "140de06e0"
+    },
+    {
+      "string": "Empty image.\n",
+      "address": "140de2340"
+    },
+    {
+      "string": "Missing interface.\n",
+      "address": "140dedd28"
+    },
+    {
+      "string": "Lane '%d', face '%d', IdCode '%s', Convey to Review Station '%s'.\n",
+      "address": "140def1a0"
+    },
+    {
+      "string": "E_UNEXPECTED (Catastrophic failure.)",
+      "address": "140df0bd0"
+    },
+    {
+      "string": "CO_E_INIT_TLS (Thread local storage failure.)",
+      "address": "140df2a08"
+    },
+    {
+      "string": "CO_E_INIT_SHARED_ALLOCATOR (Get shared memory allocator failure.)",
+      "address": "140df2a40"
+    },
+    {
+      "string": "CO_E_INIT_MEMORY_ALLOCATOR (Get memory allocator failure.)",
+      "address": "140df2a88"
+    },
+    {
+      "string": "CO_E_INIT_SCM_EXEC_FAILURE (Failure attempting to launch OLE service.)",
+      "address": "140df2d90"
+    },
+    {
+      "string": "OLE_E_ENUM_NOMORE (Cannot enumerate any more because the associated data is missing.)",
+      "address": "140df7110"
+    },
+    {
+      "string": "CONVERT10_E_STG_NO_STD_STREAM (Contents of IStorage is missing one of the standard streams.)",
+      "address": "140df8350"
+    },
+    {
+      "string": "SCHED_E_MISSINGNODE (The task XML is missing a required element or attribute.)",
+      "address": "140df9860"
+    },
+    {
+      "string": "SCHED_E_INVALID_TASK_HASH (The task image is corrupt or has been tampered with.)",
+      "address": "140df9a50"
+    },
+    {
+      "string": "XACT_E_NOISORETAIN (The requested semantics of retention of isolation across retaining commit and abort boundaries cannot be supported by this transaction implementation, or isoFlags was not equal to 0.)",
+      "address": "140dfa0d0"
+    },
+    {
+      "string": "XACT_E_NOTCURRENT (The transaction failed to commit due to the failure of optimistic concurrency control in at least one of the resource managers.)",
+      "address": "140dfa200"
+    },
+    {
+      "string": "XACT_E_INDOUBT (The transaction status is in doubt. A communication failure occurred, or a transaction manager or resource manager has failed.)",
+      "address": "140dfa580"
+    },
+    {
+      "string": "SEC_E_SECURITY_QOS_FAILED (The security context could not be established due to a failure in the requested quality of service (for example, mutual authentication or delegation).)",
+      "address": "140dfd720"
+    },
+    {
+      "string": "SEC_E_UNFINISHED_CONTEXT_DELETED (A security context was deleted before the context was completed. This is considered a logon failure.)",
+      "address": "140dfd7e0"
+    },
+    {
+      "string": "CRYPT_E_MISSING_PUBKEY_PARA (The public key's algorithm parameters are missing.)",
+      "address": "140dffee0"
+    },
+    {
+      "string": "CERTSRV_E_SUBJECT_ALT_NAME_REQUIRED (The request is missing a required Subject Alternate name extension.)",
+      "address": "140e01a00"
+    },
+    {
+      "string": "CERTSRV_E_ARCHIVED_KEY_REQUIRED (The request is missing a required private key for archival by the server.)",
+      "address": "140e01a70"
+    },
+    {
+      "string": "CERTSRV_E_SMIME_REQUIRED (The request is missing a required SMIME capabilities extension.)",
+      "address": "140e01ae0"
+    },
+    {
+      "string": "CERTSRV_E_TEMPLATE_POLICY_REQUIRED (The template is missing a required signature policy attribute.)",
+      "address": "140e01c80"
+    },
+    {
+      "string": "CERTSRV_E_SIGNATURE_POLICY_REQUIRED (The request is missing required signature policy information.)",
+      "address": "140e01cf0"
+    },
+    {
+      "string": "CERTSRV_E_SIGNATURE_COUNT (The request is missing one or more required signatures.)",
+      "address": "140e01d60"
+    },
+    {
+      "string": "CERTSRV_E_SIGNATURE_REJECTED (One or more signatures did not include the required application or issuance policies. The request is missing one or more required valid signatures.)",
+      "address": "140e01dc0"
+    },
+    {
+      "string": "CERTSRV_E_ISSUANCE_POLICY_REQUIRED (The request is missing one or more required signature issuance policies.)",
+      "address": "140e01e80"
+    },
+    {
+      "string": "DIGSIG_E_CRYPTO (Unspecified cryptographic failure.)",
+      "address": "140e03318"
+    },
+    {
+      "string": "CERT_E_MALFORMED (A certificate is missing or has an empty value for an important field, such as a subject or issuer name.)",
+      "address": "140e037a0"
+    },
+    {
+      "string": "TRUST_E_FAIL (Generic trust failure.)",
+      "address": "140e03908"
+    },
+    {
+      "string": "SCARD_E_INVALID_TARGET (Registry startup information is missing or invalid.)",
+      "address": "140e06370"
+    },
+    {
+      "string": "COMADMIN_E_OBJECTINVALID (One or more of the object's properties are missing or invalid.)",
+      "address": "140e07830"
+    },
+    {
+      "string": "COMADMIN_E_NOREGISTRYCLSID (The component's CLSID is missing or corrupt.)",
+      "address": "140e07bb0"
+    },
+    {
+      "string": "COMADMIN_E_BADREGISTRYPROGID (The component's programmatic ID is missing or corrupt.)",
+      "address": "140e07c00"
+    },
+    {
+      "string": "COMADMIN_E_REMOTEINTERFACE (Interface information is either missing or changed.)",
+      "address": "140e07db0"
+    },
+    {
+      "string": "TPM_E_AUDITFAIL_UNSUCCESSFUL (TPM audit construction failed and the underlying command was \treturning a failure code also.)",
+      "address": "140e0c600"
+    },
+    {
+      "string": "TPM_E_MA_TICKET_SIGNATURE (Migration authority signature validation failure.)",
+      "address": "140e0d460"
+    },
+    {
+      "string": "TPM_E_PPI_BIOS_FAILURE (The BIOS failure prevented the successful execution of the requested TPM operation (for example, invalid TPM operation request, BIOS communication error with the TPM).)",
+      "address": "140e0f090"
+    },
+    {
+      "string": "ERROR_NDIS_DEVICE_FAILED (The network interface has encountered an internal unrecoverable failure.)",
+      "address": "140e11fa0"
+    },
+    {
+      "string": "ERROR_GRAPHICS_ADAPTER_CHAIN_NOT_READY (The chain of linked adapters is not ready to start because of an unknown failure.)",
+      "address": "140e16460"
+    },
+    {
+      "string": "<image_types/>",
+      "address": "140e184e8"
+    },
+    {
+      "string": "%s/v20/image/%s/generate?force=true",
+      "address": "140e18760"
+    },
+    {
+      "string": "%s/v20/image/%s/status",
+      "address": "140e18788"
+    },
+    {
+      "string": "%s/v20/image/%s?light=%s",
+      "address": "140e187a0"
+    },
+    {
+      "string": "%s/v20/images?timestamp=%d",
+      "address": "140e187c0"
+    },
+    {
+      "string": "images_generated",
+      "address": "140e187e0"
+    },
+    {
+      "string": "CAVisionApp::AcquireImage",
+      "address": "140e3a170"
+    },
+    {
+      "string": "Color Images",
+      "address": "140e3a1b8"
+    },
+    {
+      "string": "Please remove the Environment Variable 'MATLAB_JAVA' and reboot Windows.\nUse systempropertiesadvanced.exe to remove it.\nClick on OK to launch systempropertiesadvanced.exe",
+      "address": "140e3a7a0"
+    },
+    {
+      "string": "Bad image calibration for standard resolution, using synthetic pixel calibration.\n",
+      "address": "140e3bbb0"
+    },
+    {
+      "string": "Image calibration activated for standard resolution.",
+      "address": "140e3bc08"
+    },
+    {
+      "string": "VMC %d, image deformity correction file '%s' loaded.\n",
+      "address": "140e3bc68"
+    },
+    {
+      "string": "VMC %d, image deformity correction activated for standard resolution..\n",
+      "address": "140e3bca0"
+    },
+    {
+      "string": "Image calibration not available for standard resolution, using synthetic pixel calibration.\n",
+      "address": "140e3bcf0"
+    },
+    {
+      "string": "VMC %d, image gamma correction file '%s' loaded.\n",
+      "address": "140e3bf80"
+    },
+    {
+      "string": "VMC %d, image gamma correction activated for standard resolution.",
+      "address": "140e3bfc0"
+    },
+    {
+      "string": "<ctrl>+<alt>+<shift>+'V'\t: Open image viewer dialog\n",
+      "address": "140e3c7c0"
+    },
+    {
+      "string": "CCAD_Zone2D_PropSheet::CaptureAllImages",
+      "address": "140e3e4c8"
+    },
+    {
+      "string": "oImagesDefinitionsDst.UpdateGrayImageComposition(%d) failed.\n",
+      "address": "140e3f368"
+    },
+    {
+      "string": "m_oImagesDefinitions.SetAcqImgSettings(%d) failed.\n",
+      "address": "140e3f3c8"
+    },
+    {
+      "string": "ppApp->AcquireImage(%d) failed.\n",
+      "address": "140e3f410"
+    },
+    {
+      "string": "Deviation X Min",
+      "address": "140e3fdb0"
+    },
+    {
+      "string": "Deviation X Max",
+      "address": "140e3fdc0"
+    },
+    {
+      "string": "Deviation Y Min",
+      "address": "140e3fdd0"
+    },
+    {
+      "string": "Deviation Y Max",
+      "address": "140e3fde0"
+    },
+    {
+      "string": "X accuracy standard deviation Min",
+      "address": "140e3fef0"
+    },
+    {
+      "string": "X accuracy standard deviation Max",
+      "address": "140e3ff18"
+    },
+    {
+      "string": "Y accuracy standard deviation Min",
+      "address": "140e3ff40"
+    },
+    {
+      "string": "Y accuracy standard deviation Max",
+      "address": "140e3ff68"
+    },
+    {
+      "string": "X repeatability standard deviation Min",
+      "address": "140e40010"
+    },
+    {
+      "string": "X repeatability standard deviation Max",
+      "address": "140e40038"
+    },
+    {
+      "string": "Y repeatability standard deviation Min",
+      "address": "140e40060"
+    },
+    {
+      "string": "Y repeatability standard deviation Max",
+      "address": "140e40088"
+    },
+    {
+      "string": "X Standard Deviation Min",
+      "address": "140e40248"
+    },
+    {
+      "string": "X Standard Deviation Max",
+      "address": "140e40268"
+    },
+    {
+      "string": "Y Standard Deviation Min",
+      "address": "140e40288"
+    },
+    {
+      "string": "Y Standard Deviation Max",
+      "address": "140e402a8"
+    },
+    {
+      "string": "Folder to dump acquired images (if not empty)",
+      "address": "140e408e0"
+    },
+    {
+      "string": "CCalibration::AcquireImage",
+      "address": "140e44098"
+    },
+    {
+      "string": "AcquireImage() returned %d.\n",
+      "address": "140e44198"
+    },
+    {
+      "string": "m_oMappingTools.AcquireImage() failed.",
+      "address": "140e478b8"
+    },
+    {
+      "string": "Standard deviation\t%lf\t%lf\t(<0.002)\n",
+      "address": "140e47c58"
+    },
+    {
+      "string": "CCpCpkHelper::GetImagesNormalRun",
+      "address": "140e47fb0"
+    },
+    {
+      "string": "Unable to fill fipimage with data: exception catched",
+      "address": "140e47fd8"
+    },
+    {
+      "string": "CCpCpkHelper::GetImagesDetailedStat",
+      "address": "140e48010"
+    },
+    {
+      "string": "CResult_Text::Serialize",
+      "address": "140e4dbc0"
+    },
+    {
+      "string": "Dmx <%s> family <%s> not IsImagesAnalysisAuthorized\n",
+      "address": "140e4f188"
+    },
+    {
+      "string": "SaveOISFile",
+      "address": "140e4f550"
+    },
+    {
+      "string": "Failed to extract images.\n",
+      "address": "140e4f5a0"
+    },
+    {
+      "string": "Failed to save image.\n",
+      "address": "140e4f628"
+    },
+    {
+      "string": "Global Warp: Image resolution (mm)",
+      "address": "140e50060"
+    },
+    {
+      "string": "Apply TextureAdaptativeFiltering (0,1)",
+      "address": "140e500c8"
+    },
+    {
+      "string": "Save Warp Image (0,1)",
+      "address": "140e504b8"
+    },
+    {
+      "string": "Save Warp Image Path (X:\\VIT\\Image\\WarpImage if empty)",
+      "address": "140e504e0"
+    },
+    {
+      "string": "Save Warp Image resolution (Um)",
+      "address": "140e50518"
+    },
+    {
+      "string": "Zone ID=%Iu won't be added to 2D traceability image since it contains no color",
+      "address": "140e50c80"
+    },
+    {
+      "string": "Zone ID=%Iu won't be added to 2D traceability image since no FIP image is requested",
+      "address": "140e50cd0"
+    },
+    {
+      "string": "Failed to convert FIP image to ZMap",
+      "address": "140e50e90"
+    },
+    {
+      "string": "Failed to load the PBCR 3D image into the 3D acquisition buffer",
+      "address": "140e50ec0"
+    },
+    {
+      "string": "CAddRealImage::RunFiducials",
+      "address": "140e52330"
+    },
+    {
+      "string": "m_oPCBiReader.GetWholeImage(%d) failed.",
+      "address": "140e52350"
+    },
+    {
+      "string": "m_oGreyImage.FromFipImage() failed.",
+      "address": "140e52378"
+    },
+    {
+      "string": "CAddRealImage::ApplySimilarities",
+      "address": "140e52430"
+    },
+    {
+      "string": "Real image resolution (um)",
+      "address": "140e524c0"
+    },
+    {
+      "string": "Building real image at [%d]um resolution",
+      "address": "140e524e0"
+    },
+    {
+      "string": "nIndex = %Iu, MakeFipImageFromPel8() failed.",
+      "address": "140e52548"
+    },
+    {
+      "string": "oDstColorImage.combineChannels() failed.",
+      "address": "140e52578"
+    },
+    {
+      "string": "CDlgAddRealImage::OnButtonPCBI_File",
+      "address": "140e525a8"
+    },
+    {
+      "string": "oAddRealImage.RunFiducials() failed.",
+      "address": "140e52630"
+    },
+    {
+      "string": "oAddRealImage.ApplySimilarities() failed.",
+      "address": "140e52658"
+    },
+    {
+      "string": "CDlgAddRealImage::OnOK",
+      "address": "140e52688"
+    },
+    {
+      "string": "m_pDocCompose->GetTST_RealImage().AddImage('%s') failed.",
+      "address": "140e526a0"
+    },
+    {
+      "string": "CDlgAddRealImage::OnRealImageUpdated",
+      "address": "140e526e0"
+    },
+    {
+      "string": "CDlgAxisCvPageAxis::AcquireImage",
+      "address": "140e53b70"
+    },
+    {
+      "string": "Image %s has not been saved on disk.\n",
+      "address": "140e54f88"
+    },
+    {
+      "string": "%s Cam response acquisition failure.\n",
+      "address": "140e57b28"
+    },
+    {
+      "string": "Uniformity - %s Cam response acquisition failure.\n",
+      "address": "140e57dc8"
+    },
+    {
+      "string": "%s NonUniformity - compute histogram failure.\n",
+      "address": "140e57e00"
+    },
+    {
+      "string": "Peripheral (%s) Cam response acquisition failure.\n",
+      "address": "140e57e80"
+    },
+    {
+      "string": "%s-%d Cam response acquisition failure.\n",
+      "address": "140e585a8"
+    },
+    {
+      "string": "AcquireImage-CcPelBuffer",
+      "address": "140e586f8"
+    },
+    {
+      "string": "AcquireImage-CZoneStorage",
+      "address": "140e58750"
+    },
+    {
+      "string": "Acquiring shading map image for %s at command %d",
+      "address": "140e58990"
+    },
+    {
+      "string": "Acq failure - %s\n",
+      "address": "140e58b90"
+    },
+    {
+      "string": "Calib Command= %d | Dump image- %s\n",
+      "address": "140e58c20"
+    },
+    {
+      "string": "CDlgCpCpk::OnButtonBrowseClicked",
+      "address": "140e5bd00"
+    },
+    {
+      "string": "CDlgCpCpk::ShowImage",
+      "address": "140e5bd50"
+    },
+    {
+      "string": "Unable to display image => image not valid",
+      "address": "140e5bd68"
+    },
+    {
+      "string": "Images saved in folder: %s",
+      "address": "140e5bdc8"
+    },
+    {
+      "string": "CGridCpCpkFile::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e5c050"
+    },
+    {
+      "string": "CGridXY::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e5c118"
+    },
+    {
+      "string": "OnButtonShowClicked",
+      "address": "140e5d258"
+    },
+    {
+      "string": "CDlgImageViewer",
+      "address": "140e5d270"
+    },
+    {
+      "string": "fipImageColor.load('%s') failed.\n",
+      "address": "140e5d280"
+    },
+    {
+      "string": "Image color loaded: bit per pixel = %d instead of 24 bit\n",
+      "address": "140e5d2a8"
+    },
+    {
+      "string": "fipImageZmap.load('%s') failed.\n",
+      "address": "140e5d2e8"
+    },
+    {
+      "string": "Image zmap loaded: bit per pixel = %d instead of 16 bit\n",
+      "address": "140e5d310"
+    },
+    {
+      "string": "MakePelBufferRGBFromFipImage failed.\n",
+      "address": "140e5d350"
+    },
+    {
+      "string": "MakePelBuffer16FromFipImage failed.\n",
+      "address": "140e5d378"
+    },
+    {
+      "string": "CForeignMaterials::FullImage2D_Set",
+      "address": "140e5f660"
+    },
+    {
+      "string": "m_oFipImagePtr == false.",
+      "address": "140e5f688"
+    },
+    {
+      "string": "m_oFipImagePtr->isValid() == FALSE",
+      "address": "140e5f6a8"
+    },
+    {
+      "string": "Full Image Panel ROI 2D: %s",
+      "address": "140e5f6d0"
+    },
+    {
+      "string": "CLibraryHelperExportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e60b70"
+    },
+    {
+      "string": "CPanelImageTraceabilityDlg::OnInitDialog",
+      "address": "140e64a70"
+    },
+    {
+      "string": "CMappingTools::AcquireImage",
+      "address": "140e64c18"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::~CPanelImageTraceabilityThread",
+      "address": "140e65010"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::GetTargetFolder",
+      "address": "140e65050"
+    },
+    {
+      "string": "m_oPanelImageTraceabilityData.m_eFolderStrategy = %d.",
+      "address": "140e65090"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::Handler",
+      "address": "140e650e0"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::OnFreeSpaceThreshold",
+      "address": "140e65170"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::OnSDObjectAvailable",
+      "address": "140e651c8"
+    },
+    {
+      "string": "oFipImagePtr == false.",
+      "address": "140e65238"
+    },
+    {
+      "string": "oFipImagePtr->isValid() failed.",
+      "address": "140e65250"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::PushImage",
+      "address": "140e652b0"
+    },
+    {
+      "string": "p_oPanelImageTraceability.m_oFipImagePtr == false.",
+      "address": "140e652e0"
+    },
+    {
+      "string": "p_oPanelImageTraceability.m_oFipImagePtr->isValid() failed.",
+      "address": "140e65318"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::PopImages",
+      "address": "140e65358"
+    },
+    {
+      "string": "SaveImage() failed.",
+      "address": "140e65388"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::SaveImage",
+      "address": "140e653a0"
+    },
+    {
+      "string": "oMachineParameters.m_cParaProduction.m_oPanelImageTraceabilityData.m_eFreeImageFormat = %d.",
+      "address": "140e65460"
+    },
+    {
+      "string": "p_oFipImagePtr->save('%s') failed.",
+      "address": "140e654c0"
+    },
+    {
+      "string": "p_oFipImagePtr->save('%s', %d).",
+      "address": "140e654e8"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::Start",
+      "address": "140e65540"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::Stop",
+      "address": "140e655f0"
+    },
+    {
+      "string": "CPanelImageTraceabilityThread::WaitAvailable",
+      "address": "140e65678"
+    },
+    {
+      "string": "%d image expected",
+      "address": "140e656c0"
+    },
+    {
+      "string": "%d image expected: %d image received",
+      "address": "140e65718"
+    },
+    {
+      "string": "pDefaultHeadSettings ptr NULL! Can't get '%s' image definition to take photo.\n",
+      "address": "140e67650"
+    },
+    {
+      "string": "\n dH = %0.2lf mm | HNominal = %0.2lf mm | HTol = %0.2lf mm | Text = %s\n",
+      "address": "140e67840"
+    },
+    {
+      "string": "AcquireImageForZeroTool",
+      "address": "140e678d0"
+    },
+    {
+      "string": "Waiting for images saving to complete (iter %d)",
+      "address": "140e697a0"
+    },
+    {
+      "string": "Images saving did not complete in %d secs",
+      "address": "140e697d0"
+    },
+    {
+      "string": "CRemoteAcquisition::AcquireRemoteImage",
+      "address": "140e69eb8"
+    },
+    {
+      "string": "CRemoteAcquisition::SaveImages",
+      "address": "140e6a000"
+    },
+    {
+      "string": "For zone = %d - ZMAP image saved in: %s",
+      "address": "140e6a088"
+    },
+    {
+      "string": "For zone = %d - calib color image saved in: %s",
+      "address": "140e6a0b8"
+    },
+    {
+      "string": "For zone = %d - grey image saved in: %s",
+      "address": "140e6a0f0"
+    },
+    {
+      "string": "For zone = %d - color image saved in: %s",
+      "address": "140e6a118"
+    },
+    {
+      "string": "CRemoteAcquisition::SaveImageToDisk",
+      "address": "140e6a148"
+    },
+    {
+      "string": "Image %s path = %s has not been saved on disk.\n",
+      "address": "140e6a170"
+    },
+    {
+      "string": "JEDEC,Part Number,Reference Designator,Sub-panel number,Test status,Presence/Absence test,Polarity,X,Y,Theta,Joints,Bridges,Text,Nb of tested items,Nb of tools executed,Height,Tilt\n",
+      "address": "140e6d8a0"
+    },
+    {
+      "string": "Failed to get color panel image from '%s'",
+      "address": "140e70970"
+    },
+    {
+      "string": "Failed to get grey panel image from '%s'",
+      "address": "140e709a0"
+    },
+    {
+      "string": "Failed to get whole 3D panel image from '%s'",
+      "address": "140e709d0"
+    },
+    {
+      "string": "CDlgPcbiViewer::OnClickBtnShow3D",
+      "address": "140e70a20"
+    },
+    {
+      "string": "CDlgRemoteAcquisition::OnButtonMonitorClicked",
+      "address": "140e71e50"
+    },
+    {
+      "string": "AcquireImage",
+      "address": "140e73450"
+    },
+    {
+      "string": "AcquireImage() failed.\n",
+      "address": "140e73510"
+    },
+    {
+      "string": "CDocCompose::OnCommandRealImageAdd",
+      "address": "140e77680"
+    },
+    {
+      "string": "oDlgAddRealImage.DoModal() returned %Id.",
+      "address": "140e776a8"
+    },
+    {
+      "string": "CDocCompose::OnCommandExRealImageDelete",
+      "address": "140e776d8"
+    },
+    {
+      "string": "GetTST_RealImage().GetImage('%s') failed.",
+      "address": "140e77718"
+    },
+    {
+      "string": "GetTST_RealImage().RemoveImage('%s') failed.",
+      "address": "140e77748"
+    },
+    {
+      "string": "GetTstCADView()->Texture_Remove('%s') failed.",
+      "address": "140e77778"
+    },
+    {
+      "string": "Ask images for zone #%d (index %d).\n",
+      "address": "140e77bd8"
+    },
+    {
+      "string": "No console image!!!!!!!!!!!!!!!!!!!!!!!!!!!!!",
+      "address": "140e77ef8"
+    },
+    {
+      "string": "CDocCompose::FaitTableImage",
+      "address": "140e78808"
+    },
+    {
+      "string": "Panel Image Traceability",
+      "address": "140e79248"
+    },
+    {
+      "string": "p_oFipImage2D->splitChannels() failed.",
+      "address": "140e79660"
+    },
+    {
+      "string": "m_oThicnessStandardDeviation",
+      "address": "140e7af58"
+    },
+    {
+      "string": "m_oThicknessStandardDeviation",
+      "address": "140e7af78"
+    },
+    {
+      "string": "m_oPanelImageTraceabilityThread.Stop",
+      "address": "140e7c130"
+    },
+    {
+      "string": "oPanelImageTraceabilityThread.Stop() failed.",
+      "address": "140e7c158"
+    },
+    {
+      "string": "CDocCompose::CheckPcbi3DImageAvailability",
+      "address": "140e7c478"
+    },
+    {
+      "string": "PCBi product has no 3D image\n",
+      "address": "140e7c528"
+    },
+    {
+      "string": "CDocCompose::CheckIfPCBiImageDefinitionIsCompatibleWithTstSetting",
+      "address": "140e7c550"
+    },
+    {
+      "string": "Inspect when create OIS and save model results inside (0,1)",
+      "address": "140e7c688"
+    },
+    {
+      "string": "Auto certify OIS for panel declared as good (VIT usage only) (0,1)",
+      "address": "140e7c6d0"
+    },
+    {
+      "string": "CDocCompose::CreateComponentCtrE_OIS_File",
+      "address": "140e7c7a8"
+    },
+    {
+      "string": "%s\\Image.ois",
+      "address": "140e7c9c0"
+    },
+    {
+      "string": "AcquireImage2",
+      "address": "140e83028"
+    },
+    {
+      "string": "header cell is null for tree column",
+      "address": "140e85ce0"
+    },
+    {
+      "string": "header cell is null for comment column",
+      "address": "140e85d08"
+    },
+    {
+      "string": "ImagesAnalysis has failed for %s in <%s>\n",
+      "address": "140e88e00"
+    },
+    {
+      "string": "Change value m_poCAD_BaseText = %#IX || Idx = %d\n",
+      "address": "140e89c20"
+    },
+    {
+      "string": "ExportTextInBib",
+      "address": "140e89d20"
+    },
+    {
+      "string": "m_poCAD_BaseText = %#IX\n",
+      "address": "140e89d30"
+    },
+    {
+      "string": "m_poCAD_BaseText = %#IX || pCAD_OCV_String = %#IX\n",
+      "address": "140e89dc0"
+    },
+    {
+      "string": "Stop prod if missing Jedec (0,1)",
+      "address": "140e8b740"
+    },
+    {
+      "string": "\t%d: Mapping file missing\n",
+      "address": "140e8e2d0"
+    },
+    {
+      "string": "\t%d: Save warp image activated (see Parameters.ini)\n",
+      "address": "140e8e2f0"
+    },
+    {
+      "string": "Save 3D image (0,1)",
+      "address": "140e8e490"
+    },
+    {
+      "string": "\t%d: Image 3D for tracability activated (see Parameters.ini)\n",
+      "address": "140e8e4a8"
+    },
+    {
+      "string": "ppApp->AcquireImage() failed.\n",
+      "address": "140e8f660"
+    },
+    {
+      "string": "CMappingV2::MeasurePointColumn",
+      "address": "140e93eb0"
+    },
+    {
+      "string": "MeasurePointColumn(%d) failed.\n",
+      "address": "140e94140"
+    },
+    {
+      "string": "AcquireImageTest",
+      "address": "140e94598"
+    },
+    {
+      "string": "Superviseur did not receive the Review station initialisation request yet.\n",
+      "address": "140e95ce0"
+    },
+    {
+      "string": "GetReviewStation",
+      "address": "140e96838"
+    },
+    {
+      "string": "ReviewStation (%s) lane (%d)\n",
+      "address": "140e96868"
+    },
+    {
+      "string": "ReviewStation empty.\n",
+      "address": "140e96888"
+    },
+    {
+      "string": "CPCBImageRecorderGeometry::GetPanelBorderPosition",
+      "address": "140e971a8"
+    },
+    {
+      "string": "Image used for border detection is not valid.\n",
+      "address": "140e971e0"
+    },
+    {
+      "string": "CPCBImageRecorderGeometry::GetPanelAngleOfRotation_dg",
+      "address": "140e97210"
+    },
+    {
+      "string": "CPCBImageRecorderGeometry::BorderDetection",
+      "address": "140e972c0"
+    },
+    {
+      "string": "CPCBImageRecorderManager::CPCBImageRecorderManager",
+      "address": "140e98f20"
+    },
+    {
+      "string": "PCBi Display Image File Saving Parameter (depends on chosen format) (see FreeImage doc)",
+      "address": "140e98fa0"
+    },
+    {
+      "string": "PCBi Display Image File Extension (PNG, JPEG, JP2, BMP)",
+      "address": "140e98ff8"
+    },
+    {
+      "string": "PCBi Grey Image File Saving Parameter (depends on chosen format) (see FreeImage doc)",
+      "address": "140e99030"
+    },
+    {
+      "string": "PCBi Grey Image File Extension (PNG, JPEG, JP2, BMP)",
+      "address": "140e99088"
+    },
+    {
+      "string": "CPCBImageRecorderManager::ThreadQueuePoolThreads",
+      "address": "140e990d8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::SetEventCancelAcquisition",
+      "address": "140e99138"
+    },
+    {
+      "string": "CPCBImageRecorderManager::SetEventAbortAcquisition",
+      "address": "140e99190"
+    },
+    {
+      "string": "CPCBImageRecorderManager::MustDisplayColorSettingsPage",
+      "address": "140e991f0"
+    },
+    {
+      "string": "HeadDescription xml file parser indicates it's possible to create pseudo color images while this is not an iLite head: Current head is '%s'.\n",
+      "address": "140e99260"
+    },
+    {
+      "string": "CPCBImageRecorderManager::TakePicture2D",
+      "address": "140e992f0"
+    },
+    {
+      "string": "Image acquisition failed.\n",
+      "address": "140e99318"
+    },
+    {
+      "string": "Image 2D acquisition cancelled.\n",
+      "address": "140e99338"
+    },
+    {
+      "string": "CPCBImageRecorderManager::TakeAll2DPicturesAsynch",
+      "address": "140e99360"
+    },
+    {
+      "string": "WaitForMultipleObjects() returned %d. Image 2D notified\n",
+      "address": "140e99398"
+    },
+    {
+      "string": "WaitForMultipleObjects() returned %d. Image 2D acquisition error. Acquisition stopping!\n",
+      "address": "140e993e0"
+    },
+    {
+      "string": "WaitForMultipleObjects() returned %d. Image 2D acquisition cancelled.\n",
+      "address": "140e99440"
+    },
+    {
+      "string": "CPCBImageRecorderManager::GetZoneData2D",
+      "address": "140e994c0"
+    },
+    {
+      "string": "CPCBImageRecorderManager::GetListZoneData2D",
+      "address": "140e994e8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::Scan3D_Asych",
+      "address": "140e99530"
+    },
+    {
+      "string": "WaitForMultipleObjects() returned %d. Image 3D notified\n",
+      "address": "140e99558"
+    },
+    {
+      "string": "Image 3D acquisition succed but ZMap is not bound!\n",
+      "address": "140e99598"
+    },
+    {
+      "string": "WaitForMultipleObjects() returned %d. Image 3D acquisition error. Acquisition stopping!\n",
+      "address": "140e995d0"
+    },
+    {
+      "string": "WaitForMultipleObjects() returned %d. Image 3D acquisition cancelled.\n",
+      "address": "140e99630"
+    },
+    {
+      "string": "CPCBImageRecorderManager::ThreadScanPanel",
+      "address": "140e99678"
+    },
+    {
+      "string": "CPCBImageRecorderManager::ScanPanel",
+      "address": "140e996c0"
+    },
+    {
+      "string": "CPCBImageRecorderManager::InitAcquisition",
+      "address": "140e996e8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::ThreadScanArea3D",
+      "address": "140e99758"
+    },
+    {
+      "string": "CPCBImageRecorderManager::ScanArea3D",
+      "address": "140e997a8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::StartAnOtherSimilarScan",
+      "address": "140e997f8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::ThreadScanAnOtherScan",
+      "address": "140e998f0"
+    },
+    {
+      "string": "CPCBImageRecorderManager::DetectPanelBorderAndScanPanel",
+      "address": "140e99940"
+    },
+    {
+      "string": "CPCBImageRecorderManager::ThreadDetectPanelBorder",
+      "address": "140e999b0"
+    },
+    {
+      "string": "CPCBImageRecorderManager::DetectPanelBorderEntrySide",
+      "address": "140e99a08"
+    },
+    {
+      "string": "CPCBImageRecorderManager::DetectPanelBorderExitSide",
+      "address": "140e99b40"
+    },
+    {
+      "string": "CPCBImageRecorderManager::DetectPanelAngle",
+      "address": "140e99cc8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::DetectPanelBorder",
+      "address": "140e99d18"
+    },
+    {
+      "string": "CPCBImageRecorderManager::GetRegistry_SavePanelBorderDetectionImages",
+      "address": "140e99e00"
+    },
+    {
+      "string": "CPCBImageRecorderManager::RedetecAngle",
+      "address": "140e99e48"
+    },
+    {
+      "string": "CPCBImageRecorderManager::UpdatePanelBorderEntrySide",
+      "address": "140e99e70"
+    },
+    {
+      "string": "CPCBImageRecorderManager::UpdatePanelBorderWidthAndAngle",
+      "address": "140e99ea8"
+    },
+    {
+      "string": "The expected color image is not available in the ZoneStorage.\n",
+      "address": "140e99ee8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::UpdateCropSize",
+      "address": "140e99f28"
+    },
+    {
+      "string": "CPCBImageRecorderManager::CalculateCapturePosn2D",
+      "address": "140e9a098"
+    },
+    {
+      "string": "CPCBImageRecorderManager::CalculateCapturePosn3D",
+      "address": "140e9a118"
+    },
+    {
+      "string": "CPCBImageRecorderManager::StartAcquisition2D_Full",
+      "address": "140e9a188"
+    },
+    {
+      "string": "CPCBImageRecorderManager::PostProcessImg2D",
+      "address": "140e9a1e8"
+    },
+    {
+      "string": "WaitForMultipleObjects(): all images 2D saved\n",
+      "address": "140e9a218"
+    },
+    {
+      "string": "Some analysis threads for color images did not answered.\n",
+      "address": "140e9a2d8"
+    },
+    {
+      "string": "Some analysis threads for grey images did not answered.\n",
+      "address": "140e9a318"
+    },
+    {
+      "string": "CPCBImageRecorderManager::SaveBigImage2DOnDisk",
+      "address": "140e9a3d8"
+    },
+    {
+      "string": "convert big image color : total time: %i ms",
+      "address": "140e9a408"
+    },
+    {
+      "string": "save big image color : total time: %i ms",
+      "address": "140e9a468"
+    },
+    {
+      "string": "CPCBImageRecorderManager::StartAcquisition3D_Full",
+      "address": "140e9a498"
+    },
+    {
+      "string": "Image saved",
+      "address": "140e9a4e8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::PostProcessImg3D",
+      "address": "140e9a4f8"
+    },
+    {
+      "string": "WaitForMultipleObjects(): all images 3D saved\n",
+      "address": "140e9a528"
+    },
+    {
+      "string": "CPCBImageRecorderManager::SaveBigImageZMapOnDisk",
+      "address": "140e9a608"
+    },
+    {
+      "string": "Image3D",
+      "address": "140e9a640"
+    },
+    {
+      "string": "CPCBImageRecorderManager::InitAxisLimits",
+      "address": "140e9a648"
+    },
+    {
+      "string": "CPCBImageRecorderManager::IsAccessibleFor3D",
+      "address": "140e9a748"
+    },
+    {
+      "string": "CPCBImageRecorderManager::OnSDObjectAvailable",
+      "address": "140e9a820"
+    },
+    {
+      "string": "CPCBImageRecorderManager::OnPcbrPoolThreadImage3DExtracted",
+      "address": "140e9a850"
+    },
+    {
+      "string": "All images 3D extracted\n",
+      "address": "140e9a890"
+    },
+    {
+      "string": "CPCBImageRecorderManager::StartProcessColor2dPoolThread",
+      "address": "140e9a8b0"
+    },
+    {
+      "string": "CPCBImageRecorderManager::StartProcessGrey2dPoolThread",
+      "address": "140e9a8e8"
+    },
+    {
+      "string": "CPCBImageRecorderManager::StartProcessZMapPoolThread",
+      "address": "140e9a920"
+    },
+    {
+      "string": "CPcbrPoolThreadTools::StitchBigImage",
+      "address": "140e9b100"
+    },
+    {
+      "string": "Unable to stitch color image (size px: %d, %d) in big image (size px: %d, %d) at position (size px: %d, %d)\n",
+      "address": "140e9b170"
+    },
+    {
+      "string": "CPcbrPoolThreadTools::MoveImageToImageAt",
+      "address": "140e9b270"
+    },
+    {
+      "string": "FOV (%d, %d): Fip image rotated (size (%d, %d)px, (%d bbp)) Crop image (size (%d, %d)px - position left, right, top, bottom(%d, %d, %d, %d))",
+      "address": "140e9b3e0"
+    },
+    {
+      "string": "FreeImage rotate or crop threw an exception",
+      "address": "140e9b470"
+    },
+    {
+      "string": "CPcbrPoolThreadTools::SaveImageToDisk",
+      "address": "140e9b4a0"
+    },
+    {
+      "string": "Save thumbnail grey %d, image type %d, light level %d",
+      "address": "140e9b4e8"
+    },
+    {
+      "string": "CPCBRSaveImage2DColorThread::Treat",
+      "address": "140e9b598"
+    },
+    {
+      "string": "Start save image nb:%d type: %d to PCBi folder\n",
+      "address": "140e9b5d8"
+    },
+    {
+      "string": "CPCBRSaveImage2dGreyThread::Treat",
+      "address": "140e9b698"
+    },
+    {
+      "string": "CPCBRSaveImageZMapThread::Treat",
+      "address": "140e9b748"
+    },
+    {
+      "string": "Treat image nb:%d type: ZMAP to PCBi folder\n",
+      "address": "140e9b768"
+    },
+    {
+      "string": "Convert to fip image nb:%d type:%s",
+      "address": "140e9b798"
+    },
+    {
+      "string": "Stitch image nb:%d type:%s",
+      "address": "140e9b810"
+    },
+    {
+      "string": "CPCBRSaveImageZMapThread::ApplyMaskNAN",
+      "address": "140e9b850"
+    },
+    {
+      "string": "ShouldItGoToReviewStation",
+      "address": "140e9e928"
+    },
+    {
+      "string": "Record OIS files: Number of  Panels",
+      "address": "140e9ea18"
+    },
+    {
+      "string": "CMsgPanelProd::SendPanelToReviewStation",
+      "address": "140ea1ce8"
+    },
+    {
+      "string": "Msg Panel <%s> and %d image(s) sent to supervisor.\n",
+      "address": "140ea1f00"
+    },
+    {
+      "string": "Missing",
+      "address": "140ea2008"
+    },
+    {
+      "string": "Image",
+      "address": "140ea3ba0"
+    },
+    {
+      "string": "Record OIS files for fiducials (0,1)",
+      "address": "140ea3c68"
+    },
+    {
+      "string": "Record OIS files for IdCode (0,1)",
+      "address": "140ea3c90"
+    },
+    {
+      "string": "Reparation image scale (1.-10.)",
+      "address": "140ea3e78"
+    },
+    {
+      "string": "ProdImage",
+      "address": "140ea41b8"
+    },
+    {
+      "string": "Save images = '%s'.\n",
+      "address": "140ea44e0"
+    },
+    {
+      "string": "Save only color images = '%s'.\n",
+      "address": "140ea44f8"
+    },
+    {
+      "string": "PseudoColor image = '%s'.\n",
+      "address": "140ea47b8"
+    },
+    {
+      "string": "Pseudo color image = '%s' (disabled).\n",
+      "address": "140ea47d8"
+    },
+    {
+      "string": "oPanelImageTraceabilityThread.Start() failed.",
+      "address": "140ea51a0"
+    },
+    {
+      "string": "m_oPanelImageTraceabilityThread.Stop() failed.",
+      "address": "140ea54a0"
+    },
+    {
+      "string": "Activate OIS by default in production (0,1)",
+      "address": "140ea5e28"
+    },
+    {
+      "string": "Hard disk is full -> disable OIS recording\n",
+      "address": "140ea60c0"
+    },
+    {
+      "string": "CProductionDoc::ReadCurrentPanelStatusFromReview",
+      "address": "140ea63f8"
+    },
+    {
+      "string": "Panel ID code data are missing!\n",
+      "address": "140ea68f0"
+    },
+    {
+      "string": "Crop image 2D failed",
+      "address": "140ea74d0"
+    },
+    {
+      "string": "Make color fipImage failed.",
+      "address": "140ea7500"
+    },
+    {
+      "string": "Review station is now free.\n",
+      "address": "140ea8ca0"
+    },
+    {
+      "string": "CProductionThread::ComputeDirectoryToSaveFileOISFiducialOrIdCode",
+      "address": "140ea92e0"
+    },
+    {
+      "string": "Failed to Create OIS directory. OIS recorder is deactivated.\n",
+      "address": "140ea9328"
+    },
+    {
+      "string": "Hard disk is full -> disable Fiducial OIS recording\n",
+      "address": "140ea9368"
+    },
+    {
+      "string": "ID code reading error must be managed before asking production command to the plugin because the panel ID code is missing and this plugin needs it to select the appropriate recipe.\n",
+      "address": "140ea9f10"
+    },
+    {
+      "string": "wait image tracability failed",
+      "address": "140eaa348"
+    },
+    {
+      "string": "oFipImagePtr->isValid() == FALSE",
+      "address": "140eab1c0"
+    },
+    {
+      "string": "CProductionThread::CreatePseudoColorImage",
+      "address": "140eab700"
+    },
+    {
+      "string": "Sub-panel %d, component '%s', color image added to anomaly.\n",
+      "address": "140eab798"
+    },
+    {
+      "string": "CreatePseudoColorImage() failed.\n",
+      "address": "140eab898"
+    },
+    {
+      "string": "Display real image",
+      "address": "140eacef8"
+    },
+    {
+      "string": "m_pCadEngineAdapter->RealImage_Create('%s') failed.",
+      "address": "140eacf10"
+    },
+    {
+      "string": "PV_COMMAND_BTN_OIS.\n",
+      "address": "140ead3d0"
+    },
+    {
+      "string": "oImagesDefinitions.GetAcqImgSettings(%d) failed.\n",
+      "address": "140eadd38"
+    },
+    {
+      "string": "oImagesDefinitions.SetAcqImgSettings(%d) failed.\n",
+      "address": "140eadda8"
+    },
+    {
+      "string": "oImagesDefinitionsCleaned.AddGrayImageComposition() failed.\n",
+      "address": "140eadde0"
+    },
+    {
+      "string": "oImageList.Create() failed.\n",
+      "address": "140eae338"
+    },
+    {
+      "string": "m_oImagesDefinitions.UpdateGrayImageComposition(%d) failed.\n",
+      "address": "140eae380"
+    },
+    {
+      "string": "CPropertyGridLevel::SetImagesDefinitions",
+      "address": "140eae3c0"
+    },
+    {
+      "string": "m_wndComboRealImages.Create() failed.",
+      "address": "140eb2678"
+    },
+    {
+      "string": "Last real image panel type (-1:None, 0: Empty, 1: Full)",
+      "address": "140eb2740"
+    },
+    {
+      "string": "CTestParamImages",
+      "address": "140eb2d98"
+    },
+    {
+      "string": "CTST_PropertiesColorImage",
+      "address": "140eb2e70"
+    },
+    {
+      "string": "m_cListeCB.SetItemText('%s') failed.\n",
+      "address": "140eb6bf8"
+    },
+    {
+      "string": "Text fault",
+      "address": "140eb70b8"
+    },
+    {
+      "string": "Record OIS files: Components with defect (0,1)",
+      "address": "140eb70f8"
+    },
+    {
+      "string": "Record OIS files: All Jedecs (0,1)",
+      "address": "140eb7128"
+    },
+    {
+      "string": "CTstCADView::OnAcquireImage",
+      "address": "140eb9bd8"
+    },
+    {
+      "string": "m_pDlgElementWizard->SetOutputImageFileType\n",
+      "address": "140eb9d18"
+    },
+    {
+      "string": "CTstCADView::Texture_Remove",
+      "address": "140eb9e10"
+    },
+    {
+      "string": "m_mapTextureObjPtr.find(%d) failed.",
+      "address": "140eb9e30"
+    },
+    {
+      "string": "CTstCADView::RealImage_Show",
+      "address": "140eba030"
+    },
+    {
+      "string": "CTstCADView::GetImageFileType",
+      "address": "140eba140"
+    },
+    {
+      "string": "p_oVitImgFileRecorder.SaveOISMemory() failed.",
+      "address": "140ebb040"
+    },
+    {
+      "string": "SaveOIS(%d, '%s') failed.",
+      "address": "140ebb090"
+    },
+    {
+      "string": "CVitImgFileRecorderHelper::SaveOIS",
+      "address": "140ebb0e8"
+    },
+    {
+      "string": "Save Foreign Materials OIS",
+      "address": "140ebb110"
+    },
+    {
+      "string": "#Timer:Save_OIS_<%s> = %lf (ms)\n",
+      "address": "140ebb1b0"
+    },
+    {
+      "string": "CVitImgFileRecorderHelper::SaveOTR_OISFileForMacro",
+      "address": "140ebb2b0"
+    },
+    {
+      "string": "ppApp.AcquireImage(%d) failed.\n",
+      "address": "140ebc1a0"
+    },
+    {
+      "string": "CWizardPCBImageRecorder",
+      "address": "140ebc920"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_Page3dParam",
+      "address": "140ebd108"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_Page3dParam::OnInitDialog",
+      "address": "140ebd270"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_Page3dParam::OnScanPanel3DDone",
+      "address": "140ebd2f8"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_Page3dParam::OnScanPanel3DFailed",
+      "address": "140ebd330"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_Page3dParam::OnClickBtnShow3D",
+      "address": "140ebd370"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageColorSettings",
+      "address": "140ebd9e8"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageColorSettings::OnInitDialog",
+      "address": "140ebdac0"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageConveyor",
+      "address": "140ebe188"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageConveyor::OnInitDialog",
+      "address": "140ebe230"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageFolderSet",
+      "address": "140ebe8e8"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageGeometry",
+      "address": "140ebf308"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageGeometry::OnInitDialog",
+      "address": "140ebf4b0"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageGeometry::OnPanelBorderDetectionEnd",
+      "address": "140ebf4f0"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageGeometry::RefreshWizardButtons",
+      "address": "140ebf570"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan",
+      "address": "140ebfdf0"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::OnScanPanel2DDone",
+      "address": "140ec00a0"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::OnScanPanel3DDone",
+      "address": "140ec00d8"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::OnScanPanel3DStitched",
+      "address": "140ec0128"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::OnScanPanelCancelled",
+      "address": "140ec0178"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::OnScanPanelFailed",
+      "address": "140ec01c8"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::UpdateProgress2D",
+      "address": "140ec0200"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::UpdateProgress3D",
+      "address": "140ec0258"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::OnClickBtnShow3D",
+      "address": "140ec02b0"
+    },
+    {
+      "string": "The specified PCBI doesn't includes the 3D images: '%s'",
+      "address": "140ec1fc0"
+    },
+    {
+      "string": "Please provide a PCBI wich includes the 3D images and the images dedicated to fiducial inspection",
+      "address": "140ec2000"
+    },
+    {
+      "string": "Failed to get whole panel image dedicated to fiducials from '%s'",
+      "address": "140ec20c0"
+    },
+    {
+      "string": "Failed to get whole 3D merged panel image from '%s. CAUTION : CAMA+CAMB PCBR are not supported anymore'",
+      "address": "140ec2200"
+    },
+    {
+      "string": "MakePelBuffer16FromFipImage() failed for image merged.",
+      "address": "140ec2268"
+    },
+    {
+      "string": "oPCBIReader.GetWholeImage() failed.",
+      "address": "140ec22a0"
+    },
+    {
+      "string": "CWizardTST_Get3dData::ThreadCreateImageForFiducials",
+      "address": "140ec57c8"
+    },
+    {
+      "string": "Ending ThreadCreateImageForFiducials",
+      "address": "140ec5800"
+    },
+    {
+      "string": "oTST_RealImage.HasImage('%s') returned false.",
+      "address": "140ec58c8"
+    },
+    {
+      "string": "Missing merged ZMap. Aborting execution...",
+      "address": "140ec5a58"
+    },
+    {
+      "string": "CWizardTST_Get3dData::OnBnClickedBtnStopAlgo",
+      "address": "140ec5df0"
+    },
+    {
+      "string": "CWizardTST_Get3dData::SetHeaderColumn",
+      "address": "140ec5e20"
+    },
+    {
+      "string": "Option Generate Prog Image",
+      "address": "140ec6650"
+    },
+    {
+      "string": "CWizardTST_Get3dData::ThreadBuildRealImage",
+      "address": "140ec66b8"
+    },
+    {
+      "string": "m_pSheet->m_pDoc->GetTST_RealImage().AddImage('%s') failed.",
+      "address": "140ec66f8"
+    },
+    {
+      "string": "m_pSheet->m_pDoc->GetTST_RealImage().AddImage('%s').",
+      "address": "140ec6738"
+    },
+    {
+      "string": "Unable to get column",
+      "address": "140ec6ef8"
+    },
+    {
+      "string": "OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140ec9280"
+    },
+    {
+      "string": "Extracting fiducial image",
+      "address": "140ecb248"
+    },
+    {
+      "string": "OnRightClickJedec",
+      "address": "140ecb788"
+    },
+    {
+      "string": "OnDblClickJedec",
+      "address": "140ecb7a0"
+    },
+    {
+      "string": "OnRightClickModelFamily",
+      "address": "140ecb7b0"
+    },
+    {
+      "string": "CWizardTST_LkTab::ThreadCreateImageForFiducials",
+      "address": "140ecbb58"
+    },
+    {
+      "string": "Crop Image (0,1)",
+      "address": "140ecbc18"
+    },
+    {
+      "string": "minimum of the image ocupied by PCB in percent [0,100]",
+      "address": "140ecbd20"
+    },
+    {
+      "string": "Missing extracted layers.",
+      "address": "140ecbf60"
+    },
+    {
+      "string": "CWizardTST_LkTab::OnBnClickedBtnStopAlgo",
+      "address": "140ecbfc8"
+    },
+    {
+      "string": "oVitImgFileRecorderHelper.SaveOIS() failed.",
+      "address": "140ecfa10"
+    },
+    {
+      "string": "CZoneAnalysis::ExecuteAll_Texts",
+      "address": "140ecfa40"
+    },
+    {
+      "string": "CTCRTextObject",
+      "address": "140edc1c0"
+    },
+    {
+      "string": "CTCRTextObjectsColoredGridView",
+      "address": "140edc738"
+    },
+    {
+      "string": "Cannot set image correction in %s.",
+      "address": "140ee3738"
+    },
+    {
+      "string": "Cannot Add %s Image of level %i to VIT Image File (%s)",
+      "address": "140ee3770"
+    },
+    {
+      "string": "Cannot set image calibration data in %s.",
+      "address": "140ee37a8"
+    },
+    {
+      "string": "Cannot set image calibration 3D data in %s.",
+      "address": "140ee37d8"
+    },
+    {
+      "string": "'%s': p_pVitImgFile->SetAcquisitionContextImage() failed.",
+      "address": "140ee3850"
+    },
+    {
+      "string": "SaveColorImage('%s') failed.",
+      "address": "140ee38e8"
+    },
+    {
+      "string": "MakeFipImageFromPel16() failed.",
+      "address": "140ee3908"
+    },
+    {
+      "string": "SaveImage('%d') failed.",
+      "address": "140ee3928"
+    },
+    {
+      "string": "Cannot Compress image in VIT Image File (%s)",
+      "address": "140ee3940"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveOIS",
+      "address": "140ee3970"
+    },
+    {
+      "string": "Cannot Create VIT Image File (%s)",
+      "address": "140ee3990"
+    },
+    {
+      "string": "Commit of VIT Image File  has FAILED (%s)",
+      "address": "140ee39d8"
+    },
+    {
+      "string": "VIT Image File  is closed with error (%s)",
+      "address": "140ee3a08"
+    },
+    {
+      "string": "Certify/Commit of VIT Image File  has FAILED (%s)",
+      "address": "140ee3b20"
+    },
+    {
+      "string": "CVitImgFileRecorder::CheckAndDeleteGreyImages",
+      "address": "140ee3c08"
+    },
+    {
+      "string": "Delete All grey images (Only Image color activated)",
+      "address": "140ee3c38"
+    },
+    {
+      "string": "Commit of VIT Memory Image File after grey image deletion has FAILED",
+      "address": "140ee3c70"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveOISMemory",
+      "address": "140ee3cb8"
+    },
+    {
+      "string": "Cannot Create VIT Memory Image File (%s)",
+      "address": "140ee3d00"
+    },
+    {
+      "string": "Commit of VIT Memory Image File  has FAILED (%s)",
+      "address": "140ee3d30"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveTypedImage",
+      "address": "140ee3d68"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveColorImage",
+      "address": "140ee3d98"
+    },
+    {
+      "string": "p_pVitImgFile->GetImageTopLeftRect() failed.",
+      "address": "140ee3df0"
+    },
+    {
+      "string": "'%s': oFIP_ImageSrcPtr = 0x%p, oFIP_ImageSrcPtr->isValid() = '%s'.",
+      "address": "140ee3e60"
+    },
+    {
+      "string": "'%s': oFIP_ImageSrcPtr->copySubImage(%d, %d, %d , %d) failed.",
+      "address": "140ee3ea8"
+    },
+    {
+      "string": "'%s': oBlackFIP_Image.pasteSubImage() failed.",
+      "address": "140ee3ee8"
+    },
+    {
+      "string": "Review station color image format (0 jpg, 1 bmp)",
+      "address": "140ee3f18"
+    },
+    {
+      "string": "p_pVitImgFile->AddImage('%s', %d) failed.",
+      "address": "140ee3f50"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveImage",
+      "address": "140ee3f80"
+    },
+    {
+      "string": "p_oFIP_Image.isValid() failed.\n",
+      "address": "140ee3fa0"
+    },
+    {
+      "string": "'%s': p_oFIP_Image.isValid() = '%s'.",
+      "address": "140ee3fd0"
+    },
+    {
+      "string": "'%s': p_oFIP_Image.copySubImage(%d, %d, %d , %d) failed.",
+      "address": "140ee3ff8"
+    },
+    {
+      "string": "p_pVitImgFile->AddImage(%d, '%s') failed.\n",
+      "address": "140ee4048"
+    },
+    {
+      "string": "CVitImgFileRecorder::AddImageColor",
+      "address": "140ee4078"
+    },
+    {
+      "string": "Cannot Compress image in VIT Image Memory ",
+      "address": "140ee40c8"
+    },
+    {
+      "string": "The CImagesDefinitions of paste images are missing while this PCBi include images for paste inspection.\n",
+      "address": "140ee43d0"
+    },
+    {
+      "string": "GetImage",
+      "address": "140ee4538"
+    },
+    {
+      "string": "The provided PCBi folder path is empty! -> returns a black image\n",
+      "address": "140ee4550"
+    },
+    {
+      "string": "The requested image type is not available -> returns a black image\n",
+      "address": "140ee45a0"
+    },
+    {
+      "string": "failed to extract image from pcbi: image out of pcbi",
+      "address": "140ee45e8"
+    },
+    {
+      "string": "Load image failed: image file '%s'",
+      "address": "140ee4620"
+    },
+    {
+      "string": "Bad image type, can't merge it : image file '%s'",
+      "address": "140ee4648"
+    },
+    {
+      "string": "pasteSubImage(%d, %d) failed for image file '%s'",
+      "address": "140ee4680"
+    },
+    {
+      "string": "failed to extract image from pcbi",
+      "address": "140ee46b8"
+    },
+    {
+      "string": "CPCBiReader::GetWholeImage",
+      "address": "140ee46e0"
+    },
+    {
+      "string": "ptImageSize_px=[%d,%d]",
+      "address": "140ee4700"
+    },
+    {
+      "string": "DetermineImageType",
+      "address": "140ee4770"
+    },
+    {
+      "string": "Use image 3D.\n",
+      "address": "140ee4788"
+    },
+    {
+      "string": "Images for display are not available -> use images for fiducial.\n",
+      "address": "140ee47a0"
+    },
+    {
+      "string": "Images for display are not available -> use images for components.\n",
+      "address": "140ee47f0"
+    },
+    {
+      "string": "Images for display are not available -> use images for paste.\n",
+      "address": "140ee4838"
+    },
+    {
+      "string": "No image type available at all.\n",
+      "address": "140ee4878"
+    },
+    {
+      "string": "Images for Fiducial are not available -> returns a black image.\n",
+      "address": "140ee48a0"
+    },
+    {
+      "string": "Use images for paste inspection.\n",
+      "address": "140ee48e8"
+    },
+    {
+      "string": "Use images for component inspection.\n",
+      "address": "140ee4910"
+    },
+    {
+      "string": "No image available for inspection -> returns a black image.\n",
+      "address": "140ee4938"
+    },
+    {
+      "string": "image_types",
+      "address": "140ee5058"
+    },
+    {
+      "string": "Acquisition position (image center) in panel reference, origine is the same as machine zero.",
+      "address": "140ee5e80"
+    }
+  ],
+  "anchors": [
+    {
+      "needle": "SkipSubPanel",
+      "hits": [
+        {
+          "name": "CDataCaoTraitement::SkipSubPanel",
+          "address": "140541080",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "IsSkippedSubPanel",
+      "hits": [
+        {
+          "name": "CDataCaoTraitement::IsSkippedSubPanel",
+          "address": "14052e010",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ExecuteOne_Component",
+      "hits": [
+        {
+          "name": "ExecuteOne_Component",
+          "address": "1407368d0",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ExecuteAll_Components",
+      "hits": [
+        {
+          "name": "ExecuteAll_Components",
+          "address": "1407354b0",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ShouldItGoToReviewStation",
+      "hits": []
+    },
+    {
+      "needle": "CAPM_SetInspectionStatus",
+      "hits": []
+    },
+    {
+      "needle": "ExecuteSkip",
+      "hits": [
+        {
+          "name": "ExecuteSkip",
+          "address": "1406a06b0",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "GetBinaryFieldDefects",
+      "hits": [
+        {
+          "name": "STRUCTSUPPORT.DLL::CResult::GetBinaryFieldDefects",
+          "address": "EXTERNAL:000013eb",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ImagesAnalysis",
+      "hits": [
+        {
+          "name": "AVVTRAITLIB.DLL::CModelFamily::ImagesAnalysis",
+          "address": "EXTERNAL:00000f36",
+          "type": "Function"
+        },
+        {
+          "name": "AVVTRAITLIB.DLL::CModelFamily::ImagesAnalysis",
+          "address": "EXTERNAL:00000f60",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "RazRes",
+      "hits": [
+        {
+          "name": "STRUCTSUPPORT.DLL::CAnomalieProd::RazRes",
+          "address": "EXTERNAL:00001514",
+          "type": "Function"
+        }
+      ]
+    }
+  ]
+}

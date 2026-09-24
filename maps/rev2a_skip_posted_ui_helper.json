@@ -1,0 +1,179 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x140675f90",
+    "--output",
+    "maps/rev2a_skip_posted_ui_helper.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid FUN_140675f90(longlong param_1)\r\n\r\n{\r\n                    /* WARNING: Could not recover jumptable at 0x000140675f9a. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n  InvalidateRect(*(HWND *)(param_1 + 0x40),(RECT *)0x0,1);\r\n  return;\r\n}\r\n\r\n",
+      "entry": "140675f90",
+      "incoming": [
+        {
+          "caller": "1406acc70",
+          "caller_name": "FUN_1406acc70",
+          "from": "1406ad021",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "14067a290",
+          "caller_name": "FUN_14067a290",
+          "from": "14067a2b8",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "14067a220",
+          "caller_name": "FUN_14067a220",
+          "from": "14067a27c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406b3c80",
+          "caller_name": "FUN_1406b3c80",
+          "from": "1406b3dfe",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406abfe0",
+          "caller_name": "FUN_1406abfe0",
+          "from": "1406abff0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406b0710",
+          "caller_name": "FUN_1406b0710",
+          "from": "1406b0979",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406b1730",
+          "caller_name": "FUN_1406b1730",
+          "from": "1406b17d6",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406b2320",
+          "caller_name": "FUN_1406b2320",
+          "from": "1406b2c4a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "14067baf0",
+          "caller_name": "FUN_14067baf0",
+          "from": "14067bb06",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "14067c190",
+          "caller_name": "FUN_14067c190",
+          "from": "14067c1ff",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "14067c190",
+          "caller_name": "FUN_14067c190",
+          "from": "14067c223",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "140676450",
+          "caller_name": "FUN_140676450",
+          "from": "140676466",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "140676ed0",
+          "caller_name": "FUN_140676ed0",
+          "from": "140676eef",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "140677c00",
+          "caller_name": "FUN_140677c00",
+          "from": "140677c16",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406790f0",
+          "caller_name": "FUN_1406790f0",
+          "from": "140679106",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "14067ab50",
+          "caller_name": "FUN_14067ab50",
+          "from": "14067ab66",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406b0c00",
+          "caller_name": "FUN_1406b0c00",
+          "from": "1406b0f17",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140675f90",
+          "bytes": "488b4940",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RCX + 0x40]"
+        },
+        {
+          "address": "140675f94",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "140675f96",
+          "bytes": "448d4201",
+          "references": [],
+          "text": "LEA R8D,[RDX + 0x1]"
+        },
+        {
+          "address": "140675f9a",
+          "bytes": "48ff25ef5c6e00",
+          "references": [
+            {
+              "symbol": "PTR_InvalidateRect_140d5bc90",
+              "to": "140d5bc90",
+              "type": "INDIRECTION"
+            },
+            {
+              "symbol": "USER32.DLL::InvalidateRect",
+              "to": "EXTERNAL:00001c31",
+              "type": "COMPUTED_JUMP"
+            }
+          ],
+          "text": "JMP qword ptr [0x140d5bc90]"
+        }
+      ],
+      "name": "FUN_140675f90",
+      "requested_address": "140675f90"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

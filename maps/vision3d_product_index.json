@@ -1,0 +1,669 @@
+{
+  "program": "Vision3D.exe",
+  "image_base": "140000000",
+  "functions_total": 131008,
+  "functions_named_non_FUN": 33534,
+  "mode_counts": {
+    "other": 2162,
+    "library": 326,
+    "production": 204,
+    "review": 168,
+    "ui": 1748,
+    "compose": 208
+  },
+  "product_classes": [
+    {
+      "class": "CExtGridWnd",
+      "count": 176
+    },
+    {
+      "class": "CDataCaoTraitement",
+      "count": 142
+    },
+    {
+      "class": "CExtGridCell",
+      "count": 133
+    },
+    {
+      "class": "CExtReportGridWnd",
+      "count": 127
+    },
+    {
+      "class": "CExtGridBaseWnd",
+      "count": 98
+    },
+    {
+      "class": "CExtTreeGridWnd",
+      "count": 90
+    },
+    {
+      "class": "CVitExtReportGridWnd",
+      "count": 72
+    },
+    {
+      "class": "CExtPropertyGridCtrl",
+      "count": 30
+    },
+    {
+      "class": "CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>",
+      "count": 28
+    },
+    {
+      "class": "CExtGridCellComboBox",
+      "count": 28
+    },
+    {
+      "class": "CExtGridCellBool",
+      "count": 23
+    },
+    {
+      "class": "CExtPPVW<CExtReportGridWnd>",
+      "count": 22
+    },
+    {
+      "class": "CModel_Shape",
+      "count": 19
+    },
+    {
+      "class": "CExtGridCellCheckBox",
+      "count": 13
+    },
+    {
+      "class": "CModelShape_Component",
+      "count": 12
+    },
+    {
+      "class": "CSkip_bloc",
+      "count": 11
+    },
+    {
+      "class": "CAnomalieProd",
+      "count": 10
+    },
+    {
+      "class": "CAnomalie",
+      "count": 9
+    },
+    {
+      "class": "CCAD_ZoneMatriciel",
+      "count": 9
+    },
+    {
+      "class": "CExtGridCellString",
+      "count": 8
+    },
+    {
+      "class": "CModel",
+      "count": 7
+    },
+    {
+      "class": "Vit_xml_oarchive>",
+      "count": 7
+    }
+  ],
+  "anchors": [
+    {
+      "needle": "SkipSubPanel",
+      "hits": [
+        {
+          "name": "CDataCaoTraitement::SkipSubPanel",
+          "address": "140541080",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "IsSkippedSubPanel",
+      "hits": [
+        {
+          "name": "CDataCaoTraitement::IsSkippedSubPanel",
+          "address": "14052e010",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ExecuteOne_Component",
+      "hits": [
+        {
+          "name": "ExecuteOne_Component",
+          "address": "1407368d0",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ExecuteAll_Components",
+      "hits": [
+        {
+          "name": "ExecuteAll_Components",
+          "address": "1407354b0",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ShouldItGoToReviewStation",
+      "hits": []
+    },
+    {
+      "needle": "CAPM_SetInspectionStatus",
+      "hits": []
+    },
+    {
+      "needle": "ExecuteSkip",
+      "hits": [
+        {
+          "name": "ExecuteSkip",
+          "address": "1406a06b0",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "GetBinaryFieldDefects",
+      "hits": [
+        {
+          "name": "STRUCTSUPPORT.DLL::CResult::GetBinaryFieldDefects",
+          "address": "EXTERNAL:000013eb",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ImagesAnalysis",
+      "hits": [
+        {
+          "name": "AVVTRAITLIB.DLL::CModelFamily::ImagesAnalysis",
+          "address": "EXTERNAL:00000f36",
+          "type": "Function"
+        },
+        {
+          "name": "AVVTRAITLIB.DLL::CModelFamily::ImagesAnalysis",
+          "address": "EXTERNAL:00000f60",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "RazRes",
+      "hits": [
+        {
+          "name": "STRUCTSUPPORT.DLL::CAnomalieProd::RazRes",
+          "address": "EXTERNAL:00001514",
+          "type": "Function"
+        }
+      ]
+    }
+  ],
+  "interesting_focus_strings": [
+    {
+      "string": "boost::format_error: format generic failure",
+      "address": "140ddf978"
+    },
+    {
+      "string": "InMotorFailure",
+      "address": "140de06e0"
+    },
+    {
+      "string": "Missing interface.\n",
+      "address": "140dedd28"
+    },
+    {
+      "string": "Lane '%d', face '%d', IdCode '%s', Convey to Review Station '%s'.\n",
+      "address": "140def1a0"
+    },
+    {
+      "string": "E_UNEXPECTED (Catastrophic failure.)",
+      "address": "140df0bd0"
+    },
+    {
+      "string": "CO_E_INIT_TLS (Thread local storage failure.)",
+      "address": "140df2a08"
+    },
+    {
+      "string": "CO_E_INIT_SHARED_ALLOCATOR (Get shared memory allocator failure.)",
+      "address": "140df2a40"
+    },
+    {
+      "string": "CO_E_INIT_MEMORY_ALLOCATOR (Get memory allocator failure.)",
+      "address": "140df2a88"
+    },
+    {
+      "string": "CO_E_INIT_SCM_EXEC_FAILURE (Failure attempting to launch OLE service.)",
+      "address": "140df2d90"
+    },
+    {
+      "string": "XACT_E_NOISORETAIN (The requested semantics of retention of isolation across retaining commit and abort boundaries cannot be supported by this transaction implementation, or isoFlags was not equal to 0.)",
+      "address": "140dfa0d0"
+    },
+    {
+      "string": "XACT_E_NOTCURRENT (The transaction failed to commit due to the failure of optimistic concurrency control in at least one of the resource managers.)",
+      "address": "140dfa200"
+    },
+    {
+      "string": "XACT_E_INDOUBT (The transaction status is in doubt. A communication failure occurred, or a transaction manager or resource manager has failed.)",
+      "address": "140dfa580"
+    },
+    {
+      "string": "SEC_E_SECURITY_QOS_FAILED (The security context could not be established due to a failure in the requested quality of service (for example, mutual authentication or delegation).)",
+      "address": "140dfd720"
+    },
+    {
+      "string": "SEC_E_UNFINISHED_CONTEXT_DELETED (A security context was deleted before the context was completed. This is considered a logon failure.)",
+      "address": "140dfd7e0"
+    },
+    {
+      "string": "DIGSIG_E_CRYPTO (Unspecified cryptographic failure.)",
+      "address": "140e03318"
+    },
+    {
+      "string": "TRUST_E_FAIL (Generic trust failure.)",
+      "address": "140e03908"
+    },
+    {
+      "string": "TPM_E_AUDITFAIL_UNSUCCESSFUL (TPM audit construction failed and the underlying command was \treturning a failure code also.)",
+      "address": "140e0c600"
+    },
+    {
+      "string": "TPM_E_MA_TICKET_SIGNATURE (Migration authority signature validation failure.)",
+      "address": "140e0d460"
+    },
+    {
+      "string": "TPM_E_PPI_BIOS_FAILURE (The BIOS failure prevented the successful execution of the requested TPM operation (for example, invalid TPM operation request, BIOS communication error with the TPM).)",
+      "address": "140e0f090"
+    },
+    {
+      "string": "ERROR_NDIS_DEVICE_FAILED (The network interface has encountered an internal unrecoverable failure.)",
+      "address": "140e11fa0"
+    },
+    {
+      "string": "ERROR_GRAPHICS_ADAPTER_CHAIN_NOT_READY (The chain of linked adapters is not ready to start because of an unknown failure.)",
+      "address": "140e16460"
+    },
+    {
+      "string": "Please remove the Environment Variable 'MATLAB_JAVA' and reboot Windows.\nUse systempropertiesadvanced.exe to remove it.\nClick on OK to launch systempropertiesadvanced.exe",
+      "address": "140e3a7a0"
+    },
+    {
+      "string": "Deviation X Min",
+      "address": "140e3fdb0"
+    },
+    {
+      "string": "Deviation X Max",
+      "address": "140e3fdc0"
+    },
+    {
+      "string": "Deviation Y Min",
+      "address": "140e3fdd0"
+    },
+    {
+      "string": "Deviation Y Max",
+      "address": "140e3fde0"
+    },
+    {
+      "string": "X Standard Deviation Min",
+      "address": "140e40248"
+    },
+    {
+      "string": "X Standard Deviation Max",
+      "address": "140e40268"
+    },
+    {
+      "string": "Y Standard Deviation Min",
+      "address": "140e40288"
+    },
+    {
+      "string": "Y Standard Deviation Max",
+      "address": "140e402a8"
+    },
+    {
+      "string": "CResult_Text::Serialize",
+      "address": "140e4dbc0"
+    },
+    {
+      "string": "SaveOISFile",
+      "address": "140e4f550"
+    },
+    {
+      "string": "Apply TextureAdaptativeFiltering (0,1)",
+      "address": "140e500c8"
+    },
+    {
+      "string": "%s Cam response acquisition failure.\n",
+      "address": "140e57b28"
+    },
+    {
+      "string": "Uniformity - %s Cam response acquisition failure.\n",
+      "address": "140e57dc8"
+    },
+    {
+      "string": "%s NonUniformity - compute histogram failure.\n",
+      "address": "140e57e00"
+    },
+    {
+      "string": "Peripheral (%s) Cam response acquisition failure.\n",
+      "address": "140e57e80"
+    },
+    {
+      "string": "%s-%d Cam response acquisition failure.\n",
+      "address": "140e585a8"
+    },
+    {
+      "string": "Acq failure - %s\n",
+      "address": "140e58b90"
+    },
+    {
+      "string": "CDlgCpCpk::OnButtonBrowseClicked",
+      "address": "140e5bd00"
+    },
+    {
+      "string": "CGridCpCpkFile::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e5c050"
+    },
+    {
+      "string": "CGridXY::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e5c118"
+    },
+    {
+      "string": "OnButtonShowClicked",
+      "address": "140e5d258"
+    },
+    {
+      "string": "CLibraryHelperExportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140e60b70"
+    },
+    {
+      "string": "\n dH = %0.2lf mm | HNominal = %0.2lf mm | HTol = %0.2lf mm | Text = %s\n",
+      "address": "140e67840"
+    },
+    {
+      "string": "JEDEC,Part Number,Reference Designator,Sub-panel number,Test status,Presence/Absence test,Polarity,X,Y,Theta,Joints,Bridges,Text,Nb of tested items,Nb of tools executed,Height,Tilt\n",
+      "address": "140e6d8a0"
+    },
+    {
+      "string": "CDlgPcbiViewer::OnClickBtnShow3D",
+      "address": "140e70a20"
+    },
+    {
+      "string": "CDlgRemoteAcquisition::OnButtonMonitorClicked",
+      "address": "140e71e50"
+    },
+    {
+      "string": "GetTstCADView()->Texture_Remove('%s') failed.",
+      "address": "140e77778"
+    },
+    {
+      "string": "m_oThicnessStandardDeviation",
+      "address": "140e7af58"
+    },
+    {
+      "string": "m_oThicknessStandardDeviation",
+      "address": "140e7af78"
+    },
+    {
+      "string": "Inspect when create OIS and save model results inside (0,1)",
+      "address": "140e7c688"
+    },
+    {
+      "string": "Auto certify OIS for panel declared as good (VIT usage only) (0,1)",
+      "address": "140e7c6d0"
+    },
+    {
+      "string": "CDocCompose::CreateComponentCtrE_OIS_File",
+      "address": "140e7c7a8"
+    },
+    {
+      "string": "header cell is null for tree column",
+      "address": "140e85ce0"
+    },
+    {
+      "string": "header cell is null for comment column",
+      "address": "140e85d08"
+    },
+    {
+      "string": "Change value m_poCAD_BaseText = %#IX || Idx = %d\n",
+      "address": "140e89c20"
+    },
+    {
+      "string": "ExportTextInBib",
+      "address": "140e89d20"
+    },
+    {
+      "string": "m_poCAD_BaseText = %#IX\n",
+      "address": "140e89d30"
+    },
+    {
+      "string": "m_poCAD_BaseText = %#IX || pCAD_OCV_String = %#IX\n",
+      "address": "140e89dc0"
+    },
+    {
+      "string": "CMappingV2::MeasurePointColumn",
+      "address": "140e93eb0"
+    },
+    {
+      "string": "MeasurePointColumn(%d) failed.\n",
+      "address": "140e94140"
+    },
+    {
+      "string": "Superviseur did not receive the Review station initialisation request yet.\n",
+      "address": "140e95ce0"
+    },
+    {
+      "string": "GetReviewStation",
+      "address": "140e96838"
+    },
+    {
+      "string": "ReviewStation (%s) lane (%d)\n",
+      "address": "140e96868"
+    },
+    {
+      "string": "ReviewStation empty.\n",
+      "address": "140e96888"
+    },
+    {
+      "string": "ShouldItGoToReviewStation",
+      "address": "140e9e928"
+    },
+    {
+      "string": "Record OIS files: Number of  Panels",
+      "address": "140e9ea18"
+    },
+    {
+      "string": "CMsgPanelProd::SendPanelToReviewStation",
+      "address": "140ea1ce8"
+    },
+    {
+      "string": "Missing",
+      "address": "140ea2008"
+    },
+    {
+      "string": "Record OIS files for fiducials (0,1)",
+      "address": "140ea3c68"
+    },
+    {
+      "string": "Record OIS files for IdCode (0,1)",
+      "address": "140ea3c90"
+    },
+    {
+      "string": "Activate OIS by default in production (0,1)",
+      "address": "140ea5e28"
+    },
+    {
+      "string": "Hard disk is full -> disable OIS recording\n",
+      "address": "140ea60c0"
+    },
+    {
+      "string": "CProductionDoc::ReadCurrentPanelStatusFromReview",
+      "address": "140ea63f8"
+    },
+    {
+      "string": "Review station is now free.\n",
+      "address": "140ea8ca0"
+    },
+    {
+      "string": "CProductionThread::ComputeDirectoryToSaveFileOISFiducialOrIdCode",
+      "address": "140ea92e0"
+    },
+    {
+      "string": "Failed to Create OIS directory. OIS recorder is deactivated.\n",
+      "address": "140ea9328"
+    },
+    {
+      "string": "Hard disk is full -> disable Fiducial OIS recording\n",
+      "address": "140ea9368"
+    },
+    {
+      "string": "CProductionThread::CreatePseudoColorImage",
+      "address": "140eab700"
+    },
+    {
+      "string": "PV_COMMAND_BTN_OIS.\n",
+      "address": "140ead3d0"
+    },
+    {
+      "string": "m_cListeCB.SetItemText('%s') failed.\n",
+      "address": "140eb6bf8"
+    },
+    {
+      "string": "Text fault",
+      "address": "140eb70b8"
+    },
+    {
+      "string": "Record OIS files: Components with defect (0,1)",
+      "address": "140eb70f8"
+    },
+    {
+      "string": "Record OIS files: All Jedecs (0,1)",
+      "address": "140eb7128"
+    },
+    {
+      "string": "CTstCADView::Texture_Remove",
+      "address": "140eb9e10"
+    },
+    {
+      "string": "m_mapTextureObjPtr.find(%d) failed.",
+      "address": "140eb9e30"
+    },
+    {
+      "string": "p_oVitImgFileRecorder.SaveOISMemory() failed.",
+      "address": "140ebb040"
+    },
+    {
+      "string": "SaveOIS(%d, '%s') failed.",
+      "address": "140ebb090"
+    },
+    {
+      "string": "CVitImgFileRecorderHelper::SaveOIS",
+      "address": "140ebb0e8"
+    },
+    {
+      "string": "Save Foreign Materials OIS",
+      "address": "140ebb110"
+    },
+    {
+      "string": "#Timer:Save_OIS_<%s> = %lf (ms)\n",
+      "address": "140ebb1b0"
+    },
+    {
+      "string": "CVitImgFileRecorderHelper::SaveOTR_OISFileForMacro",
+      "address": "140ebb2b0"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_Page3dParam::OnClickBtnShow3D",
+      "address": "140ebd370"
+    },
+    {
+      "string": "CWizardPCBImageRecorder_PageScan::OnClickBtnShow3D",
+      "address": "140ec02b0"
+    },
+    {
+      "string": "Missing merged ZMap. Aborting execution...",
+      "address": "140ec5a58"
+    },
+    {
+      "string": "CWizardTST_Get3dData::OnBnClickedBtnStopAlgo",
+      "address": "140ec5df0"
+    },
+    {
+      "string": "CWizardTST_Get3dData::SetHeaderColumn",
+      "address": "140ec5e20"
+    },
+    {
+      "string": "Unable to get column",
+      "address": "140ec6ef8"
+    },
+    {
+      "string": "OnGbwAnalyzeCellMouseClickEvent",
+      "address": "140ec9280"
+    },
+    {
+      "string": "OnRightClickJedec",
+      "address": "140ecb788"
+    },
+    {
+      "string": "OnDblClickJedec",
+      "address": "140ecb7a0"
+    },
+    {
+      "string": "OnRightClickModelFamily",
+      "address": "140ecb7b0"
+    },
+    {
+      "string": "Missing extracted layers.",
+      "address": "140ecbf60"
+    },
+    {
+      "string": "CWizardTST_LkTab::OnBnClickedBtnStopAlgo",
+      "address": "140ecbfc8"
+    },
+    {
+      "string": "oVitImgFileRecorderHelper.SaveOIS() failed.",
+      "address": "140ecfa10"
+    },
+    {
+      "string": "CZoneAnalysis::ExecuteAll_Texts",
+      "address": "140ecfa40"
+    },
+    {
+      "string": "CTCRTextObject",
+      "address": "140edc1c0"
+    },
+    {
+      "string": "CTCRTextObjectsColoredGridView",
+      "address": "140edc738"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveOIS",
+      "address": "140ee3970"
+    },
+    {
+      "string": "CVitImgFileRecorder::CheckAndDeleteGreyImages",
+      "address": "140ee3c08"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveOISMemory",
+      "address": "140ee3cb8"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveTypedImage",
+      "address": "140ee3d68"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveColorImage",
+      "address": "140ee3d98"
+    },
+    {
+      "string": "Review station color image format (0 jpg, 1 bmp)",
+      "address": "140ee3f18"
+    },
+    {
+      "string": "CVitImgFileRecorder::SaveImage",
+      "address": "140ee3f80"
+    },
+    {
+      "string": "CVitImgFileRecorder::AddImageColor",
+      "address": "140ee4078"
+    }
+  ]
+}

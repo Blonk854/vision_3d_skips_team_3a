@@ -24,7 +24,7 @@ if not __debug__ or os.environ.get("PYTHONOPTIMIZE"):
 
 import pefile
 from capstone import CS_AC_WRITE, CS_ARCH_X86, CS_MODE_64, Cs
-from capstone.x86 import X86_OP_MEM
+from capstone.x86 import X86_OP_MEM, X86_REG_EAX, X86_REG_RAX
 from keystone import KS_ARCH_X86, KS_MODE_64, Ks
 from unicorn import (
     UC_ARCH_X86, UC_ERR_READ_UNMAPPED, UC_HOOK_CODE, UC_HOOK_MEM_READ, UC_MODE_64, Uc, UcError,
@@ -5424,6 +5424,11 @@ class SkipUiCallbackEvidenceTests(unittest.TestCase):
                                  0x1406A1DA0)
                 self.assertEqual(0x1406A1D44 + struct.unpack("<i", bytes.fromhex("8c030000"))[0],
                                  0x1406A20D0)
+                self.assertEqual(image.get_data(0x6A1F8C, 25), bytes.fromhex(
+                    "c6433201488bcbe838f6ffff488d8848250000488b01ff5008"))
+                self.assertEqual(0x1406A1F98 + struct.unpack("<i", bytes.fromhex("38f6ffff"))[0],
+                                 0x1406A15D0)
+                self.assertEqual(image.get_data(0x6A20AE, 2), bytes.fromhex("33c0"))
                 end_call = image.get_data(0x6A1D6B, 5)
                 self.assertEqual(end_call[0], 0xE8)
                 end_thunk = 0x1406A1D70 + struct.unpack_from("<i", end_call, 1)[0]
@@ -5628,6 +5633,4756 @@ class SkipUiCallbackEvidenceTests(unittest.TestCase):
                                  close.EndAddress - text.VirtualAddress]
                 for displacement in (0x12E6, 0x2548, 0x382E, 0x3868):
                     self.assertEqual(body.find(struct.pack("<I", displacement)), -1)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_close_posts_the_non_stopping_view_message(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: (entry.dll, item.name.decode() if item.name else None, item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = IMAGE_BASE + text.VirtualAddress
+
+                def target_of(site: int) -> int:
+                    relative = text_data[site - text_base + 1:site - text_base + 5]
+                    return site + 5 + struct.unpack("<i", relative)[0]
+
+                self.assertEqual(target_of(0x14068DA1F), 0x1404E03F0)
+                self.assertEqual(target_of(0x14068DA31), 0x14077FE26)
+                self.assertLess(0x14068DA1F, 0x14068DA31)
+                thunk = image.get_data(0x77FE26, 6)
+                self.assertEqual(thunk[:2], b"\xff\x25")
+                close_iat = 0x14077FE2C + struct.unpack_from("<i", thunk, 2)[0]
+                self.assertEqual(imports[close_iat], (b"mfc140.dll", None, 8850))
+
+                gate = image.get_data(0x4E03F6, 28)
+                self.assertEqual(gate, bytes.fromhex(
+                    "80b93008000000488bf90f850401000048895c2438c6813008000001"))
+                self.assertEqual(0x1404E0406 + struct.unpack_from("<i", gate, 12)[0], 0x1404E050A)
+                for site in (0x1404E0470, 0x1404E04E3):
+                    posting = image.get_data(site - IMAGE_BASE, 22)
+                    self.assertEqual(posting[:16], bytes.fromhex(
+                        "488b48404533c9ba2c050000458d4106"))
+                    self.assertEqual(posting[16:18], b"\xff\x15")
+                    iat = site + 22 + struct.unpack_from("<i", posting, 18)[0]
+                    self.assertEqual(imports[iat][1], "PostMessageA")
+
+                entries = 0x140EACA40
+                posted = None
+                for index in range(40):
+                    msg, _code, _nid, _nlast, _sig, pfn = struct.unpack(
+                        "<IIIIQQ", image.get_data(entries - IMAGE_BASE + index * 32, 32))
+                    if msg == 0 and pfn == 0:
+                        break
+                    if msg == 0x52C:
+                        posted = pfn
+                self.assertEqual(posted, 0x1406B0C00)
+                self.assertEqual(image.get_data(0x6B0C25, 4), bytes.fromhex("488d5aff"))
+                self.assertEqual(image.get_data(0x6B0CD4, 29), bytes.fromhex(
+                    "4883fb070f8716060000488d0d1bf394ff8b849944136b004803c1ffe0"))
+                table = struct.unpack("<8I", image.get_data(0x6B1344, 32))
+                self.assertEqual(IMAGE_BASE + table[1], 0x1406B0FEC)
+                self.assertEqual(IMAGE_BASE + table[5], 0x1406B1232)
+                stop_arm = text_data[0x1406B0FEC - text_base:0x1406B1053 - text_base]
+                close_arm = text_data[0x1406B1232 - text_base:0x1406B12B2 - text_base]
+                self.assertIn(bytes.fromhex("4881c148250000488b01ff5008"), stop_arm)
+                self.assertNotIn(bytes.fromhex("4881c148250000"), close_arm)
+
+                def direct_calls(blob: bytes, origin: int) -> set[int]:
+                    found = set()
+                    for index in range(len(blob) - 5):
+                        if blob[index] != 0xE8:
+                            continue
+                        found.add(origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0])
+                    return found
+
+                self.assertTrue(direct_calls(close_arm, 0x1406B1232).isdisjoint(
+                    {0x140680C00, 0x140680D70, 0x1406920F0}))
+                for callee in (0x140697CE0, 0x1406B3100, 0x1406319F0):
+                    bounds = next(item.struct for item in image.DIRECTORY_ENTRY_EXCEPTION
+                                  if item.struct.BeginAddress == callee - IMAGE_BASE)
+                    body = text_data[bounds.BeginAddress - text.VirtualAddress:
+                                     bounds.EndAddress - text.VirtualAddress]
+                    self.assertTrue(direct_calls(
+                        body, IMAGE_BASE + bounds.BeginAddress).isdisjoint(
+                        {0x140680C00, 0x140680D70, 0x1406920F0}))
+                    for displacement in (0x12E6, 0x2548, 0x382E, 0x3868):
+                        self.assertEqual(body.find(struct.pack("<I", displacement)), -1)
+                send = image.get_data(0x6B1298, 26)
+                self.assertEqual(send[:14], bytes.fromhex("4533c9ba1101000041b802e10000"))
+                self.assertEqual(send[14:18], bytes.fromhex("488b4e40"))
+                self.assertEqual(send[18:20], b"\xff\x15")
+                send_iat = 0x1406B12B0 + struct.unpack_from("<i", send, 20)[0]
+                self.assertEqual(imports[send_iat][1], "SendMessageA")
+                self.assertEqual(image.get_data(0x68DAA0, 10), bytes.fromhex("488b0148ffa018010000"))
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xEA3868 + 0x118, 8))[0],
+                                 0x14068D9D0)
+                self.assertEqual(image.get_data(0x6B18B0, 12), bytes.fromhex("4533c0418d5001e944f3ffff"))
+                self.assertEqual(target_of(0x1406B18B7), 0x1406B0C00)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_stop_command_is_a_child_button_of_the_production_view(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        library_bytes = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(hashlib.sha256(library_bytes).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image, pefile.PE(
+                    data=library_bytes, fast_load=True) as library:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                library.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"]])
+                imports = {
+                    item.address: (entry.dll, item.name.decode() if item.name else None, item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = IMAGE_BASE + text.VirtualAddress
+
+                def target_of(site: int) -> int:
+                    relative = text_data[site - text_base + 1:site - text_base + 5]
+                    return site + 5 + struct.unpack("<i", relative)[0]
+
+                view_store = image.get_data(0x6AB5A2, 10)
+                self.assertEqual(view_store, bytes.fromhex("488d05a7108000488907"))
+                self.assertEqual(0x1406AB5A9 + struct.unpack_from("<i", view_store, 3)[0], 0x140EAC650)
+                self.assertEqual(image.get_data(0x6AB630, 12), bytes.fromhex("488d8fc8090000e894feffff"))
+                self.assertEqual(target_of(0x1406AB637), 0x1406AB4D0)
+                command_store = image.get_data(0x6AB4EC, 10)
+                self.assertEqual(command_store, bytes.fromhex("488d05ad427f00488903"))
+                self.assertEqual(0x1406AB4F3 + struct.unpack_from("<i", command_store, 3)[0], 0x140E9F7A0)
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xE9F7A0 + 0xB8, 8))[0], 0x14077F52C)
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xED1D38 + 0xB8, 8))[0], 0x14077F52C)
+                self.assertEqual(image.get_data(0x77F52C, 6)[:2], b"\xff\x25")
+                create_iat = 0x14077F532 + struct.unpack_from("<i", image.get_data(0x77F52C, 6), 2)[0]
+                self.assertEqual(imports[create_iat], (b"mfc140.dll", None, 3165))
+                button_thunk = image.get_data(0x7805CA, 6)
+                self.assertEqual(button_thunk[:2], b"\xff\x25")
+                button_iat = 0x1407805D0 + struct.unpack_from("<i", button_thunk, 2)[0]
+                self.assertEqual(imports[button_iat], (b"mfc140.dll", None, 3051))
+
+                header, entries = struct.unpack("<QQ", image.get_data(0xE9FBE0, 16))
+                self.assertEqual(entries, 0x140E9FA80)
+                command = struct.unpack("<IIIIQQ", image.get_data(0xE9FAA0, 32))
+                created = struct.unpack("<IIIIQQ", image.get_data(0xE9FBA0, 32))
+                self.assertEqual(command, (0x111, 0, 0xB1CF, 0xB1CF, 0x3A, 0x140677B30))
+                self.assertEqual(created[:1] + created[-1:], (1, 0x140677B70))
+                self.assertEqual(target_of(0x140677B8E), 0x1406770B0)
+                button = image.get_data(0x677217, 0x3B)
+                self.assertEqual(button[:11], bytes.fromhex("c7442428cfb100004c8db3"))
+                self.assertEqual(struct.unpack_from("<I", button, 11)[0], 0x1AA8)
+                self.assertEqual(button[-6:], bytes.fromhex("ff90d8020000"))
+                poster = image.get_data(0x677B30, 0x3D)
+                self.assertEqual(poster[9:13], bytes.fromhex("488b4940"))
+                self.assertEqual(poster[13:15], b"\xff\x15")
+                parent_iat = 0x140677B43 + struct.unpack_from("<i", poster, 15)[0]
+                self.assertEqual(imports[parent_iat], (b"USER32.dll", "GetParent", None))
+                self.assertEqual(poster[34:45], bytes.fromhex("ba2c05000041b802000000"))
+                self.assertEqual(poster[45:49], bytes.fromhex("488b4840"))
+                self.assertEqual(poster[54:57], b"\x48\xff\x25")
+                post_iat = 0x140677B6D + struct.unpack_from("<i", poster, 57)[0]
+                self.assertEqual(imports[post_iat], (b"USER32.dll", "PostMessageA", None))
+
+                self.assertEqual(image.get_data(0x6AC8A7, 3), bytes.fromhex("4c8bf1"))
+                create = image.get_data(0x6AC96C, 0x47)
+                self.assertEqual(create[:9], bytes.fromhex("33d2498d9ec8090000"))
+                self.assertEqual(create[31:38], bytes.fromhex("4c8d05460b8000"))
+                class_name = 0x1406AC992 + struct.unpack_from("<i", create, 34)[0]
+                self.assertEqual(image.get_data(class_name - IMAGE_BASE, 17), b"PROD_VIEW_COMMAND")
+                self.assertEqual(create[38:46], bytes.fromhex("c7442430d40b0000"))
+                self.assertEqual(create[46:52], bytes.fromhex("41b900000050"))
+                self.assertEqual(create[52:57], bytes.fromhex("4c89742428"))
+                self.assertEqual(create[-6:], bytes.fromhex("ff90b8000000"))
+                from capstone.x86 import X86_OP_REG, X86_REG_R14, X86_REG_R15, X86_REG_RSI
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                decoder.detail = True
+
+                def preserved(begin: int, end: int, reg: int, assigned: int) -> None:
+                    seen = False
+                    for ins in decoder.disasm(text_data[begin - text_base:end - text_base], begin):
+                        writes = any(op.type == X86_OP_REG and op.access & CS_AC_WRITE and op.reg == reg
+                                     for op in ins.operands)
+                        if ins.address == assigned:
+                            self.assertTrue(writes)
+                            seen = True
+                        elif seen and writes:
+                            self.fail(f"{reg:#x} rewritten at {ins.address:#x}")
+                    self.assertTrue(seen)
+
+                preserved(0x1406AC880, 0x1406AC9B3, X86_REG_R14, 0x1406AC8A7)
+                for call, owner, assigned, reg, move in (
+                    (0x1406B0020, 0x1406AF770, 0x1406AF794, X86_REG_R15, bytes.fromhex("4c8bf9498bcf")),
+                    (0x1406B1B0E, 0x1406B19D0, 0x1406B19F0, X86_REG_RSI, bytes.fromhex("488bf1488bce")),
+                    (0x1406B1CF3, 0x1406B19D0, 0x1406B19F0, X86_REG_RSI, bytes.fromhex("488bf1488bce")),
+                    (0x1406B3909, 0x1406B3760, 0x1406B3780, X86_REG_RSI, bytes.fromhex("488bf1488bce")),
+                ):
+                    self.assertEqual(image.get_data(assigned - IMAGE_BASE, 3), move[:3])
+                    self.assertEqual(image.get_data(call - IMAGE_BASE - 3, 3), move[3:])
+                    self.assertEqual(target_of(call), 0x1406AC880)
+                    preserved(owner, call, reg, assigned)
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xEAC978, 8))[0], 0x1406AF770)
+
+                exports = struct.unpack("<IIHHIIIIIII", library.get_data(
+                    library.OPTIONAL_HEADER.DATA_DIRECTORY[0].VirtualAddress, 40))
+                for ordinal, expected in (
+                    (3051, bytes.fromhex(
+                        "4c8bdc4883ec58498363e000448b942488000000488b01458953d8"
+                        "4c8b9424800000004d8953d0488b80b80000004d894bc8458bc8"
+                        "4c8bc2488d158dfa0a00ff156b6403004883c458c3")),
+                    (3165, bytes.fromhex(
+                        "488b8424a800000033db418bf9498be84c8bf2488bf14885c07404"
+                        "488b5840488b8424a00000000fbaef1e")),
+                ):
+                    self.assertTrue(0 <= ordinal - exports[5] < exports[6])
+                    rva = struct.unpack("<I", library.get_data(
+                        exports[8] + 4 * (ordinal - exports[5]), 4))[0]
+                    body = library.get_data(rva if ordinal == 3051 else rva + 0x19, len(expected))
+                    self.assertEqual(body, expected)
+                wrapper = library.get_data(
+                    struct.unpack("<I", library.get_data(exports[8] + 4 * (3051 - exports[5]), 4))[0],
+                    len(bytes.fromhex(
+                        "4c8bdc4883ec58498363e000448b942488000000488b01458953d8"
+                        "4c8b9424800000004d8953d0488b80b80000004d894bc8458bc8"
+                        "4c8bc2488d158dfa0a00ff156b6403004883c458c3")))
+                leaf = 0x18029877F + struct.unpack_from("<i", wrapper, wrapper.index(b"\x48\x8d\x15") + 3)[0]
+                self.assertEqual(library.get_data(leaf - 0x180000000, 7), b"BUTTON\x00")
+                dispatch = 0x180298785 + struct.unpack_from("<i", wrapper, wrapper.index(b"\xff\x15") + 2)[0]
+                self.assertEqual(struct.unpack("<Q", library.get_data(dispatch - 0x180000000, 8))[0], 0x1802BF060)
+                self.assertEqual(library.get_data(0x2BF060, 2), b"\xff\xe0")
+
+                needle = struct.pack("<I", 0xB1CF)
+                sites = []
+                cursor = 0
+                while True:
+                    found = text_data.find(needle, cursor)
+                    if found < 0:
+                        break
+                    sites.append(text_base + found)
+                    cursor = found + 1
+                self.assertEqual(sites, [0x14067721B, 0x140680CB3, 0x14068DA57])
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xEA3868 + 0x28, 8))[0], 0x14068DA40)
+                notify = image.get_data(0x68DA40, 0x26)
+                self.assertEqual(notify[20:33], bytes.fromhex("7538b8cfb1000066443bc0752d"))
+                self.assertEqual(target_of(0x14068DA61), 0x1406920F0)
+                creators = []
+                for index in range(len(text_data) - 5):
+                    if text_data[index] != 0xE8:
+                        continue
+                    if text_base + index + 5 + struct.unpack_from("<i", text_data, index + 1)[0] == 0x1406770B0:
+                        creators.append(text_base + index)
+                self.assertEqual(creators, [0x140677B8E])
+                self.assertEqual(header, 0x140675F80)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_close_call_closure_does_not_call_ask_to_stop(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            text = next(section for section in image.sections if section.Name.startswith(b".text"))
+            text_data = text.get_data()
+            text_base = IMAGE_BASE + text.VirtualAddress
+            functions = sorted(
+                (IMAGE_BASE + item.struct.BeginAddress, IMAGE_BASE + item.struct.EndAddress)
+                for item in image.DIRECTORY_ENTRY_EXCEPTION)
+            starts = [begin for begin, _end in functions]
+            edges: dict[int, set[int]] = {}
+            for index in range(len(text_data) - 5):
+                if text_data[index] not in (0xE8, 0xE9):
+                    continue
+                site = text_base + index
+                owner_index = bisect.bisect_right(starts, site) - 1
+                begin, end = functions[owner_index]
+                if not begin <= site < end:
+                    continue
+                edges.setdefault(begin, set()).add(site + 5 + struct.unpack_from("<i", text_data, index + 1)[0])
+            roots = (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1404E03F0, 0x14068DA40)
+            self.assertTrue(all(root in starts for root in roots))
+            closure = set()
+            pending = list(roots)
+            while pending:
+                function = pending.pop()
+                if function in closure:
+                    continue
+                closure.add(function)
+                for dest in edges.get(function, ()):
+                    dest_index = bisect.bisect_right(starts, dest) - 1
+                    dest_begin, dest_end = functions[dest_index]
+                    if dest_begin <= dest < dest_end and dest_begin not in closure:
+                        pending.append(dest_begin)
+            self.assertTrue({0x140680C00, 0x1406A1C80, 0x1406A20D0, 0x1406A1DA0,
+                             0x140677B30, 0x1404C2640, 0x14075DF50, 0x140682FF0}.isdisjoint(closure))
+            stop_callers = {function for function, dests in edges.items()
+                            if function in closure and 0x1406920F0 in dests}
+            self.assertEqual(stop_callers, {0x14068DA40})
+            displacement = struct.pack("<I", 0x2548)
+            command = struct.pack("<I", 0xB1CF)
+            displacement_sites = []
+            command_sites = []
+            for begin, end in functions:
+                if begin not in closure:
+                    continue
+                blob = text_data[begin - text_base:end - text_base]
+                cursor = 0
+                while True:
+                    found = blob.find(displacement, cursor)
+                    if found < 0:
+                        break
+                    displacement_sites.append(begin + found)
+                    cursor = found + 1
+                cursor = 0
+                while True:
+                    found = blob.find(command, cursor)
+                    if found < 0:
+                        break
+                    command_sites.append(begin + found)
+                    cursor = found + 1
+            self.assertEqual(displacement_sites, [0x14067FC65])
+            self.assertEqual(command_sites, [0x14068DA57])
+            store = image.get_data(0x67FC5B, 14)
+            self.assertEqual(store, bytes.fromhex("488d05f63e820048898148250000"))
+            self.assertEqual(0x14067FC62 + struct.unpack_from("<i", store, 3)[0], 0x140EA3B58)
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xEA3B58 + 8, 8))[0], 0x140680C00)
+            self.assertEqual(image.get_data(0x67FCF3, 10), bytes.fromhex("488b01418d5703ff5008"))
+            self.assertEqual(image.get_data(0x67FCDE, 7), bytes.fromhex("488b8b78580000"))
+
+    def test_view_destruction_calls_ccapm_without_ask_to_stop(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None, item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = IMAGE_BASE + text.VirtualAddress
+
+                def target_of(site: int) -> int:
+                    return site + 5 + struct.unpack_from("<i", text_data, site - text_base + 1)[0]
+
+                def rip_target(site: int) -> int:
+                    return site + 7 + struct.unpack_from("<i", text_data, site - text_base + 3)[0]
+
+                self.assertEqual(image.get_data(0x6AF2CB, 33), bytes.fromhex(
+                    "488b86e80000008b8824390000894c2440c74424440b000000c744244c01000000"))
+                self.assertEqual(target_of(0x1406AF2EC), 0x14077F7F6)
+                state_thunk = image.get_data(0x77F7F6, 6)
+                self.assertEqual(state_thunk[:2], b"\xff\x25")
+                state_iat = 0x14077F7FC + struct.unpack_from("<i", state_thunk, 2)[0]
+                self.assertEqual(imports[state_iat], (b"mfc140.dll", None, 2207))
+                self.assertEqual(image.get_data(0x6AF2F1, 20), bytes.fromhex(
+                    "896c24204c8d0df45da2004c8d05cd5da20033d2"))
+                self.assertEqual(image.get_data(rip_target(0x1406AF2F5) - IMAGE_BASE + 0x10, 17),
+                                 b".?AVCAVisionApp@@")
+                self.assertEqual(image.get_data(rip_target(0x1406AF2FC) - IMAGE_BASE + 0x10, 13),
+                                 b".?AVCWinApp@@")
+                self.assertEqual(image.get_data(0x6AF305, 4), bytes.fromhex("488b4808"))
+                self.assertEqual(target_of(0x1406AF309), 0x1407A6238)
+                cast_thunk = image.get_data(0x7A6238, 6)
+                self.assertEqual(cast_thunk[:2], b"\xff\x25")
+                cast_iat = 0x1407A623E + struct.unpack_from("<i", cast_thunk, 2)[0]
+                self.assertEqual(imports[cast_iat][1], "__RTDynamicCast")
+                self.assertEqual(image.get_data(0x6AF30E, 45), bytes.fromhex(
+                    "488d90a8010000488d88b00100004885d2480f44cd48896c2470488b01"
+                    "4c8d442470488d542438ff9098010000"))
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xEDDBD0 + 0x198, 8))[0], 0x14075D6B0)
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xEDDBD0 + 0xE0, 8))[0], 0x14075D010)
+                self.assertEqual(image.get_data(0x75D010, 0x28), bytes.fromhex(
+                    "488b81f0020000482b81e802000048c1f8033bd07d0f488b81e80200004863d2488b04d0c333c0c3"))
+                self.assertEqual(image.get_data(0x75D709, 37), bytes.fromhex(
+                    "488b068b5308488bceff90e00000004885c00f842504000083b828390000040f8518040000"))
+                self.assertEqual(0x14075D721 + struct.unpack_from("<i", image.get_data(0x75D71D, 4), 0)[0],
+                                 0x14075DB46)
+                self.assertEqual(0x14075D72E + struct.unpack_from("<i", image.get_data(0x75D72A, 4), 0)[0],
+                                 0x14075DB46)
+                self.assertEqual(image.get_data(0x75DB46, 19), bytes.fromhex(
+                    "488d8e700200004d8bc6488d55d8e8b73eebff"))
+                self.assertEqual(target_of(0x14075DB54), 0x140611A10)
+                self.assertEqual(image.get_data(0x611A10, 0x21), bytes.fromhex(
+                    "4883ec284d8bc84883c1084c8bc2488d15dbfbffffe8c6efffffb0014883c428c3"))
+                self.assertEqual(target_of(0x140611A25), 0x1406109F0)
+                self.assertEqual(image.get_data(0x610A1B, 4), bytes.fromhex("4883c120"))
+                enter = image.get_data(0x610A1F, 6)
+                self.assertEqual(enter[:2], b"\xff\x15")
+                self.assertEqual(imports[0x140610A25 + struct.unpack_from("<i", enter, 2)[0]][:2],
+                                 (b"kernel32.dll", "EnterCriticalSection"))
+                self.assertEqual(image.get_data(0x610ABE, 16), bytes.fromhex(
+                    "488b5d10482b5d0848c1fb03488d4d20"))
+                leave = image.get_data(0x610ACE, 6)
+                self.assertEqual(leave[:2], b"\xff\x15")
+                self.assertEqual(imports[0x140610AD4 + struct.unpack_from("<i", leave, 2)[0]][:2],
+                                 (b"kernel32.dll", "LeaveCriticalSection"))
+                member = image.get_data(0x6109F0, 0x140610AEF - 0x1406109F0)
+                self.assertEqual(member.find(struct.pack("<I", 0x2548)), -1)
+                self.assertEqual(member.find(struct.pack("<I", 0xB1CF)), -1)
+                self.assertEqual(image.get_data(0x4CE018, 31), bytes.fromhex(
+                    "488d0551b79600488907488d8f78010000ff15e110890090488d8fa8010000"))
+                self.assertEqual(0x1404CE01F + struct.unpack_from("<i", image.get_data(0x4CE018, 7), 3)[0],
+                                 0x140E39770)
+                self.assertEqual(target_of(0x1404CE037), 0x14075AA80)
+                functions = sorted(
+                    (IMAGE_BASE + item.struct.BeginAddress, IMAGE_BASE + item.struct.EndAddress)
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION)
+                starts = [begin for begin, _end in functions]
+                edges: dict[int, set[int]] = {}
+                for index in range(len(text_data) - 5):
+                    if text_data[index] not in (0xE8, 0xE9):
+                        continue
+                    site = text_base + index
+                    owner_index = bisect.bisect_right(starts, site) - 1
+                    begin, end = functions[owner_index]
+                    if not begin <= site < end:
+                        continue
+                    edges.setdefault(begin, set()).add(
+                        site + 5 + struct.unpack_from("<i", text_data, index + 1)[0])
+                closure = set()
+                pending = [0x14075D6B0]
+                while pending:
+                    function = pending.pop()
+                    if function in closure:
+                        continue
+                    closure.add(function)
+                    for dest in edges.get(function, ()):
+                        dest_index = bisect.bisect_right(starts, dest) - 1
+                        dest_begin, dest_end = functions[dest_index]
+                        if dest_begin <= dest < dest_end and dest_begin not in closure:
+                            pending.append(dest_begin)
+                self.assertIn(0x140611A10, closure)
+                self.assertIn(0x1406109F0, closure)
+                self.assertTrue({0x140680C00, 0x1406920F0, 0x1404C2640, 0x1406A20D0}.isdisjoint(closure))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_view_destruction_notifies_vmc_listener_without_stopping(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None, item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = IMAGE_BASE + text.VirtualAddress
+
+                def target_of(site: int) -> int:
+                    return site + 5 + struct.unpack_from("<i", text_data, site - text_base + 1)[0]
+
+                def iat_of(site: int) -> int:
+                    return site + 6 + struct.unpack_from("<i", text_data, site - text_base + 2)[0]
+
+                listener_lea = image.get_data(0x6AB5AC, 14)
+                self.assertEqual(listener_lea, bytes.fromhex("488d052d14800048898760010000"))
+                listener_vtable = 0x1406AB5B3 + struct.unpack_from("<i", listener_lea, 3)[0]
+                self.assertEqual(listener_vtable, 0x140EAC9E0)
+                locator = struct.unpack("<Q", image.get_data(listener_vtable - IMAGE_BASE - 8, 8))[0]
+                self.assertEqual(locator, 0x140F13CD0)
+                signature, offset, _cd_offset, descriptor, hierarchy, _self_rva = struct.unpack(
+                    "<6I", image.get_data(locator - IMAGE_BASE, 24))
+                self.assertEqual((signature, offset), (1, 0x160))
+                self.assertEqual(image.get_string_at_rva(descriptor + 16), b".?AVCProductionView@@")
+                base_count, base_array = struct.unpack("<II", image.get_data(hierarchy + 8, 8))
+                listener_bases = []
+                for index in range(base_count):
+                    base = struct.unpack("<I", image.get_data(base_array + index * 4, 4))[0]
+                    type_rva, _contained, member = struct.unpack("<III", image.get_data(base, 12))
+                    listener_bases.append((image.get_string_at_rva(type_rva + 16), member))
+                self.assertIn((b".?AVIVMachineControllerListener@@", 0x160), listener_bases)
+                for slot in (0, 8, 0x10, 0x28, 0x30, 0x38):
+                    self.assertEqual(
+                        struct.unpack("<Q", image.get_data(listener_vtable - IMAGE_BASE + slot, 8))[0],
+                        0x140611CE0)
+                self.assertEqual(image.get_data(0x611CE0, 3), b"\x32\xc0\xc3")
+                self.assertEqual(
+                    struct.unpack("<Q", image.get_data(listener_vtable - IMAGE_BASE + 0x40, 8))[0],
+                    0x1406B2CB0)
+                self.assertEqual(image.get_data(0x6B2CB0, 7), bytes.fromhex("44894158b001c3"))
+                self.assertEqual(
+                    struct.unpack("<Q", image.get_data(listener_vtable - IMAGE_BASE + 0x18, 8))[0],
+                    0x140746700)
+                self.assertEqual(imports[iat_of(0x140746707)][:2], (b"mfc140.dll", None))
+                self.assertEqual(imports[iat_of(0x140746707)][2], 1032)
+                self.assertEqual(
+                    struct.unpack("<Q", image.get_data(listener_vtable - IMAGE_BASE + 0x20, 8))[0],
+                    0x140611CC0)
+                self.assertEqual(target_of(0x140611CC7), 0x1405586B0)
+
+                self.assertEqual(
+                    struct.unpack("<Q", image.get_data(0xEA3868 + 0x230, 8))[0], 0x14045C520)
+                self.assertEqual(image.get_data(0x45C520, 8), bytes.fromhex("488b81e8190000c3"))
+                self.assertEqual(image.get_data(0x540E58, 7), bytes.fromhex("488991e8190000"))
+                for site, import_name in (
+                        (0x14069730F, "GetCurrent"),
+                        (0x14069739F, "GetByLaneIndex"),
+                        (0x140697430, "GetCurrent")):
+                    imported = imports[iat_of(site)]
+                    self.assertEqual(imported[0], b"vivirtualmachinebuilder.dll")
+                    self.assertIn(import_name, imported[1])
+                    self.assertEqual(target_of(site + 12), 0x140540E40)
+
+                self.assertEqual(image.get_data(0x6AF2DC, 8), bytes.fromhex("c74424440b000000"))
+                self.assertEqual(image.get_data(0x75D6E9, 6), bytes.fromhex("8b430c8945e4"))
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                inserted = []
+                for insn in decoder.disasm(text_data[0x14075D72E - text_base:0x14075DA87 - text_base], 0x14075D72E):
+                    if insn.mnemonic == "mov" and insn.op_str.startswith("dword ptr [rbp + 0x30],"):
+                        inserted.append(int(insn.op_str.rsplit(", ", 1)[1], 16))
+                self.assertEqual(inserted, [5, 6, 7, 8, 0xA, 0xD, 0xE, 0xF, 0x10, 0x12, 0x19, 3, 0xB])
+                self.assertEqual(0x14075DAEB + text_data[0x14075DAEA - text_base], 0x14075DB5A)
+                self.assertEqual(target_of(0x14075DB54), 0x140611A10)
+                self.assertLess(0x14075DB54, 0x14075DB5A)
+
+                self.assertEqual(image.get_data(0x6AF847, 47), bytes.fromhex(
+                    "498b8fe8000000488b01ff90300200004c8b00498d9760010000488bc8"
+                    "41ff50084d8bafe80000004d89bd38580000"))
+                self.assertEqual(image.get_data(0x6AF39E, 54), bytes.fromhex(
+                    "488b8ee8000000488b01ff90300200004885c07421488b8ee8000000"
+                    "488b01ff90300200004c8b00488d9660010000488bc841ff5010"))
+                self.assertEqual(imports[iat_of(0x14077FF6A)][:2], (b"mfc140.dll", None))
+                self.assertEqual(imports[iat_of(0x14077FF6A)][2], 357)
+                self.assertEqual(image.get_data(0x6AF34D, 8), bytes.fromhex("488b01ba01000000"))
+                self.assertEqual(image.get_data(0x6AF355, 3), bytes.fromhex("ff5008"))
+
+                functions = sorted(
+                    (IMAGE_BASE + item.struct.BeginAddress, IMAGE_BASE + item.struct.EndAddress)
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION)
+                starts = [begin for begin, _end in functions]
+                edges: dict[int, set[int]] = {}
+                for index in range(len(text_data) - 5):
+                    if text_data[index] not in (0xE8, 0xE9):
+                        continue
+                    site = text_base + index
+                    owner_index = bisect.bisect_right(starts, site) - 1
+                    begin, end = functions[owner_index]
+                    if not begin <= site < end:
+                        continue
+                    edges.setdefault(begin, set()).add(
+                        site + 5 + struct.unpack_from("<i", text_data, index + 1)[0])
+                closure = set()
+                pending = [0x140611CC0, 0x140746700, 0x1405586B0, 0x1406B2CB0]
+                while pending:
+                    function = pending.pop()
+                    owner_index = bisect.bisect_right(starts, function) - 1
+                    begin, end = functions[owner_index]
+                    if not begin <= function < end or begin in closure:
+                        continue
+                    closure.add(begin)
+                    body = text_data[begin - text_base:end - text_base]
+                    self.assertEqual(body.find(struct.pack("<I", 0x2548)), -1)
+                    self.assertEqual(body.find(struct.pack("<I", 0x382E)), -1)
+                    self.assertEqual(body.find(struct.pack("<I", 0xB1CF)), -1)
+                    for dest in edges.get(begin, ()):
+                        pending.append(dest)
+                self.assertTrue({0x140680C00, 0x1406920F0, 0x1406A1C80, 0x1406A20D0}.isdisjoint(closure))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_destroy_vmc_slot_detaches_listener_without_stopping(self) -> None:
+        builder_hash = "5e808e294d1f19fa7b8bd5e2d994d4820963d5c1fdea064e572457c9597679b7"
+        machine_hash = "5b62adea102b62a272860bfba72cb787bf74bd006f44fe97453df5121efeeb60"
+        builder = (ROOT / "v3d_files_" / "ViVirtualMachineBuilder.dll").read_bytes()
+        machine = (ROOT / "v3d_files_" / "ViVirtualMachine.dll").read_bytes()
+        self.assertEqual(len(builder), 1013248)
+        self.assertEqual(len(machine), 1144320)
+        self.assertEqual(hashlib.sha256(builder).hexdigest(), builder_hash)
+        self.assertEqual(hashlib.sha256(machine).hexdigest(), machine_hash)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=builder, fast_load=True) as image:
+                self.assertEqual(image.FILE_HEADER.Machine, 0x8664)
+                self.assertEqual(image.OPTIONAL_HEADER.Magic, 0x20B)
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                thunk = image.get_data(0x75A3C, 6)
+                self.assertEqual(thunk, bytes.fromhex("ff2546cf0200"))
+                iat = 0x180075A42 + struct.unpack_from("<i", thunk, 2)[0]
+                self.assertEqual(
+                    imports[iat],
+                    (b"vivirtualmachine.dll", "??0CVMachineController@@QEAA@I@Z"))
+            with pefile.PE(data=machine, fast_load=True) as image:
+                self.assertEqual(image.FILE_HEADER.Machine, 0x8664)
+                self.assertEqual(image.OPTIONAL_HEADER.Magic, 0x20B)
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None, item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                base = 0x180000000
+                text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = base + text.VirtualAddress
+                constructor = image.get_data(0x689A4, 3)
+                self.assertEqual(constructor, b"\x48\x8b\xf1")
+                store = image.get_data(0x689D5, 10)
+                self.assertEqual(store[:3], b"\x48\x8d\x05")
+                self.assertEqual(store[7:], b"\x48\x89\x06")
+                vtable = 0x1800689DC + struct.unpack_from("<i", store, 3)[0]
+                self.assertEqual(vtable, 0x1800CEDA8)
+                self.assertEqual(struct.unpack("<Q", image.get_data(vtable - base + 8, 8))[0], 0x18006EA00)
+                self.assertEqual(struct.unpack("<Q", image.get_data(vtable - base + 0x10, 8))[0], 0x1800547B0)
+                locator = struct.unpack("<Q", image.get_data(vtable - base - 8, 8))[0]
+                signature, offset, _cd_offset, descriptor, _hierarchy, _self_rva = struct.unpack(
+                    "<6I", image.get_data(locator - base, 24))
+                self.assertEqual((signature, offset), (1, 0))
+                self.assertEqual(image.get_string_at_rva(descriptor + 16), b".?AVCVMachineController@@")
+                detach = image.get_data(0x547B0, 0x8E)
+                self.assertEqual(detach, bytes.fromhex(
+                    "48895c24104889742418574883ec204032ff488bda488bf14885d2745d"
+                    "4883c12048896c2430ff156c5f0600488b4610488b4e08483bc874320f"
+                    "1f800000000048391974094883c108483bc875f2483bc87418488d5108"
+                    "4c8bc04c2bc2ff152561060048834610f840b701488d4e20ff151b5f06"
+                    "00488b6c2430488b5c2438400fb6c7488b7424404883c4205fc3"))
+                calls = []
+                for index in range(len(detach) - 6):
+                    if detach[index:index + 2] != b"\xff\x15":
+                        continue
+                    site = 0x1800547B0 + index
+                    iat = site + 6 + struct.unpack_from("<i", detach, index + 2)[0]
+                    calls.append(imports[iat][:2])
+                self.assertEqual(calls, [
+                    (b"kernel32.dll", "EnterCriticalSection"),
+                    (b"vcruntime140.dll", "memmove"),
+                    (b"kernel32.dll", "LeaveCriticalSection"),
+                ])
+                self.assertEqual(detach.find(b"\xe8"), -1)
+                attach = text_data[0x18006EA20 - text_base:0x18006EA27 - text_base]
+                self.assertEqual(attach[:3], b"\x48\xff\x25")
+                attach_iat = 0x18006EA27 + struct.unpack_from("<i", attach, 3)[0]
+                self.assertEqual(imports[attach_iat][:2], (b"kernel32.dll", "QueueUserWorkItem"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_destroy_brush_destructor_does_not_stop_production(self) -> None:
+        mfc_hash = "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe"
+        library_bytes = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(len(library_bytes), 5784856)
+        self.assertEqual(hashlib.sha256(library_bytes).hexdigest(), mfc_hash)
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=library_bytes, fast_load=True) as library, pefile.PE(
+                    data=source, fast_load=True) as image:
+                self.assertEqual(library.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                library.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                library_imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None)
+                    for entry in library.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                exe_imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None, item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                directory = library.OPTIONAL_HEADER.DATA_DIRECTORY[0]
+                exports = struct.unpack("<IIHHIIIIIII", library.get_data(directory.VirtualAddress, 40))
+                ordinal_base, count, _names, table = exports[5:9]
+                constructor_rva = struct.unpack(
+                    "<I", library.get_data(table + (357 - ordinal_base) * 4, 4))[0]
+                self.assertEqual(constructor_rva, 0x2A8EA0)
+                constructor = library.get_data(0x2A8EB6, 23)
+                self.assertEqual(constructor[:5], bytes.fromhex("4883610800"))
+                self.assertEqual(constructor[5:8], b"\x48\x8d\x05")
+                self.assertEqual(constructor[12:15], b"\x48\x89\x01")
+                self.assertEqual(constructor[15:17], b"\x8b\xca")
+                self.assertEqual(constructor[17:19], b"\xff\x15")
+                vtable = 0x1802A8EC2 + struct.unpack_from("<i", constructor, 8)[0]
+                self.assertEqual(vtable, 0x1802E4778)
+                brush_iat = 0x1802A8ECD + struct.unpack_from("<i", constructor, 19)[0]
+                self.assertEqual(library_imports[brush_iat], (b"gdi32.dll", "CreateSolidBrush"))
+                locator = struct.unpack("<Q", library.get_data(vtable - 0x180000000 - 8, 8))[0]
+                signature, offset, _cd_offset, descriptor, _hierarchy, _self_rva = struct.unpack(
+                    "<6I", library.get_data(locator - 0x180000000, 24))
+                self.assertEqual((signature, offset), (1, 0))
+                self.assertEqual(library.get_string_at_rva(descriptor + 16), b".?AVCBrush@@")
+                self.assertEqual(
+                    struct.unpack("<Q", library.get_data(vtable - 0x180000000 + 8, 8))[0],
+                    0x1802B4990)
+                branch = library.get_data(0x2B49AE, 10)
+                self.assertEqual(branch, bytes.fromhex("8bf283e601f6c2027436"))
+                self.assertEqual(0x1802B49B8 + branch[9], 0x1802B49EE)
+                delete_call = library.get_data(0x2B49F8, 5)
+                self.assertEqual(delete_call[0], 0xE8)
+                self.assertEqual(
+                    0x1802B49FD + struct.unpack_from("<i", delete_call, 1)[0], 0x18001CD80)
+                free_call = library.get_data(0x2B4A0B, 6)
+                self.assertEqual(free_call[:2], b"\xff\x15")
+                free_iat = 0x1802B4A11 + struct.unpack_from("<i", free_call, 2)[0]
+                self.assertEqual(
+                    library_imports[free_iat],
+                    (b"api-ms-win-crt-heap-l1-1-0.dll", "free"))
+                base_vtable = library.get_data(0x1CDA2, 7)
+                self.assertEqual(base_vtable[:3], b"\x48\x8d\x05")
+                gdi_vtable = 0x18001CDA9 + struct.unpack_from("<i", base_vtable, 3)[0]
+                gdi_locator = struct.unpack("<Q", library.get_data(gdi_vtable - 0x180000000 - 8, 8))[0]
+                _signature, gdi_offset, _cd_offset, gdi_descriptor, _hierarchy, _self_rva = struct.unpack(
+                    "<6I", library.get_data(gdi_locator - 0x180000000, 24))
+                self.assertEqual(gdi_offset, 0)
+                self.assertEqual(library.get_string_at_rva(gdi_descriptor + 16), b".?AVCGdiObject@@")
+                detach_call = library.get_data(0x2A8DA2, 5)
+                self.assertEqual(detach_call[0], 0xE8)
+                self.assertEqual(
+                    0x1802A8DA7 + struct.unpack_from("<i", detach_call, 1)[0], 0x1802A8D40)
+                delete_jump = library.get_data(0x2A8DAE, 7)
+                self.assertEqual(delete_jump[:3], b"\x48\xff\x25")
+                delete_iat = 0x1802A8DB5 + struct.unpack_from("<i", delete_jump, 3)[0]
+                self.assertEqual(library_imports[delete_iat], (b"gdi32.dll", "DeleteObject"))
+                free_ordinal = struct.unpack(
+                    "<I", library.get_data(table + (1487 - ordinal_base) * 4, 4))[0]
+                self.assertEqual(free_ordinal, 0x3490)
+                self.assertEqual(library.get_data(0x3490, 3), b"\x48\xff\x25")
+
+                base = 0x180000000
+                text = next(section for section in library.sections if section.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = base + text.VirtualAddress
+                functions = sorted(
+                    (base + item.struct.BeginAddress, base + item.struct.EndAddress)
+                    for item in library.DIRECTORY_ENTRY_EXCEPTION)
+                starts = [begin for begin, _end in functions]
+                edges: dict[int, set[int]] = {}
+                for index in range(len(text_data) - 5):
+                    if text_data[index] not in (0xE8, 0xE9):
+                        continue
+                    site = text_base + index
+                    owner_index = bisect.bisect_right(starts, site) - 1
+                    begin, end = functions[owner_index]
+                    if not begin <= site < end:
+                        continue
+                    edges.setdefault(begin, set()).add(
+                        site + 5 + struct.unpack_from("<i", text_data, index + 1)[0])
+                imported_names = set()
+                closure = set()
+                pending = [0x1802B4990]
+                while pending:
+                    function = pending.pop()
+                    owner_index = bisect.bisect_right(starts, function) - 1
+                    begin, end = functions[owner_index]
+                    if not begin <= function < end or begin in closure:
+                        continue
+                    closure.add(begin)
+                    body = text_data[begin - text_base:end - text_base]
+                    for index in range(len(body) - 6):
+                        site = begin + index
+                        if body[index:index + 2] == b"\xff\x15":
+                            iat = site + 6 + struct.unpack_from("<i", body, index + 2)[0]
+                            imported = library_imports.get(iat)
+                            if imported is None:
+                                slot = struct.unpack("<Q", library.get_data(iat - base, 8))[0]
+                                self.assertEqual(library.get_data(slot - base, 2), b"\xff\xe0")
+                            else:
+                                imported_names.add(imported)
+                        elif body[index:index + 3] == b"\x48\xff\x25":
+                            iat = site + 7 + struct.unpack_from("<i", body, index + 3)[0]
+                            imported_names.add(library_imports[iat])
+                    for dest in edges.get(begin, ()):
+                        pending.append(dest)
+                self.assertIn((b"gdi32.dll", "DeleteObject"), imported_names)
+                self.assertIn((b"api-ms-win-crt-heap-l1-1-0.dll", "free"), imported_names)
+                self.assertTrue(all(dll != b"user32.dll" for dll, _name in imported_names))
+
+                exe_text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                exe_data = exe_text.get_data()
+                exe_base = IMAGE_BASE + exe_text.VirtualAddress
+
+                def exe_target(site: int) -> int:
+                    return site + 5 + struct.unpack_from("<i", exe_data, site - exe_base + 1)[0]
+
+                def exe_iat(site: int) -> int:
+                    return site + 6 + struct.unpack_from("<i", exe_data, site - exe_base + 2)[0]
+
+                self.assertEqual(image.get_data(0x6AF2A2, 2), b"\x33\xed")
+                self.assertEqual(image.get_data(0x6AF384, 3), b"\x48\x89\x2b")
+                self.assertEqual(exe_imports[exe_iat(0x14077FF6A)][2], 357)
+                self.assertEqual(image.get_data(0x6AF876, 3), b"\x45\x33\xf6")
+                stores = []
+                colors = []
+                sys_colors = []
+                recent = []
+                for insn in Cs(CS_ARCH_X86, CS_MODE_64).disasm(
+                        exe_data[0x1406AF876 - exe_base:0x1406AFAC0 - exe_base], 0x1406AF876):
+                    recent.append(insn)
+                    del recent[:-4]
+                    if insn.mnemonic == "mov" and insn.op_str.startswith("qword ptr [r15 + 0x60"):
+                        stores.append(insn.op_str)
+                    if insn.mnemonic == "call" and exe_target(insn.address) == 0x14077FF6A:
+                        setup = [item.op_str for item in recent[:-1]]
+                        if "edx, eax" in setup:
+                            sys_colors.append(insn.address)
+                        else:
+                            colors.append(next(
+                                int(item.op_str.split(", ", 1)[1], 16)
+                                for item in recent if item.op_str.startswith("edx, 0x")))
+                self.assertEqual(colors, [0x2922C4, 0x628E2C, 0x2DEBF4, 0xDCDCDC, 0xFFFFFF, 0xFFFFFF])
+                self.assertEqual(sys_colors, [0x1406AF9D2, 0x1406AFA0C, 0x1406AFA46, 0x1406AFAAF])
+                for site in (0x1406AF9C7, 0x1406AFA01, 0x1406AFA3B, 0x1406AFAA4):
+                    self.assertEqual(exe_imports[exe_iat(site)][:2], (b"user32.dll", "GetSysColor"))
+                self.assertEqual(stores, [
+                    "qword ptr [r15 + 0x60b0], r14",
+                    "qword ptr [r15 + 0x60b8], r14",
+                    "qword ptr [r15 + 0x60c0], r14",
+                    "qword ptr [r15 + 0x60c8], r14",
+                    "qword ptr [r15 + 0x60d0], r14",
+                    "qword ptr [r15 + 0x60c8], rax",
+                    "qword ptr [r15 + 0x60b8], rax",
+                    "qword ptr [r15 + 0x60c0], rax",
+                    "qword ptr [r15 + 0x60b0], rax",
+                    "qword ptr [r15 + 0x60d0], rax",
+                    "qword ptr [r15 + 0x60d8], r14",
+                    "qword ptr [r15 + 0x60e0], r14",
+                    "qword ptr [r15 + 0x60e8], r14",
+                    "qword ptr [r15 + 0x60f0], r14",
+                    "qword ptr [r15 + 0x60f8], r14",
+                    "qword ptr [r15 + 0x60d8], rax",
+                    "qword ptr [r15 + 0x60e0], rax",
+                    "qword ptr [r15 + 0x60e8], rax",
+                    "qword ptr [r15 + 0x60f0], rax",
+                    "qword ptr [r15 + 0x60f8], rax",
+                ])
+                self.assertEqual(exe_imports[exe_iat(0x1406AF398)][:2], (b"user32.dll", "KillTimer"))
+                self.assertEqual(exe_imports[exe_iat(0x14077FBB0)][2], 9117)
+                self.assertEqual(exe_imports[exe_iat(0x14077F4AE)][2], 1487)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_production_document_allocation_frees_after_array_release(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        library_bytes = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(
+            hashlib.sha256(library_bytes).hexdigest(),
+            "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image, pefile.PE(
+                    data=library_bytes, fast_load=True) as library:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                library.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                exe_imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None, item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                library_imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None)
+                    for entry in library.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                name, size, schema, factory = struct.unpack(
+                    "<QIIQ", image.get_data(0xEA3830, 24))
+                self.assertEqual(image.get_string_at_rva(name - IMAGE_BASE), b"CProductionDoc")
+                self.assertEqual((size, schema, factory), (0x61F8, 0xFFFF, 0x140684F40))
+                pointer = struct.pack("<Q", factory)
+                holders = []
+                for section in image.sections:
+                    data = section.get_data()
+                    start = 0
+                    while True:
+                        found = data.find(pointer, start)
+                        if found < 0:
+                            break
+                        holders.append(IMAGE_BASE + section.VirtualAddress + found)
+                        start = found + 1
+                self.assertEqual(holders, [0x140EA3840])
+                text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = IMAGE_BASE + text.VirtualAddress
+                callers = []
+                for index in range(len(text_data) - 5):
+                    if text_data[index] != 0xE8:
+                        continue
+                    site = text_base + index
+                    if site + 5 + struct.unpack_from("<i", text_data, index + 1)[0] == factory:
+                        callers.append(site)
+                self.assertEqual(callers, [])
+                self.assertEqual(image.get_data(0x684F4D, 5), bytes.fromhex("b9f8610000"))
+                self.assertEqual(
+                    0x140684F57 + struct.unpack_from("<i", image.get_data(0x684F53, 4), 0)[0],
+                    0x14076D550)
+                self.assertEqual(image.get_data(0x684F5C, 3), b"\x48\x85\xc0")
+                self.assertEqual(image.get_data(0x684F5F, 2), b"\x74\x0b")
+                self.assertEqual(
+                    0x140684F69 + struct.unpack_from("<i", image.get_data(0x684F65, 4), 0)[0],
+                    0x14067DEA0)
+                self.assertEqual(image.get_data(0x684F6C, 2), b"\x33\xc0")
+                allocator = image.get_data(0x76D559, 6)
+                self.assertEqual(allocator[:2], b"\xff\x15")
+                allocator_iat = 0x14076D55F + struct.unpack_from("<i", allocator, 2)[0]
+                self.assertEqual(
+                    exe_imports[allocator_iat][:2],
+                    (b"api-ms-win-crt-heap-l1-1-0.dll", "malloc"))
+                self.assertEqual(image.get_data(0x51E15D, 12), bytes.fromhex(
+                    "488d8ee0230000e85d1c2600"))
+                self.assertEqual(exe_imports[0x140000000 + 0x77FDC6 + 6 + struct.unpack_from(
+                    "<i", image.get_data(0x77FDC8, 4), 0)[0]][2], 973)
+                self.assertEqual(image.get_data(0x51FD33, 12), bytes.fromhex(
+                    "488d8fe0230000e899002600"))
+                self.assertEqual(exe_imports[0x140000000 + 0x77FDD8 + 6 + struct.unpack_from(
+                    "<i", image.get_data(0x77FDDA, 4), 0)[0]][2], 1439)
+                self.assertEqual(
+                    0x1406807F4 + struct.unpack_from("<i", image.get_data(0x6807F0, 4), 0)[0],
+                    0x14067FC20)
+                self.assertEqual(image.get_data(0x6807F4, 6), bytes.fromhex("40f6c7017426"))
+                self.assertEqual(exe_imports[0x140000000 + 0x77F4AE + 6 + struct.unpack_from(
+                    "<i", image.get_data(0x77F4B0, 4), 0)[0]][2], 1487)
+                self.assertEqual(
+                    struct.unpack("<Q", image.get_data(0xEA3868 + 8, 8))[0], 0x1406807E0)
+                directory = library.OPTIONAL_HEADER.DATA_DIRECTORY[0]
+                exports = struct.unpack("<IIHHIIIIIII", library.get_data(directory.VirtualAddress, 40))
+                ordinal_base, _count, _names, table = exports[5:9]
+                self.assertEqual(
+                    struct.unpack("<I", library.get_data(table + (973 - ordinal_base) * 4, 4))[0],
+                    0x1D8230)
+                self.assertEqual(library.get_data(0x1D823A, 22), bytes.fromhex(
+                    "33c048894108488941204889411848894110488bc1c3"))
+                array_vtable = 0x1801D8237 + struct.unpack_from("<i", library.get_data(0x1D8233, 4), 0)[0]
+                locator = struct.unpack("<Q", library.get_data(array_vtable - 0x180000000 - 8, 8))[0]
+                signature, offset, _cd_offset, descriptor, _hierarchy, _self_rva = struct.unpack(
+                    "<6I", library.get_data(locator - 0x180000000, 24))
+                self.assertEqual((signature, offset), (1, 0))
+                self.assertEqual(library.get_string_at_rva(descriptor + 16), b".?AVCUIntArray@@")
+                self.assertEqual(
+                    struct.unpack("<I", library.get_data(table + (1439 - ordinal_base) * 4, 4))[0],
+                    0x1D8250)
+                release = library.get_data(0x1D825A, 11)
+                self.assertEqual(release[:4], bytes.fromhex("488b4908"))
+                self.assertEqual(release[4:7], b"\x48\xff\x25")
+                release_iat = 0x1801D8265 + struct.unpack_from("<i", release, 7)[0]
+                self.assertEqual(
+                    library_imports[release_iat],
+                    (b"api-ms-win-crt-heap-l1-1-0.dll", "free"))
+                self.assertEqual(library.get_data(0x21F964, 12), bytes.fromhex(
+                    "ba01000000488bcb488b4008"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_document_destructor_clears_published_slot_before_free(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xEDDBD0 + 0xE0, 8))[0], 0x14075D010)
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xEDDBD0 + 0xE8, 8))[0], 0x14075D040)
+            self.assertEqual(image.get_data(0x75D056, 14), bytes.fromhex("488b81e80200004863d24c8904d0"))
+            self.assertEqual(image.get_data(0x75D064, 3), bytes.fromhex("b001c3"))
+            self.assertEqual(image.get_data(0x6A1612, 7), bytes.fromhex("8b93c00e000048"))
+            self.assertEqual(image.get_data(0x6A1629, 7), bytes.fromhex("48ffa0e0000000"))
+            self.assertEqual(image.get_data(0x6972D9, 3), b"\x83\xfe\x02")
+            low_branch = image.get_data(0x6972DC, 6)
+            self.assertEqual(low_branch[:2], b"\x0f\x8e")
+            self.assertEqual(0x1406972E2 + struct.unpack_from("<i", low_branch, 2)[0], 0x14069738B)
+            self.assertEqual(image.get_data(0x6972EE, 15), bytes.fromhex("4c8bc78d56fd498bceff90e8000000"))
+            self.assertEqual(image.get_data(0x6972FD, 9), bytes.fromhex("8d46fd898724390000"))
+            self.assertEqual(image.get_data(0x69738B, 9), bytes.fromhex("8d46ff898724390000"))
+            self.assertEqual(image.get_data(0x6973B3, 12), bytes.fromhex("4c8bc78b9724390000498bce"))
+            self.assertEqual(image.get_data(0x6973BF, 6), bytes.fromhex("ff90e8000000"))
+            self.assertEqual(image.get_data(0x691FF8, 9), bytes.fromhex("8b9624390000488bc8"))
+            self.assertEqual(
+                0x140692006 + struct.unpack_from("<i", image.get_data(0x692002, 4), 0)[0],
+                0x1406A9890)
+            self.assertLess(0x140692001, 0x14069201B)
+            self.assertEqual(image.get_data(0x6A98A4, 2), b"\x8b\xfa")
+            equal_skip = image.get_data(0x6A98F6, 12)
+            self.assertEqual(equal_skip[:6], bytes.fromhex("39bbc00e0000"))
+            self.assertEqual(equal_skip[6:8], b"\x0f\x84")
+            skip_target = 0x1406A9902 + struct.unpack_from("<i", equal_skip, 8)[0]
+            self.assertEqual(image.get_data(0x6A997E, 6), bytes.fromhex("89bbc00e0000"))
+            self.assertGreater(skip_target, 0x1406A997E)
+            self.assertEqual(image.get_data(0x67FDB7, 15), bytes.fromhex(
+                "4533c08b9324390000ff90e8000000"))
+            self.assertEqual(image.get_data(0x680028, 1), b"\xe9")
+            self.assertEqual(
+                0x14068002D + struct.unpack_from("<i", image.get_data(0x680029, 4), 0)[0],
+                0x14051FBF0)
+            self.assertLess(0x14067FDC0, 0x140680028)
+
+    def test_production_cycle_reloads_document_before_stop_check(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            self.assertEqual(image.get_data(0x6A20FF, 3), b"\x4c\x8b\xf1")
+            self.assertEqual(image.get_data(0x6A2770, 7), bytes.fromhex("c6857007000000"))
+            boundary = image.get_data(0x6A45B9, 57)
+            self.assertEqual(boundary, bytes.fromhex(
+                "498bcee80fd0ffff80b82e38000001750541c6463201"
+                "498bcee8f9cfffff488bc833d2e80f2bffff488b742478"
+                "41807e3200757ce97ee1ffff"))
+            self.assertEqual(
+                0x1406A45C1 + struct.unpack_from("<i", boundary, 4)[0], 0x1406A15D0)
+            self.assertEqual(
+                0x1406A45D7 + struct.unpack_from("<i", boundary, 26)[0], 0x1406A15D0)
+            self.assertEqual(
+                0x1406A45E1 + struct.unpack_from("<i", boundary, 36)[0], 0x1406970F0)
+            self.assertEqual(
+                0x1406A45F2 + struct.unpack_from("<i", boundary, 53)[0], 0x1406A2770)
+            self.assertEqual(image.get_data(0x75D024, 2), b"\x7d\x0f")
+            self.assertEqual(image.get_data(0x75D035, 3), b"\x33\xc0\xc3")
+            self.assertEqual(image.get_data(0x75D030, 4), bytes.fromhex("488b04d0"))
+            self.assertEqual(image.get_data(0x6970FA, 3), b"\x48\x8b\x01")
+
+    def test_production_cycle_does_not_stop_on_null_document(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            functions = sorted(
+                (IMAGE_BASE + entry.struct.BeginAddress, IMAGE_BASE + entry.struct.EndAddress)
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION)
+            begins = [begin for begin, _end in functions]
+            begin, end = functions[bisect.bisect_right(begins, 0x1406A20D0) - 1]
+            self.assertEqual((begin, end), (0x1406A20D0, 0x1406A4947))
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            text = section.get_data()
+            text_base = IMAGE_BASE + section.VirtualAddress
+            insns = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(
+                text[begin - text_base:end - text_base], begin))
+            reloads = []
+            for index, insn in enumerate(insns):
+                if insn.mnemonic != "call" or not insn.bytes or insn.bytes[0] != 0xE8:
+                    continue
+                if insn.address + 5 + struct.unpack_from("<i", insn.bytes, 1)[0] != 0x1406A15D0:
+                    continue
+                nxt = insns[index + 1]
+                self.assertFalse(nxt.mnemonic == "test" and "rax" in nxt.op_str)
+                self.assertFalse(nxt.mnemonic.startswith("j") and nxt.mnemonic != "jmp")
+                self.assertNotEqual(nxt.op_str.split(",", 1)[0], "rax")
+                reloads.append(nxt)
+            self.assertEqual(len(reloads), 99)
+            stop_check = next(item for item in reloads if item.address == 0x1406A45C1)
+            self.assertEqual(stop_check.op_str, "byte ptr [rax + 0x382e], 1")
+            self.assertEqual(image.get_data(0x6A45C1, 14), bytes.fromhex(
+                "80b82e38000001750541c6463201"))
+            self.assertEqual(image.get_data(0x6970F0, 10), bytes.fromhex("48895c2410574883ec20"))
+            self.assertEqual(image.get_data(0x697103, 6), bytes.fromhex("ff90e0000000"))
+            self.assertEqual(image.get_data(0x697119, 6), bytes.fromhex("ff90e8000000"))
+            self.assertEqual(
+                0x14069712B + struct.unpack_from("<i", image.get_data(0x697126, 5), 1)[0],
+                0x1406B36F0)
+            self.assertEqual(image.get_data(0x6B36F0, 7), bytes.fromhex("488b81e8000000"))
+            self.assertEqual(image.get_data(0x6B36F7, 7), bytes.fromhex("448b8028390000"))
+            self.assertEqual(image.get_data(0x6B3706, 2), b"\x77\x12")
+            self.assertEqual(0x1406B3708 + 0x12, 0x1406B371A)
+            self.assertEqual(image.get_data(0x6B3708, 6), bytes.fromhex("889158600000"))
+            self.assertEqual(image.get_data(0x6B371A, 1), b"\xc3")
+
+    def test_production_cycle_does_not_keep_the_document_across_the_back_edge(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+            imports = {
+                item.address: item.name.decode() if item.name else str(item.ordinal)
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            cast = image.get_data(0x7A6238, 6)
+            self.assertEqual(cast[:2], b"\xff\x25")
+            cast_iat = 0x1407A623E + struct.unpack_from("<i", cast, 2)[0]
+            self.assertEqual(imports[cast_iat], "__RTDynamicCast")
+            self.assertEqual(
+                0x1406A21C4 + struct.unpack_from("<i", image.get_data(0x6A21BF, 5), 1)[0],
+                0x1407A6238)
+            self.assertEqual(image.get_data(0x6A21C4, 26), bytes.fromhex(
+                "488d88a8010000488db0b00100004885c9490f44f44889742478"))
+            self.assertEqual(image.get_data(0x6A2790, 5), bytes.fromhex("488b742478"))
+            self.assertEqual(image.get_data(0x6A27A6, 4), bytes.fromhex("8b5c2468"))
+            self.assertEqual(image.get_data(0x6A280B, 4), bytes.fromhex("498b7e18"))
+            reload = image.get_data(0x6A2819, 10)
+            self.assertEqual(reload[:3], b"\x49\x8b\xce")
+            self.assertEqual(0x1406A2821 + struct.unpack_from("<i", reload, 4)[0], 0x1406A15D0)
+            self.assertEqual(image.get_data(0x6A2821, 3), b"\x4c\x8b\xc0")
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            text = section.get_data()
+            text_base = IMAGE_BASE + section.VirtualAddress
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            decoder.detail = True
+            insns = list(decoder.disasm(
+                text[0x1406A20D0 - text_base:0x1406A4947 - text_base], 0x1406A20D0))
+            slot_writes = [
+                insn.address for insn in insns
+                if insn.op_str.startswith("qword ptr [rsp + 0x78],")]
+            self.assertEqual(slot_writes, [0x1406A21D9])
+            call_idxs = [
+                index for index, insn in enumerate(insns)
+                if insn.mnemonic == "call" and insn.bytes and insn.bytes[0] == 0xE8
+                and insn.address + 5 + struct.unpack_from("<i", insn.bytes, 1)[0] == 0x1406A15D0]
+            saved = []
+            for index in call_idxs:
+                limit = next((item for item in call_idxs if item > index), len(insns))
+                live = True
+                for insn in insns[index + 1:limit]:
+                    if insn.mnemonic == "call":
+                        break
+                    reads, writes = insn.regs_access()
+                    if live and insn.mnemonic == "mov" and insn.op_str == "rbx, rax":
+                        saved.append(insn.address)
+                    if live and insn.mnemonic == "mov" and "ptr" in insn.op_str and insn.op_str.endswith(", rax"):
+                        saved.append(insn.address)
+                    if X86_REG_RAX in writes or X86_REG_EAX in writes:
+                        live = False
+            self.assertEqual(saved, [0x1406A4462])
+            pair = image.get_data(0x6A4428, 83)
+            self.assertEqual(pair[:3], b"\x48\x8b\xd8")
+            self.assertEqual(pair[-2:], b"\xb3\x01")
+            self.assertLess(0x1406A4479, 0x1406A45ED)
+            self.assertEqual(image.get_data(0x6A43AE, 2), b"\x74\x78")
+            self.assertEqual(0x1406A43B0 + 0x78, 0x1406A4428)
+            interior = image.get_data(0x6A44F5, 7)
+            self.assertEqual(interior, bytes.fromhex("488d98a8160000"))
+            self.assertEqual(image.get_data(0x6A4518, 3), b"\x48\x8b\xcb")
+
+    def test_view_deletion_does_not_clear_the_reloaded_binding(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            functions = {
+                IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            self.assertEqual(functions[0x1406ABF00], 0x1406ABF4E)
+            self.assertEqual(functions[0x1406ABC60], 0x1406ABE95)
+            wrapper = image.get_data(0x6ABF0F, 25)
+            self.assertEqual(0x1406ABF14 + struct.unpack_from("<i", wrapper, 1)[0], 0x1406ABC60)
+            self.assertEqual(wrapper[5:9], b"\x40\xf6\xc7\x01")
+            self.assertEqual(0x1406ABF28 + struct.unpack_from("<i", wrapper, 21)[0], 0x14077F4AE)
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            text = section.get_data()
+            text_base = IMAGE_BASE + section.VirtualAddress
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            decoder.detail = True
+            spans = [(0x1406ABC60, 0x1406ABE95)]
+            body = list(decoder.disasm(text[0x1406ABC60 - text_base:0x1406ABE95 - text_base], 0x1406ABC60))
+            for insn in body:
+                if insn.mnemonic == "call" and insn.bytes and insn.bytes[0] == 0xE8:
+                    target = insn.address + 5 + struct.unpack_from("<i", insn.bytes, 1)[0]
+                    if target in functions:
+                        spans.append((target, functions[target]))
+            self.assertEqual(body[-1].mnemonic, "jmp")
+            self.assertEqual(body[-1].address + body[-1].size
+                             + struct.unpack_from("<i", bytes(body[-1].bytes), 1)[0], 0x140780570)
+            for begin, end in spans:
+                for insn in decoder.disasm(text[begin - text_base:end - text_base], begin):
+                    for operand in insn.operands:
+                        if operand.type == X86_OP_MEM and operand.mem.disp == 0x5838:
+                            self.fail(f"{insn.address:#x} uses document+0x5838")
+
+    def test_document_destructor_releases_the_array_without_a_message_pump(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            imports = {
+                item.address: entry.dll.lower()
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            functions = sorted(
+                (IMAGE_BASE + entry.struct.BeginAddress, IMAGE_BASE + entry.struct.EndAddress)
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION)
+            begins = [begin for begin, _end in functions]
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            text = section.get_data()
+            text_base = IMAGE_BASE + section.VirtualAddress
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            seen = set()
+            user32 = []
+            pending = [0x14067FC20]
+            while pending:
+                site = pending.pop()
+                owner = bisect.bisect_right(begins, site) - 1
+                begin, end = functions[owner]
+                if not begin <= site < end or begin in seen:
+                    continue
+                seen.add(begin)
+                for insn in decoder.disasm(text[begin - text_base:end - text_base], begin):
+                    if insn.mnemonic == "call" and insn.bytes[:1] == b"\xe8":
+                        pending.append(insn.address + 5 + struct.unpack_from("<i", insn.bytes, 1)[0])
+                    elif insn.mnemonic == "jmp" and insn.bytes[:1] == b"\xe9":
+                        pending.append(insn.address + 5 + struct.unpack_from("<i", insn.bytes, 1)[0])
+                    elif insn.bytes[:2] == b"\xff\x15":
+                        iat = insn.address + 6 + struct.unpack_from("<i", insn.bytes, 2)[0]
+                        if imports.get(iat) == b"user32.dll":
+                            user32.append(insn.address)
+            self.assertIn(0x14051FBF0, seen)
+            self.assertNotIn(0x1405E8AF0, seen)
+            self.assertEqual(user32, [])
+            release = image.get_data(0x51FD33, 12)
+            self.assertEqual(release[:7], bytes.fromhex("488d8fe0230000"))
+            self.assertEqual(0x14051FD3F + struct.unpack_from("<i", release, 8)[0], 0x14077FDD8)
+
+    def test_embedded_cao_destructor_runs_after_the_array_buffer_is_freed(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+            imports = {
+                item.address: (entry.dll.lower(), item.name.decode() if item.name else str(item.ordinal))
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            self.assertEqual(image.get_data(0x51FC03, 3), b"\x48\x8b\xf9")
+            self.assertLess(0x14051FD3A, 0x14051FEF2)
+            site = image.get_data(0x51FEEB, 14)
+            self.assertEqual(site[:7], bytes.fromhex("488d8f80010000"))
+            self.assertEqual(site[7:9], b"\xff\x15")
+            iat = 0x14051FEF8 + struct.unpack_from("<i", site, 9)[0]
+            self.assertEqual(imports[iat], (b"vitdatacad.dll", "??1CDataCao@@UEAA@XZ"))
+            self.assertEqual(image.get_data(0x51FEF9, 3), b"\x48\x8b\xcf")
+            tail = image.get_data(0x51FF05, 5)
+            self.assertEqual(0x14051FF0A + struct.unpack_from("<i", tail, 1)[0], 0x14077FE8C)
+            thunk = image.get_data(0x77FE8C, 6)
+            self.assertEqual(thunk[:2], b"\xff\x25")
+            thunk_iat = 0x14077FE92 + struct.unpack_from("<i", thunk, 2)[0]
+            self.assertEqual(imports[thunk_iat][1], "1104")
+
+    def test_published_document_is_constructed_before_the_zero_mode_publish(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            imports = {
+                item.address: (entry.dll.lower(), item.name.decode() if item.name else str(item.ordinal))
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            functions = sorted(
+                (IMAGE_BASE + entry.struct.BeginAddress, IMAGE_BASE + entry.struct.EndAddress)
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION)
+            ctor = image.get_data(0x67DEC6, 5)
+            self.assertEqual(0x14067DECB + struct.unpack_from("<i", ctor, 1)[0], 0x14051DF90)
+            self.assertEqual(image.get_data(0x67DEDD, 4), bytes.fromhex("48898680010000")[:4])
+            self.assertEqual(image.get_data(0x67DEDD, 7), bytes.fromhex("48898680010000"))
+            base_ctor = image.get_data(0x51DFBE, 13)
+            self.assertEqual(base_ctor[:7], bytes.fromhex("488d8e80010000"))
+            self.assertEqual(base_ctor[7:9], b"\xff\x15")
+            iat = 0x14051DFCB + struct.unpack_from("<i", base_ctor, 9)[0]
+            self.assertEqual(imports[iat], (b"vitdatacad.dll", "??0CDataCao@@QEAA@XZ"))
+            self.assertLess(0x14051DFC5, 0x14051E15D)
+            self.assertEqual(image.get_data(0x69727A, 2), b"\x33\xdb")
+            branch = image.get_data(0x6972CB, 8)
+            self.assertEqual(branch[:2], b"\x85\xf6")
+            self.assertEqual(0x1406972D3 + struct.unpack_from("<i", branch, 4)[0], 0x140697426)
+            self.assertEqual(image.get_data(0x697426, 7), bytes.fromhex("48899f24390000"))
+            self.assertEqual(image.get_data(0x697444, 14), bytes.fromhex("4c8bc733d2498bceff90e8000000"))
+            caller = image.get_data(0x68DACF, 7)
+            self.assertEqual(caller[:2], b"\x33\xd2")
+            self.assertEqual(0x14068DAD6 + struct.unpack_from("<i", caller, 3)[0], 0x140697200)
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            text = section.get_data()
+            text_base = IMAGE_BASE + section.VirtualAddress
+            inside = []
+            for begin, end in functions:
+                if end <= 0x14067DEA0 or begin >= 0x14067F87A:
+                    continue
+                body = text[begin - text_base:end - text_base]
+                for index in range(len(body) - 5):
+                    if body[index] != 0xE8:
+                        continue
+                    site = begin + index
+                    if site + 5 + struct.unpack_from("<i", body, index + 1)[0] == 0x140697200:
+                        inside.append(site)
+            self.assertEqual(inside, [])
+
+    def test_document_slot_108_publishes_before_it_mentions_the_stop_subobject(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            self.assertEqual(
+                int.from_bytes(image.get_data(0xEA3868 + 0x108, 8), "little"), 0x14068DC20)
+            functions = {
+                IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            self.assertEqual(functions[0x14068DC20], 0x14068EDFE)
+            self.assertEqual(image.get_data(0x68DC51, 3), b"\x48\x8b\xf1")
+            publish = image.get_data(0x68DC96, 10)
+            self.assertEqual(publish[:5], bytes.fromhex("8bd0488bce"))
+            self.assertEqual(0x14068DCA0 + int.from_bytes(publish[6:10], "little", signed=True), 0x140697200)
+            self.assertLess(0x14068DC9B, 0x14068E35C)
+            later = image.get_data(0x68E359, 16)
+            self.assertEqual(later, bytes.fromhex("488b01488d9648250000ff9040010000"))
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            text = section.get_data()
+            text_base = IMAGE_BASE + section.VirtualAddress
+            body = text[0x14068DC20 - text_base:0x14068EDFE - text_base]
+            stops = []
+            for index in range(len(body) - 5):
+                if body[index] != 0xE8:
+                    continue
+                target = 0x14068DC20 + index + 5 + int.from_bytes(body[index + 1:index + 5], "little", signed=True)
+                if target in (0x1406920F0, 0x140691C80):
+                    stops.append(target)
+            self.assertEqual(stops, [])
+
+    def test_production_stop_restarts_only_after_the_thread_slot_is_cleared(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            imports = {
+                item.address: (entry.dll.lower(), item.name.decode() if item.name else str(item.ordinal))
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            functions = {
+                IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            self.assertEqual(functions[0x1406920F0], 0x1406923F9)
+            self.assertEqual(image.get_data(0x6921E0, 2), b"\x33\xf6")
+            stop = image.get_data(0x6921FD, 16)
+            self.assertEqual(stop[:7], bytes.fromhex("488b8b68380000"))
+            self.assertEqual(stop[7:9], b"\xff\x15")
+            iat = 0x14069220A + int.from_bytes(stop[9:13], "little", signed=True)
+            self.assertEqual(imports[iat], (b"basetools.dll", "?Stop@CViThread@@QEAA_NAEAKK@Z"))
+            self.assertEqual(stop[13:16], b"\x3c\x01\x74")
+            self.assertEqual(image.get_data(0x69224E, 7), bytes.fromhex("4889b368380000"))
+            self.assertEqual(image.get_data(0x69234C, 9), bytes.fromhex("80bb81380000017535"))
+            restart = image.get_data(0x69237D, 8)
+            self.assertEqual(restart[:3], b"\x48\x8b\xcb")
+            self.assertEqual(0x140692385 + int.from_bytes(restart[4:8], "little", signed=True), 0x140691C80)
+            self.assertLess(0x140692204, 0x14069224E)
+            self.assertLess(0x14069224E, 0x140692380)
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            text = section.get_data()
+            text_base = IMAGE_BASE + section.VirtualAddress
+            callers = []
+            for begin, end in functions.items():
+                body = text[begin - text_base:end - text_base]
+                for index in range(len(body) - 5):
+                    if body[index] != 0xE8:
+                        continue
+                    site = begin + index
+                    if site + 5 + int.from_bytes(body[index + 1:index + 5], "little", signed=True) == 0x140691C80:
+                        callers.append(site)
+            self.assertEqual(sorted(callers), [0x140692380, 0x1406B0FC6, 0x14075EF33])
+
+    def test_production_start_leaves_an_existing_thread_running(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            self.assertEqual(image.get_data(0x691E88, 10), bytes.fromhex("4883be68380000007411"))
+            self.assertEqual(0x140691E92 + 0x11, 0x140691EA3)
+            occupied = image.get_data(0x691E9E, 5)
+            self.assertEqual(occupied[0], 0xE9)
+            self.assertEqual(0x140691EA3 + int.from_bytes(occupied[1:5], "little", signed=True), 0x1406920B9)
+            self.assertLess(0x140691EA3, 0x140691FF1)
+            self.assertLess(0x140691FF1, 0x1406920B9)
+            self.assertEqual(image.get_data(0x691FF1, 7), bytes.fromhex("48898668380000"))
+            self.assertEqual(image.get_data(0x6920C3, 2), b"\x32\xdb")
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            functions = {
+                IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            self.assertEqual(functions[0x140691C80], 0x1406920E4)
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            body = section.get_data()[0x691C80:0x6920E4]
+            stops = [
+                insn.address for insn in decoder.disasm(body, 0x140691C80)
+                if insn.bytes[:1] == b"\xe8"
+                and insn.address + 5 + int.from_bytes(insn.bytes[1:5], "little", signed=True) == 0x1406920F0]
+            self.assertEqual(stops, [])
+
+    def test_document_destructor_releases_controller_without_stopping(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        machine = (ROOT / "v3d_files_" / "ViVirtualMachine.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(
+            hashlib.sha256(machine).hexdigest(),
+            "5b62adea102b62a272860bfba72cb787bf74bd006f44fe97453df5121efeeb60")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: item.name.decode() if item.name else str(item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(image.get_data(0x51E3BA, 9), bytes.fromhex("33db48899ee8190000"))
+                self.assertEqual(image.get_data(0x51FC2D, 7), bytes.fromhex("488b8fe8190000"))
+                self.assertEqual(image.get_data(0x51FC34, 5), bytes.fromhex("4885c97452"))
+                self.assertEqual(0x14051FC39 + 0x52, 0x14051FC8B)
+                self.assertEqual(image.get_data(0x51FC4D, 6), bytes.fromhex("ff9090010000"))
+                self.assertEqual(image.get_data(0x51FC63, 5), bytes.fromhex("f00fc14308"))
+                self.assertEqual(image.get_data(0x51FC73, 3), bytes.fromhex("ff5008"))
+                self.assertEqual(image.get_data(0x51FC87, 3), bytes.fromhex("ff5010"))
+                current = image.get_data(0x69730F, 6)
+                self.assertEqual(current[:2], b"\xff\x15")
+                self.assertEqual(
+                    imports[0x140697315 + struct.unpack_from("<i", current, 2)[0]],
+                    "?GetCurrent@CVMC_ListSingleton@@QEBAPEAVIVMachineController@ViVMachineController@@XZ")
+                self.assertEqual(image.get_data(0x697315, 11), bytes.fromhex("488bd0488bcfe8209beaff"))
+                self.assertEqual(
+                    0x140697320 + struct.unpack_from("<i", image.get_data(0x69731C, 4))[0],
+                    0x140540E40)
+                functions = {
+                    IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                end = functions[0x14051FBF0]
+                self.assertGreater(end, 0x14051FC87)
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                body = section.get_data()[0x51FBF0:end - IMAGE_BASE]
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                stops = [
+                    insn.address for insn in decoder.disasm(body, 0x14051FBF0)
+                    if insn.bytes[:1] == b"\xe8"
+                    and insn.address + 5 + int.from_bytes(insn.bytes[1:5], "little", signed=True) == 0x1406920F0]
+                self.assertEqual(stops, [])
+            with pefile.PE(data=machine, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                self.assertEqual(image.get_data(0x689A4, 3), bytes.fromhex("488bf1"))
+                self.assertEqual(image.get_data(0x689D5, 7), bytes.fromhex("488d05cc630600"))
+                self.assertEqual(0x1800689DC + 0x663CC, 0x1800CEDA8)
+                self.assertEqual(image.get_data(0x689DC, 3), bytes.fromhex("488906"))
+                self.assertLess(0x1800689BB, 0x1800689DC)
+                self.assertEqual(image.get_data(0xCEF38, 8), bytes.fromhex("404e078001000000"))
+                self.assertEqual(image.get_data(0x74E40, 17), bytes.fromhex("488b8970080000488b0148ffa020020000"))
+                self.assertEqual(image.get_data(0x58C50, 17), bytes.fromhex("488b8918010000488b0148ffa020020000"))
+                self.assertEqual(image.get_data(0xC83D8, 8), bytes.fromhex("483e0d8001000000"))
+                self.assertEqual(image.get_data(0xC8600, 8), bytes.fromhex("f4cd078001000000"))
+                self.assertEqual(image.get_data(0xD3E54, 4), bytes.fromhex("10e50f00"))
+                self.assertEqual(image.get_data(0xFE520, 28), b".?AVIAcquisitionController@@")
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: item.name.decode() if item.name else str(item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                pure = image.get_data(0x7CDF4, 6)
+                self.assertEqual(pure, bytes.fromhex("ff252edb0300"))
+                self.assertEqual(imports[0x18007CDFA + struct.unpack_from("<i", pure, 2)[0]], "_purecall")
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_document_destructor_destroys_the_5878_array_without_stopping(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            self.assertEqual(image.get_data(0x67FCDE, 7), bytes.fromhex("488b8b78580000"))
+            self.assertEqual(image.get_data(0x67FCE5, 3), bytes.fromhex("4533ff"))
+            self.assertEqual(image.get_data(0x67FCF6, 4), bytes.fromhex("418d5703"))
+            self.assertEqual(image.get_data(0x67FCFA, 3), bytes.fromhex("ff5008"))
+            self.assertEqual(image.get_data(0x67FD0A, 7), bytes.fromhex("4c89bb78580000"))
+            self.assertLess(0x14067FCFA, 0x14067FD0A)
+            self.assertEqual(image.get_data(0xE9E8C0, 8), struct.pack("<Q", 0x1406803C0))
+            self.assertEqual(image.get_data(0x6803DE, 4), bytes.fromhex("f6c20274"))
+            scalar = image.get_data(0x6803E3, 7)
+            self.assertEqual(scalar[:3], b"\x4c\x8d\x0d")
+            self.assertEqual(0x1406803EA + struct.unpack_from("<i", scalar, 3)[0], 0x14066E530)
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            functions = {
+                IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            end = functions[0x14066E530]
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            body = section.get_data()[0x66E530:end - IMAGE_BASE]
+            stops = [
+                insn.address for insn in decoder.disasm(body, 0x14066E530)
+                if insn.bytes[:1] == b"\xe8"
+                and insn.address + 5 + int.from_bytes(insn.bytes[1:5], "little", signed=True) == 0x1406920F0]
+            self.assertEqual(stops, [])
+
+    def test_anomaly_element_destructor_does_not_join_production(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        support = (ROOT / "v3d_files_" / "StructSupport.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(len(support), 2256384)
+        self.assertEqual(
+            hashlib.sha256(support).hexdigest(),
+            "d6270dbe5c97b5ed1000c2541c1e8d495d7db6be184e45d6495d7fad75e0f832")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else None)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(image.get_data(0x66E573, 16), bytes.fromhex("33d2488bcbff5008904881c370030000"))
+                thunk = image.get_data(0x45A61F, 6)
+                self.assertEqual(thunk, bytes.fromhex("ff152b159000"))
+                self.assertEqual(
+                    imports[0x14045A625 + struct.unpack_from("<i", thunk, 2)[0]],
+                    (b"structsupport.dll", "??1CAnomalieProd@@UEAA@XZ"))
+            with pefile.PE(data=support, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: entry.dll.lower()
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(image.get_data(0x8D684, 5)[0], 0xE9)
+                self.assertEqual(
+                    0x18008D689 + struct.unpack_from("<i", image.get_data(0x8D685, 4))[0],
+                    0x18008D550)
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                text = section.get_data()
+                text_base = 0x180000000 + section.VirtualAddress
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                dlls = []
+                for begin, end in ((0x18008D610, 0x18008D689), (0x18008D550, 0x18008D601)):
+                    body = text[begin - text_base:end - text_base]
+                    for insn in decoder.disasm(body, begin):
+                        if insn.bytes[:2] != b"\xff\x15":
+                            continue
+                        slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                        dlls.append(imports[slot])
+                self.assertTrue(dlls)
+                self.assertTrue(all(item != b"user32.dll" for item in dlls))
+                self.assertNotIn(b"vision3d.exe", dlls)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_async_kill_waits_on_its_own_thread_handle(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        tools = (ROOT / "v3d_files_" / "BaseTools.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(len(tools), 1910272)
+        self.assertEqual(
+            hashlib.sha256(tools).hexdigest(),
+            "a41b4b00cf464da7da886f2303e6161f4474bda29b32793d39e4c6cfc39547f8")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: item.name.decode() if item.name else str(item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(image.get_data(0x67FD44, 7), bytes.fromhex("488d8b28610000"))
+                thunk = image.get_data(0x67FD4B, 6)
+                self.assertEqual(thunk[:2], b"\xff\x15")
+                self.assertEqual(
+                    imports[0x14067FD51 + struct.unpack_from("<i", thunk, 2)[0]],
+                    "?Kill@CAsynchCommandExecution@@QEAA_NXZ")
+            with pefile.PE(data=tools, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: item.name.decode() if item.name else str(item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(image.get_data(0x71AC, 4), bytes.fromhex("80790801"))
+                branch = image.get_data(0x71B0, 6)
+                self.assertEqual(branch[:2], b"\x0f\x85")
+                self.assertEqual(
+                    0x1800071B6 + struct.unpack_from("<i", branch, 2)[0], 0x180007254)
+                self.assertEqual(image.get_data(0x7469, 11), bytes.fromhex("ba50c30000488b4b10ff15"))
+                wait = image.get_data(0x7472, 6)
+                self.assertEqual(
+                    imports[0x180007478 + struct.unpack_from("<i", wait, 2)[0]],
+                    "WaitForSingleObject")
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_destructor_closes_event_and_semaphore_not_the_thread_slot(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: item.name.decode() if item.name else str(item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                event = image.get_data(0x67E1EE, 6)
+                semaphore = image.get_data(0x67E27D, 6)
+                self.assertEqual(event[:2], b"\xff\x15")
+                self.assertEqual(semaphore[:2], b"\xff\x15")
+                self.assertEqual(imports[0x14067E1F4 + struct.unpack_from("<i", event, 2)[0]], "CreateEventA")
+                self.assertEqual(imports[0x14067E283 + struct.unpack_from("<i", semaphore, 2)[0]], "CreateSemaphoreA")
+                self.assertEqual(image.get_data(0x67E1F4, 7), bytes.fromhex("48898678380000"))
+                self.assertEqual(image.get_data(0x67E217, 7), bytes.fromhex("4c89b668380000"))
+                self.assertEqual(image.get_data(0x67E283, 7), bytes.fromhex("48898690380000"))
+                self.assertLess(0x14067E1F4, 0x14067E217)
+                self.assertLess(0x14067E217, 0x14067E283)
+                self.assertEqual(image.get_data(0x67FD52, 7), bytes.fromhex("488b8b90380000"))
+                self.assertEqual(image.get_data(0x67FD60, 7), bytes.fromhex("488b8b78380000"))
+                self.assertEqual(image.get_data(0x67FD73, 7), bytes.fromhex("4c89bb78380000"))
+                functions = {
+                    IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                end = functions[0x14067FC20]
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                body = section.get_data()[0x67FC20:end - IMAGE_BASE]
+                self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_on_close_document_tails_to_view_teardown_without_stopping(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                first = image.get_data(0x68D9DD, 5)
+                second = image.get_data(0x68D9E9, 5)
+                third = image.get_data(0x68DA1F, 5)
+                tail = image.get_data(0x68DA31, 5)
+                self.assertEqual(first[0], 0xE8)
+                self.assertEqual(second[0], 0xE8)
+                self.assertEqual(third[0], 0xE8)
+                self.assertEqual(0x14068D9E2 + struct.unpack_from("<i", first, 1)[0], 0x1406928D0)
+                self.assertEqual(image.get_data(0x68D9E2, 7), bytes.fromhex("488b8f50380000"))
+                self.assertEqual(0x14068D9EE + struct.unpack_from("<i", second, 1)[0], 0x14063B430)
+                self.assertEqual(0x14068DA24 + struct.unpack_from("<i", third, 1)[0], 0x1404E03F0)
+                self.assertEqual(tail[0], 0xE9)
+                self.assertEqual(0x14068DA36 + struct.unpack_from("<i", tail, 1)[0], 0x14077FE26)
+                thunk = image.get_data(0x77FE26, 6)
+                self.assertEqual(thunk[:2], b"\xff\x25")
+                self.assertEqual(imports[0x14077FE2C + struct.unpack_from("<i", thunk, 2)[0]], (b"mfc140.dll", 8850))
+                self.assertLess(0x14068D9DD, 0x14068D9E9)
+                self.assertLess(0x14068D9E9, 0x14068DA1F)
+                self.assertLess(0x14068DA1F, 0x14068DA31)
+                functions = {
+                    IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                text = section.get_data()
+                text_base = IMAGE_BASE + section.VirtualAddress
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                stops = []
+                for begin in (0x1406928D0, 0x14063B430, 0x1404E03F0):
+                    end = functions[begin]
+                    body = text[begin - text_base:end - text_base]
+                    stops.extend(
+                        insn.address for insn in decoder.disasm(body, begin)
+                        if insn.bytes[:1] == b"\xe8"
+                        and insn.address + 5 + int.from_bytes(insn.bytes[1:5], "little", signed=True) == 0x1406920F0)
+                self.assertEqual(stops, [])
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_close_waits_on_the_app_object_not_the_production_thread(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: item.name.decode() if item.name else str(item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                call = image.get_data(0x67E2A4, 5)
+                self.assertEqual(0x14067E2A9 + struct.unpack_from("<i", call, 1)[0], 0x14077F7F6)
+                self.assertEqual(image.get_data(0x67E2A9, 15), bytes.fromhex("488b4808488b414048898650380000"))
+                self.assertEqual(image.get_data(0x63B466, 19), bytes.fromhex("83bf78580000007448488b8f7058000083caff"))
+                self.assertEqual(0x14063B46F + 0x48, 0x14063B4B7)
+                wait = image.get_data(0x63B479, 6)
+                self.assertEqual(wait[:2], b"\xff\x15")
+                self.assertEqual(imports[0x14063B47F + struct.unpack_from("<i", wait, 2)[0]], "WaitForSingleObject")
+                self.assertNotEqual(0x3850, 0x3868)
+                self.assertNotEqual(0x5870, 0x3868)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_close_pumps_after_waiting_on_the_supervisor_semaphore(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else str(item.ordinal))
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                site = image.get_data(0x63B4B7, 12)
+                self.assertEqual(site[:7], bytes.fromhex("488d8fb0560000"))
+                self.assertEqual(0x14063B4C3 + struct.unpack_from("<i", site, 8)[0], 0x14064B880)
+                self.assertEqual(image.get_data(0x64B89D, 10), bytes.fromhex("83caff488b8918010000"))
+                wait = image.get_data(0x64B8A7, 6)
+                self.assertEqual(wait[:2], b"\xff\x15")
+                self.assertEqual(imports[0x14064B8AD + struct.unpack_from("<i", wait, 2)[0]], (b"kernel32.dll", "WaitForSingleObject"))
+                pump = image.get_data(0x64B8FB, 6)
+                self.assertEqual(pump[:2], b"\xff\x15")
+                self.assertEqual(imports[0x14064B901 + struct.unpack_from("<i", pump, 2)[0]], (b"dytools0.dll", "?DoEvents@@YAXXZ"))
+                functions = {
+                    IMAGE_BASE + entry.struct.BeginAddress: IMAGE_BASE + entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                end = functions[0x14064B880]
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                body = section.get_data()[0x64B880:end - IMAGE_BASE]
+                self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                self.assertEqual(image.get_data(0x63B47F, 6), bytes.fromhex("ff8768580000"))
+                self.assertEqual(image.get_data(0x63B485, 22), bytes.fromhex(
+                    "4533c0488b8f70580000418d50013997685800007516"))
+                self.assertEqual(0x14063B49B + 0x16, 0x14063B4B1)
+                release = image.get_data(0x63B4AA, 7)
+                self.assertEqual(release[:3], bytes.fromhex("48ff25"))
+                self.assertEqual(imports[0x14063B4B1 + struct.unpack_from("<i", release, 3)[0]], (b"kernel32.dll", "ReleaseSemaphore"))
+                paired = image.get_data(0x63B4B1, 6)
+                self.assertEqual(paired[:2], b"\xff\x15")
+                self.assertEqual(imports[0x14063B4B7 + struct.unpack_from("<i", paired, 2)[0]], (b"kernel32.dll", "ReleaseSemaphore"))
+                self.assertEqual(image.get_data(0x63ACB4, 13), bytes.fromhex("4533c9ba0100000033c9448bc2"))
+                create = image.get_data(0x63ACC1, 6)
+                self.assertEqual(create[:2], b"\xff\x15")
+                self.assertEqual(imports[0x14063ACC7 + struct.unpack_from("<i", create, 2)[0]], (b"kernel32.dll", "CreateSemaphoreA"))
+                self.assertEqual(image.get_data(0x63ACC7, 7), bytes.fromhex("49898570580000"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_embedded_stop_nulls_the_producer_and_joins_the_other_thread(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else str(item.ordinal))
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                slot = int.from_bytes(image.get_data(0xEA3B68, 8), "little")
+                self.assertEqual(slot, 0x140680D70)
+                self.assertEqual(0x2548 + 0x1320, 0x3868)
+                self.assertEqual(0x2548 + 0x1318, 0x3860)
+                self.assertEqual(image.get_data(0x680DCB, 11), bytes.fromhex("48c7832013000000000000"))
+                self.assertEqual(image.get_data(0x680E1B, 7), bytes.fromhex("488b8b18130000"))
+                stop = image.get_data(0x680E22, 6)
+                self.assertEqual(stop[:2], b"\xff\x15")
+                self.assertEqual(
+                    imports[0x140680E28 + struct.unpack_from("<i", stop, 2)[0]],
+                    (b"basetools.dll", "?Stop@CViThread@@QEAA_NAEAKK@Z"))
+                self.assertEqual(image.get_data(0x680E98, 7), bytes.fromhex("488d8bb8daffff"))
+                self.assertEqual(image.get_data(0x6B1039, 13), bytes.fromhex("4881c148250000488b01ff5008"))
+                self.assertEqual(image.get_data(0x6922AB, 7), bytes.fromhex("488b8b60380000"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_production_stop_is_reached_only_through_the_command_slot(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            self.assertEqual(int.from_bytes(image.get_data(0xEA3890, 8), "little"), 0x14068DA40)
+            self.assertEqual(image.get_data(0x68DA46, 32), bytes.fromhex(
+                "418bc0498bd948c1e8106683f84e7538b8cfb1000066443bc0752de88a460000"))
+            self.assertEqual(0x14068DA66 + 0x468A, 0x1406920F0)
+            self.assertEqual(source.find((0x1406920F0).to_bytes(8, "little")), -1)
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            base = section.VirtualAddress
+            blob = section.get_data()
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            for begin in (0x68D9D0, 0x67FC20, 0x6AF270, 0x4E03F0, 0x6B0C00):
+                body = blob[begin - base:functions[begin] - base]
+                calls = [
+                    insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                    for insn in decoder.disasm(body, IMAGE_BASE + begin)
+                    if insn.bytes and insn.bytes[0] == 0xE8]
+                self.assertNotIn(0x1406920F0, calls)
+                self.assertNotIn(0x14068DA40, calls)
+
+    def test_close_does_not_join_the_communication_thread(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            self.assertEqual(image.get_data(0x691F28, 5), bytes.fromhex("b948000000"))
+            site = image.get_data(0x691F3B, 26)
+            self.assertEqual(site, bytes.fromhex("488bd6488bc8e8daa3feff488bc8eb03498bcc48898e60380000"))
+            self.assertEqual(0x140691F46 + struct.unpack_from("<i", site, 7)[0], 0x14067C320)
+            self.assertEqual(int.from_bytes(image.get_data(0xEA1CD8, 8), "little"), 0x14067C480)
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            blob = section.get_data()
+            base = section.VirtualAddress
+            for begin in (0x68D9D0, 0x67FC20, 0x6AF270, 0x4E03F0, 0x6B0C00):
+                body = blob[begin - base:functions[begin] - base]
+                self.assertEqual(body.find(bytes.fromhex("60380000")), -1)
+
+    def test_third_skip_post_uses_the_saved_object_document(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            self.assertEqual(image.get_data(0x7368DB, 4), bytes.fromhex("48894808"))
+            self.assertEqual(image.get_data(0x7368EA, 7), bytes.fromhex("488da808f9ffff"))
+            self.assertEqual(0x700 - 0x6F8, 8)
+            self.assertEqual(image.get_data(0x736CBC, 7), bytes.fromhex("4c8bbd00070000"))
+            self.assertEqual(image.get_data(0x736FD0, 11), bytes.fromhex("498b4710488b8838580000"))
+            self.assertEqual(image.get_data(0x735150, 4), bytes.fromhex("4c894110"))
+            self.assertEqual(image.get_data(0x66DC00, 4), bytes.fromhex("4c8b4728"))
+            self.assertEqual(int.from_bytes(image.get_data(0xEA8A28, 8), "little"), 0x14066DB40)
+            self.assertEqual(0xEA8A28 - 0xEA8A10, 0x18)
+            reload = image.get_data(0x69FD6D, 11)
+            self.assertEqual(reload[:3], bytes.fromhex("488bcd"))
+            self.assertEqual(0x14069FD75 + struct.unpack_from("<i", reload, 4)[0], 0x1406A15D0)
+            self.assertEqual(reload[8:], bytes.fromhex("4c8bc0"))
+
+    def test_worker_document_is_copied_from_the_accessor_before_treat(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            self.assertEqual(image.get_data(0x699804, 4), bytes.fromhex("48894728"))
+            filled = image.get_data(0x6A6B92, 8)
+            self.assertEqual(filled[:3], bytes.fromhex("488bce"))
+            self.assertEqual(0x1406A6B9A + struct.unpack_from("<i", filled, 4)[0], 0x1406A15D0)
+            self.assertEqual(image.get_data(0x6A6B9B, 8), bytes.fromhex("4c897d2848894530"))
+            handoff = image.get_data(0x6A6BBC, 16)
+            self.assertEqual(handoff[:11], bytes.fromhex("488d8ec80e0000488d5528"))
+            self.assertEqual(0x1406A6BCC + struct.unpack_from("<i", handoff, 12)[0], 0x1406A4980)
+            self.assertEqual(image.get_data(0x6A49D7, 8), bytes.fromhex("498b460848894328"))
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            blob = section.get_data()
+            base = section.VirtualAddress
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            for begin in (0x68D9D0, 0x67FC20, 0x6AF270, 0x4E03F0, 0x6B0C00):
+                body = blob[begin - base:functions[begin] - base]
+                calls = [
+                    insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                    for insn in decoder.disasm(body, IMAGE_BASE + begin)
+                    if insn.bytes and insn.bytes[0] == 0xE8]
+                self.assertNotIn(0x1406A4980, calls)
+
+    def test_production_stop_deletes_the_workers_after_the_join(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            self.assertEqual(image.get_data(0x6921E0, 2), bytes.fromhex("33f6"))
+            self.assertEqual(
+                image.get_data(0x692238, 22),
+                bytes.fromhex("488b8b683800004885c97411488b01ba01000000ff10"))
+            self.assertEqual(image.get_data(0x69224E, 7), bytes.fromhex("4889b368380000"))
+            self.assertEqual(int.from_bytes(image.get_data(0xEA8A48, 8), "little"), 0x14069A8F0)
+            deleting = image.get_data(0x69A8FC, 8)
+            self.assertEqual(deleting[:3], bytes.fromhex("488bf9"))
+            self.assertEqual(0x14069A904 + struct.unpack_from("<i", deleting, 4)[0], 0x14069A320)
+            pool = image.get_data(0x69A448, 12)
+            self.assertEqual(pool[:7], bytes.fromhex("488d8fc80e0000"))
+            self.assertEqual(0x14069A454 + struct.unpack_from("<i", pool, 8)[0], 0x14069A1A0)
+            self.assertEqual(0x14069A1CB + struct.unpack_from("<i", image.get_data(0x69A1C6, 5), 1)[0], 0x140655980)
+            self.assertEqual(
+                image.get_data(0x6559A0, 25),
+                bytes.fromhex("488b47088bd6488b0cd04885c9740a488b01ba01000000ff10"))
+            self.assertEqual(int.from_bytes(image.get_data(0xEA8A10, 8), "little"), 0x14069A890)
+            worker = image.get_data(0x69A8BC, 8)
+            self.assertEqual(worker[:3], bytes.fromhex("488bce"))
+            self.assertEqual(0x14069A8C4 + struct.unpack_from("<i", worker, 4)[0], 0x14069A110)
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            blob = section.get_data()
+            base = section.VirtualAddress
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            for begin in (0x68D9D0, 0x67FC20, 0x6AF270, 0x4E03F0, 0x6B0C00):
+                body = blob[begin - base:functions[begin] - base]
+                calls = [
+                    insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                    for insn in decoder.disasm(body, IMAGE_BASE + begin)
+                    if insn.bytes and insn.bytes[0] == 0xE8]
+                self.assertNotIn(0x1406920F0, calls)
+                self.assertNotIn(0x140655980, calls)
+
+    def test_production_cycle_does_not_use_the_close_semaphore(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            self._production_cycle_does_not_use_the_close_semaphore(source)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def _production_cycle_does_not_use_the_close_semaphore(self, source: bytes) -> None:
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+            self.assertEqual(image.get_data(0x630075, 2), bytes.fromhex("33f6"))
+            self.assertEqual(image.get_data(0x630242, 7), bytes.fromhex("4889b770580000"))
+            closed = image.get_data(0x6304F9, 19)
+            self.assertEqual(closed[:12], bytes.fromhex("488b89705800004885c97412"))
+            self.assertEqual(closed[12], 0xFF)
+            self.assertEqual(closed[13], 0x15)
+            slot = 0x14063050B + struct.unpack_from("<i", closed, 14)[0]
+            self.assertEqual(slot, 0x140D551C0)
+            self.assertEqual(image.get_data(0x63050C, 11), bytes.fromhex("48c7877058000000000000"))
+            imported = {
+                item.address: item.name
+                for lib in image.DIRECTORY_ENTRY_IMPORT
+                for item in lib.imports}
+            self.assertEqual(imported[slot], b"CloseHandle")
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            blob = section.get_data()
+            base = section.VirtualAddress
+            for begin in (0x6A20D0, 0x66DB40, 0x6A6A30, 0x7368D0):
+                self.assertNotIn(bytes.fromhex("70580000"), blob[begin - base:functions[begin] - base])
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            body = blob[0x6A20D0 - base:functions[0x6A20D0] - base]
+            calls = [
+                insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                for insn in decoder.disasm(body, IMAGE_BASE + 0x6A20D0)
+                if insn.bytes and insn.bytes[0] == 0xE8]
+            self.assertNotIn(0x14063B430, calls)
+
+    def test_destructor_callees_do_not_join_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            self._destructor_callees_do_not_join_the_producer(source)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def _destructor_callees_do_not_join_the_producer(self, source: bytes) -> None:
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+            serial = image.get_data(0x67FFD6, 12)
+            self.assertEqual(serial[:7], bytes.fromhex("488d8bb82e0000"))
+            self.assertEqual(0x14067FFE2 + struct.unpack_from("<i", serial, 8)[0], 0x1405B1720)
+            other = image.get_data(0x67FFFF, 12)
+            self.assertEqual(other[:7], bytes.fromhex("488d8b50250000"))
+            self.assertEqual(0x14068000B + struct.unpack_from("<i", other, 8)[0], 0x1405B1720)
+            tail = image.get_data(0x5B172A, 7)
+            self.assertEqual(tail[:3], bytes.fromhex("48ff25"))
+            slot = 0x1405B1731 + struct.unpack_from("<i", tail, 3)[0]
+            imported = {
+                item.address: item.name
+                for lib in image.DIRECTORY_ENTRY_IMPORT
+                for item in lib.imports}
+            self.assertEqual(imported[slot], b"??1CSerialDriver@@UEAA@XZ")
+            freed = image.get_data(0x67FE49, 12)
+            self.assertEqual(freed[:7], bytes.fromhex("488d8bc8600000"))
+            self.assertEqual(0x14067FE55 + struct.unpack_from("<i", freed, 8)[0], 0x1405CC080)
+            empty = image.get_data(0x67FE56, 12)
+            self.assertEqual(empty[:7], bytes.fromhex("488d8b78600000"))
+            self.assertEqual(0x14067FE62 + struct.unpack_from("<i", empty, 8)[0], 0x140662340)
+            self.assertEqual(image.get_data(0x662340, 3), bytes.fromhex("c20000"))
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            blob = section.get_data()
+            base = section.VirtualAddress
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            destructor = blob[0x67FC20 - base:functions[0x67FC20] - base]
+            for insn in decoder.disasm(destructor, IMAGE_BASE + 0x67FC20):
+                raw = insn.bytes
+                if not raw:
+                    continue
+                iat = None
+                if raw[:2] == b"\xff\x15" and len(raw) >= 6:
+                    iat = insn.address + insn.size + int.from_bytes(raw[2:6], "little", signed=True)
+                elif raw[:3] == b"\x48\xff\x15" and len(raw) >= 7:
+                    iat = insn.address + insn.size + int.from_bytes(raw[3:7], "little", signed=True)
+                if iat is None:
+                    continue
+                name = imported.get(iat) or b""
+                self.assertNotIn(b"WaitForSingleObject", name)
+                self.assertNotIn(b"Stop@CViThread", name)
+            stops = {
+                0x1406920F0, 0x140680C00, 0x140680D70, 0x14068DA40,
+                0x14069A110, 0x140655980}
+            pending = [
+                (0x527B50, 0), (0x698F60, 0), (0x57BE20, 0), (0x675460, 0),
+                (0x67F8C0, 0), (0x66E530, 0), (0x6C3BF0, 0), (0x698D60, 0),
+                (0x6928D0, 0), (0x4E03F0, 0)]
+            seen = set()
+            while pending:
+                begin, depth = pending.pop()
+                if begin in seen or begin not in functions or depth > 1:
+                    continue
+                seen.add(begin)
+                body = blob[begin - base:functions[begin] - base]
+                self.assertNotIn(bytes.fromhex("68380000"), body)
+                self.assertNotIn(bytes.fromhex("60380000"), body)
+                for insn in decoder.disasm(body, IMAGE_BASE + begin):
+                    raw = insn.bytes
+                    if not raw:
+                        continue
+                    if raw[0] == 0xE8 and len(raw) >= 5:
+                        target = insn.address + insn.size + int.from_bytes(raw[1:5], "little", signed=True)
+                        self.assertNotIn(target, stops)
+                        if depth == 0:
+                            pending.append((target - IMAGE_BASE, 1))
+                    elif raw[:2] == b"\xff\x15" and len(raw) >= 6:
+                        iat = insn.address + insn.size + int.from_bytes(raw[2:6], "little", signed=True)
+                        self.assertNotEqual(iat, 0x140D53470)
+                    elif raw[:3] == b"\x48\xff\x15" and len(raw) >= 7:
+                        iat = insn.address + insn.size + int.from_bytes(raw[3:7], "little", signed=True)
+                        self.assertNotEqual(iat, 0x140D53470)
+
+
+    def test_stop_byte_displacement_is_cleared_by_production_start(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            self.assertEqual(image.get_data(0x69203B, 7), bytes.fromhex("c6862e38000000"))
+            self.assertEqual(image.get_data(0x6A45C1, 7), bytes.fromhex("80b82e38000001"))
+            self.assertEqual(image.get_data(0x6AF56E, 8), bytes.fromhex("80b82e3800000175"))
+            call = image.get_data(0x6B1043, 16)
+            self.assertEqual(call[:3], bytes.fromhex("ff5008"))
+            self.assertEqual(call[3:6], bytes.fromhex("488bce"))
+            self.assertEqual(0x1406B104E + struct.unpack_from("<i", call, 7)[0], 0x1406AF4D0)
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            blob = section.get_data()
+            base = section.VirtualAddress
+            for begin in (0x68D9D0, 0x67FC20, 0x6AF270, 0x6B0C00):
+                self.assertNotIn(bytes.fromhex("2e380000"), blob[begin - base:functions[begin] - base])
+            self.assertNotIn(bytes.fromhex("2e380000"), image.get_data(0x4E03F0, 0x160))
+
+    def test_close_does_not_call_the_embedded_stop_callers(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            site = image.get_data(0x6A467D, 21)
+            self.assertEqual(site[:3], bytes.fromhex("498bce"))
+            self.assertEqual(0x1406A4685 + struct.unpack_from("<i", site, 4)[0], 0x1406A15D0)
+            self.assertEqual(site[8:], bytes.fromhex("488d8848250000488b01ff5008"))
+            branch = image.get_data(0x6A45E7, 11)
+            self.assertEqual(branch[:4], bytes.fromhex("807e3200"))
+            self.assertEqual(0x1406A45ED + branch[5], 0x1406A4669)
+            self.assertEqual(0x1406A45F2 + struct.unpack_from("<i", branch, 7)[0], 0x1406A2770)
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            section = next(item for item in image.sections if item.Name.startswith(b".text"))
+            blob = section.get_data()
+            base = section.VirtualAddress
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            callers = {
+                0x1404C2640, 0x1405CB880, 0x140682FF0, 0x1406A1DA0,
+                0x1406A20D0, 0x14075EFD0}
+            for begin in (0x68D9D0, 0x67FC20, 0x6AF270, 0x6B0C00):
+                body = blob[begin - base:functions[begin] - base]
+                calls = {
+                    insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                    for insn in decoder.disasm(body, IMAGE_BASE + begin)
+                    if insn.bytes and insn.bytes[0] == 0xE8}
+                self.assertFalse(calls & callers)
+                for target in calls:
+                    begin_callee = target - IMAGE_BASE
+                    if begin_callee not in functions:
+                        continue
+                    nested_body = blob[begin_callee - base:functions[begin_callee] - base]
+                    nested = {
+                        insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                        for insn in decoder.disasm(nested_body, target)
+                        if insn.bytes and insn.bytes[0] == 0xE8}
+                    self.assertFalse(nested & callers)
+            poster = blob[0x4E03F0 - base:0x4E03F0 - base + 0x160]
+            poster_calls = {
+                insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                for insn in decoder.disasm(poster, IMAGE_BASE + 0x4E03F0)
+                if insn.bytes and insn.bytes[0] == 0xE8}
+            self.assertFalse(poster_calls & callers)
+            for target in poster_calls:
+                begin_callee = target - IMAGE_BASE
+                if begin_callee not in functions:
+                    continue
+                nested_body = blob[begin_callee - base:functions[begin_callee] - base]
+                nested = {
+                    insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                    for insn in decoder.disasm(nested_body, target)
+                    if insn.bytes and insn.bytes[0] == 0xE8}
+                self.assertFalse(nested & callers)
+
+    def test_pre_destroy_document_slot_returns_immediately(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(mfc).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                self.assertEqual(int.from_bytes(image.get_data(0xEA3868 + 0x1C8, 8), "little"), 0x14077FE86)
+                thunk = image.get_data(0x77FE86, 6)
+                self.assertEqual(thunk[:2], bytes.fromhex("ff25"))
+                slot = 0x14077FE8C + struct.unpack_from("<i", thunk, 2)[0]
+                imported = {
+                    item.address: item.ordinal
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                self.assertEqual(imported[slot], 11723)
+            with pefile.PE(data=mfc, fast_load=True) as library:
+                self.assertEqual(library.get_data(0x21F8FD, 7), bytes.fromhex("488b81c8010000"))
+                self.assertEqual(library.get_data(0x21F910, 7), bytes.fromhex("488b81d0000000"))
+                self.assertLess(0x21F8FD, 0x21F910)
+                directory = library.OPTIONAL_HEADER.DATA_DIRECTORY[0]
+                header = library.get_data(directory.VirtualAddress, 40)
+                base, _count, _names, functions, _names_rva, _ordinals = struct.unpack_from("<IIIIII", header, 16)
+                index = 11723 - base
+                function = struct.unpack_from("<I", library.get_data(functions + index * 4, 4))[0]
+                self.assertEqual(library.get_data(function, 3), bytes.fromhex("c20000"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_view_destructor_stops_the_cad_engine_only(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                loaded = image.get_data(0x6ABC90, 18)
+                self.assertEqual(loaded[:10], bytes.fromhex("488b89700100004885c9"))
+                self.assertEqual(loaded[12:14], bytes.fromhex("ff15"))
+                slot = 0x1406ABCA2 + struct.unpack_from("<i", loaded, 14)[0]
+                imported = {
+                    item.address: item.name
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                self.assertEqual(imported[slot], b"?StopEngine@CCadEngine@@QEAA_NXZ")
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                blob = section.get_data()
+                base = section.VirtualAddress
+                body = blob[0x6ABC60 - base:functions[0x6ABC60] - base]
+                self.assertNotIn(bytes.fromhex("68380000"), body)
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                calls = [
+                    insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                    for insn in decoder.disasm(body, IMAGE_BASE + 0x6ABC60)
+                    if insn.bytes and insn.bytes[0] == 0xE8]
+                self.assertNotIn(0x1406920F0, calls)
+                for target in calls:
+                    begin = target - IMAGE_BASE
+                    if begin not in functions:
+                        continue
+                    callee = blob[begin - base:functions[begin] - base]
+                    self.assertNotIn(bytes.fromhex("68380000"), callee)
+                    nested = [
+                        insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                        for insn in decoder.disasm(callee, target)
+                        if insn.bytes and insn.bytes[0] == 0xE8]
+                    self.assertNotIn(0x1406920F0, nested)
+                    self.assertNotIn(0x140680C00, nested)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_view_destructor_thunks_do_not_join_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(mfc).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imported = {
+                    item.address: item.ordinal
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                delete_site = image.get_data(0x6ABD1B, 10)
+                self.assertEqual(delete_site[:5], bytes.fromhex("488bc833d2"))
+                self.assertEqual(0x1406ABD25 + struct.unpack_from("<i", delete_site, 6)[0], 0x14077F928)
+                window_site = image.get_data(0x6ABD45, 12)
+                self.assertEqual(window_site[:7], bytes.fromhex("488d8b186f0000"))
+                self.assertEqual(0x1406ABD51 + struct.unpack_from("<i", window_site, 8)[0], 0x14077F880)
+                free_site = image.get_data(0x6ABD52, 12)
+                self.assertEqual(free_site[:7], bytes.fromhex("488d8bc86e0000"))
+                self.assertEqual(0x1406ABD5E + struct.unpack_from("<i", free_site, 8)[0], 0x14077F7B4)
+                release = image.get_data(0x6ABE3F, 7)
+                self.assertEqual(release, bytes.fromhex("488bbbb0010000"))
+                self.assertNotEqual(0x1B0, 0x3868)
+                for thunk, ordinal in ((0x77F928, 12215), (0x77F880, 1421), (0x77F7B4, 1425)):
+                    raw = image.get_data(thunk, 6)
+                    self.assertEqual(raw[:2], bytes.fromhex("ff25"))
+                    self.assertEqual(imported[IMAGE_BASE + thunk + 6 + struct.unpack_from("<i", raw, 2)[0]], ordinal)
+            with pefile.PE(data=mfc, fast_load=True) as library:
+                library.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                names = {
+                    item.address: item.name
+                    for lib in library.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                opened = library.get_data(0x22BA50, 5)
+                self.assertEqual(opened, bytes.fromhex("4885d27445"))
+                self.assertEqual(0x18022BA55 + opened[4], 0x18022BA9A)
+                delete_call = library.get_data(0x22BA9A, 6)
+                self.assertEqual(delete_call[:2], bytes.fromhex("ff15"))
+                self.assertEqual(names[0x18022BAA0 + struct.unpack_from("<i", delete_call, 2)[0]], b"DeleteFileA")
+                hwnd = library.get_data(0x2902F3, 6)
+                self.assertEqual(hwnd, bytes.fromhex("488b4f404885"))
+                destroy = library.get_data(0x290311, 6)
+                self.assertEqual(destroy[:2], bytes.fromhex("ff15"))
+                self.assertEqual(names[0x180290317 + struct.unpack_from("<i", destroy, 2)[0]], b"DestroyWindow")
+                freed = library.get_data(0x1D79CF, 6)
+                self.assertEqual(freed[:4], bytes.fromhex("488b4b08"))
+                self.assertEqual(freed[4:6], bytes.fromhex("ff15"))
+                self.assertEqual(names[0x1801D79D9 + struct.unpack_from("<i", library.get_data(0x1D79D3, 6), 2)[0]], b"free")
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_memory_check_failure_reaches_ask_to_stop_without_close(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(mfc).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                call = image.get_data(0x6A279A, 12)
+                self.assertEqual(call[:3], bytes.fromhex("498bce"))
+                self.assertEqual(0x1406A27A2 + struct.unpack_from("<i", call, 4)[0], 0x14069C770)
+                self.assertEqual(call[8:10], bytes.fromhex("84c0"))
+                self.assertEqual(0x1406A27A6 + call[11], 0x1406A280B)
+                label = image.get_data(0x69C7E9, 7)
+                self.assertEqual(label[:3], bytes.fromhex("4c8d05"))
+                text = 0x14069C7F0 + struct.unpack_from("<i", label, 3)[0]
+                self.assertEqual(image.get_data(text - IMAGE_BASE, 31), b"CheckAvailableMemory() failed.\x00")
+                choice = image.get_data(0x6A27C3, 14)
+                self.assertEqual(choice[:2], bytes.fromhex("8b05"))
+                self.assertEqual(0x1406A27C9 + struct.unpack_from("<i", choice, 2)[0], 0x1411697C4)
+                self.assertEqual(choice[6:10], bytes.fromhex("85c00f84"))
+                self.assertEqual(0x1406A27D1 + struct.unpack_from("<i", choice, 10)[0], 0x1406A45F2)
+                data = next(item for item in image.sections if item.Name.startswith(b".data"))
+                self.assertGreaterEqual(0x11697C4 - data.VirtualAddress, data.SizeOfRawData)
+                later = image.get_data(0x6A475A, 6)
+                self.assertEqual(later[:2], bytes.fromhex("393d"))
+                self.assertEqual(0x1406A4760 + struct.unpack_from("<i", later, 2)[0], 0x1411697C4)
+                store = image.get_data(0x6A45F2, 9)
+                self.assertEqual(store[:7], bytes.fromhex("6641c746310001"))
+                self.assertEqual(store[7], 0xEB)
+                self.assertEqual(0x1406A45FB + store[8], 0x1406A466D)
+                slot = int.from_bytes(image.get_data(0xE397C8, 8), "little")
+                self.assertEqual(slot, 0x14077F4F6)
+                thunk = image.get_data(0x77F4F6, 6)
+                self.assertEqual(thunk[:2], bytes.fromhex("ff25"))
+                imported = {
+                    item.address: item.ordinal
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                self.assertEqual(imported[0x14077F4FC + struct.unpack_from("<i", thunk, 2)[0]], 7430)
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                blob = section.get_data()
+                base = section.VirtualAddress
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                for begin in (0x68D9D0, 0x67FC20, 0x6AF270, 0x6B0C00):
+                    body = blob[begin - base:functions[begin] - base]
+                    calls = {
+                        insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                        for insn in decoder.disasm(body, IMAGE_BASE + begin)
+                        if insn.bytes and insn.bytes[0] == 0xE8}
+                    self.assertNotIn(0x14069C770, calls)
+                    for target in calls:
+                        begin_callee = target - IMAGE_BASE
+                        if begin_callee not in functions:
+                            continue
+                        nested_body = blob[begin_callee - base:functions[begin_callee] - base]
+                        nested = {
+                            insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                            for insn in decoder.disasm(nested_body, target)
+                            if insn.bytes and insn.bytes[0] == 0xE8}
+                        self.assertNotIn(0x14069C770, nested)
+                poster = blob[0x4E03F0 - base:0x4E03F0 - base + 0x160]
+                poster_calls = {
+                    insn.address + insn.size + int.from_bytes(insn.bytes[1:5], "little", signed=True)
+                    for insn in decoder.disasm(poster, IMAGE_BASE + 0x4E03F0)
+                    if insn.bytes and insn.bytes[0] == 0xE8}
+                self.assertNotIn(0x14069C770, poster_calls)
+            with pefile.PE(data=mfc, fast_load=True) as library:
+                directory = library.OPTIONAL_HEADER.DATA_DIRECTORY[0]
+                header = library.get_data(directory.VirtualAddress, 40)
+                export_base, _count, _names, functions_rva, _names_rva, _ordinals = struct.unpack_from("<IIIIII", header, 16)
+                function = struct.unpack_from("<I", library.get_data(functions_rva + (7430 - export_base) * 4, 4))[0]
+                self.assertEqual(library.get_data(function, 6), bytes.fromhex("b84a9c0280c3"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_base_destructor_clears_listed_views_after_the_array_free(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(mfc).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        with pefile.PE(data=source, fast_load=True) as image:
+            self.assertLess(0x51FD33, 0x51FF05)
+        with pefile.PE(data=mfc, fast_load=True) as library:
+            directory = library.OPTIONAL_HEADER.DATA_DIRECTORY[0]
+            header = library.get_data(directory.VirtualAddress, 40)
+            export_base, _count, _names, functions_rva, _names_rva, _ordinals = struct.unpack_from("<IIIIII", header, 16)
+            function = struct.unpack_from("<I", library.get_data(functions_rva + (1104 - export_base) * 4, 4))[0]
+            self.assertEqual(function, 0x21DFE0)
+            self.assertEqual(library.get_data(function + 0x14, 8), bytes.fromhex("488bd9e8a4010000"))
+            self.assertEqual(0x18021DFFC + struct.unpack_from("<i", library.get_data(function + 0x17, 5), 1)[0], 0x18021E1A0)
+            walk = library.get_data(0x21E1B4, 17)
+            self.assertEqual(walk[:4], bytes.fromhex("488d4b58"))
+            self.assertEqual(0x18021E1BD + struct.unpack_from("<i", walk, 5)[0], 0x180235BC0)
+            self.assertEqual(walk[9:], bytes.fromhex("4883a0e800000000"))
+            self.assertEqual(library.get_data(0x21E1A0, 0x37).find(bytes.fromhex("38580000")), -1)
+            self.assertEqual(library.get_data(0x235BD7, 4), bytes.fromhex("488b5a10"))
+            release = library.get_data(0x235BF0, 8)
+            self.assertEqual(0x180235BF5 + struct.unpack_from("<i", release, 1)[0], 0x180235A50)
+            self.assertEqual(release[5:], bytes.fromhex("488bc3"))
+
+    def test_document_connection_list_is_not_the_production_thread(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(mfc).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        for path in (ROOT / "v3d_files_").iterdir():
+            if path.suffix.lower() not in {".dll", ".exe"} or path.name.lower() == "mfc140.dll":
+                continue
+            with pefile.PE(data=path.read_bytes(), fast_load=True) as image:
+                if image.OPTIONAL_HEADER.Magic != 0x20B:
+                    continue
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                if not hasattr(image, "DIRECTORY_ENTRY_IMPORT"):
+                    continue
+                ordinals = [
+                    item.ordinal
+                    for entry in image.DIRECTORY_ENTRY_IMPORT
+                    if b"mfc140" in entry.dll.lower()
+                    for item in entry.imports]
+                self.assertNotIn(2525, ordinals)
+        with pefile.PE(data=mfc, fast_load=True) as library:
+            self.assertEqual(library.get_data(0x21DE8A, 2), bytes.fromhex("33ff"))
+            self.assertEqual(library.get_data(0x21DEFF, 7), bytes.fromhex("4889bbe0000000"))
+            self.assertEqual(library.get_data(0x2211A5, 7), bytes.fromhex("488b99e0000000"))
+            self.assertEqual(library.get_data(0x2211B6, 10), bytes.fromhex("488b4910488b1b4885c9"))
+            self.assertEqual(library.get_data(0x2211C5, 5), bytes.fromhex("ba01000000"))
+            self.assertEqual(library.get_data(0x221190, 0x64).find(bytes.fromhex("68380000")), -1)
+            clear = library.get_data(0x23D4BB, 14)
+            self.assertEqual(clear[:9], bytes.fromhex("4533c083caff488bcb"))
+            self.assertEqual(0x18023D4C9 + struct.unpack_from("<i", clear, 10)[0], 0x18023FB80)
+            branch = library.get_data(0x23FB9D, 9)
+            self.assertEqual(branch[:3], bytes.fromhex("4d85c0"))
+            self.assertEqual(branch[3:5], bytes.fromhex("0f84"))
+            self.assertEqual(0x18023FBA6 + struct.unpack_from("<i", branch, 5)[0], 0x18023FC49)
+            call = library.get_data(0x21DFFD, 22)
+            self.assertEqual(call[:4], bytes.fromhex("488b4b50"))
+            self.assertEqual(call[15:22], bytes.fromhex("488b80d0000000"))
+            self.assertEqual(struct.unpack_from("<Q", library.get_data(0x32FDB8, 8))[0], 0x180228E70)
+            self.assertEqual(library.get_data(0x228E70, 5), bytes.fromhex("4883625000"))
+            unlink = library.get_data(0x228E96, 5)
+            self.assertEqual(0x180228E9B + struct.unpack_from("<i", unlink, 1)[0], 0x180235D10)
+            self.assertEqual(library.get_data(0x228E70, 0x2B).find(bytes.fromhex("68380000")), -1)
+            self.assertEqual(library.get_data(0x21DF76, 7), bytes.fromhex("4889bbb8000000"))
+            self.assertEqual(library.get_data(0x21DFB5, 7), bytes.fromhex("4889bb78010000"))
+            self.assertEqual(library.get_data(0x21DECE, 7), bytes.fromhex("4889bbd0000000"))
+            release = library.get_data(0x21E0A6, 19)
+            self.assertEqual(release[:7], bytes.fromhex("488b8bd0000000"))
+            self.assertEqual(release[12:19], bytes.fromhex("488b01488b4010"))
+            self.assertEqual(library.get_data(0x21E034, 8), bytes.fromhex("4883a3b800000000"))
+            self.assertEqual(library.get_data(0x21E067, 8), bytes.fromhex("4883a37801000000"))
+            self.assertEqual(library.get_data(0x21E01A, 0xB0).find(bytes.fromhex("68380000")), -1)
+
+    def test_document_vtable_does_not_store_the_release_fields(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image, pefile.PE(data=mfc, fast_load=True) as library:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                library.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                mfc_functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in library.DIRECTORY_ENTRY_EXCEPTION}
+                imported = {
+                    item.address: item.ordinal
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    if lib.dll.decode().lower().startswith("mfc")
+                    for item in lib.imports}
+                export = library.DIRECTORY_ENTRY_EXPORT
+                ordinal_base = export.struct.Base
+                addresses = library.get_data(
+                    export.struct.AddressOfFunctions, export.struct.NumberOfFunctions * 4)
+                call = image.get_data(0x67E006, 12)
+                self.assertEqual(call[:7], bytes.fromhex("488d8e88580000"))
+                self.assertEqual(0x14067E00D + 5 + struct.unpack_from("<i", call, 8)[0], 0x14066E1D0)
+                nested = image.get_data(0x66E1F0, 7)
+                self.assertEqual(nested[:3], bytes.fromhex("488d05"))
+                self.assertNotEqual(
+                    0x14066E1F7 + struct.unpack_from("<i", nested, 3)[0], 0x140EA3868)
+                self.assertEqual(image.get_data(0x66E203, 2), bytes.fromhex("33f6"))
+                self.assertEqual(image.get_data(0x66E2C5, 7), bytes.fromhex("4889b778010000"))
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                decoder.detail = True
+                constructor = image.get_data(0x67DEA0, functions[0x67DEA0] - 0x67DEA0)
+                for instruction in decoder.disasm(constructor, 0x14067DEA0):
+                    for operand in instruction.operands:
+                        if operand.type == X86_OP_MEM:
+                            self.assertNotIn(operand.mem.disp, (0xB8, 0xD0, 0x178))
+                text = next(section for section in image.sections if section.Name.startswith(b".text"))
+                text_lo = 0x140000000 + text.VirtualAddress
+                text_hi = text_lo + text.Misc_VirtualSize
+                slots = 0
+                for index in range(0x60):
+                    target = struct.unpack_from("<Q", image.get_data(0xEA3868 + index * 8, 8))[0]
+                    if not text_lo <= target < text_hi:
+                        break
+                    slots += 1
+                    opening = image.get_data(target - 0x140000000, 7)
+                    if opening[0] == 0xFF and opening[1] == 0x25:
+                        slot = target + 6 + struct.unpack_from("<i", opening, 2)[0]
+                        ordinal = imported[slot]
+                        rva = struct.unpack_from("<I", addresses, (ordinal - ordinal_base) * 4)[0]
+                        end = mfc_functions.get(rva, rva + 0x20)
+                        body = library.get_data(rva, min(end - rva, 0x20))
+                        base = 0x180000000
+                    else:
+                        rva = target - 0x140000000
+                        end = functions.get(rva)
+                        body = image.get_data(rva, (end - rva) if end is not None else 0x40)
+                        base = 0x140000000
+                    for instruction in decoder.disasm(body, base + rva):
+                        if instruction.mnemonic == "ret":
+                            break
+                        if instruction.mnemonic != "mov" or not instruction.op_str.startswith("qword"):
+                            continue
+                        for operand in instruction.operands:
+                            if operand.type != X86_OP_MEM or operand.mem.disp not in (0xB8, 0xD0, 0x178):
+                                continue
+                            self.assertIn(decoder.reg_name(operand.mem.base), ("rsp", "rbp"))
+                self.assertEqual(slots, 83)
+                self.assertEqual(image.get_data(0x4D2863, 3), bytes.fromhex("4c8be9"))
+                self.assertEqual(struct.unpack_from("<Q", image.get_data(0xE39820, 8))[0], 0x1404D2820)
+                self.assertEqual(0x140E39770 + 0xB0, 0x140E39820)
+                writer = image.get_data(0x4D33F9, 8)
+                self.assertEqual(writer[:3], bytes.fromhex("498bcd"))
+                self.assertEqual(0x1404D3401 + struct.unpack_from("<i", writer, 4)[0], 0x14077F9FA)
+                app_ctor = image.get_data(0x4CE00D, 5)
+                self.assertEqual(app_ctor, bytes.fromhex("488bf933d2"))
+                app_vtable = image.get_data(0x4CE018, 7)
+                self.assertEqual(0x1404CE01F + struct.unpack_from("<i", app_vtable, 3)[0], 0x140E39770)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_communication_thread_does_not_stop_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imported = {
+                    item.address: item.name
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                wait = image.get_data(0x67C514, 16)
+                self.assertEqual(wait, bytes.fromhex("4183c9ff4533c0488d542438418d4803"))
+                wait_slot = 0x14067C52A + struct.unpack_from("<i", image.get_data(0x67C526, 4))[0]
+                self.assertEqual(imported[wait_slot], b"WaitForMultipleObjects")
+                release = image.get_data(0x67CC64, 18)
+                self.assertEqual(release, bytes.fromhex("488b4b204533c0418d5001488b8990380000"))
+                release_slot = 0x14067CC7C + struct.unpack_from("<i", image.get_data(0x67CC78, 4))[0]
+                self.assertEqual(imported[release_slot], b"ReleaseSemaphore")
+                self.assertEqual(image.get_data(0x691C9F, 3), bytes.fromhex("488bf1"))
+                caller = image.get_data(0x691F3B, 11)
+                self.assertEqual(caller[:6], bytes.fromhex("488bd6488bc8"))
+                self.assertEqual(0x140691F46 + struct.unpack_from("<i", caller, 7)[0], 0x14067C320)
+                self.assertEqual(image.get_data(0x67C32A, 6), bytes.fromhex("488bda488bf9"))
+                self.assertEqual(image.get_data(0x67C33D, 4), bytes.fromhex("48895f20"))
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                stops = {0x1406920F0, 0x140680C00, 0x14068DA40}
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                for begin in (0x67C480, 0x67C630, 0x67C7B0, 0x68B8A0, 0x685D70, 0x64E110):
+                    body = image.get_data(begin, functions[begin] - begin)
+                    self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                    for instruction in decoder.disasm(body, 0x140000000 + begin):
+                        raw = instruction.bytes
+                        if raw and raw[0] == 0xE8 and len(raw) >= 5:
+                            target = instruction.address + 5 + int.from_bytes(raw[1:5], "little", signed=True)
+                            self.assertNotIn(target, stops)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_view_map_size_and_erase_do_not_stop_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        library_bytes = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image, pefile.PE(
+                    data=library_bytes, fast_load=True) as library:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                library.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"]])
+                imported = {
+                    item.address: item.ordinal
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                _, entries = struct.unpack("<QQ", image.get_data(0xEACE80, 16))
+                found = {}
+                cursor = entries
+                while True:
+                    record = struct.unpack("<IIIIQQ", image.get_data(cursor - IMAGE_BASE, 32))
+                    if record == (0, 0, 0, 0, 0, 0):
+                        break
+                    found.setdefault(record[0], record[5])
+                    cursor += 32
+                self.assertNotIn(0x10, found)
+                self.assertEqual(found[2], 0x1406AF270)
+                self.assertEqual(found[0x14], 0x1406AF450)
+                self.assertEqual(found[5], 0x14078055E)
+                thunk = image.get_data(0x78055E, 6)
+                self.assertEqual(thunk[:2], b"\xff\x25")
+                self.assertEqual(imported[0x140780564 + struct.unpack_from("<i", thunk, 2)[0]], 11222)
+                export = library.DIRECTORY_ENTRY_EXPORT.struct
+                rva = struct.unpack("<I", library.get_data(
+                    export.AddressOfFunctions + (11222 - export.Base) * 4, 4))[0]
+                self.assertEqual(rva, 0x28D060)
+                call = library.get_data(0x28D069, 5)
+                self.assertEqual(0x18028D06E + struct.unpack_from("<i", call, 1)[0], 0x18028F370)
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                body = image.get_data(0x6AF450, functions[0x6AF450] - 0x6AF450)
+                self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                stops = {0x1406920F0, 0x140680C00, 0x14068DA40}
+                for instruction in decoder.disasm(body, 0x1406AF450):
+                    raw = instruction.bytes
+                    if raw and raw[0] == 0xE8 and len(raw) >= 5:
+                        target = instruction.address + 5 + int.from_bytes(raw[1:5], "little", signed=True)
+                        self.assertNotIn(target, stops)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_posted_87d0_reads_the_document_without_stopping(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imported = {
+                    item.address: item.name
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                _, entries = struct.unpack("<QQ", image.get_data(0xEACE80, 16))
+                handler = None
+                cursor = entries
+                while True:
+                    record = struct.unpack("<IIIIQQ", image.get_data(cursor - IMAGE_BASE, 32))
+                    if record == (0, 0, 0, 0, 0, 0):
+                        break
+                    if record[0] == 0x87D0:
+                        handler = record[5]
+                    cursor += 32
+                self.assertEqual(handler, 0x1406B0710)
+                self.assertEqual(image.get_data(0x6B0746, 7), bytes.fromhex("498b86e8000000"))
+                self.assertEqual(image.get_data(0x6B0787, 7), bytes.fromhex("80bd2d38000001"))
+                call = image.get_data(0x6B0958, 5)
+                self.assertEqual(0x1406B095D + struct.unpack_from("<i", call, 1)[0], 0x140677BA0)
+                self.assertEqual(image.get_data(0x677BC9, 2), bytes.fromhex("33d2"))
+                self.assertEqual(image.get_data(0x677BD7, 7), bytes.fromhex("4881c140050000"))
+                self.assertEqual(image.get_data(0x677BDE, 5)[0], 0xE9)
+                self.assertEqual(0x140677BE3 + struct.unpack_from("<i", image.get_data(0x677BDF, 4))[0], 0x140742500)
+                invalidate = image.get_data(0x74251E, 16)
+                self.assertEqual(invalidate[:4], bytes.fromhex("488b4940"))
+                slot = 0x14074252E + struct.unpack_from("<i", invalidate, 12)[0]
+                self.assertEqual(imported[slot], b"InvalidateRect")
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                body = image.get_data(0x6B0710, functions[0x6B0710] - 0x6B0710)
+                self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                stops = {0x1406920F0, 0x140680C00, 0x14068DA40}
+                for instruction in decoder.disasm(body, 0x1406B0710):
+                    raw = instruction.bytes
+                    if raw and raw[0] == 0xE8 and len(raw) >= 5:
+                        target = instruction.address + 5 + int.from_bytes(raw[1:5], "little", signed=True)
+                        self.assertNotIn(target, stops)
+                self.assertEqual(image.get_data(0x6B07C1, 7), bytes.fromhex("498b8ea0600000"))
+                self.assertEqual(image.get_data(0x6B07D3, 3), bytes.fromhex("ff5008"))
+                self.assertEqual(image.get_data(0x6B07E8, 13), bytes.fromhex("498b8ea0600000488b01ff5010"))
+                lea = image.get_data(0x6AB7AA, 7)
+                self.assertEqual(0x1406AB7B1 + struct.unpack_from("<i", lea, 3)[0], 0x140EAC5B8)
+                self.assertEqual(struct.unpack("<QQQ", image.get_data(0xEAC5B8, 24)),
+                                 (0x1406ABF50, 0x14076D652, 0x14076D658))
+                lock = image.get_data(0x76D652, 6)
+                unlock = image.get_data(0x76D658, 6)
+                self.assertEqual(imported[0x14076D658 + struct.unpack_from("<i", lock, 2)[0]],
+                                 b"?lock@ccSemaphore@@UEAA_NN@Z")
+                self.assertEqual(imported[0x14076D65E + struct.unpack_from("<i", unlock, 2)[0]],
+                                 b"?unlock@ccSemaphore@@UEAAXXZ")
+                self.assertEqual(image.get_data(0x6B0864, 24),
+                                 bytes.fromhex("498dbe104c0000488d8f200100004c8b01488bd041ff5010"))
+                member = image.get_data(0x67AC70, 19)
+                self.assertEqual(member[:12], bytes.fromhex("ba01000000488d8f20010000"))
+                self.assertEqual(imported[0x14067AC82 + struct.unpack_from("<i", member, 14)[0]],
+                                 b"??0CDPoint@@QEAA@XZ")
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+        tools_bytes = (ROOT / "v3d_files_" / "BaseTools.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(tools_bytes).hexdigest(),
+                         "a41b4b00cf464da7da886f2303e6161f4474bda29b32793d39e4c6cfc39547f8")
+        with pefile.PE(data=tools_bytes, fast_load=True) as tools:
+            self.assertEqual(tools.get_data(0x390B5, 7), bytes.fromhex("488d05c46e0b00"))
+            self.assertEqual(0x1800390BC + struct.unpack("<i", bytes.fromhex("c46e0b00"))[0], 0x1800EFF80)
+            self.assertEqual(struct.unpack("<Q", tools.get_data(0xEFF90, 8))[0], 0x180039320)
+            self.assertEqual(tools.get_data(0x39320, 0x14),
+                             bytes.fromhex("488b421048894110488b421848894118488bc1c3"))
+
+    def test_timer_id_1_reads_the_document_and_destroy_kills_id_5(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imported = {
+                    item.address: item.name
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                _, entries = struct.unpack("<QQ", image.get_data(0xEACE80, 16))
+                handler = None
+                cursor = entries
+                while True:
+                    record = struct.unpack("<IIIIQQ", image.get_data(cursor - IMAGE_BASE, 32))
+                    if record == (0, 0, 0, 0, 0, 0):
+                        break
+                    if record[0] == 0x113:
+                        handler = record[5]
+                    cursor += 32
+                self.assertEqual(handler, 0x1406B1F20)
+                self.assertEqual(image.get_data(0x6B1F53, 7), bytes.fromhex("488b83e8000000"))
+                self.assertEqual(image.get_data(0x6B1FC7, 6), bytes.fromhex("4883ff017549"))
+                self.assertEqual(image.get_data(0x6B1FCD, 7), bytes.fromhex("488b8ba0600000"))
+                self.assertEqual(image.get_data(0x6B1FDF, 3), bytes.fromhex("ff5008"))
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                body = image.get_data(0x6B1F20, functions[0x6B1F20] - 0x6B1F20)
+                self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                stops = {0x1406920F0, 0x140680C00, 0x14068DA40}
+                for instruction in decoder.disasm(body, 0x1406B1F20):
+                    raw = instruction.bytes
+                    if raw and raw[0] == 0xE8 and len(raw) >= 5:
+                        target = instruction.address + 5 + int.from_bytes(raw[1:5], "little", signed=True)
+                        self.assertNotIn(target, stops)
+                kill = image.get_data(0x6AF391, 13)
+                self.assertEqual(kill[:3], bytes.fromhex("8d5705"))
+                self.assertEqual(kill[3:7], bytes.fromhex("488b4e40"))
+                self.assertEqual(imported[0x1406AF39E + struct.unpack_from("<i", kill, 9)[0]], b"KillTimer")
+                for rva in (0x68D9D0, 0x67FC20, 0x6ABC60):
+                    span = image.get_data(rva, functions[rva] - rva)
+                    for instruction in decoder.disasm(span, IMAGE_BASE + rva):
+                        raw = instruction.bytes
+                        if raw and len(raw) >= 6 and raw[0] == 0xFF and raw[1] == 0x15:
+                            slot = instruction.address + 6 + int.from_bytes(raw[2:6], "little", signed=True)
+                            self.assertNotEqual(imported.get(slot), b"KillTimer")
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xEAC650, 8))[0], 0x1406AC4B0)
+                self.assertEqual(struct.unpack("<Q", image.get_data(0xEAC978, 8))[0], 0x1406AF770)
+                self.assertEqual(0xEAC978 - 0xEAC650, 0x328)
+                name = image.get_data(0x6AF797, 7)
+                self.assertEqual(0x1406AF79E + struct.unpack_from("<i", name, 3)[0], 0x140EACEA0)
+                self.assertEqual(image.get_data(0xEACEA0, 32), b"CProductionView::OnInitialUpdate")
+                self.assertEqual(image.get_data(0x6B012D, 13), bytes.fromhex("4533c9418d510141b8e8030000"))
+                self.assertEqual(image.get_data(0x6B0144, 11), bytes.fromhex("4533c9418d5108458d4132"))
+                self.assertEqual(image.get_data(0x6B0159, 14), bytes.fromhex("498b87e800000080b82d38000000"))
+                branch = image.get_data(0x6B0167, 6)
+                self.assertEqual(branch[:2], bytes.fromhex("0f85"))
+                self.assertEqual(0x1406B016D + struct.unpack_from("<i", branch, 2)[0], 0x1406B0230)
+                self.assertEqual(image.get_data(0x6B0230, 8), bytes.fromhex("4983bfe800000000"))
+                initial = image.get_data(0x6AF770, functions[0x6AF770] - 0x6AF770)
+                self.assertEqual(initial.find(bytes.fromhex("68380000")), -1)
+                for instruction in decoder.disasm(initial, 0x1406AF770):
+                    raw = instruction.bytes
+                    if raw and raw[0] == 0xE8 and len(raw) >= 5:
+                        target = instruction.address + 5 + int.from_bytes(raw[1:5], "little", signed=True)
+                        self.assertNotIn(target, stops)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+
+    def test_only_document_slot_28_calls_production_stop(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        stops = {0x1406920F0, 0x140680C00, 0x14068DA40}
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            text = next(section for section in image.sections if section.Name.startswith(b".text"))
+            text_lo = text.VirtualAddress
+            text_hi = text_lo + text.Misc_VirtualSize
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+
+            def hits(base):
+                found = []
+                offset = 0
+                while offset < 0x800:
+                    slot = struct.unpack("<Q", image.get_data(base + offset, 8))[0]
+                    rva = slot - IMAGE_BASE
+                    if not (text_lo <= rva < text_hi):
+                        return found, offset // 8
+                    if rva in functions:
+                        body = image.get_data(rva, functions[rva] - rva)
+                        address = slot
+                    else:
+                        body = image.get_data(rva, 0x20)
+                        address = slot
+                    for instruction in decoder.disasm(body, address):
+                        raw = instruction.bytes
+                        if raw and raw[0] in (0xE8, 0xE9) and len(raw) >= 5:
+                            target = instruction.address + 5 + int.from_bytes(raw[1:5], "little", signed=True)
+                            if target in stops:
+                                found.append((offset, slot, target))
+                        if rva not in functions and instruction.mnemonic in ("ret", "jmp"):
+                            break
+                    offset += 8
+                self.fail("vtable did not end")
+
+            document_hits, document_count = hits(0xEA3868)
+            view_hits, view_count = hits(0xEAC650)
+            self.assertEqual(document_count, 83)
+            self.assertEqual(view_count, 113)
+            self.assertEqual(document_hits, [(0x28, 0x14068DA40, 0x1406920F0)])
+            self.assertEqual(view_hits, [])
+
+    def test_ccapm_slot_1c8_calls_ask_to_stop_only_after_a_high_mode(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(source.count(struct.pack("<Q", 0x14075EFD0)), 1)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xEDDBD0 + 0x1C8, 8))[0], 0x14075EFD0)
+            sequence = image.get_data(0x75F05C, 0x21)
+            self.assertEqual(sequence[:5], bytes.fromhex("83f8067e20"))
+            self.assertEqual(0x14075F061 + 0x20, 0x14075F081)
+            self.assertEqual(sequence[5:12], bytes.fromhex("488d4ef8488b01"))
+            self.assertEqual(sequence[14:20], bytes.fromhex("ff90e0000000"))
+            self.assertEqual(sequence[20:], bytes.fromhex("488d8848250000488b01ff5008"))
+            for rva, size in (
+                    (0x68D9D0, functions[0x68D9D0] - 0x68D9D0),
+                    (0x67FC20, functions[0x67FC20] - 0x67FC20),
+                    (0x6AF270, functions[0x6AF270] - 0x6AF270),
+                    (0x6ABC60, functions[0x6ABC60] - 0x6ABC60),
+                    (0x6B0C00, functions[0x6B0C00] - 0x6B0C00),
+                    (0x4E03F0, 0x160)):
+                self.assertEqual(image.get_data(rva, size).find(bytes.fromhex("c8010000")), -1)
+
+    def test_doc_compose_constructor_does_not_call_ask_to_stop(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            self.assertEqual(image.get_data(0xE774F0, 12), b"CDocCompose\x00")
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xE76010, 8))[0], 0x140E774F0)
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xE76020, 8))[0], 0x1405D1A20)
+            self.assertEqual(image.get_data(0x5D1A2D, 5), bytes.fromhex("b9c0510000"))
+            call = image.get_data(0x5D1A44, 5)
+            self.assertEqual(0x1405D1A49 + struct.unpack_from("<i", call, 1)[0], 0x1405CB880)
+            store = image.get_data(0x5CB8CB, 14)
+            self.assertEqual(store[:3], bytes.fromhex("488d05"))
+            self.assertEqual(0x1405CB8D2 + struct.unpack_from("<i", store, 3)[0], 0x140E76370)
+            self.assertEqual(store[7:], bytes.fromhex("49898648250000"))
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xE76378, 8))[0], 0x140611CE0)
+            self.assertNotEqual(0x140611CE0, 0x140680C00)
+            self.assertEqual(image.get_data(0x5CBB2B, 10), bytes.fromhex("498d9648250000ff5008"))
+
+    def test_ccapm_slot_b0_calls_ask_to_stop_only_for_ebx_4(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        with pefile.PE(data=source, fast_load=True) as image:
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            functions = {
+                entry.struct.BeginAddress: entry.struct.EndAddress
+                for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xEDDBD0 + 0xB0, 8))[0], 0x14075DEE0)
+            thunk = image.get_data(0x75DEE0, 9)
+            self.assertEqual(thunk[:4], bytes.fromhex("4883c110"))
+            self.assertEqual(0x14075DEE9 + struct.unpack_from("<i", thunk, 5)[0], 0x1404C7580)
+            self.assertEqual(image.get_data(0x4C75E0, 12), bytes.fromhex("488b4310482b430848c1f807"))
+            compare = image.get_data(0x4C75EC, 6)
+            self.assertEqual(compare, bytes.fromhex("4883f8027327"))
+            self.assertEqual(0x1404C75F2 + 0x27, 0x1404C7619)
+            call = image.get_data(0x4C7622, 9)
+            self.assertEqual(call[:4], bytes.fromhex("488b4b08"))
+            self.assertEqual(0x1404C762B + struct.unpack_from("<i", call, 5)[0], 0x1404C2640)
+            self.assertEqual(image.get_data(0x4C73EA, 18), bytes.fromhex("83fb047518498d8d48250000488b01ff5008"))
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            for rva, size in (
+                    (0x68D9D0, functions[0x68D9D0] - 0x68D9D0),
+                    (0x67FC20, functions[0x67FC20] - 0x67FC20),
+                    (0x6AF270, functions[0x6AF270] - 0x6AF270),
+                    (0x6ABC60, functions[0x6ABC60] - 0x6ABC60),
+                    (0x6B0C00, functions[0x6B0C00] - 0x6B0C00),
+                    (0x4E03F0, 0x160)):
+                for instruction in decoder.disasm(image.get_data(rva, size), IMAGE_BASE + rva):
+                    if instruction.mnemonic == "call" and instruction.op_str.endswith("+ 0xb0]"):
+                        self.fail(hex(instruction.address))
+
+    def test_queued_2548_callback_is_not_called_by_kill(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        tools_bytes = (ROOT / "v3d_files_" / "BaseTools.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(hashlib.sha256(tools_bytes).hexdigest(),
+                         "a41b4b00cf464da7da886f2303e6161f4474bda29b32793d39e4c6cfc39547f8")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            with pefile.PE(data=source, fast_load=True) as image, pefile.PE(
+                    data=tools_bytes, fast_load=True) as tools:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imported = {
+                    item.address: item.name
+                    for lib in image.DIRECTORY_ENTRY_IMPORT
+                    for item in lib.imports}
+                lea = image.get_data(0x68D593, 7)
+                self.assertEqual(lea[:3], bytes.fromhex("488d05"))
+                self.assertEqual(0x14068D59A + struct.unpack_from("<i", lea, 3)[0], 0x140682FF0)
+                call = image.get_data(0x6A43B3, 5)
+                self.assertEqual(0x1406A43B8 + struct.unpack_from("<i", call, 1)[0], 0x14068D550)
+                self.assertEqual(image.get_data(0x68D5FD, 4), bytes.fromhex("4883c801"))
+                enqueue = image.get_data(0x68D6D7, 20)
+                self.assertEqual(enqueue[:7], bytes.fromhex("488d8b28610000"))
+                self.assertEqual(imported[0x14068D6EB + struct.unpack_from("<i", enqueue, 16)[0]],
+                                 b"?EnqueueCommand@CAsynchCommandExecution@@QEAA_NVCCommandContainer@@_N@Z")
+                self.assertEqual(image.get_data(0x683217, 22),
+                                 bytes.fromhex("83bb180e0000017527488d8b48250000488b01ff5008"))
+                functions = {
+                    entry.struct.BeginAddress: entry.struct.EndAddress
+                    for entry in image.DIRECTORY_ENTRY_EXCEPTION}
+                kill = image.get_data(0x67FD44, 13)
+                self.assertEqual(kill[:7], bytes.fromhex("488d8b28610000"))
+                self.assertEqual(imported[0x14067FD51 + struct.unpack_from("<i", kill, 9)[0]],
+                                 b"?Kill@CAsynchCommandExecution@@QEAA_NXZ")
+                self.assertEqual(tools.get_data(0x71EC, 4), bytes.fromhex("a801751c"))
+                self.assertEqual(0x1800071F0 + 0x1C, 0x18000720C)
+                self.assertEqual(image.get_data(0x68D9D0, functions[0x68D9D0] - 0x68D9D0).find(
+                    bytes.fromhex("28610000")), -1)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_byte_382d_does_not_abort_the_running_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            image = pefile.PE(data=source, fast_load=True)
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            imports = {
+                item.address: item.name.decode() if item.name else None
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            producer = next(item.struct for item in image.DIRECTORY_ENTRY_EXCEPTION
+                            if item.struct.BeginAddress == 0x6A20D0)
+            self.assertEqual(producer.EndAddress - producer.BeginAddress, 0x2877)
+            self.assertEqual(image.get_data(0x6A20D0, 0x2877).find(bytes.fromhex("2d380000")), -1)
+            self.assertEqual(image.get_data(0x6921E0, 2), bytes.fromhex("33f6"))
+            self.assertEqual(image.get_data(0x69234C, 44), bytes.fromhex(
+                "80bb813800000175354088b3813800004038b32d3800000f94c088832d380000"
+                "4533c933d2458d4101488bcb"))
+            self.assertEqual(0x140692355 + 0x35, 0x14069238A)
+            restart = image.get_data(0x692380, 5)
+            self.assertEqual(restart[0], 0xE8)
+            self.assertEqual(0x140692385 + struct.unpack_from("<i", restart, 1)[0], 0x140691C80)
+            self.assertEqual(image.get_data(0x691D01, 3), bytes.fromhex("4533e4"))
+            self.assertEqual(image.get_data(0x691F1F, 9), bytes.fromhex("80be2d380000017443"))
+            self.assertEqual(0x140691F28 + 0x43, 0x140691F6B)
+            self.assertEqual(image.get_data(0x691F6B, 7), bytes.fromhex("4c89a660380000"))
+            self.assertEqual(image.get_data(0x691F83, 11), bytes.fromhex("80be2d38000000490f44df"))
+            span = image.get_data(0x691F6B, 0x691FF1 - 0x691F6B)
+            for instruction in Cs(CS_ARCH_X86, CS_MODE_64).disasm(span, 0x140691F6B):
+                self.assertNotEqual(instruction.mnemonic, "ret")
+                if instruction.mnemonic == "jmp":
+                    self.assertLessEqual(int(instruction.op_str, 16), 0x140691FF1)
+            self.assertEqual(image.get_data(0x691FF1, 7), bytes.fromhex("48898668380000"))
+            self.assertEqual(image.get_data(0x692006, 7), bytes.fromhex("488b8e68380000"))
+            self.assertEqual(image.get_data(0x692018, 6), bytes.fromhex("488b01ff5010"))
+            kept = image.get_data(0x691D04, 0x691F6B - 0x691D04)
+            for instruction in Cs(CS_ARCH_X86, CS_MODE_64).disasm(kept, 0x140691D04):
+                destination = instruction.op_str.split(",", 1)[0].strip()
+                self.assertNotIn(destination, ("r12", "r12d", "r12w", "r12b"))
+            self.assertEqual(struct.unpack("<Q", image.get_data(0xEA3968, 8))[0], 0x14068DAB0)
+            self.assertEqual(0xEA3968 - 0xEA3868, 0x100)
+            self.assertEqual(image.get_data(0x68DBE2, 13), bytes.fromhex("0fb68898010000888b2d380000"))
+            self.assertEqual(image.get_data(0x68DBC9, 14), bytes.fromhex("4c8d0d2075a4004c8d05f974a400"))
+            self.assertEqual(0x14068DBD0 + struct.unpack("<i", bytes.fromhex("2075a400"))[0], 0x1410D50F0)
+            self.assertEqual(0x14068DBD7 + struct.unpack("<i", bytes.fromhex("f974a400"))[0], 0x1410D50D0)
+            self.assertEqual(image.get_data(0x10D5100, 18), b".?AVCAVisionApp@@\x00")
+            self.assertEqual(image.get_data(0x10D50E0, 14), b".?AVCWinApp@@\x00")
+            cast = image.get_data(0x68DBDD, 5)
+            self.assertEqual(cast[0], 0xE8)
+            thunk = 0x14068DBE2 + struct.unpack_from("<i", cast, 1)[0]
+            self.assertEqual(thunk, 0x1407A6238)
+            slot = image.get_data(thunk - IMAGE_BASE, 6)
+            self.assertEqual(slot[:2], b"\xff\x25")
+            self.assertEqual(imports[thunk + 6 + struct.unpack_from("<i", slot, 2)[0]], "__RTDynamicCast")
+            decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+            spans = {0x1404E03F0: 0x160}
+            for item in image.DIRECTORY_ENTRY_EXCEPTION:
+                start = IMAGE_BASE + item.struct.BeginAddress
+                if start in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+                    spans[start] = item.struct.EndAddress - item.struct.BeginAddress
+            self.assertEqual(set(spans), {
+                0x1404E03F0, 0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00})
+            for start, size in spans.items():
+                for instruction in decoder.disasm(image.get_data(start - IMAGE_BASE, size), start):
+                    if instruction.mnemonic in ("call", "jmp") and instruction.op_str.endswith("+ 0x100]"):
+                        self.fail(hex(instruction.address))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_reload_doc_flag_restarts_workers_without_close(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        text = next(section for section in image.sections if section.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        needle = bytes.fromhex("30580000")
+        sites = []
+        start = 0
+        while True:
+            index = text_data.find(needle, start)
+            if index < 0:
+                break
+            if text_data[index - 1] not in (0xE8, 0xE9):
+                sites.append(text_base + index)
+            start = index + 1
+        self.assertEqual(sites, [0x14067E257, 0x14068BD63, 0x14068BD69, 0x140692BCD])
+        self.assertEqual(image.get_data(0x67E254, 7), bytes.fromhex("4488b630580000"))
+        self.assertEqual(image.get_data(0x692BCB, 7), bytes.fromhex("c6863058000001"))
+        self.assertEqual(image.get_data(0x68BD60, 15), bytes.fromhex("0fb68130580000c6813058000000c3"))
+        reload_doc = next(item.struct for item in image.DIRECTORY_ENTRY_EXCEPTION
+                          if item.struct.BeginAddress == 0x692AF0)
+        self.assertLess(reload_doc.BeginAddress, 0x692BCB)
+        self.assertLess(0x692BCB, reload_doc.EndAddress)
+        self.assertEqual(image.get_data(0x69C8F4, 16), bytes.fromhex("488bcfe8d44c0000488bc8e85cf4feff"))
+        self.assertEqual(0x14069C8FC + struct.unpack("<i", bytes.fromhex("d44c0000"))[0], 0x1406A15D0)
+        self.assertEqual(0x14069C904 + struct.unpack("<i", bytes.fromhex("5cf4feff"))[0], 0x14068BD60)
+        self.assertEqual(image.get_data(0x69C904, 2), bytes.fromhex("84c0"))
+        self.assertEqual(image.get_data(0x69C90E, 14), bytes.fromhex("33d2488d8fc80e0000e8b4d00000"))
+        self.assertEqual(0x14069C91C + struct.unpack("<i", bytes.fromhex("b4d00000"))[0], 0x1406A99D0)
+        self.assertEqual(image.get_data(0x6A99F2, 10), bytes.fromhex("3b51387470e884bffaff"))
+        self.assertEqual(0x1406A99FC + struct.unpack("<i", bytes.fromhex("84bffaff"))[0], 0x140655980)
+        producer = next(item.struct for item in image.DIRECTORY_ENTRY_EXCEPTION
+                        if item.struct.BeginAddress == 0x6A20D0)
+        blob = image.get_data(producer.BeginAddress, producer.EndAddress - producer.BeginAddress)
+        calls = []
+        for index in range(len(blob) - 5):
+            if blob[index] != 0xE8:
+                continue
+            dest = IMAGE_BASE + producer.BeginAddress + index + 5 + struct.unpack_from("<i", blob, index + 1)[0]
+            if dest == 0x14069C890:
+                calls.append(IMAGE_BASE + producer.BeginAddress + index)
+        self.assertEqual(calls, [0x1406A28F5, 0x1406A319F])
+        checker_next = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(image.get_data(0x6A28FA, 16), 0x1406A28FA))
+        self.assertEqual(checker_next[0].mnemonic, "cmp")
+        self.assertIn("0x770", checker_next[0].op_str)
+        self.assertNotIn("0x5830", checker_next[0].op_str)
+        spans = {0x1404E03F0: 0x160}
+        for item in image.DIRECTORY_ENTRY_EXCEPTION:
+            start = IMAGE_BASE + item.struct.BeginAddress
+            if start in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+                spans[start] = item.struct.EndAddress - item.struct.BeginAddress
+        for origin, size in spans.items():
+            body = image.get_data(origin - IMAGE_BASE, size)
+            for index in range(len(body) - 5):
+                if body[index] != 0xE8:
+                    continue
+                dest = origin + index + 5 + struct.unpack_from("<i", body, index + 1)[0]
+                self.assertNotIn(dest, (0x140692AF0, 0x14069C890))
+
+    def test_only_production_stop_joins_the_document_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            image = pefile.PE(data=source, fast_load=True)
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            imports = {
+                item.address: item.name.decode() if item.name else None
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            text = next(section for section in image.sections if section.Name.startswith(b".text"))
+            text_data = text.get_data()
+            text_base = IMAGE_BASE + text.VirtualAddress
+            sites = []
+            start = 0
+            while True:
+                index = text_data.find(b"\xff\x15", start)
+                if index < 0 or index + 6 > len(text_data):
+                    break
+                iat = text_base + index + 6 + struct.unpack_from("<i", text_data, index + 2)[0]
+                if iat == 0x140D53470:
+                    sites.append(text_base + index)
+                start = index + 1
+            self.assertEqual(sites, [
+                0x1404E30D5, 0x14062951C, 0x1406530B0, 0x140653190, 0x140680E22,
+                0x140692204, 0x1406922B2, 0x14069A13D, 0x1406E8F45])
+            self.assertEqual(imports[0x140D53470], "?Stop@CViThread@@QEAA_NAEAKK@Z")
+            functions = {
+                IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+                for item in image.DIRECTORY_ENTRY_EXCEPTION}
+            owners = {}
+            for site in sites:
+                owners[site] = next(origin for origin, end in functions.items() if origin <= site < end)
+            self.assertEqual(owners[0x140692204], 0x1406920F0)
+            self.assertEqual(owners[0x1406922B2], 0x1406920F0)
+            producer = image.get_data(0x6920F0, functions[0x1406920F0] - 0x1406920F0)
+            self.assertNotEqual(producer.find(bytes.fromhex("488b8b68380000")), -1)
+            for origin in (0x1404E3070, 0x140629490, 0x140653080, 0x140653160,
+                           0x140680D70, 0x14069A110, 0x1406E8EE0):
+                body = image.get_data(origin - IMAGE_BASE, functions[origin] - origin)
+                self.assertEqual(body.find(bytes.fromhex("68380000")), -1, hex(origin))
+            self.assertEqual(image.get_data(0x4E30C0, 7), bytes.fromhex("488b89b0410000"))
+            self.assertEqual(image.get_data(0x62950C, 7), bytes.fromhex("488d8ff0000000"))
+            self.assertEqual(image.get_data(0x6E8F30, 7), bytes.fromhex("488b89400a0000"))
+            self.assertEqual(image.get_data(0x6530A7, 9), bytes.fromhex("4183c8ff488d542440"))
+            self.assertEqual(image.get_data(0x653187, 9), bytes.fromhex("4183c8ff488d542440"))
+
+            def rtti_name(vtable: int) -> bytes:
+                locator = struct.unpack("<Q", image.get_data(vtable - IMAGE_BASE - 8, 8))[0]
+                descriptor = struct.unpack("<I", image.get_data(locator - IMAGE_BASE + 12, 4))[0]
+                blob = image.get_data(descriptor, 96)
+                begin = blob.find(b".?A")
+                return blob[begin:blob.find(b"\x00", begin)]
+
+            self.assertEqual(image.get_data(0x4E308C, 7), bytes.fromhex("488d058dad9500"))
+            self.assertEqual(0x1404E3093 + struct.unpack("<i", bytes.fromhex("8dad9500"))[0], 0x140E3DE20)
+            self.assertEqual(rtti_name(0x140E3DE20), b".?AVCCAD_Zone2D_PropSheet@@")
+            self.assertEqual(image.get_data(0x6E8EFC, 7), bytes.fromhex("488d0555297d00"))
+            self.assertEqual(0x1406E8F03 + struct.unpack("<i", bytes.fromhex("55297d00"))[0], 0x140EBB858)
+            self.assertEqual(rtti_name(0x140EBB858), b".?AVCWizardGenericElement@@")
+            self.assertEqual(image.get_data(0x653097, 7), bytes.fromhex("488d05025d8400"))
+            self.assertEqual(0x14065309E + struct.unpack("<i", bytes.fromhex("025d8400"))[0], 0x140E98DA0)
+            self.assertEqual(rtti_name(0x140E98DA0),
+                             b".?AV?$CViThread4Pool@VCPCBR_Data2DInit@@VCWorkingDataImage@@@@")
+            self.assertEqual(image.get_data(0x653177, 7), bytes.fromhex("488d059a5c8400"))
+            self.assertEqual(0x14065317E + struct.unpack("<i", bytes.fromhex("9a5c8400"))[0], 0x140E98E18)
+            self.assertEqual(rtti_name(0x140E98E18),
+                             b".?AV?$CViThread4Pool@VCPCBR_Data3DInit@@VCWorkingDataImage@@@@")
+            self.assertEqual(image.get_data(0x6294AC, 7), bytes.fromhex("488d159d1b8600"))
+            self.assertEqual(0x1406294B3 + struct.unpack("<i", bytes.fromhex("9d1b8600"))[0], 0x140E8B050)
+            self.assertEqual(image.get_data(0xE8B050, 23), b"CLogManagerView::Close\x00")
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_stop_waits_on_the_thread_handle_and_close_does_not(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        library = (ROOT / "v3d_files_" / "BaseTools.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(hashlib.sha256(library).hexdigest(),
+                         "a41b4b00cf464da7da886f2303e6161f4474bda29b32793d39e4c6cfc39547f8")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        try:
+            image = pefile.PE(data=source, fast_load=True)
+            tools = pefile.PE(data=library, fast_load=True)
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+            tools.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+            imports = {
+                item.address: item.name.decode() if item.name else None
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            tool_imports = {
+                item.address: item.name.decode() if item.name else None
+                for entry in tools.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            self.assertEqual(tools.get_data(0x7E1AA, 19), bytes.fromhex(
+                "4883790800418bf8488bd97447488b4918ff15"))
+            self.assertEqual(tools.get_data(0x7E1C1, 12), bytes.fromhex("488b4b088bd7488b4958ff15"))
+            self.assertEqual(tools.get_data(0x7E147, 4), bytes.fromhex("48894308"))
+            self.assertEqual(tools.get_data(0x7E171, 10), bytes.fromhex("488b4b08488b4958ff15"))
+            self.assertEqual(tools.get_data(0x1E880, 5), bytes.fromhex("488b4118c3"))
+            for call, name in ((0x18007E1BB, "SetEvent"), (0x18007E1CB, "WaitForSingleObject"),
+                               (0x18007E179, "ResumeThread")):
+                slot = tools.get_data(call - 0x180000000, 6)
+                self.assertEqual(slot[:2], b"\xff\x15")
+                self.assertEqual(tool_imports[call + 6 + struct.unpack_from("<i", slot, 2)[0]], name)
+            text = next(section for section in image.sections if section.Name.startswith(b".text"))
+            text_data = text.get_data()
+            for pattern, count in (
+                    (bytes.fromhex("4c89b6d8610000"), 1),
+                    (bytes.fromhex("488986d8610000"), 1),
+                    (bytes.fromhex("488b8bd8610000"), 1)):
+                found = 0
+                start = 0
+                while True:
+                    index = text_data.find(pattern, start)
+                    if index < 0:
+                        break
+                    found += 1
+                    start = index + 1
+                self.assertEqual(found, count)
+            self.assertEqual(image.get_data(0x67E183, 7), bytes.fromhex("4c89b6d8610000"))
+            self.assertEqual(image.get_data(0x692006, 18), bytes.fromhex(
+                "488b8e68380000488b4118488986d8610000"))
+            self.assertEqual(image.get_data(0x692198, 9), bytes.fromhex("33d2488b8bd8610000"))
+            wait = image.get_data(0x6921A1, 6)
+            self.assertEqual(wait[:2], b"\xff\x15")
+            self.assertEqual(imports[0x1406921A7 + struct.unpack_from("<i", wait, 2)[0]],
+                             "WaitForSingleObject")
+            spans = {0x1404E03F0: 0x160}
+            for item in image.DIRECTORY_ENTRY_EXCEPTION:
+                origin = IMAGE_BASE + item.struct.BeginAddress
+                if origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+                    spans[origin] = item.struct.EndAddress - item.struct.BeginAddress
+            for origin, size in spans.items():
+                self.assertEqual(image.get_data(origin - IMAGE_BASE, size).find(bytes.fromhex("d8610000")), -1)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_grey_zone_destructor_frees_the_worker_without_clearing_the_document(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        self.assertEqual(struct.unpack("<Q", image.get_data(0xEA8A10, 8))[0], 0x14069A890)
+        self.assertEqual(image.get_data(0x6997FE, 10), bytes.fromhex("33c04889472048894728"))
+        self.assertEqual(image.get_data(0x6A49D7, 8), bytes.fromhex("498b460848894328"))
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+        decoder.detail = True
+        body = image.get_data(0x69A890, functions[0x14069A890] - 0x14069A890)
+        for instruction in decoder.disasm(body, 0x14069A890):
+            if not instruction.mnemonic.startswith("mov") or len(instruction.operands) != 2:
+                continue
+            destination = instruction.operands[0]
+            if destination.type != 3 or destination.mem.disp != 0x28:
+                continue
+            self.assertIn(instruction.reg_name(destination.mem.base), ("rsp", "rbp"))
+        stop = image.get_data(0x69A8BF, 5)
+        self.assertEqual(stop[0], 0xE8)
+        self.assertEqual(0x14069A8C4 + struct.unpack_from("<i", stop, 1)[0], 0x14069A110)
+        self.assertEqual(image.get_data(0x69A8C4, 15), bytes.fromhex("40f6c701740dbad8000000488bcee8"))
+        free = image.get_data(0x69A8D2, 5)
+        self.assertEqual(free[0], 0xE8)
+        self.assertEqual(0x14069A8D7 + struct.unpack_from("<i", free, 1)[0], 0x1404556C0)
+        text = next(section for section in image.sections if section.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        callers = []
+        start = 0
+        while True:
+            index = text_data.find(b"\xe8", start)
+            if index < 0 or index + 5 > len(text_data):
+                break
+            if text_base + index + 5 + struct.unpack_from("<i", text_data, index + 1)[0] == 0x14069A890:
+                callers.append(text_base + index)
+            start = index + 1
+        self.assertEqual(callers, [])
+        spans = {0x1404E03F0: 0x160}
+        for item in image.DIRECTORY_ENTRY_EXCEPTION:
+            origin = IMAGE_BASE + item.struct.BeginAddress
+            if origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+                spans[origin] = item.struct.EndAddress - item.struct.BeginAddress
+        for origin, size in spans.items():
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            for index in range(len(blob) - 5):
+                if blob[index] != 0xE8:
+                    continue
+                dest = origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0]
+                self.assertNotEqual(dest, 0x140655980)
+
+    def test_close_does_not_wake_or_join_an_idle_grey_zone_worker(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        imports = {}
+        for entry in image.DIRECTORY_ENTRY_IMPORT:
+            for imported in entry.imports:
+                if imported.name:
+                    imports[imported.address] = imported.name.decode()
+        self.assertEqual(image.get_data(0x6A1AD0, 19), bytes.fromhex("488b83a0000000488945cf488b4318488945d7"))
+        self.assertEqual(image.get_data(0x6A1B60, 15), bytes.fromhex("4183c9ff4533c0488d55cf418d4802"))
+        wait = image.get_data(0x6A1B6F, 6)
+        self.assertEqual(wait[:2], b"\xff\x15")
+        self.assertEqual(imports[0x1406A1B75 + struct.unpack_from("<i", wait, 2)[0]], "WaitForMultipleObjects")
+        self.assertEqual(image.get_data(0x6A1B79, 9), bytes.fromhex("85c0743b83f801741b"))
+        self.assertEqual(0x1406A1B7D + 0x3B, 0x1406A1BB8)
+        self.assertEqual(0x1406A1B82 + 0x1B, 0x1406A1B9D)
+        self.assertEqual(image.get_data(0x6A1B94, 7), bytes.fromhex("c683b000000000"))
+        self.assertEqual(image.get_data(0x6A1BE4, 9), bytes.fromhex("80bbb000000001755d"))
+        self.assertEqual(0x1406A1BED + 0x5D, 0x1406A1C4A)
+        self.assertEqual(image.get_data(0x6A1C03, 9), bytes.fromhex("488b03488bcbff5018"))
+        self.assertEqual(image.get_data(0x66DBFC, 11), bytes.fromhex("4c8b4f204c8b4728488b57"))
+        treat = image.get_data(0x66DC10, 5)
+        self.assertEqual(treat[0], 0xE8)
+        self.assertEqual(0x14066DC15 + struct.unpack_from("<i", treat, 1)[0], 0x140735120)
+        self.assertEqual(image.get_data(0x66DBA1, 2), bytes.fromhex("33f6"))
+        self.assertEqual(image.get_data(0x66DCB8, 4), bytes.fromhex("48897758"))
+        decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+        decoder.detail = True
+        for instruction in decoder.disasm(image.get_data(0x66DBA3, 0x66DCB8 - 0x66DBA3), 0x14066DBA3):
+            _read, written = instruction.regs_access()
+            self.assertFalse(any(instruction.reg_name(reg) in ("rsi", "esi", "si") for reg in written))
+        self.assertEqual(image.get_data(0x69FBF4, 9), bytes.fromhex("488d8fc80e0000b201"))
+        pooled = image.get_data(0x69FBFD, 5)
+        self.assertEqual(pooled[0], 0xE8)
+        self.assertEqual(0x14069FC02 + struct.unpack_from("<i", pooled, 1)[0], 0x1406A1660)
+        self.assertEqual(image.get_data(0x69FC3B, 7), bytes.fromhex("488d5e78488bcb"))
+        section = image.get_data(0x69FC42, 6)
+        self.assertEqual(section[:2], b"\xff\x15")
+        self.assertEqual(imports[0x14069FC48 + struct.unpack_from("<i", section, 2)[0]], "EnterCriticalSection")
+        self.assertEqual(
+            image.get_data(0x69FC48, 25),
+            bytes.fromhex("0f104424380f1146500f104c24480f114e60488b8ea0000000"))
+        signal = image.get_data(0x69FC61, 6)
+        self.assertEqual(signal[:2], b"\xff\x15")
+        self.assertEqual(imports[0x14069FC67 + struct.unpack_from("<i", signal, 2)[0]], "SetEvent")
+        text = next(item for item in image.sections if item.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        signaled = []
+        for rex in (0x48, 0x49):
+            for modrm in range(0x88, 0x90):
+                pattern = bytes([rex, 0x8B, modrm]) + bytes.fromhex("a0000000")
+                start = 0
+                while True:
+                    index = text_data.find(pattern, start)
+                    if index < 0:
+                        break
+                    if text_data[index + 7:index + 9] == b"\xff\x15":
+                        signaled.append(text_base + index)
+                    start = index + 1
+        self.assertEqual(signaled, [0x14069FC5A])
+        wanted = (0x1406A6A30, 0x1406A88E0, 0x14069FB80, 0x1406A1660)
+        callers = {target: [] for target in wanted}
+        start = 0
+        while True:
+            index = text_data.find(b"\xe8", start)
+            if index < 0 or index + 5 > len(text_data):
+                break
+            dest = text_base + index + 5 + struct.unpack_from("<i", text_data, index + 1)[0]
+            if dest in callers:
+                callers[dest].append(text_base + index)
+            start = index + 1
+        self.assertEqual(callers[0x1406A6A30], [0x1406A39EA])
+        self.assertEqual(callers[0x1406A88E0], [0x1406A701F])
+        self.assertEqual(callers[0x14069FB80], [0x1406A8F32, 0x1406A9104])
+        self.assertEqual(callers[0x1406A1660], [0x14069FBFD])
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        self.assertTrue(0x1406A20D0 <= 0x1406A39EA < functions[0x1406A20D0])
+        spans = {0x1404E03F0: 0x160}
+        for item in image.DIRECTORY_ENTRY_EXCEPTION:
+            origin = IMAGE_BASE + item.struct.BeginAddress
+            if origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+                spans[origin] = item.struct.EndAddress - item.struct.BeginAddress
+        for origin, size in spans.items():
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            for index in range(len(blob) - 5):
+                if blob[index] != 0xE8:
+                    continue
+                dest = origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0]
+                self.assertNotIn(dest, wanted)
+
+    def test_worker_completion_event_has_no_waiter(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        imports = {}
+        for entry in image.DIRECTORY_ENTRY_IMPORT:
+            for imported in entry.imports:
+                if imported.name:
+                    imports[imported.address] = imported.name.decode()
+
+        def import_at(address: int) -> str:
+            call = image.get_data(address - IMAGE_BASE, 6)
+            self.assertEqual(call[:2], b"\xff\x15")
+            return imports[address + 6 + struct.unpack_from("<i", call, 2)[0]]
+
+        self.assertEqual(
+            image.get_data(0x69982E, 23),
+            bytes.fromhex("4533c94533c033d233c9ff15e2b76b00488987a0000000"))
+        self.assertEqual(import_at(0x140699838), "CreateEventA")
+        self.assertEqual(
+            image.get_data(0x69984C, 39),
+            bytes.fromhex("4533c9ba0100000033c9448bc2ff15c1b76b00488987a8000000488d4f78ff1548b76b00488bcf"))
+        self.assertEqual(import_at(0x140699859), "CreateEventA")
+        self.assertEqual(import_at(0x14069986A), "InitializeCriticalSection")
+        self.assertEqual(import_at(0x140699873), "?Start@CViThread@@UEAA_NXZ")
+        self.assertEqual(image.get_data(0x6A9A0D, 4), bytes.fromhex("4c8d7f20"))
+        self.assertEqual(image.get_data(0x6A9A52, 11), bytes.fromhex("488b82a80000004889040b"))
+        self.assertEqual(image.get_data(0x6A1724, 9), bytes.fromhex("488d5520488d4c2438"))
+        copied = image.get_data(0x6A172D, 5)
+        self.assertEqual(copied[0], 0xE8)
+        self.assertEqual(0x1406A1732 + struct.unpack_from("<i", copied, 1)[0], 0x140653BB0)
+        self.assertEqual(image.get_data(0x6A17A5, 7), bytes.fromhex("4c89a2b8000000"))
+        text = next(item for item in image.sections if item.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        functions = sorted(
+            (IMAGE_BASE + item.struct.BeginAddress, IMAGE_BASE + item.struct.EndAddress)
+            for item in image.DIRECTORY_ENTRY_EXCEPTION)
+        wait_iats = {slot for slot, name in imports.items()
+                     if name in ("WaitForSingleObject", "WaitForMultipleObjects")}
+
+        def owner(address: int) -> int:
+            low = 0
+            high = len(functions)
+            while low < high:
+                mid = (low + high) // 2
+                if functions[mid][0] <= address:
+                    low = mid + 1
+                else:
+                    high = mid
+            if low == 0:
+                return 0
+            begin, end = functions[low - 1]
+            return begin if address < end else 0
+
+        waiting = set()
+        start = 0
+        while True:
+            index = text_data.find(b"\xff\x15", start)
+            if index < 0 or index + 6 > len(text_data):
+                break
+            slot = text_base + index + 6 + struct.unpack_from("<i", text_data, index + 2)[0]
+            if slot in wait_iats:
+                waiting.add(owner(text_base + index))
+            start = index + 1
+        loads = []
+        pattern = bytes.fromhex("b8000000")
+        start = 0
+        while True:
+            index = text_data.find(pattern, start)
+            if index < 3:
+                if index < 0:
+                    break
+                start = index + 1
+                continue
+            if text_data[index - 3] in (0x48, 0x49, 0x4C, 0x4D) and text_data[index - 2] == 0x8B and text_data[index - 1] >= 0x80:
+                loads.append(text_base + index - 3)
+            start = index + 1
+        self.assertEqual([item for item in loads if owner(item) in waiting], [0x1406A1C0F])
+        self.assertEqual(image.get_data(0x6A1C0F, 7), bytes.fromhex("488b8bb8000000"))
+        self.assertEqual(import_at(0x1406A1C16), "SetEvent")
+
+    def test_selector_timeout_skips_a_busy_worker(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        self.assertEqual(0xEC8 + 0x3C, 0xF04)
+        self.assertEqual(image.get_data(0x699B6A, 7), bytes.fromhex("488d9fc80e0000"))
+        self.assertEqual(image.get_data(0x699A5F, 3), bytes.fromhex("4533f6"))
+        self.assertEqual(image.get_data(0x699BA6, 4), bytes.fromhex("4c897338"))
+        filled = image.get_data(0x699D87, 5)
+        self.assertEqual(filled[0], 0xE8)
+        self.assertEqual(0x140699D8C + struct.unpack_from("<i", filled, 1)[0], 0x14058C930)
+        self.assertEqual(image.get_data(0x699D8C, 7), bytes.fromhex("8b542440488bcb"))
+        resize = image.get_data(0x699D93, 5)
+        self.assertEqual(resize[0], 0xE8)
+        self.assertEqual(0x140699D98 + struct.unpack_from("<i", resize, 1)[0], 0x1406A99D0)
+        self.assertEqual(image.get_data(0x699D98, 14), bytes.fromhex("6944244ce80300008987040f0000"))
+        self.assertEqual(
+            image.get_data(0x6A1732, 27),
+            bytes.fromhex("488b4c2440488b742438482bce48c1f903448b4d3c4533c0488bd6"))
+        self.assertEqual(image.get_data(0x6A1753, 9), bytes.fromhex("8bf83d02010000745a"))
+        self.assertEqual(0x1406A175C + 0x5A, 0x1406A17B6)
+        self.assertLess(0x1406A17A5, 0x1406A17B6)
+        self.assertEqual(image.get_data(0x6A17A5, 7), bytes.fromhex("4c89a2b8000000"))
+
+    def test_close_does_not_call_the_cao_reset_site(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        text = next(item for item in image.sections if item.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        callers = []
+        start = 0
+        while True:
+            index = text_data.find(b"\xe8", start)
+            if index < 0 or index + 5 > len(text_data):
+                break
+            if text_base + index + 5 + struct.unpack_from("<i", text_data, index + 1)[0] == 0x140541050:
+                callers.append(text_base + index)
+            start = index + 1
+        self.assertEqual(callers, [0x1404AEBE9, 0x14068F7D7, 0x1406937D7, 0x1406A085E, 0x1406A2D87])
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        self.assertTrue(0x1406A06B0 <= 0x1406A085E < functions[0x1406A06B0])
+        self.assertTrue(0x1406A20D0 <= 0x1406A2D87 < functions[0x1406A20D0])
+        self.assertTrue(0x140692AF0 <= 0x1406937D7 < functions[0x140692AF0])
+        spans = {0x1404E03F0: 0x160}
+        for item in image.DIRECTORY_ENTRY_EXCEPTION:
+            origin = IMAGE_BASE + item.struct.BeginAddress
+            if origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+                spans[origin] = item.struct.EndAddress - item.struct.BeginAddress
+        for origin, size in spans.items():
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            for index in range(len(blob) - 5):
+                if blob[index] != 0xE8:
+                    continue
+                dest = origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0]
+                self.assertNotEqual(dest, 0x140541050)
+
+    def test_close_does_not_call_the_nonproducer_reset_parents(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        self.assertEqual(struct.unpack_from("<Q", image.get_data(0xEA3970, 8))[0], 0x14068DC20)
+        self.assertEqual(struct.unpack_from("<Q", image.get_data(0xEA3968, 8))[0], 0x14068DAB0)
+        self.assertEqual(image.get_data(0x68DC4E, 6), bytes.fromhex("4c8bf2488bf1"))
+        self.assertEqual(image.get_data(0x68DC61, 7), bytes.fromhex("4489a144380000"))
+        call = image.get_data(0x68DC98, 8)
+        self.assertEqual(call[:4], bytes.fromhex("488bcee8"))
+        self.assertEqual(0x14068DCA0 + struct.unpack_from("<i", call, 4)[0], 0x140697200)
+        call = image.get_data(0x68E278, 8)
+        self.assertEqual(call[:4], bytes.fromhex("488bcee8"))
+        self.assertEqual(0x14068E280 + struct.unpack_from("<i", call, 4)[0], 0x14068F0F0)
+        parent = next(item for item in image.DIRECTORY_ENTRY_EXCEPTION
+                      if IMAGE_BASE + item.struct.BeginAddress == 0x14068DC20)
+        body = image.get_data(0x68DC20, parent.struct.EndAddress - parent.struct.BeginAddress)
+        self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+        self.assertEqual(struct.unpack_from("<Q", image.get_data(0xEDDBD0 + 0xB0, 8))[0], 0x14075DEE0)
+        self.assertEqual(struct.unpack_from("<Q", image.get_data(0xEDDC50, 8))[0], 0x14075AD60)
+        thunk = image.get_data(0x75AD60, 9)
+        self.assertEqual(thunk[:5], bytes.fromhex("4883c110e9"))
+        self.assertEqual(0x14075AD69 + struct.unpack_from("<i", thunk, 5)[0], 0x1404AECD0)
+        self.assertEqual(image.get_data(0x4AED20, 16), bytes.fromhex("488b4310482b430848c1f8074883f802"))
+        call = image.get_data(0x4AED59, 12)
+        self.assertEqual(call[:8], bytes.fromhex("488bd7488b4b08e8"))
+        self.assertEqual(0x1404AED65 + struct.unpack_from("<i", call, 8)[0], 0x1404AE9D0)
+        call = image.get_data(0x4AEBE6, 8)
+        self.assertEqual(call[:4], bytes.fromhex("488bcee8"))
+        self.assertEqual(0x1404AEBEE + struct.unpack_from("<i", call, 4)[0], 0x140541050)
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        spans = {0x1404E03F0: 0x160}
+        for origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+            spans[origin] = functions[origin] - origin
+        for origin, size in spans.items():
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            for disp in (bytes.fromhex("08010000"), bytes.fromhex("80000000")):
+                index = 0
+                while True:
+                    found = blob.find(disp, index)
+                    if found < 0:
+                        break
+                    if found >= 2 and blob[found - 2] == 0xFF and (blob[found - 1] & 0xC0) == 0x80 and ((blob[found - 1] >> 3) & 7) in (2, 4):
+                        self.fail(hex(origin + found - 2))
+                    index = found + 1
+
+    def test_skip_refresh_reads_the_document_array_without_a_close_check(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        self.assertEqual(image.get_data(0x6ADB33, 8), bytes.fromhex("488b8be8000000e8"))
+        call = image.get_data(0x6ADB3A, 5)
+        self.assertEqual(0x1406ADB3F + struct.unpack_from("<i", call, 1)[0], 0x140541040)
+        self.assertEqual(image.get_data(0x541040, 8), bytes.fromhex("488d81e0230000c3"))
+        self.assertEqual(image.get_data(0x6ADB3F, 9), bytes.fromhex("488bf833f648397010"))
+        branch = image.get_data(0x6ADB48, 2)
+        self.assertEqual(branch[0], 0x7E)
+        self.assertGreater(0x1406ADB4A + struct.unpack_from("<b", branch, 1)[0], 0x1406ADB6B)
+        self.assertEqual(image.get_data(0x6ADB67, 8), bytes.fromhex("488b4708448b0498"))
+        refresh = next(item for item in image.DIRECTORY_ENTRY_EXCEPTION
+                       if IMAGE_BASE + item.struct.BeginAddress == 0x1406ADAF0)
+        body = image.get_data(0x6ADAF0, refresh.struct.EndAddress - refresh.struct.BeginAddress)
+        for displacement in (bytes.fromhex("2d380000"), bytes.fromhex("2e380000"), bytes.fromhex("38580000")):
+            self.assertEqual(body.find(displacement), -1)
+        prelude = next(item for item in image.DIRECTORY_ENTRY_EXCEPTION
+                       if IMAGE_BASE + item.struct.BeginAddress == 0x14067AB20)
+        prelude_body = image.get_data(0x67AB20, prelude.struct.EndAddress - prelude.struct.BeginAddress)
+        self.assertEqual(prelude_body.find(bytes.fromhex("68380000")), -1)
+
+    def test_second_refresh_caller_is_not_on_the_close_path(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        self.assertEqual(image.get_data(0x6B0700, 5), bytes.fromhex("4883ec28e8"))
+        self.assertEqual(0x1406B0709 + struct.unpack_from("<i", image.get_data(0x6B0705, 4))[0], 0x1406ADAF0)
+        self.assertEqual(image.get_data(0x6B0709, 6), bytes.fromhex("33c04883c428"))
+        self.assertEqual(image.get_data(0x6971BA, 24), bytes.fromhex("488b018bfa488bd9ff90e000000048894424304885c0741b"))
+        call = image.get_data(0x6971DD, 6)
+        self.assertEqual(call, bytes.fromhex("ff90e8000000"))
+        call = image.get_data(0x6971E3, 10)
+        self.assertEqual(call[:6], bytes.fromhex("488bc88bd7e8"))
+        self.assertEqual(0x1406971ED + struct.unpack_from("<i", call, 6)[0], 0x1406B3760)
+        call = image.get_data(0x6B3B3C, 8)
+        self.assertEqual(call[:4], bytes.fromhex("488bcee8"))
+        self.assertEqual(0x1406B3B44 + struct.unpack_from("<i", call, 4)[0], 0x1406ADAF0)
+        self.assertEqual(image.get_data(0x6B3B44, 15), bytes.fromhex("41b9050100004533c033d2488b4e40"))
+        text = next(item for item in image.sections if item.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        callers = []
+        start = 0
+        while True:
+            index = text_data.find(b"\xe8", start)
+            if index < 0 or index + 5 > len(text_data):
+                break
+            if text_base + index + 5 + struct.unpack_from("<i", text_data, index + 1)[0] == 0x1406971B0:
+                callers.append(text_base + index)
+            start = index + 1
+        self.assertEqual(callers, [0x1404DB44A, 0x1404DC8CA, 0x1404DC95C, 0x1404DCE1C, 0x1404DCED7, 0x1404DD4A5])
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        for origin, size in (
+            (0x1406971B0, functions[0x1406971B0] - 0x1406971B0),
+            (0x1406B3760, functions[0x1406B3760] - 0x1406B3760)):
+            self.assertEqual(image.get_data(origin - IMAGE_BASE, size).find(bytes.fromhex("68380000")), -1)
+        spans = {0x1404E03F0: 0x160}
+        for origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+            spans[origin] = functions[origin] - origin
+        for origin, size in spans.items():
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            for index in range(len(blob) - 5):
+                if blob[index] != 0xE8:
+                    continue
+                dest = origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0]
+                self.assertNotIn(dest, (0x1406971B0, 0x1406B3760))
+
+    def test_close_does_not_write_the_poster_enable_dword(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        self.assertEqual(image.get_data(0x6A52A9, 9), bytes.fromhex("83b878390000017552"))
+        self.assertEqual(0x1406A52B2 + 0x52, 0x1406A5304)
+        self.assertLess(0x1406A52B5, 0x1406A5304)
+        call = image.get_data(0x6A52B2, 8)
+        self.assertEqual(call[:4], bytes.fromhex("488bcfe8"))
+        self.assertEqual(0x1406A52BA + struct.unpack_from("<i", call, 4)[0], 0x1406A06B0)
+        poster = next(item for item in image.DIRECTORY_ENTRY_EXCEPTION
+                      if IMAGE_BASE + item.struct.BeginAddress == 0x1406A06B0)
+        poster_body = image.get_data(0x6A06B0, poster.struct.EndAddress - poster.struct.BeginAddress)
+        self.assertEqual(poster_body.find(bytes.fromhex("78390000")), -1)
+        self.assertEqual(image.get_data(0x67E1D6, 7), bytes.fromhex("4489b678390000"))
+        self.assertTrue(0x14067DF59 < 0x14067E1D6 < 0x14067F60E)
+        self.assertEqual(image.get_data(0x6A34A1, 6), bytes.fromhex("89b078390000"))
+        self.assertEqual(image.get_data(0x6A3758, 8), bytes.fromhex("d3e2899078390000"))
+        self.assertEqual(image.get_data(0x69A9FC, 3), bytes.fromhex("4533ff"))
+        self.assertEqual(image.get_data(0x69AAAF, 7), bytes.fromhex("4489b878390000"))
+        branch = image.get_data(0x69AAA1, 6)
+        self.assertEqual(branch[0], 0x0F)
+        self.assertEqual(branch[1], 0x84)
+        self.assertGreater(0x14069AAA7 + struct.unpack_from("<i", branch, 2)[0], 0x14069AAAF)
+        text = next(item for item in image.sections if item.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        callers = []
+        start = 0
+        while True:
+            index = text_data.find(b"\xe8", start)
+            if index < 0 or index + 5 > len(text_data):
+                break
+            if text_base + index + 5 + struct.unpack_from("<i", text_data, index + 1)[0] == 0x14069A9C0:
+                callers.append(text_base + index)
+            start = index + 1
+        self.assertEqual(callers, [0x1406A2E5E])
+        self.assertTrue(0x1406A20D0 <= 0x1406A2E5E < 0x1406A20D0 + 0x2877)
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        spans = {0x1404E03F0: 0x160}
+        for origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+            spans[origin] = functions[origin] - origin
+        for origin, size in spans.items():
+            self.assertEqual(image.get_data(origin - IMAGE_BASE, size).find(bytes.fromhex("78390000")), -1)
+
+    def test_poster_one_return_posts_after_the_slot_reset(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        self.assertEqual(image.get_data(0x6A0834, 7), bytes.fromhex("488b1f488bcee8"))
+        call = image.get_data(0x6A083A, 5)
+        self.assertEqual(0x1406A083F + struct.unpack_from("<i", call, 1)[0], 0x1406A15D0)
+        self.assertEqual(image.get_data(0x6A083F, 16), bytes.fromhex("488bd0488bcfff93800000003c010f84"))
+        self.assertEqual(0x1406A0853 + struct.unpack_from("<i", image.get_data(0x6A084F, 4))[0], 0x1406A1056)
+        self.assertLess(0x1406A085E, 0x1406A1056)
+        call = image.get_data(0x6A085B, 8)
+        self.assertEqual(call[:4], bytes.fromhex("488bc8e8"))
+        self.assertEqual(0x1406A0863 + struct.unpack_from("<i", call, 4)[0], 0x140541050)
+        self.assertEqual(image.get_data(0x6A1056, 4), bytes.fromhex("488bcee8"))
+        self.assertEqual(0x1406A105E + struct.unpack_from("<i", image.get_data(0x6A105A, 4))[0], 0x1406A15D0)
+        self.assertEqual(image.get_data(0x6A105E, 15), bytes.fromhex("488b88385800004533c94533c08b15"))
+        self.assertEqual(image.get_data(0x4AEBB6, 2), bytes.fromhex("32c0"))
+        self.assertLess(0x1404AEBB8, 0x1404AEBE9)
+        call = image.get_data(0x4AEBE6, 8)
+        self.assertEqual(call[:4], bytes.fromhex("488bcee8"))
+        self.assertEqual(0x1404AEBEE + struct.unpack_from("<i", call, 4)[0], 0x140541050)
+        self.assertLess(0x1404AEBE9, 0x1404AEC17)
+        self.assertLess(0x1404AEC17, 0x1404AEC91)
+        self.assertEqual(image.get_data(0x4AEC91, 2), bytes.fromhex("b001"))
+        body = image.get_data(0x4AE9D0, 0x300)
+        self.assertEqual(body.count(bytes.fromhex("b001")), 1)
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        spans = {0x1404E03F0: 0x160}
+        for origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+            spans[origin] = functions[origin] - origin
+        for origin, size in spans.items():
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            for index in range(len(blob) - 5):
+                if blob[index] != 0xE8:
+                    continue
+                dest = origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0]
+                self.assertNotEqual(dest, 0x1406A06B0)
+
+    def test_skip_poster_returns_without_waiting(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+        self.assertEqual(image.get_data(0x6A1016, 5), bytes.fromhex("4183fd0375"))
+        self.assertEqual(0x1406A101C + image.get_data(0x6A101B, 1)[0], 0x1406A1047)
+        self.assertLess(0x1406A103B, 0x1406A1047)
+        self.assertEqual(image.get_data(0x6A1024, 7), bytes.fromhex("488b8838580000"))
+        self.assertEqual(image.get_data(0x6A1041, 6), bytes.fromhex("41bd03000000"))
+        self.assertEqual(image.get_data(0x6A1094, 3), bytes.fromhex("418bc5"))
+        names = {}
+        for entry in image.DIRECTORY_ENTRY_IMPORT:
+            for imported in entry.imports:
+                if imported.address is not None:
+                    names[imported.address] = imported.name
+        for call, nxt in ((0x1406A103B, 0x1406A1041), (0x1406A1075, 0x1406A107B)):
+            self.assertEqual(image.get_data(call - IMAGE_BASE, 2), bytes.fromhex("ff15"))
+            disp = struct.unpack_from("<i", image.get_data(call + 2 - IMAGE_BASE, 4))[0]
+            self.assertEqual(names[nxt + disp], b"PostMessageA")
+        tail = image.get_data(0x6A107B, 0x1406A10BA - 0x1406A107B)
+        self.assertEqual(tail.count(bytes.fromhex("ff15")), 2)
+        for call, nxt, name in (
+                (0x1406A1083, 0x1406A1089, b"??1CBenchManagerFunction@@UEAA@XZ"),
+                (0x1406A108E, 0x1406A1094, b"??1CLogManagerFunctionML@@UEAA@XZ")):
+            disp = struct.unpack_from("<i", image.get_data(call + 2 - IMAGE_BASE, 4))[0]
+            self.assertEqual(names[nxt + disp], name)
+        self.assertIn(bytes.fromhex("c3"), tail)
+
+    def test_grey_zone_post_returns_without_clearing_its_flag(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        self.assertEqual(image.get_data(0x67E4CD, 6), bytes.fromhex("888635380000"))
+        self.assertEqual(image.get_data(0x736F4B, 9), bytes.fromhex("80b935380000010f85"))
+        self.assertGreater(0x140736F58 + struct.unpack_from("<i", image.get_data(0x736F54, 4))[0], 0x140736FEB)
+        text = next(item for item in image.sections if item.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        sites = []
+        start = 0
+        needle = bytes.fromhex("35380000")
+        while True:
+            found = text_data.find(needle, start)
+            if found < 0:
+                break
+            if found == 0 or text_data[found - 1] not in (0xE8, 0xE9):
+                sites.append(text_base + found)
+            start = found + 1
+        self.assertEqual(sites, [0x14067E4CF, 0x14067E4EF, 0x140736F4D])
+        self.assertEqual(text_data[0x67E4CD - text.VirtualAddress], 0x88)
+        self.assertEqual(image.get_data(0x736FD4, 7), bytes.fromhex("488b8838580000"))
+        self.assertEqual(image.get_data(0x736FEB, 2), bytes.fromhex("ff15"))
+        names = {}
+        for entry in image.DIRECTORY_ENTRY_IMPORT:
+            for imported in entry.imports:
+                if imported.address is not None:
+                    names[imported.address] = imported.name
+        disp = struct.unpack_from("<i", image.get_data(0x736FED, 4))[0]
+        self.assertEqual(names[0x140736FF1 + disp], b"PostMessageA")
+        jump = image.get_data(0x736FF1, 5)
+        self.assertEqual(jump[0], 0xE9)
+        self.assertEqual(0x140736FF6 + struct.unpack_from("<i", jump, 1)[0], 0x14073742D)
+        self.assertEqual(image.get_data(0x73742D, 4), bytes.fromhex("488d4d08"))
+        self.assertEqual(image.get_data(0x7374B2, 3), bytes.fromhex("418bc4"))
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        spans = {0x1404E03F0: 0x160}
+        for origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+            spans[origin] = functions[origin] - origin
+        for origin, size in spans.items():
+            self.assertEqual(image.get_data(origin - IMAGE_BASE, size).find(bytes.fromhex("35380000")), -1)
+
+    def test_grey_zone_post_callers_do_not_check_the_producer_stop(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        text = next(item for item in image.sections if item.Name.startswith(b".text"))
+        text_data = text.get_data()
+        text_base = IMAGE_BASE + text.VirtualAddress
+        callers = {0x1407368D0: [], 0x1407354B0: [], 0x140735F10: [], 0x14069FCD0: []}
+        start = 0
+        while True:
+            index = text_data.find(b"\xe8", start)
+            if index < 0 or index + 5 > len(text_data):
+                break
+            dest = text_base + index + 5 + struct.unpack_from("<i", text_data, index + 1)[0]
+            if dest in callers:
+                callers[dest].append(text_base + index)
+            start = index + 1
+        self.assertEqual(callers[0x1407368D0], [0x1407356A1])
+        self.assertEqual(callers[0x1407354B0], [0x140736796])
+        self.assertEqual(callers[0x140735F10], [0x14066DC2A, 0x14069FDAA])
+        self.assertEqual(callers[0x14069FCD0], [0x14069FC94, 0x1406A8EDA, 0x1406A90E1])
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        self.assertTrue(0x14066DB40 <= 0x14066DC2A < functions[0x14066DB40])
+        self.assertTrue(0x14069FB80 <= 0x14069FC94 < functions[0x14069FB80])
+        self.assertTrue(0x1406A88E0 <= 0x1406A8EDA < functions[0x1406A88E0])
+        for origin in (0x140735F10, 0x1407354B0, 0x14069FCD0):
+            body = image.get_data(origin - IMAGE_BASE, functions[origin] - origin)
+            self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+            self.assertEqual(body.find(bytes.fromhex("2e380000")), -1)
+        spans = {0x1404E03F0: 0x160}
+        for origin in (0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00):
+            spans[origin] = functions[origin] - origin
+        for origin, size in spans.items():
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            for index in range(len(blob) - 5):
+                if blob[index] != 0xE8:
+                    continue
+                dest = origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0]
+                self.assertNotIn(dest, callers)
+
+    def test_close_call_levels_do_not_wait_on_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        pefile.MAX_IMPORT_SYMBOLS = 65536
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        names = {}
+        for entry in image.DIRECTORY_ENTRY_IMPORT:
+            for imported in entry.imports:
+                if imported.address is not None:
+                    names[imported.address] = imported.name or b""
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+
+        def direct_calls(origin: int, size: int) -> list[int]:
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            found = []
+            for index in range(len(blob) - 5):
+                if blob[index] not in (0xE8, 0xE9):
+                    continue
+                found.append(origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0])
+            return found
+
+        destructor_calls = [dest for dest in direct_calls(0x14067FC20, functions[0x14067FC20] - 0x14067FC20) if dest in functions]
+        self.assertGreaterEqual(len(destructor_calls), 1)
+        for dest in destructor_calls:
+            body = image.get_data(dest - IMAGE_BASE, functions[dest] - dest)
+            for index in range(len(body) - 6):
+                if body[index:index + 2] != b"\xff\x15":
+                    continue
+                slot = dest + index + 6 + struct.unpack_from("<i", body, index + 2)[0]
+                self.assertNotIn(b"WaitForSingleObject", names.get(slot, b""))
+        roots = [0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1406B0C00, 0x1404E03F0]
+        seen = set()
+        level = set(roots)
+        waiters = set()
+        for _depth in range(3):
+            nxt = set()
+            for origin in level:
+                if origin in seen or origin not in functions and origin != 0x1404E03F0:
+                    continue
+                seen.add(origin)
+                size = 0x160 if origin == 0x1404E03F0 else functions[origin] - origin
+                body = image.get_data(origin - IMAGE_BASE, size)
+                for index in range(len(body) - 6):
+                    if body[index:index + 2] != b"\xff\x15":
+                        continue
+                    slot = origin + index + 6 + struct.unpack_from("<i", body, index + 2)[0]
+                    name = names.get(slot, b"")
+                    self.assertNotIn(b"Stop@CViThread", name)
+                    if name == b"WaitForSingleObject":
+                        waiters.add(origin)
+                nxt.update(dest for dest in direct_calls(origin, size) if dest in functions)
+            level = nxt
+        self.assertEqual(waiters, {0x14063B430, 0x14064B880, 0x1406AE120, 0x1406AE950})
+        for origin in waiters:
+            body = image.get_data(origin - IMAGE_BASE, functions[origin] - origin)
+            self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+
+    def test_close_without_the_command_switch_does_not_call_slot_28(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+
+        def direct_calls(origin: int, size: int) -> list[int]:
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            found = []
+            for index in range(len(blob) - 5):
+                if blob[index] not in (0xE8, 0xE9):
+                    continue
+                found.append(origin + index + 5 + struct.unpack_from("<i", blob, index + 1)[0])
+            return found
+
+        roots = {0x14068D9D0, 0x14067FC20, 0x1406AF270, 0x1406ABC60, 0x1404E03F0}
+        seen: set[int] = set()
+        level = set(roots)
+        for _depth in range(3):
+            nxt: set[int] = set()
+            for origin in level:
+                if origin in seen or (origin not in functions and origin != 0x1404E03F0):
+                    continue
+                seen.add(origin)
+                size = 0x160 if origin == 0x1404E03F0 else functions[origin] - origin
+                nxt.update(dest for dest in direct_calls(origin, size) if dest in functions)
+            level = nxt
+        self.assertEqual(len(seen), 43)
+        self.assertTrue(roots <= seen)
+        for blocked in (0x1406920F0, 0x140680C00, 0x140691C80):
+            self.assertNotIn(blocked, seen)
+        for origin in seen:
+            size = 0x160 if origin == 0x1404E03F0 else functions[origin] - origin
+            blob = image.get_data(origin - IMAGE_BASE, size)
+            index = 0
+            while index < len(blob) - 2:
+                cursor = index
+                if 0x40 <= blob[cursor] <= 0x4F and cursor + 1 < len(blob) and blob[cursor + 1] == 0xFF:
+                    cursor += 1
+                if blob[cursor] == 0xFF and cursor + 2 < len(blob):
+                    modrm = blob[cursor + 1]
+                    operation = (modrm >> 3) & 7
+                    mode = (modrm >> 6) & 3
+                    if operation in (2, 4) and mode == 1 and blob[cursor + 2] == 0x28:
+                        self.fail(hex(origin + index))
+                    if operation in (2, 4) and mode == 2 and cursor + 6 <= len(blob):
+                        if struct.unpack_from("<i", blob, cursor + 2)[0] == 0x28:
+                            self.fail(hex(origin + index))
+                index += 1
+
+    def test_close_virtual_helpers_do_not_stop_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        image = pefile.PE(data=source, fast_load=True)
+        image.parse_data_directories(directories=[
+            pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+        call = image.get_data(0x67FEFA, 12)
+        self.assertEqual(call[:7], bytes.fromhex("488d8b88580000"))
+        self.assertEqual(call[7], 0xE8)
+        self.assertEqual(0x14067FF06 + struct.unpack_from("<i", call, 8)[0], 0x14066E530)
+        self.assertEqual(image.get_data(0x66E55B, 11), bytes.fromhex("488b7120488b5918483bde"))
+        self.assertEqual(image.get_data(0x66E570, 11), bytes.fromhex("488b0333d2488bcbff5008"))
+        self.assertEqual(image.get_data(0x66E57C, 7), bytes.fromhex("4881c370030000"))
+        self.assertEqual(image.get_data(0x7402BE, 20), bytes.fromhex("488b8b580100004885c9740c488b01ba01000000"))
+        self.assertEqual(image.get_data(0x7402D2, 3), bytes.fromhex("ff5008"))
+        self.assertEqual(image.get_data(0x5795E3, 8), bytes.fromhex("83c8fff00fc1430c"))
+        functions = {
+            IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+            for item in image.DIRECTORY_ENTRY_EXCEPTION}
+        for origin in (0x14066E530, 0x140740280, 0x14045F700, 0x140579580):
+            body = image.get_data(origin - IMAGE_BASE, functions[origin] - origin)
+            self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+
+    def test_close_refcount_and_bitmap_helpers_do_not_stop_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(
+            hashlib.sha256(mfc).hexdigest(),
+            "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            image = pefile.PE(data=source, fast_load=True)
+            image.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+            imports = {
+                item.address: (entry.dll.lower(), item.name.decode() if item.name else item.ordinal)
+                for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            lea = image.get_data(0x572712, 7)
+            self.assertEqual(lea[:3], bytes.fromhex("488d0d"))
+            self.assertEqual(0x140572719 + struct.unpack_from("<i", lea, 3)[0], 0x140E5F9E0)
+            self.assertEqual(image.get_data(0x572704, 14), bytes.fromhex("c7400801000000c7400c01000000"))
+            self.assertEqual(image.get_data(0x572719, 7), bytes.fromhex("48890848897810"))
+            self.assertEqual(struct.unpack_from("<Q", image.get_data(0xE5F9E8, 8))[0], 0x1405BC830)
+            self.assertEqual(struct.unpack_from("<Q", image.get_data(0xE5F9F0, 8))[0], 0x140446570)
+            self.assertEqual(
+                image.get_data(0x5BC830, 21),
+                bytes.fromhex("488b49104885c9740c488b01ba0100000048ff6008"))
+            self.assertEqual(image.get_data(0x446570, 16), bytes.fromhex("4885c9740b488b01ba0100000048ff20"))
+            free_jump = image.get_data(0x4556C0, 5)
+            self.assertEqual(free_jump[0], 0xE9)
+            self.assertEqual(0x1404556C5 + struct.unpack_from("<i", free_jump, 1)[0], 0x14077F4AE)
+            thunk = image.get_data(0x77F4AE, 6)
+            self.assertEqual(thunk[:2], b"\xff\x25")
+            self.assertEqual(imports[0x14077F4B4 + struct.unpack_from("<i", thunk, 2)[0]], (b"mfc140.dll", 1487))
+            bitmap = image.get_data(0x742117, 7)
+            self.assertEqual(bitmap[:3], bytes.fromhex("488d05"))
+            self.assertEqual(0x14074211E + struct.unpack_from("<i", bitmap, 3)[0], 0x140E6C8C0)
+            self.assertEqual(image.get_data(0x74211E, 3), bytes.fromhex("488906"))
+            self.assertEqual(struct.unpack_from("<Q", image.get_data(0xE6C8C8, 8))[0], 0x1405B07A0)
+            call = image.get_data(0x5B071A, 5)
+            self.assertEqual(call[0], 0xE8)
+            self.assertEqual(0x1405B071F + struct.unpack_from("<i", call, 1)[0], 0x14077FF5E)
+            ordinal = image.get_data(0x77FF5E, 6)
+            self.assertEqual(ordinal[:2], b"\xff\x25")
+            self.assertEqual(imports[0x14077FF64 + struct.unpack_from("<i", ordinal, 2)[0]], (b"mfc140.dll", 3748))
+            library = pefile.PE(data=mfc, fast_load=True)
+            self.assertEqual(library.OPTIONAL_HEADER.ImageBase, 0x180000000)
+            library.parse_data_directories(directories=[
+                pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+            library_imports = {
+                item.address: (entry.dll.lower(), item.name.decode() if item.name else item.ordinal)
+                for entry in library.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+            self.assertEqual(library.get_data(0x2A8D94, 7), bytes.fromhex("48837908007507"))
+            delete = library.get_data(0x2A8DAE, 7)
+            self.assertEqual(delete[:3], bytes.fromhex("48ff25"))
+            self.assertEqual(
+                library_imports[0x1802A8DB5 + struct.unpack_from("<i", delete, 3)[0]],
+                (b"gdi32.dll", "DeleteObject"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_cao_destructor_and_cad_engine_stop_do_not_join_the_producer(self) -> None:
+        cad = (ROOT / "v3d_files_" / "CadEngineModule.dll").read_bytes()
+        vit = (ROOT / "v3d_files_" / "VitDataCAD.dll").read_bytes()
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(cad).hexdigest(),
+                         "3523eb0f721a6b6e1ac59c0b7b1c9f429f82fb1ab17435f8f65c79a686f18da4")
+        self.assertEqual(len(cad), 370176)
+        self.assertEqual(hashlib.sha256(vit).hexdigest(),
+                         "0cb969e8ae45b199afa1f378d5d18aeed93db04d43a3b8a0b380ce9f71d12a78")
+        self.assertEqual(len(vit), 3566080)
+        self.assertEqual(hashlib.sha256(mfc).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=cad, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: (entry.dll.lower(), item.name.decode() if item.name else item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(image.get_data(0x492A, 9), bytes.fromhex("33c048898338010000"))
+                self.assertEqual(image.get_data(0x7E32, 5), bytes.fromhex("b918030000"))
+                self.assertEqual(image.get_data(0x7E4F, 7), bytes.fromhex("48898338010000"))
+                section = next(item for item in image.sections if item.Name.startswith(b".text"))
+                text = section.get_data()
+                self.assertEqual(text.count(bytes.fromhex("48898338010000")), 2)
+                self.assertEqual(text.count(bytes.fromhex("48c7833801000000000000")), 1)
+                post = image.get_data(0x7F1A, 13)
+                self.assertEqual(post[:7], bytes.fromhex("418d51128b4860"))
+                self.assertEqual(post[7:9], b"\xff\x15")
+                self.assertEqual(
+                    imports[0x180007F27 + struct.unpack_from("<i", post, 9)[0]],
+                    (b"user32.dll", "PostThreadMessageA"))
+                wait = image.get_data(0x7F2E, 13)
+                self.assertEqual(wait[:7], bytes.fromhex("83caff488b4958"))
+                self.assertEqual(wait[7:9], b"\xff\x15")
+                self.assertEqual(
+                    imports[0x180007F3B + struct.unpack_from("<i", wait, 9)[0]],
+                    (b"kernel32.dll", "WaitForSingleObject"))
+                self.assertEqual(image.get_data(0x7F52, 11), bytes.fromhex("48c7833801000000000000"))
+                vtable = image.get_data(0xEA24, 7)
+                self.assertEqual(vtable[:3], bytes.fromhex("488d05"))
+                self.assertEqual(0x18000EA2B + struct.unpack_from("<i", vtable, 3)[0], 0x180031418)
+                column = struct.unpack_from("<Q", image.get_data(0x31418 - 8, 8))[0]
+                descriptor = struct.unpack_from("<I", image.get_data(column - 0x180000000 + 12, 4))[0]
+                name = image.get_data(descriptor, 0x40)
+                start = name.find(b".?AV")
+                self.assertEqual(name[start:name.find(b"\x00", start)], b".?AVCCadEngineThread@@")
+                starter = image.get_data(0x271A4, 6)
+                self.assertEqual(starter[:2], b"\xff\x25")
+                self.assertEqual(
+                    imports[0x1800271AA + struct.unpack_from("<i", starter, 2)[0]],
+                    (b"mfc140.dll", 3529))
+            with pefile.PE(data=mfc, fast_load=True) as library:
+                self.assertEqual(library.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                library.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                library_imports = {
+                    item.address: item.name.decode() if item.name else item.ordinal
+                    for entry in library.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(library.get_data(0x278B25, 4), bytes.fromhex("488d4360"))
+                created = library.get_data(0x278B46, 10)
+                self.assertEqual(created[:2], b"\xff\x15")
+                self.assertEqual(
+                    library_imports[0x180278B4C + struct.unpack_from("<i", created, 2)[0]],
+                    "_beginthreadex")
+                self.assertEqual(created[6:], bytes.fromhex("48894358"))
+            with pefile.PE(data=vit, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                imports = {
+                    item.address: (entry.dll.lower(), (item.name or b"").decode())
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                tail = image.get_data(0x8EF29, 5)
+                self.assertEqual(tail[0], 0xE9)
+                self.assertEqual(0x18008EF2E + struct.unpack_from("<i", tail, 1)[0], 0x18005EB50)
+                functions = {
+                    0x180000000 + item.struct.BeginAddress: 0x180000000 + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                level = {0x18008ED90}
+                seen = set()
+                for _depth in range(3):
+                    nxt = set()
+                    for origin in level:
+                        if origin in seen or origin not in functions:
+                            continue
+                        seen.add(origin)
+                        body = image.get_data(origin - 0x180000000, functions[origin] - origin)
+                        self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                        for insn in decoder.disasm(body, origin):
+                            if insn.bytes[:1] in (b"\xe8", b"\xe9"):
+                                nxt.add(insn.address + insn.size + int.from_bytes(
+                                    insn.bytes[1:5], "little", signed=True))
+                            elif insn.bytes[:2] == b"\xff\x15":
+                                slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                                dll, symbol = imports[slot]
+                                self.assertNotIn("stop@cvithread", symbol.lower())
+                                self.assertNotIn("waitfor", symbol.lower())
+                                self.assertNotEqual(dll, b"vision3d.exe")
+                    level = nxt
+                self.assertGreater(len(seen), 1)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_macro_pointer_vector_destructor_does_not_join_the_producer(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        vit = (ROOT / "v3d_files_" / "VitDataCAD.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(hashlib.sha256(vit).hexdigest(),
+                         "0cb969e8ae45b199afa1f378d5d18aeed93db04d43a3b8a0b380ce9f71d12a78")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: (entry.dll.lower(), (item.name or b"").decode())
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                lea = image.get_data(0x534148, 7)
+                self.assertEqual(lea[:3], b"\x48\x8d\x05")
+                self.assertEqual(0x14053414F + struct.unpack_from("<i", lea, 3)[0], 0x140E4D398)
+                self.assertEqual(image.get_data(0x53414F, 3), bytes.fromhex("498906"))
+                self.assertEqual(image.get_data(0x53416F, 7), bytes.fromhex("488d9e78240000"))
+                self.assertEqual(image.get_data(0x5341E8, 3), bytes.fromhex("4c8930"))
+                self.assertEqual(image.get_data(0x5341EB, 5), bytes.fromhex("4883430808"))
+                self.assertEqual(struct.unpack_from("<Q", image.get_data(0xE4D3A0, 8))[0], 0x140521B30)
+                col = struct.unpack_from("<Q", image.get_data(0xE4D390, 8))[0]
+                type_rva = struct.unpack_from("<I", image.get_data(col - 0x140000000 + 12, 4))[0]
+                self.assertEqual(image.get_data(type_rva + 16, 12), b".?AVCMacro@@")
+                call = image.get_data(0x521B3F, 6)
+                self.assertEqual(call[:2], b"\xff\x15")
+                self.assertEqual(imports[0x140521B45 + struct.unpack_from("<i", call, 2)[0]],
+                                 (b"vitdatacad.dll", "??1CMacro@@UEAA@XZ"))
+                self.assertEqual(image.get_data(0x521B45, 15),
+                                 bytes.fromhex("40f6c7017426488bcb40f6c7047513"))
+                free = image.get_data(0x521B54, 5)
+                self.assertEqual(free[0], 0xE8)
+                self.assertEqual(0x140521B59 + struct.unpack_from("<i", free, 1)[0], 0x14077F4AE)
+            with pefile.PE(data=vit, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: (entry.dll.lower(), (item.name or b"").decode())
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                functions = {
+                    0x180000000 + item.struct.BeginAddress: 0x180000000 + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                level = {0x1800A64B0}
+                seen = set()
+                for _depth in range(3):
+                    nxt = set()
+                    for origin in level:
+                        if origin in seen or origin not in functions:
+                            continue
+                        seen.add(origin)
+                        body = image.get_data(origin - 0x180000000, functions[origin] - origin)
+                        self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                        for insn in decoder.disasm(body, origin):
+                            if insn.bytes[:1] in (b"\xe8", b"\xe9"):
+                                nxt.add(insn.address + insn.size + int.from_bytes(
+                                    insn.bytes[1:5], "little", signed=True))
+                            elif insn.bytes[:2] == b"\xff\x15":
+                                slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                                dll, symbol = imports[slot]
+                                self.assertNotIn("stop@cvithread", symbol.lower())
+                                self.assertNotIn("waitfor", symbol.lower())
+                                self.assertNotEqual(dll, b"vision3d.exe")
+                    level = nxt
+                self.assertGreater(len(seen), 1)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_cdata_cao_element_destructors_do_not_join_the_producer(self) -> None:
+        vit = (ROOT / "v3d_files_" / "VitDataCAD.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(vit).hexdigest(),
+                         "0cb969e8ae45b199afa1f378d5d18aeed93db04d43a3b8a0b380ce9f71d12a78")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=vit, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                self.assertEqual(image.get_data(0x8EDC1, 18),
+                                 bytes.fromhex("4983c8ff33d2498d8e780d0000e8edea0000"))
+                lea = image.get_data(0xA624C, 7)
+                self.assertEqual(lea[:3], b"\x48\x8d\x05")
+                self.assertEqual(0x1800A6253 + struct.unpack_from("<i", lea, 3)[0], 0x180102030)
+                self.assertEqual(struct.unpack_from("<Q", image.get_data(0x102038, 8))[0], 0x1800A6BD0)
+                self.assertEqual(image.get_data(0x9D922, 6), bytes.fromhex("33d241ff5008"))
+                self.assertEqual(image.get_data(0x925F6, 8), bytes.fromhex("ba01000000ff5008"))
+                self.assertEqual(struct.unpack_from("<Q", image.get_data(0xEAA18, 8))[0], 0x1800213F0)
+                imports = {
+                    item.address: (entry.dll.lower(), (item.name or b"").decode())
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                functions = {
+                    0x180000000 + item.struct.BeginAddress: 0x180000000 + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                names = {item.name for item in image.DIRECTORY_ENTRY_EXPORT.symbols}
+                wanted = (
+                    b"??_7CCAD_Base@@6B@", b"??_7CComposant@@6B@", b"??_7CMire@@6B@",
+                    b"??_7CPad@@6B@", b"??_7CSkip_bloc@@6B@", b"??_7CMacro@@6B@",
+                    b"??_7CDataMatrixInt@@6B@", b"??_7CGroupPad@@6B@", b"??_7CLireText@@6B@",
+                    b"??_7CAD_Region@@6B@", b"??_7CCAD_OCV_Reader@@6B@", b"??_7CCAD_Trace@@6B@",
+                    b"??_7CReference3D@@6B@", b"??_7CTest@@6B@", b"??_7CZone@@6B@")
+                for name in wanted:
+                    self.assertIn(name, names)
+                slots = []
+                for item in image.DIRECTORY_ENTRY_EXPORT.symbols:
+                    if item.name in wanted:
+                        slots.append(struct.unpack_from("<Q", image.get_data(item.address + 8, 8))[0])
+                self.assertEqual(len(slots), len(wanted))
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                level = set(slots)
+                seen = set()
+                for _depth in range(3):
+                    nxt = set()
+                    for origin in level:
+                        if origin in seen or origin not in functions:
+                            continue
+                        seen.add(origin)
+                        body = image.get_data(origin - 0x180000000, functions[origin] - origin)
+                        self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                        for insn in decoder.disasm(body, origin):
+                            if insn.bytes[:1] in (b"\xe8", b"\xe9"):
+                                nxt.add(insn.address + insn.size + int.from_bytes(
+                                    insn.bytes[1:5], "little", signed=True))
+                            elif insn.bytes[:2] == b"\xff\x15":
+                                slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                                dll, symbol = imports[slot]
+                                self.assertNotIn("stop@cvithread", symbol.lower())
+                                self.assertNotIn("waitfor", symbol.lower())
+                                self.assertNotEqual(dll, b"vision3d.exe")
+                    level = nxt
+                self.assertGreater(len(seen), len(wanted))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_skip_refresh_does_not_share_a_call_with_reset(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        vit = (ROOT / "v3d_files_" / "VitDataCAD.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(hashlib.sha256(vit).hexdigest(),
+                         "0cb969e8ae45b199afa1f378d5d18aeed93db04d43a3b8a0b380ce9f71d12a78")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                text = next(item for item in image.sections if item.Name.startswith(b".text"))
+                data = text.get_data()
+                base = IMAGE_BASE + text.VirtualAddress
+                callers = {0x14067AB20: [], 0x14067A420: [], 0x140541050: []}
+                index = 0
+                while True:
+                    found = data.find(b"\xe8", index)
+                    if found < 0:
+                        break
+                    if found + 5 <= len(data):
+                        dest = base + found + 5 + struct.unpack_from("<i", data, found + 1)[0]
+                        if dest in callers:
+                            callers[dest].append(base + found)
+                    index = found + 1
+                self.assertEqual(callers[0x14067AB20], [0x1406ADB2E])
+                self.assertEqual(callers[0x14067A420], [0x1406ADB97])
+                self.assertEqual(callers[0x140541050], [
+                    0x1404AEBE9, 0x14068F7D7, 0x1406937D7, 0x1406A085E, 0x1406A2D87])
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                functions = {
+                    IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                refresh = image.get_data(0x6ADAF0, functions[0x1406ADAF0] - 0x1406ADAF0)
+                getter = refresh.find(bytes.fromhex("e80135e9ff"))
+                self.assertGreaterEqual(getter, 0)
+                self.assertLess(refresh.find(bytes.fromhex("e8edcffcff")), getter)
+                self.assertGreater(refresh.find(bytes.fromhex("e884c8fcff")), getter)
+                self.assertEqual(image.get_data(0x6ADB67, 4), bytes.fromhex("488b4708"))
+                self.assertEqual(image.get_data(0x6ADBB0, 4), bytes.fromhex("483b4710"))
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: ((entry.dll or b"").lower(), (item.name or b"").decode().lower() if item.name else "")
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                prefix = image.get_data(0x51FBF0, 0x14051FD3A - 0x14051FBF0)
+                self.assertEqual(prefix.find(bytes.fromhex("68380000")), -1)
+                pending = []
+                for insn in decoder.disasm(prefix, 0x14051FBF0):
+                    if insn.bytes[:1] in (b"\xe8", b"\xe9"):
+                        pending.append(insn.address + insn.size + int.from_bytes(
+                            insn.bytes[1:5], "little", signed=True))
+                seen = set()
+                while pending:
+                    begin = pending.pop()
+                    if begin not in functions or begin in seen:
+                        continue
+                    seen.add(begin)
+                    body = image.get_data(begin - IMAGE_BASE, functions[begin] - begin)
+                    self.assertEqual(body.find(bytes.fromhex("68380000")), -1)
+                    for insn in decoder.disasm(body, begin):
+                        if insn.bytes[:1] in (b"\xe8", b"\xe9"):
+                            pending.append(insn.address + insn.size + int.from_bytes(
+                                insn.bytes[1:5], "little", signed=True))
+                        elif insn.bytes[:2] == b"\xff\x15":
+                            slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                            dll, symbol = imports[slot]
+                            self.assertNotIn("waitfor", symbol)
+                            self.assertNotIn("stop@cvithread", symbol)
+                self.assertIn(0x14053C250, seen)
+                self.assertGreater(len(seen), 1)
+            with pefile.PE(data=vit, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                exports = {
+                    item.name: 0x180000000 + item.address
+                    for item in image.DIRECTORY_ENTRY_EXPORT.symbols if item.name}
+                imports = {
+                    item.address: entry.dll.lower()
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                functions = {
+                    0x180000000 + item.struct.BeginAddress: 0x180000000 + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                pending = [exports[b"??1CDataCao@@UEAA@XZ"]]
+                seen = set()
+                while pending:
+                    begin = pending.pop()
+                    if begin not in functions or begin in seen:
+                        continue
+                    seen.add(begin)
+                    body = image.get_data(begin - 0x180000000, functions[begin] - begin)
+                    for insn in decoder.disasm(body, begin):
+                        if insn.bytes[:1] in (b"\xe8", b"\xe9"):
+                            pending.append(insn.address + insn.size + int.from_bytes(
+                                insn.bytes[1:5], "little", signed=True))
+                        elif insn.bytes[:2] == b"\xff\x15":
+                            slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                            self.assertNotEqual(imports[slot], b"user32.dll")
+                self.assertGreater(len(seen), 1)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_reset_mutator_does_not_lock_the_skip_array(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        mfc = (ROOT / "v3d_files_" / "mfc140.dll").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        self.assertEqual(hashlib.sha256(mfc).hexdigest(),
+                         "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                self.assertEqual(image.get_data(0x541050, 0x28), bytes.fromhex(
+                    "40534883ec20488bd94983c8ff4881c1e023000033d2"
+                    "e861ed2300488bcb4883c4205be9f864feff"))
+                call = image.get_data(0x541066, 5)
+                self.assertEqual(call[0], 0xE8)
+                self.assertEqual(0x14054106B + struct.unpack_from("<i", call, 1)[0], 0x14077FDCC)
+                thunk = image.get_data(0x77FDCC, 6)
+                self.assertEqual(thunk[:2], b"\xff\x25")
+                slot = 0x14077FDD2 + struct.unpack_from("<i", thunk, 2)[0]
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                imports = {
+                    item.address: ((entry.dll or b"").lower(), item.ordinal)
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                self.assertEqual(imports[slot], (b"mfc140.dll", 13522))
+            with pefile.PE(data=mfc, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"]])
+                export = image.DIRECTORY_ENTRY_EXPORT
+                rva = image.get_dword_at_rva(
+                    export.struct.AddressOfFunctions + 4 * (13522 - export.struct.Base))
+                self.assertEqual(rva, 0x1D6AC0)
+                functions = {
+                    0x180000000 + item.struct.BeginAddress: 0x180000000 + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                self.assertEqual(functions[0x1801D6AC0], 0x1801D6C33)
+                zero = image.get_data(0x1D6AF3, 0x1801D6B29 - 0x1801D6AF3)
+                self.assertEqual(zero, bytes.fromhex(
+                    "488b49084885ed752dff15567a0f00"
+                    "48895e0848895e1848895e10"
+                    "488b5c2430488b6c2438488b742440488b7c24484883c420415ec3"))
+                self.assertEqual(zero.count(b"\xff\x15"), 1)
+                self.assertEqual(zero.find(b"\xe8"), -1)
+                free_slot = 0x1801D6B02 + struct.unpack_from("<i", zero, 11)[0]
+                imports = {
+                    item.address: ((entry.dll or b"").lower(), (item.name or b"").decode().lower())
+                    for entry in image.DIRECTORY_ENTRY_IMPORT for item in entry.imports}
+                dll, symbol = imports[free_slot]
+                self.assertEqual(dll, b"api-ms-win-crt-heap-l1-1-0.dll")
+                self.assertEqual(symbol, "free")
+                negative = image.get_data(0x1D6AE1, 9)
+                self.assertEqual(negative, bytes.fromhex("4885d20f8843010000"))
+                self.assertEqual(0x1801D6AEA + 0x143, 0x1801D6C2D)
+                self.assertEqual(image.get_data(0x1D6C2D, 5), bytes.fromhex("e83e410500"))
+                self.assertEqual(0x1801D6C32 + 0x5413E, 0x18022AD70)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_shared_critical_sections_do_not_cover_the_skip_reload(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                functions = {
+                    IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                imports = {}
+                for entry in image.DIRECTORY_ENTRY_IMPORT:
+                    for item in entry.imports:
+                        name = item.name.decode().lower() if item.name else ""
+                        imports[item.address] = name
+                lock_slots = {
+                    addr for addr, name in imports.items()
+                    if name in ("entercriticalsection", "leavecriticalsection")}
+                self.assertEqual(lock_slots, {0x140D54FA8, 0x140D54FB0})
+                text = next(item for item in image.sections if item.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = IMAGE_BASE + text.VirtualAddress
+                thunks = {}
+                index = 0
+                while True:
+                    found = text_data.find(b"\xff\x25", index)
+                    if found < 0 or found + 6 > len(text_data):
+                        break
+                    addr = text_base + found
+                    slot = addr + 6 + struct.unpack_from("<i", text_data, found + 2)[0]
+                    if slot in lock_slots:
+                        thunks[addr] = imports[slot]
+                    index = found + 1
+                self.assertGreaterEqual(len(thunks), 1)
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+
+                def closure(roots):
+                    seen = set()
+                    locks = []
+                    pending = list(roots)
+                    while pending:
+                        begin = pending.pop()
+                        if begin in seen or begin not in functions:
+                            continue
+                        seen.add(begin)
+                        body = image.get_data(begin - IMAGE_BASE, functions[begin] - begin)
+                        for insn in decoder.disasm(body, begin):
+                            if insn.bytes[:2] == b"\xff\x15":
+                                slot = insn.address + 6 + int.from_bytes(
+                                    insn.bytes[2:6], "little", signed=True)
+                                if slot in lock_slots:
+                                    locks.append(insn.address)
+                                continue
+                            if insn.bytes[:1] not in (b"\xe8", b"\xe9"):
+                                continue
+                            dest = insn.address + insn.size + int.from_bytes(
+                                insn.bytes[1:5], "little", signed=True)
+                            if dest in thunks:
+                                locks.append(insn.address)
+                            pending.append(dest)
+                    return seen, locks
+
+                refresh, refresh_locks = closure([0x1406ADAF0])
+                self.assertEqual(refresh_locks, [
+                    0x140780AA8, 0x140780AE8, 0x140780B08, 0x140780C17, 0x140780C38])
+                self.assertLess(0x1406ADB2E, 0x1406ADB67)
+                self.assertLess(0x1406ADB67, 0x1406ADBB0)
+                self.assertEqual(image.get_data(0x6ADB67, 4), bytes.fromhex("488b4708"))
+                self.assertEqual(image.get_data(0x6ADBB0, 4), bytes.fromhex("483b4710"))
+                holders = {}
+                for site in refresh_locks:
+                    begin = next(
+                        entry for entry, stop in functions.items() if entry <= site < stop)
+                    holders[site] = begin
+                self.assertEqual(holders, {
+                    0x140780AA8: 0x140780A98,
+                    0x140780AE8: 0x140780A98,
+                    0x140780B08: 0x140780AF8,
+                    0x140780C17: 0x140780BBC,
+                    0x140780C38: 0x140780BBC,
+                })
+                for begin in set(holders.values()):
+                    body = image.get_data(begin - IMAGE_BASE, functions[begin] - begin)
+                    for insn in decoder.disasm(body, begin):
+                        if insn.bytes[:1] not in (b"\xe8", b"\xe9"):
+                            continue
+                        dest = insn.address + insn.size + int.from_bytes(
+                            insn.bytes[1:5], "little", signed=True)
+                        self.assertNotEqual(dest, 0x140541050)
+                resets, reset_locks = closure([
+                    0x1404AE9D0, 0x14068F0F0, 0x140692AF0, 0x1406A06B0, 0x1406A20D0])
+                self.assertIn(0x140541050, resets)
+                self.assertIn(0x140578D14, reset_locks)
+                self.assertNotIn(0x140578C80, refresh)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_cycle_post_before_reset_does_not_drain_skip_refresh(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                functions = {
+                    IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                imports = {}
+                for entry in image.DIRECTORY_ENTRY_IMPORT:
+                    for item in entry.imports:
+                        name = item.name.decode().lower() if item.name else ""
+                        imports[item.address] = name
+                post = image.get_data(0x6A27E5, 0x15)
+                self.assertEqual(post, bytes.fromhex(
+                    "bad687000041b90200000041b800000100488b4940"))
+                call = image.get_data(0x6A27FA, 6)
+                self.assertEqual(call[:2], b"\xff\x15")
+                self.assertEqual(imports[
+                    0x1406A2800 + struct.unpack_from("<i", call, 2)[0]], "postmessagea")
+                reset = image.get_data(0x6A2D87, 5)
+                self.assertEqual(reset[0], 0xE8)
+                self.assertEqual(
+                    0x1406A2D8C + struct.unpack_from("<i", reset, 1)[0], 0x140541050)
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                body = image.get_data(0x6A20D0, functions[0x1406A20D0] - 0x1406A20D0)
+                between = []
+                for insn in decoder.disasm(body, 0x1406A20D0):
+                    if insn.address <= 0x1406A27FA or insn.address >= 0x1406A2D87:
+                        continue
+                    if insn.bytes[:2] != b"\xff\x15":
+                        continue
+                    slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                    between.append(imports[slot])
+                for name in between:
+                    self.assertNotIn("waitfor", name)
+                    self.assertNotIn("sendmessage", name)
+                    self.assertNotIn("entercriticalsection", name)
+                rdata = next(item for item in image.sections if item.Name.startswith(b".rdata"))
+                data = rdata.get_data()
+                base = IMAGE_BASE + rdata.VirtualAddress
+                bindings = []
+                index = 0
+                needle = struct.pack("<I", 0x87D6)
+                while True:
+                    found = data.find(needle, index)
+                    if found < 0 or found + 32 > len(data):
+                        break
+                    message, code, first, last, sig, pfn = struct.unpack_from("<IIIIQQ", data, found)
+                    if message == 0x87D6 and code == first == last == 0:
+                        bindings.append(pfn)
+                    index = found + 1
+                self.assertEqual(bindings, [0x1406B2320])
+                pending = [0x1406B2320]
+                seen = set()
+                while pending:
+                    begin = pending.pop()
+                    if begin in seen or begin not in functions:
+                        continue
+                    seen.add(begin)
+                    handler = image.get_data(begin - IMAGE_BASE, functions[begin] - begin)
+                    for insn in decoder.disasm(handler, begin):
+                        if insn.bytes[:1] not in (b"\xe8", b"\xe9"):
+                            continue
+                        pending.append(insn.address + insn.size + int.from_bytes(
+                            insn.bytes[1:5], "little", signed=True))
+                self.assertNotIn(0x1406ADAF0, seen)
+                self.assertNotIn(0x140541050, seen)
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
+    def test_pre_reset_send_is_not_the_skip_refresh_message(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                functions = {
+                    IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                imports = {}
+                for entry in image.DIRECTORY_ENTRY_IMPORT:
+                    for item in entry.imports:
+                        name = item.name.decode().lower() if item.name else ""
+                        imports[item.address] = name
+                text = next(item for item in image.sections if item.Name.startswith(b".text"))
+                text_data = text.get_data()
+                text_base = IMAGE_BASE + text.VirtualAddress
+
+                def rip_target(site: int) -> int:
+                    raw = image.get_data(site - IMAGE_BASE, 6)
+                    self.assertIn(raw[:2], (b"\x8b\x15", b"\x89\x05"))
+                    return site + 6 + struct.unpack_from("<i", raw, 2)[0]
+
+                skip_guid = b"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}"
+                other_guid = b"{5D5B3537-9C21-4d59-AEB5-EA30A0D68618}"
+                rdata = next(item for item in image.sections if item.Name.startswith(b".rdata"))
+                rdata_bytes = rdata.get_data()
+                self.assertIn(skip_guid, rdata_bytes)
+                self.assertIn(other_guid, rdata_bytes)
+                self.assertEqual(rip_target(0x14029B671), 0x1411982C8)
+                self.assertEqual(rip_target(0x1402934F1), 0x141195C40)
+                self.assertEqual(rip_target(0x140398431), 0x1411DCB30)
+                self.assertEqual(rip_target(0x14028A311), 0x141193470)
+                self.assertEqual(rip_target(0x140685CE6), 0x141193470)
+                posts = {
+                    0x1406A1031: 0x141195C40,
+                    0x1406A106B: 0x141195C40,
+                    0x140736FE1: 0x1411DCB30,
+                }
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                for site, global_slot in posts.items():
+                    self.assertEqual(rip_target(site), global_slot)
+                    begin = next(
+                        entry for entry, stop in functions.items() if entry <= site < stop)
+                    body = image.get_data(begin - IMAGE_BASE, functions[begin] - begin)
+                    insns = list(decoder.disasm(body, begin))
+                    index = next(i for i, insn in enumerate(insns) if insn.address == site)
+                    slot = None
+                    for insn in insns[index + 1:index + 8]:
+                        if insn.bytes[:2] != b"\xff\x15":
+                            continue
+                        slot = insn.address + 6 + int.from_bytes(
+                            insn.bytes[2:6], "little", signed=True)
+                        break
+                    self.assertIsNotNone(slot)
+                    self.assertEqual(imports[slot], "postmessagea")
+                loads = []
+                for index in range(len(text_data) - 6):
+                    if text_data[index:index + 2] != b"\x8b\x15":
+                        continue
+                    site = text_base + index
+                    if rip_target(site) in {0x1411982C8, 0x141195C40, 0x1411DCB30}:
+                        loads.append(site)
+                self.assertEqual(loads, [0x1406A1031, 0x1406A106B, 0x140736FE1])
+                call = image.get_data(0x6A2B79, 5)
+                self.assertEqual(call[0], 0xE8)
+                self.assertEqual(0x1406A2B7E + struct.unpack_from("<i", call, 1)[0], 0x140685B70)
+                self.assertLess(0x1406A2B79, 0x1406A2D87)
+                pending = [0x140685B70]
+                seen = set()
+                while pending:
+                    begin = pending.pop()
+                    if begin in seen or begin not in functions:
+                        continue
+                    seen.add(begin)
+                    body = image.get_data(begin - IMAGE_BASE, functions[begin] - begin)
+                    for insn in decoder.disasm(body, begin):
+                        if insn.bytes[:1] not in (b"\xe8", b"\xe9"):
+                            continue
+                        pending.append(insn.address + insn.size + int.from_bytes(
+                            insn.bytes[1:5], "little", signed=True))
+                self.assertNotIn(0x1406ADAF0, seen)
+                self.assertNotIn(0x140541050, seen)
+                self.assertNotIn(0x1406B0700, seen)
         finally:
             pefile.MAX_IMPORT_SYMBOLS = import_limit
 

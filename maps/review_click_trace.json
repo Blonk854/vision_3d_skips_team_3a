@@ -1,0 +1,2864 @@
+{
+  "program": "Vision3D.exe",
+  "image_base": "140000000",
+  "string_traces": [
+    {
+      "needle": "OnGbwAnalyzeCellMouseClickEvent",
+      "hit_count": 8,
+      "hits": [
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "CGridCpCpkFile::OnGbwAnalyzeCellMouseClickEvent",
+          "address": "140e5c050",
+          "exact": false,
+          "refs": [
+            {
+              "from": "14056a7d0",
+              "type": "DATA",
+              "function": "FUN_14056a7a0",
+              "function_entry": "14056a7a0"
+            }
+          ]
+        },
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "CGridXY::OnGbwAnalyzeCellMouseClickEvent",
+          "address": "140e5c118",
+          "exact": false,
+          "refs": [
+            {
+              "from": "14056a982",
+              "type": "DATA",
+              "function": "FUN_14056a950",
+              "function_entry": "14056a950"
+            }
+          ]
+        },
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "CLibraryHelperExportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "address": "140e60b70",
+          "exact": false,
+          "refs": [
+            {
+              "from": "14057b86a",
+              "type": "DATA",
+              "function": "FUN_14057b840",
+              "function_entry": "14057b840"
+            }
+          ]
+        },
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "OnGbwAnalyzeCellMouseClickEvent",
+          "address": "140ec9280",
+          "exact": true,
+          "refs": [
+            {
+              "from": "1407189ab",
+              "type": "DATA",
+              "function": "FUN_140718980",
+              "function_entry": "140718980"
+            }
+          ]
+        },
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "?OnGbwAnalyzeCellMouseClickEvent@CExtGridWnd@@UEAA_NIIIVCPoint@@@Z",
+          "address": "141070f56",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "?OnGbwAnalyzeCellMouseClickEvent@CExtTreeGridWnd@@UEAA_NIIIVCPoint@@@Z",
+          "address": "141075394",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "?OnGbwAnalyzeCellMouseClickEvent@CExtReportGridWnd@@UEAA_NIIIVCPoint@@@Z",
+          "address": "141077980",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "OnGbwAnalyzeCellMouseClickEvent",
+          "string": "?OnGbwAnalyzeCellMouseClickEvent@CVitExtReportGridWnd@@MEAA_NIIIVCPoint@@@Z",
+          "address": "14109db82",
+          "exact": false,
+          "refs": []
+        }
+      ]
+    },
+    {
+      "needle": "CVitExtReportGridWnd",
+      "hit_count": 30,
+      "hits": [
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?GetThisClass@CVitExtReportGridWnd@@SAPEAUCRuntimeClass@@XZ",
+          "address": "14109bfde",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "??0CVitExtReportGridWnd@@QEAA@PEAVCWnd@@@Z",
+          "address": "14109c01c",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "??1CVitExtReportGridWnd@@UEAA@XZ",
+          "address": "14109c04a",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?Init@CVitExtReportGridWnd@@UEAA_NPEAVCWnd@@@Z",
+          "address": "14109c06e",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?ClearRows@CVitExtReportGridWnd@@UEAAX_N@Z",
+          "address": "14109c0a0",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?GetThisMessageMap@CVitExtReportGridWnd@@KAPEBUAFX_MSGMAP@@XZ",
+          "address": "14109c0ce",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellButton@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellButton@@PEAVCExtReportGridItem@@AEBIAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+          "address": "14109c1ca",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellButton@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellButton@@PEAVCExtReportGridItem@@AEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@1@Z",
+          "address": "14109c26e",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellCheck@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellCheckBox@@PEAVCExtReportGridItem@@AEBI_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@K@Z",
+          "address": "14109c310",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellCheck@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellCheckBox@@PEAVCExtReportGridItem@@AEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@_N1K@Z",
+          "address": "14109c3b8",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellCombo@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellComboBox@@PEAVCExtReportGridItem@@AEBIAEBV?$list@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@V?$allocator@V?$CStringT@DV?$Str",
+          "address": "14109c45e",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellCombo@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellComboBox@@PEAVCExtReportGridItem@@AEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEBV?$list@V?$CStringT@DV?$StrTraitMFC_DLL@D",
+          "address": "14109c568",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellHorizontalAlignment@CVitExtReportGridWnd@@MEAAXPEAVCExtGridCell@@AEBK@Z",
+          "address": "14109c6b0",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellIcon@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellString@@PEAVCExtReportGridItem@@AEBIAEBJAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+          "address": "14109c702",
+          "exact": false,
+          "refs": []
+        },
+        {
+          "needle": "CVitExtReportGridWnd",
+          "string": "?AddCellIcon@CVitExtReportGridWnd@@MEAAPEAVCExtGridCellString@@PEAVCExtReportGridItem@@AEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEBJ1@Z",
+          "address": "14109c7a8",
+          "exact": false,
+          "refs": []
+        }
+      ]
+    },
+    {
+      "needle": "ShouldItGoToReviewStation",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "ShouldItGoToReviewStation",
+          "string": "ShouldItGoToReviewStation",
+          "address": "140e9e928",
+          "exact": true,
+          "refs": [
+            {
+              "from": "14067483a",
+              "type": "DATA",
+              "function": "FUN_140674820",
+              "function_entry": "140674820"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "SendPanelToReviewStation",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "SendPanelToReviewStation",
+          "string": "CMsgPanelProd::SendPanelToReviewStation",
+          "address": "140ea1ce8",
+          "exact": false,
+          "refs": [
+            {
+              "from": "14067c72a",
+              "type": "DATA",
+              "function": "FUN_14067c710",
+              "function_entry": "14067c710"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "GetReviewStation",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "GetReviewStation",
+          "string": "GetReviewStation",
+          "address": "140e96838",
+          "exact": true,
+          "refs": [
+            {
+              "from": "14064d6f0",
+              "type": "DATA",
+              "function": "FUN_14064d6d0",
+              "function_entry": "14064d6d0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "Text fault",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "Text fault",
+          "string": "Text fault",
+          "address": "140eb70b8",
+          "exact": true,
+          "refs": [
+            {
+              "from": "1406d2ce7",
+              "type": "DATA",
+              "function": "FUN_1406d2af0",
+              "function_entry": "1406d2af0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "Missing",
+      "hit_count": 8,
+      "hits": [
+        {
+          "needle": "Missing",
+          "string": "Missing interface.\n",
+          "address": "140dedd28",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1404bdc42",
+              "type": "DATA",
+              "function": "FUN_1404bd4a0",
+              "function_entry": "1404bd4a0"
+            },
+            {
+              "from": "1404b205b",
+              "type": "DATA",
+              "function": "FUN_1404b1f00",
+              "function_entry": "1404b1f00"
+            },
+            {
+              "from": "1404b143b",
+              "type": "DATA",
+              "function": "FUN_1404b12d0",
+              "function_entry": "1404b12d0"
+            }
+          ]
+        },
+        {
+          "needle": "Missing",
+          "string": "Missing",
+          "address": "140ea2008",
+          "exact": true,
+          "refs": [
+            {
+              "from": "140289874",
+              "type": "DATA",
+              "function": "FUN_140289870",
+              "function_entry": "140289870"
+            }
+          ]
+        },
+        {
+          "needle": "Missing",
+          "string": "Missing merged ZMap. Aborting execution...",
+          "address": "140ec5a58",
+          "exact": false,
+          "refs": [
+            {
+              "from": "140711c86",
+              "type": "DATA",
+              "function": "FUN_140711b70",
+              "function_entry": "140711b70"
+            }
+          ]
+        },
+        {
+          "needle": "Missing",
+          "string": "Missing extracted layers.",
+          "address": "140ecbf60",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1407298b7",
+              "type": "DATA",
+              "function": "FUN_140729540",
+              "function_entry": "140729540"
+            }
+          ]
+        },
+        {
+          "needle": "Missing",
+          "string": "Missing } in quantified repetition.",
+          "address": "140ee9398",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1407a1079",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a108a",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1060",
+              "type": "PARAM",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a11ba",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a11d3",
+              "type": "DATA",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a11a1",
+              "type": "PARAM",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a12f2",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1303",
+              "type": "DATA",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a12d9",
+              "type": "PARAM",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1432",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1443",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1419",
+              "type": "PARAM",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a14fc",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1508",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a14e3",
+              "type": "PARAM",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a155d",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1569",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1544",
+              "type": "PARAM",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1691",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a16a3",
+              "type": "READ",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1407a1678",
+              "type": "PARAM",
+              "function": "FUN_1407a0f50",
+              "function_entry": "1407a0f50"
+            },
+            {
+              "from": "1410c6620",
+              "type": "DATA",
+              "function": null,
+              "function_entry": null
+            }
+          ]
+        },
+        {
+          "needle": "Missing",
+          "string": "Missing } in hexadecimal escape sequence.",
+          "address": "140ee99e0",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1407a3019",
+              "type": "DATA",
+              "function": "FUN_1407a2ca0",
+              "function_entry": "1407a2ca0"
+            }
+          ]
+        },
+        {
+          "needle": "Missing",
+          "string": "Missing",
+          "address": "141c49164",
+          "exact": true,
+          "refs": []
+        },
+        {
+          "needle": "Missing",
+          "string": "Missing",
+          "address": "141c563f8",
+          "exact": true,
+          "refs": []
+        }
+      ]
+    },
+    {
+      "needle": "SaveOIS",
+      "hit_count": 8,
+      "hits": [
+        {
+          "needle": "SaveOIS",
+          "string": "SaveOISFile",
+          "address": "140e4f550",
+          "exact": false,
+          "refs": [
+            {
+              "from": "14053c49a",
+              "type": "DATA",
+              "function": "CDataCaoTraitement::SaveOISFile_FiducialOrSkipOdIdCode",
+              "function_entry": "14053c440"
+            }
+          ]
+        },
+        {
+          "needle": "SaveOIS",
+          "string": "p_oVitImgFileRecorder.SaveOISMemory() failed.",
+          "address": "140ebb040",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e7abe",
+              "type": "DATA",
+              "function": "FUN_1406e79c0",
+              "function_entry": "1406e79c0"
+            }
+          ]
+        },
+        {
+          "needle": "SaveOIS",
+          "string": "SaveOIS(%d, '%s') failed.",
+          "address": "140ebb090",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e7bda",
+              "type": "DATA",
+              "function": "FUN_1406e79c0",
+              "function_entry": "1406e79c0"
+            }
+          ]
+        },
+        {
+          "needle": "SaveOIS",
+          "string": "CVitImgFileRecorderHelper::SaveOIS",
+          "address": "140ebb0e8",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e7dc6",
+              "type": "DATA",
+              "function": "FUN_1406e7d90",
+              "function_entry": "1406e7d90"
+            }
+          ]
+        },
+        {
+          "needle": "SaveOIS",
+          "string": "oVitImgFileRecorderHelper.SaveOIS() failed.",
+          "address": "140ecfa10",
+          "exact": false,
+          "refs": [
+            {
+              "from": "140738738",
+              "type": "DATA",
+              "function": "FUN_140737b20",
+              "function_entry": "140737b20"
+            }
+          ]
+        },
+        {
+          "needle": "SaveOIS",
+          "string": "CVitImgFileRecorder::SaveOIS",
+          "address": "140ee3970",
+          "exact": false,
+          "refs": [
+            {
+              "from": "140768dee",
+              "type": "DATA",
+              "function": "FUN_140768da0",
+              "function_entry": "140768da0"
+            }
+          ]
+        },
+        {
+          "needle": "SaveOIS",
+          "string": "CVitImgFileRecorder::SaveOISMemory",
+          "address": "140ee3cb8",
+          "exact": false,
+          "refs": [
+            {
+              "from": "140769357",
+              "type": "DATA",
+              "function": "FUN_140769320",
+              "function_entry": "140769320"
+            }
+          ]
+        },
+        {
+          "needle": "SaveOIS",
+          "string": "?SaveOISFile_FiducialOrSkipOdIdCode@CDataCaoTraitement@@QEAA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEBVCcPelBuffer@@PEAVCCAD_Base@@0PEAVCConsoleDisplay@@_N@Z",
+          "address": "14102fdcb",
+          "exact": false,
+          "refs": [
+            {
+              "from": "141029070",
+              "type": "DATA",
+              "function": null,
+              "function_entry": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "CVitImgFileRecorderHelper",
+      "hit_count": 5,
+      "hits": [
+        {
+          "needle": "CVitImgFileRecorderHelper",
+          "string": "CVitImgFileRecorderHelper::CreateThumbnail",
+          "address": "140ebafa0",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e78c4",
+              "type": "DATA",
+              "function": "FUN_1406e78a0",
+              "function_entry": "1406e78a0"
+            }
+          ]
+        },
+        {
+          "needle": "CVitImgFileRecorderHelper",
+          "string": "CVitImgFileRecorderHelper::Save",
+          "address": "140ebb020",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e7a00",
+              "type": "DATA",
+              "function": "FUN_1406e79c0",
+              "function_entry": "1406e79c0"
+            }
+          ]
+        },
+        {
+          "needle": "CVitImgFileRecorderHelper",
+          "string": "CVitImgFileRecorderHelper::SaveOIS",
+          "address": "140ebb0e8",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e7dc6",
+              "type": "DATA",
+              "function": "FUN_1406e7d90",
+              "function_entry": "1406e7d90"
+            }
+          ]
+        },
+        {
+          "needle": "CVitImgFileRecorderHelper",
+          "string": "CVitImgFileRecorderHelper::SaveOTR",
+          "address": "140ebb1d8",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e826a",
+              "type": "DATA",
+              "function": "FUN_1406e8220",
+              "function_entry": "1406e8220"
+            }
+          ]
+        },
+        {
+          "needle": "CVitImgFileRecorderHelper",
+          "string": "CVitImgFileRecorderHelper::SaveOTR_OISFileForMacro",
+          "address": "140ebb2b0",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406e87f8",
+              "type": "DATA",
+              "function": "FUN_1406e87c0",
+              "function_entry": "1406e87c0"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "CProductionDoc::ReadCurrentPanelStatusFromReview",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "CProductionDoc::ReadCurrentPanelStatusFromReview",
+          "string": "CProductionDoc::ReadCurrentPanelStatusFromReview",
+          "address": "140ea63f8",
+          "exact": true,
+          "refs": [
+            {
+              "from": "1406924a2",
+              "type": "DATA",
+              "function": "FUN_140692480",
+              "function_entry": "140692480"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "CMsgPanelProd::SendPanelToReviewStation",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "CMsgPanelProd::SendPanelToReviewStation",
+          "string": "CMsgPanelProd::SendPanelToReviewStation",
+          "address": "140ea1ce8",
+          "exact": true,
+          "refs": [
+            {
+              "from": "14067c72a",
+              "type": "DATA",
+              "function": "FUN_14067c710",
+              "function_entry": "14067c710"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "PV_COMMAND_BTN_OIS",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "PV_COMMAND_BTN_OIS",
+          "string": "PV_COMMAND_BTN_OIS.\n",
+          "address": "140ead3d0",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1406b12b2",
+              "type": "DATA",
+              "function": "FUN_1406b0c00",
+              "function_entry": "1406b0c00"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "needle": "JEDEC,Part Number,Reference Designator",
+      "hit_count": 1,
+      "hits": [
+        {
+          "needle": "JEDEC,Part Number,Reference Designator",
+          "string": "JEDEC,Part Number,Reference Designator,Sub-panel number,Test status,Presence/Absence test,Polarity,X,Y,Theta,Joints,Bridges,Text,Nb of tested items,Nb of tools executed,Height,Tilt\n",
+          "address": "140e6d8a0",
+          "exact": false,
+          "refs": [
+            {
+              "from": "1405b726a",
+              "type": "DATA",
+              "function": "FUN_1405b7220",
+              "function_entry": "1405b7220"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "symbol_traces": [],
+  "vit_report_grid_methods": [
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::~CVitExtReportGridWnd",
+      "entry": "14055ac50"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Init",
+      "entry": "14076dba4"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearRows",
+      "entry": "14076dbaa"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+      "entry": "14076dbb0"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+      "entry": "14076dbb6"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+      "entry": "14076dbbc"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+      "entry": "14076dbc2"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+      "entry": "14076dbc8"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+      "entry": "14076dbce"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellHorizontalAlignment",
+      "entry": "14076dbd4"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+      "entry": "14076dbda"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+      "entry": "14076dbe0"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbe6"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbec"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbf2"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbf8"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbfe"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dc04"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+      "entry": "14076dc0a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+      "entry": "14076dc10"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc16"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc1c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc22"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc28"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddRow",
+      "entry": "14076dc2e"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearAll",
+      "entry": "14076dc34"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+      "entry": "14076dc3a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+      "entry": "14076dc40"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteSelectedRows",
+      "entry": "14076dc46"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeselectAll",
+      "entry": "14076dc4c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToExcel",
+      "entry": "14076dc52"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+      "entry": "14076dc58"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+      "entry": "14076dc5e"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc64"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc6a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc70"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc76"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc7c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc82"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc88"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc8e"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dc94"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dc9a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dca0"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dca6"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColName",
+      "entry": "14076dcac"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+      "entry": "14076dcb2"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+      "entry": "14076dcb8"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "entry": "14076dcbe"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "entry": "14076dcc4"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetSelectedRowsList",
+      "entry": "14076dcca"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasHeaderColumn",
+      "entry": "14076dcd0"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasSelection",
+      "entry": "14076dcd6"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::IsInitialized",
+      "entry": "14076dcdc"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::LoadStringA",
+      "entry": "14076dce2"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDownInnerCell",
+      "entry": "14076dce8"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnUpInnerCell",
+      "entry": "14076dcee"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDoubleInnerCell",
+      "entry": "14076dcf4"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDownInnerCell",
+      "entry": "14076dcfa"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnUpInnerCell",
+      "entry": "14076dd00"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDoubleInnerCell",
+      "entry": "14076dd06"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDownInnerCell",
+      "entry": "14076dd0c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+      "entry": "14076dd12"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "14076dd18"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::PreTranslateMessage",
+      "entry": "14076dd1e"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Redraw",
+      "entry": "14076dd24"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::SelectAll",
+      "entry": "14076dd2a"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetMessageMap",
+      "entry": "14076dd90"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetPrintString",
+      "entry": "14076dd96"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetRuntimeClass",
+      "entry": "14076dd9c"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDoubleInnerCell",
+      "entry": "14076dda2"
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnShowContextMenu",
+      "entry": "14076dda8"
+    }
+  ],
+  "click_handlers": [
+    {
+      "symbol": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "EXTERNAL:000011b8",
+      "function": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "function_entry": "EXTERNAL:000011b8",
+      "refs_to": [
+        {
+          "from": "140d53c10",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "14076dd18",
+          "type": "COMPUTED_JUMP",
+          "function": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "function_entry": "14076dd18"
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "EXTERNAL:00000222",
+      "function": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "function_entry": "EXTERNAL:00000222",
+      "refs_to": [
+        {
+          "from": "140d568f8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140744aad",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_140744a80",
+          "function_entry": "140744a80"
+        },
+        {
+          "from": "14076c4ec",
+          "type": "COMPUTED_JUMP",
+          "function": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "function_entry": "14076c4ec"
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "EXTERNAL:000003ea",
+      "function": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "function_entry": "EXTERNAL:000003ea",
+      "refs_to": [
+        {
+          "from": "140d57738",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "14057b8b8",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14057b840",
+          "function_entry": "14057b840"
+        },
+        {
+          "from": "14056a9cb",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14056a950",
+          "function_entry": "14056a950"
+        },
+        {
+          "from": "14056a821",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14056a7a0",
+          "function_entry": "14056a7a0"
+        },
+        {
+          "from": "140718a26",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_140718980",
+          "function_entry": "140718980"
+        },
+        {
+          "from": "14074a0b3",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14074a080",
+          "function_entry": "14074a080"
+        },
+        {
+          "from": "14076c03c",
+          "type": "COMPUTED_JUMP",
+          "function": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "function_entry": "14076c03c"
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "EXTERNAL:000002ab",
+      "function": "PROFUISM.DLL::CExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "function_entry": "EXTERNAL:000002ab",
+      "refs_to": [
+        {
+          "from": "140d56d40",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "14061f773",
+          "type": "COMPUTED_CALL",
+          "function": "FUN_14061f740",
+          "function_entry": "14061f740"
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "14076c03c",
+      "function": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "function_entry": "14076c03c",
+      "refs_to": [
+        {
+          "from": "140ed7ea8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "14076c4ec",
+      "function": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "function_entry": "14076c4ec",
+      "refs_to": [
+        {
+          "from": "140e84f68",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ee1d08",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "14076dd18",
+      "function": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "function_entry": "14076dd18",
+      "refs_to": [
+        {
+          "from": "140dd90c0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e55f80",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e621d0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7eb38",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e911f0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    }
+  ],
+  "production_thread_symbols": [
+    {
+      "symbol": "CProductionThread",
+      "address": "NO ADDRESS",
+      "function": null,
+      "function_entry": null,
+      "refs_to": []
+    }
+  ],
+  "review_symbols": [
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::DoPrintPreview",
+      "address": "1407699fc",
+      "function": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::DoPrintPreview",
+      "function_entry": "1407699fc",
+      "refs_to": [
+        {
+          "from": "140dd9d98",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e56c58",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62ea8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f810",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91ec8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::IsPrintPreviewAvailable",
+      "address": "140769ac2",
+      "function": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::IsPrintPreviewAvailable",
+      "function_entry": "140769ac2",
+      "refs_to": [
+        {
+          "from": "140dd9d10",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e56bd0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62e20",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f788",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91e40",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW_Printable::IsPrintPreviewMode",
+      "address": "140769ac8",
+      "function": "PROFUISM.DLL::CExtPPVW_Printable::IsPrintPreviewMode",
+      "function_entry": "140769ac8",
+      "refs_to": [
+        {
+          "from": "140dd9d00",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e42cd8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e56bc0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62e10",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f778",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91e30",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW_Printable::OnBeginPrintPreview",
+      "address": "140769bee",
+      "function": "PROFUISM.DLL::CExtPPVW_Printable::OnBeginPrintPreview",
+      "function_entry": "140769bee",
+      "refs_to": [
+        {
+          "from": "140dd9d60",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e42d38",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e56c20",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62e70",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f7d8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91e90",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnEndPrintPreview",
+      "address": "140769c3c",
+      "function": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnEndPrintPreview",
+      "function_entry": "140769c3c",
+      "refs_to": [
+        {
+          "from": "140dd9d68",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e56c28",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62e78",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f7e0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91e98",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW_Printable::OnInitializePrintPreviewToolBar",
+      "address": "140769fa8",
+      "function": "PROFUISM.DLL::CExtPPVW_Printable::OnInitializePrintPreviewToolBar",
+      "function_entry": "140769fa8",
+      "refs_to": [
+        {
+          "from": "140dd9db0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e42d88",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e56c70",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62ec0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f828",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91ee0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderAutoPreview",
+      "address": "140769fd2",
+      "function": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderAutoPreview",
+      "function_entry": "140769fd2",
+      "refs_to": [
+        {
+          "from": "140dd99c8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e56888",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62ad8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f440",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91af8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridAutoPreviewAreaPaint",
+      "address": "140769ffc",
+      "function": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridAutoPreviewAreaPaint",
+      "function_entry": "140769ffc",
+      "refs_to": [
+        {
+          "from": "140dd9928",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e567e8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62a38",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f3a0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e87530",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91a58",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridAutoPreviewAreaQueryTextColor",
+      "address": "14076a002",
+      "function": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridAutoPreviewAreaQueryTextColor",
+      "function_entry": "14076a002",
+      "refs_to": [
+        {
+          "from": "140dd9930",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e567f0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e62a40",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7f3a8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e87538",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e91a60",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW_Printable::DoPrintPreview",
+      "address": "14076be98",
+      "function": "PROFUISM.DLL::CExtPPVW_Printable::DoPrintPreview",
+      "function_entry": "14076be98",
+      "refs_to": [
+        {
+          "from": "140e42d70",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW_Printable::IsPrintPreviewAvailable",
+      "address": "14076bef2",
+      "function": "PROFUISM.DLL::CExtPPVW_Printable::IsPrintPreviewAvailable",
+      "function_entry": "14076bef2",
+      "refs_to": [
+        {
+          "from": "140e42ce8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtPPVW_Printable::OnEndPrintPreview",
+      "address": "14076bf1c",
+      "function": "PROFUISM.DLL::CExtPPVW_Printable::OnEndPrintPreview",
+      "function_entry": "14076bf1c",
+      "refs_to": [
+        {
+          "from": "140e42d40",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtGridCell::HiddenInPrintPreviewGet",
+      "address": "14076c3f0",
+      "function": "PROFUISM.DLL::CExtGridCell::HiddenInPrintPreviewGet",
+      "function_entry": "14076c3f0",
+      "refs_to": [
+        {
+          "from": "140e85a80",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ec89e8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ec8fd0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ed2688",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140edcd68",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ee1320",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtGridCell::HiddenInPrintPreviewSet",
+      "address": "14076c3f6",
+      "function": "PROFUISM.DLL::CExtGridCell::HiddenInPrintPreviewSet",
+      "function_entry": "14076c3f6",
+      "refs_to": [
+        {
+          "from": "140e85a88",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ec89f0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ec8fd8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ed2690",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140edcd70",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ee1328",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "PROFUISM.DLL::CExtControlBar::IsDockSiteInPrintPreviewMode",
+      "address": "14076cc48",
+      "function": "PROFUISM.DLL::CExtControlBar::IsDockSiteInPrintPreviewMode",
+      "function_entry": "14076cc48",
+      "refs_to": [
+        {
+          "from": "140eb1e98",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ed4b18",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ee2a18",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CWnd::OnDrawIconicThumbnailOrLivePreview",
+      "address": "14077f57a",
+      "function": "MFC140.DLL::CWnd::OnDrawIconicThumbnailOrLivePreview",
+      "function_entry": "14077f57a",
+      "refs_to": [
+        {
+          "from": "140dd8a18",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ddd380",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ddd920",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140dddef8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140de1820",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140de5630",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140de59c0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140de67c8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140deaee0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e3d6a8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e3df50",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e3e9a8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e3ee88",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e3f710",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e415a0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e41d38",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e42ed8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e42058",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e43640",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e44868",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e458c0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e453b0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e46770",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e51d20",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e53438",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CView::OnEndPrintPreview",
+      "address": "14077fb50",
+      "function": "MFC140.DLL::CView::OnEndPrintPreview",
+      "function_entry": "14077fb50",
+      "refs_to": [
+        {
+          "from": "140e3d8e8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e3f950",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e9de68",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eac9c0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eb96d0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ebabe8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eba7f0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ed8ce8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ed9760",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ed9350",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eda078",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140edb7a8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140edbef0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140edc730",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CFrameWnd::OnSetPreviewMode",
+      "address": "14077fc9a",
+      "function": "MFC140.DLL::CFrameWnd::OnSetPreviewMode",
+      "function_entry": "14077fc9a",
+      "refs_to": [
+        {
+          "from": "140e45ac8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e455b8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e46978",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e8d1c0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e8df80",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ea1a58",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140edb1f8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CDocument::OnRichPreviewUnload",
+      "address": "14077fe3e",
+      "function": "MFC140.DLL::CDocument::OnRichPreviewUnload",
+      "function_entry": "14077fe3e",
+      "refs_to": [
+        {
+          "from": "140e4da00",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e761d8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7def8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ea39c8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eda4c0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CDocument::OnPreviewHandlerQueryFocus",
+      "address": "14077fec2",
+      "function": "MFC140.DLL::CDocument::OnPreviewHandlerQueryFocus",
+      "function_entry": "14077fec2",
+      "refs_to": [
+        {
+          "from": "140e4daa8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e76280",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7dfa0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ea3a70",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eda568",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CDocument::OnPreviewHandlerTranslateAccelerator",
+      "address": "14077fec8",
+      "function": "MFC140.DLL::CDocument::OnPreviewHandlerTranslateAccelerator",
+      "function_entry": "14077fec8",
+      "refs_to": [
+        {
+          "from": "140e4dab0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e76288",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7dfa8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ea3a78",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eda570",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CDocument::OnCreatePreviewFrame",
+      "address": "14077fece",
+      "function": "MFC140.DLL::CDocument::OnCreatePreviewFrame",
+      "function_entry": "14077fece",
+      "refs_to": [
+        {
+          "from": "140e4dab8",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e76290",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140e7dfb0",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140ea3a80",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        },
+        {
+          "from": "140eda578",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    },
+    {
+      "symbol": "MFC140.DLL::CHtmlView::OnDrawIconicThumbnailOrLivePreview",
+      "address": "1407808ee",
+      "function": "MFC140.DLL::CHtmlView::OnDrawIconicThumbnailOrLivePreview",
+      "function_entry": "1407808ee",
+      "refs_to": [
+        {
+          "from": "140edb568",
+          "type": "DATA",
+          "function": null,
+          "function_entry": null
+        }
+      ]
+    }
+  ],
+  "interesting_class_methods": {
+    "CProductionThread": [],
+    "CProductionDoc": [],
+    "CProdCarte": [],
+    "CMsgPanelProd": [],
+    "CZoneAnalysis": [],
+    "CDataCaoTraitement": [
+      {
+        "name": "CDataCaoTraitement::ClearInspectProgram",
+        "entry": "14045b690"
+      },
+      {
+        "name": "CDataCaoTraitement::FM_Get",
+        "entry": "14045b710"
+      },
+      {
+        "name": "CDataCaoTraitement::FM_Has3D_PathResult",
+        "entry": "14045b750"
+      },
+      {
+        "name": "CDataCaoTraitement::Get2D_PanelROI",
+        "entry": "14045bd50"
+      },
+      {
+        "name": "CDataCaoTraitement::Get3D_PanelROI",
+        "entry": "14045bd60"
+      },
+      {
+        "name": "CDataCaoTraitement::GetAllInspectedElmt",
+        "entry": "14045bee0"
+      },
+      {
+        "name": "CDataCaoTraitement::GetLibraryMemorySize_Go",
+        "entry": "14045c060"
+      },
+      {
+        "name": "CDataCaoTraitement::GetNonTestedComponentList",
+        "entry": "14045c080"
+      },
+      {
+        "name": "CDataCaoTraitement::GetNonTestedComponentNotInLibList",
+        "entry": "14045c0c0"
+      },
+      {
+        "name": "CDataCaoTraitement::GetSection1Rect",
+        "entry": "14045c490"
+      },
+      {
+        "name": "CDataCaoTraitement::GetSection2Rect",
+        "entry": "14045c4a0"
+      },
+      {
+        "name": "CDataCaoTraitement::GetVMC",
+        "entry": "14045c520"
+      },
+      {
+        "name": "CDataCaoTraitement::GetVMC_Capabilities",
+        "entry": "14045c530"
+      },
+      {
+        "name": "CDataCaoTraitement::GetZoneAnalyse",
+        "entry": "14045c540"
+      },
+      {
+        "name": "CDataCaoTraitement::GetZoneAnalyseCount",
+        "entry": "14045c5f0"
+      },
+      {
+        "name": "CDataCaoTraitement::GetZoneAnalyse_Macro",
+        "entry": "14045c620"
+      },
+      {
+        "name": "CDataCaoTraitement::GetpLibrary",
+        "entry": "14045c650"
+      },
+      {
+        "name": "CDataCaoTraitement::KeepNANs",
+        "entry": "14045c6b0"
+      },
+      {
+        "name": "CDataCaoTraitement::PIT_GetThread",
+        "entry": "14045c9a0"
+      },
+      {
+        "name": "CDataCaoTraitement::IsToAnalyse_ApplyFilter",
+        "entry": "140465980"
+      },
+      {
+        "name": "CDataCaoTraitement::CreateObject",
+        "entry": "140515710"
+      },
+      {
+        "name": "CDataCaoTraitement::CDataCaoTraitement",
+        "entry": "14051df90"
+      },
+      {
+        "name": "CDataCaoTraitement::~CDataCaoTraitement",
+        "entry": "14051fbf0"
+      },
+      {
+        "name": "CDataCaoTraitement::AcquireSkip",
+        "entry": "140521f10"
+      },
+      {
+        "name": "CDataCaoTraitement::AcquisitionPathFromDiskArchive_Load",
+        "entry": "1405222d0"
+      },
+      {
+        "name": "CDataCaoTraitement::AcquisitionPathFromDiskArchive_Save",
+        "entry": "1405229d0"
+      },
+      {
+        "name": "CDataCaoTraitement::AdaptData2ConveyorDirection",
+        "entry": "140522e10"
+      },
+      {
+        "name": "CDataCaoTraitement::Add3dInformationIntoZoneData",
+        "entry": "140522fe0"
+      },
+      {
+        "name": "CDataCaoTraitement::AddFiducialSimilarityToZoneData",
+        "entry": "140523a70"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLineCart",
+        "entry": "140523b40"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLineCart",
+        "entry": "140523d00"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLineComp",
+        "entry": "140523e20"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLineMire",
+        "entry": "140524170"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLinePad",
+        "entry": "140524390"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLinePadContainer",
+        "entry": "140524480"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLineSkip",
+        "entry": "140524530"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLineTest",
+        "entry": "140524880"
+      },
+      {
+        "name": "CDataCaoTraitement::AddLineZone",
+        "entry": "1405249f0"
+      },
+      {
+        "name": "CDataCaoTraitement::AddMapFiducialFinder",
+        "entry": "140524bb0"
+      },
+      {
+        "name": "CDataCaoTraitement::ApplySkipOnZone",
+        "entry": "140525280"
+      },
+      {
+        "name": "CDataCaoTraitement::CalculTstSectionRects",
+        "entry": "140525410"
+      },
+      {
+        "name": "CDataCaoTraitement::CheckAndSetTstMultiZone",
+        "entry": "1405258e0"
+      },
+      {
+        "name": "CDataCaoTraitement::CheckCoherencyBetweenCADandLibrary",
+        "entry": "140525970"
+      },
+      {
+        "name": "CDataCaoTraitement::CheckDataFor3dPathAlgo",
+        "entry": "140525ea0"
+      },
+      {
+        "name": "CDataCaoTraitement::CheckIfProgramIs3dReady",
+        "entry": "140526450"
+      },
+      {
+        "name": "CDataCaoTraitement::CheckSkip",
+        "entry": "140526700"
+      },
+      {
+        "name": "CDataCaoTraitement::CheckTstMultiZone",
+        "entry": "1405268e0"
+      },
+      {
+        "name": "CDataCaoTraitement::CheckTstWithMachineLimits",
+        "entry": "140526970"
+      },
+      {
+        "name": "CDataCaoTraitement::ClearTestVectorForSkip",
+        "entry": "140527570"
+      },
+      {
+        "name": "CDataCaoTraitement::ComputeGlobalWarp",
+        "entry": "140527660"
+      },
+      {
+        "name": "CDataCaoTraitement::ComputeZonePosition",
+        "entry": "1405278c0"
+      },
+      {
+        "name": "CDataCaoTraitement::DeleteVector",
+        "entry": "140527b50"
+      },
+      {
+        "name": "CDataCaoTraitement::ExecuteID_Code",
+        "entry": "140527c20"
+      },
+      {
+        "name": "CDataCaoTraitement::FM_IsActivated",
+        "entry": "140527e50"
+      },
+      {
+        "name": "CDataCaoTraitement::FM_SetMask",
+        "entry": "140527f10"
+      },
+      {
+        "name": "CDataCaoTraitement::FindTexte",
+        "entry": "140527ff0"
+      },
+      {
+        "name": "CDataCaoTraitement::FindTrace",
+        "entry": "140528a00"
+      },
+      {
+        "name": "CDataCaoTraitement::FindTrace_AddCharacter",
+        "entry": "140528da0"
+      },
+      {
+        "name": "CDataCaoTraitement::FindTrace_AnalisysString",
+        "entry": "140528ea0"
+      },
+      {
+        "name": "CDataCaoTraitement::FindTrace_CheckString",
+        "entry": "140529290"
+      }
+    ],
+    "CVitImgFileRecorderHelper": [],
+    "CVitExtReportGridWnd": [
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::~CVitExtReportGridWnd",
+        "entry": "14055ac50"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Init",
+        "entry": "14076dba4"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearRows",
+        "entry": "14076dbaa"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+        "entry": "14076dbb0"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+        "entry": "14076dbb6"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+        "entry": "14076dbbc"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+        "entry": "14076dbc2"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+        "entry": "14076dbc8"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+        "entry": "14076dbce"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellHorizontalAlignment",
+        "entry": "14076dbd4"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+        "entry": "14076dbda"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+        "entry": "14076dbe0"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+        "entry": "14076dbe6"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+        "entry": "14076dbec"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+        "entry": "14076dbf2"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+        "entry": "14076dbf8"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+        "entry": "14076dbfe"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+        "entry": "14076dc04"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+        "entry": "14076dc0a"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+        "entry": "14076dc10"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+        "entry": "14076dc16"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+        "entry": "14076dc1c"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+        "entry": "14076dc22"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+        "entry": "14076dc28"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddRow",
+        "entry": "14076dc2e"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearAll",
+        "entry": "14076dc34"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+        "entry": "14076dc3a"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+        "entry": "14076dc40"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteSelectedRows",
+        "entry": "14076dc46"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeselectAll",
+        "entry": "14076dc4c"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToExcel",
+        "entry": "14076dc52"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+        "entry": "14076dc58"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+        "entry": "14076dc5e"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc64"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc6a"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc70"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc76"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc7c"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc82"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc88"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+        "entry": "14076dc8e"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+        "entry": "14076dc94"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+        "entry": "14076dc9a"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+        "entry": "14076dca0"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+        "entry": "14076dca6"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColName",
+        "entry": "14076dcac"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+        "entry": "14076dcb2"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+        "entry": "14076dcb8"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+        "entry": "14076dcbe"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+        "entry": "14076dcc4"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetSelectedRowsList",
+        "entry": "14076dcca"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasHeaderColumn",
+        "entry": "14076dcd0"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasSelection",
+        "entry": "14076dcd6"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::IsInitialized",
+        "entry": "14076dcdc"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::LoadStringA",
+        "entry": "14076dce2"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDownInnerCell",
+        "entry": "14076dce8"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnUpInnerCell",
+        "entry": "14076dcee"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDoubleInnerCell",
+        "entry": "14076dcf4"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDownInnerCell",
+        "entry": "14076dcfa"
+      },
+      {
+        "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnUpInnerCell",
+        "entry": "14076dd00"
+      }
+    ],
+    "CAnomalie": [
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::operator=",
+        "entry": "14076de6e"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::operator==",
+        "entry": "14076de7a"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::operator!=",
+        "entry": "14076de80"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::IsFaulty",
+        "entry": "14076de98"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::IsOrWasReallyFaulty",
+        "entry": "14076de9e"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::NumTypeToString",
+        "entry": "14076dea4"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::SetObjectTested",
+        "entry": "14076debc"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::getDPMOCounters",
+        "entry": "14076ded4"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalie::getDPMOTerminationCount",
+        "entry": "14076deda"
+      }
+    ],
+    "CAnomalieProd": [
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::operator=",
+        "entry": "14076de74"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::Duplique",
+        "entry": "14076de86"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::GetRuntimeClass",
+        "entry": "14076de8c"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::GetTopoId",
+        "entry": "14076de92"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::RazAll",
+        "entry": "14076deaa"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::RazRes",
+        "entry": "14076deb0"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::Serialize",
+        "entry": "14076deb6"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::SetObjectTested",
+        "entry": "14076dec2"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::SetObjectTested",
+        "entry": "14076dec8"
+      },
+      {
+        "name": "STRUCTSUPPORT.DLL::CAnomalieProd::SetObjectTested",
+        "entry": "14076dece"
+      }
+    ],
+    "CDocCompose": [],
+    "CDlgReview": [],
+    "CReview": []
+  }
+}

@@ -1,0 +1,640 @@
+{
+  "address_references": [
+    {
+      "address": "140deb3e0",
+      "incoming": [
+        {
+          "caller": "1402adb40",
+          "from": "1402adb44",
+          "type": "DATA"
+        },
+        {
+          "caller": "140063800",
+          "from": "140063804",
+          "type": "DATA"
+        },
+        {
+          "caller": "14029b660",
+          "from": "14029b664",
+          "type": "DATA"
+        },
+        {
+          "caller": "140398420",
+          "from": "140398424",
+          "type": "DATA"
+        },
+        {
+          "caller": "1402934e0",
+          "from": "1402934e4",
+          "type": "DATA"
+        },
+        {
+          "caller": "140052940",
+          "from": "140052944",
+          "type": "DATA"
+        },
+        {
+          "caller": "14028a2e0",
+          "from": "14028a2e4",
+          "type": "DATA"
+        }
+      ]
+    }
+  ],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "--references-to",
+    "0x140deb3e0",
+    "--output",
+    "maps/rev2a_skip_ui_guid_initializers.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_1402adb40(void)\r\n\r\n{\r\n  _DAT_14119cd00 = RegisterWindowMessageA(\"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}\");\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1402adb40",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "141277c80",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140da67a8",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1402adb40",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "1402adb44",
+          "bytes": "488d0d95d8b300",
+          "references": [
+            {
+              "symbol": "s_{FEA8416F-2D59-478F-BEFF-5D96AFD_140deb3e0",
+              "to": "140deb3e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[0x140deb3e0]"
+        },
+        {
+          "address": "1402adb4b",
+          "bytes": "ff1527e3aa00",
+          "references": [
+            {
+              "symbol": "PTR_RegisterWindowMessageA_140d5be78",
+              "to": "140d5be78",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::RegisterWindowMessageA",
+              "to": "EXTERNAL:00001c6e",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5be78]"
+        },
+        {
+          "address": "1402adb51",
+          "bytes": "8905a9f1ee00",
+          "references": [
+            {
+              "symbol": "DAT_14119cd00",
+              "to": "14119cd00",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [0x14119cd00],EAX"
+        },
+        {
+          "address": "1402adb57",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "1402adb5b",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1402adb40",
+      "requested_address": "1402adb40"
+    },
+    {
+      "decompilation": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_140063800(void)\r\n\r\n{\r\n  _DAT_1410f7f18 = RegisterWindowMessageA(\"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}\");\r\n  return;\r\n}\r\n\r\n",
+      "entry": "140063800",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "14121a8c0",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140d68418",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140063800",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "140063804",
+          "bytes": "488d0dd57bd800",
+          "references": [
+            {
+              "symbol": "s_{FEA8416F-2D59-478F-BEFF-5D96AFD_140deb3e0",
+              "to": "140deb3e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[0x140deb3e0]"
+        },
+        {
+          "address": "14006380b",
+          "bytes": "ff156786cf00",
+          "references": [
+            {
+              "symbol": "PTR_RegisterWindowMessageA_140d5be78",
+              "to": "140d5be78",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::RegisterWindowMessageA",
+              "to": "EXTERNAL:00001c6e",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5be78]"
+        },
+        {
+          "address": "140063811",
+          "bytes": "890501470901",
+          "references": [
+            {
+              "symbol": "DAT_1410f7f18",
+              "to": "1410f7f18",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [0x1410f7f18],EAX"
+        },
+        {
+          "address": "140063817",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "14006381b",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_140063800",
+      "requested_address": "140063800"
+    },
+    {
+      "decompilation": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_14029b660(void)\r\n\r\n{\r\n  _DAT_1411982c8 = RegisterWindowMessageA(\"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}\");\r\n  return;\r\n}\r\n\r\n",
+      "entry": "14029b660",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "141274bfc",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140da4a08",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "14029b660",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "14029b664",
+          "bytes": "488d0d75fdb400",
+          "references": [
+            {
+              "symbol": "s_{FEA8416F-2D59-478F-BEFF-5D96AFD_140deb3e0",
+              "to": "140deb3e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[0x140deb3e0]"
+        },
+        {
+          "address": "14029b66b",
+          "bytes": "ff150708ac00",
+          "references": [
+            {
+              "symbol": "PTR_RegisterWindowMessageA_140d5be78",
+              "to": "140d5be78",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::RegisterWindowMessageA",
+              "to": "EXTERNAL:00001c6e",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5be78]"
+        },
+        {
+          "address": "14029b671",
+          "bytes": "890551ccef00",
+          "references": [
+            {
+              "symbol": "DAT_1411982c8",
+              "to": "1411982c8",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [0x1411982c8],EAX"
+        },
+        {
+          "address": "14029b677",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "14029b67b",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_14029b660",
+      "requested_address": "14029b660"
+    },
+    {
+      "decompilation": "\r\nvoid FUN_140398420(void)\r\n\r\n{\r\n  DAT_1411dcb30 = RegisterWindowMessageA(\"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}\");\r\n  return;\r\n}\r\n\r\n",
+      "entry": "140398420",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "14129d4bc",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140dbf7d0",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140398420",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "140398424",
+          "bytes": "488d0db52fa500",
+          "references": [
+            {
+              "symbol": "s_{FEA8416F-2D59-478F-BEFF-5D96AFD_140deb3e0",
+              "to": "140deb3e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[0x140deb3e0]"
+        },
+        {
+          "address": "14039842b",
+          "bytes": "ff15473a9c00",
+          "references": [
+            {
+              "symbol": "PTR_RegisterWindowMessageA_140d5be78",
+              "to": "140d5be78",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::RegisterWindowMessageA",
+              "to": "EXTERNAL:00001c6e",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5be78]"
+        },
+        {
+          "address": "140398431",
+          "bytes": "8905f946e400",
+          "references": [
+            {
+              "symbol": "DAT_1411dcb30",
+              "to": "1411dcb30",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [0x1411dcb30],EAX"
+        },
+        {
+          "address": "140398437",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "14039843b",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_140398420",
+      "requested_address": "140398420"
+    },
+    {
+      "decompilation": "\r\nvoid FUN_1402934e0(void)\r\n\r\n{\r\n  DAT_141195c40 = RegisterWindowMessageA(\"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}\");\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1402934e0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "141273738",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140da3990",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1402934e0",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "1402934e4",
+          "bytes": "488d0df57eb500",
+          "references": [
+            {
+              "symbol": "s_{FEA8416F-2D59-478F-BEFF-5D96AFD_140deb3e0",
+              "to": "140deb3e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[0x140deb3e0]"
+        },
+        {
+          "address": "1402934eb",
+          "bytes": "ff158789ac00",
+          "references": [
+            {
+              "symbol": "PTR_RegisterWindowMessageA_140d5be78",
+              "to": "140d5be78",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::RegisterWindowMessageA",
+              "to": "EXTERNAL:00001c6e",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5be78]"
+        },
+        {
+          "address": "1402934f1",
+          "bytes": "89054927f000",
+          "references": [
+            {
+              "symbol": "DAT_141195c40",
+              "to": "141195c40",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [0x141195c40],EAX"
+        },
+        {
+          "address": "1402934f7",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "1402934fb",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1402934e0",
+      "requested_address": "1402934e0"
+    },
+    {
+      "decompilation": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_140052940(void)\r\n\r\n{\r\n  _DAT_1410f3bc0 = RegisterWindowMessageA(\"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}\");\r\n  return;\r\n}\r\n\r\n",
+      "entry": "140052940",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "141217b0c",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140d66910",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "140052940",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "140052944",
+          "bytes": "488d0d958ad900",
+          "references": [
+            {
+              "symbol": "s_{FEA8416F-2D59-478F-BEFF-5D96AFD_140deb3e0",
+              "to": "140deb3e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[0x140deb3e0]"
+        },
+        {
+          "address": "14005294b",
+          "bytes": "ff152795d000",
+          "references": [
+            {
+              "symbol": "PTR_RegisterWindowMessageA_140d5be78",
+              "to": "140d5be78",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::RegisterWindowMessageA",
+              "to": "EXTERNAL:00001c6e",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5be78]"
+        },
+        {
+          "address": "140052951",
+          "bytes": "890569120a01",
+          "references": [
+            {
+              "symbol": "DAT_1410f3bc0",
+              "to": "1410f3bc0",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [0x1410f3bc0],EAX"
+        },
+        {
+          "address": "140052957",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "14005295b",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_140052940",
+      "requested_address": "140052940"
+    },
+    {
+      "decompilation": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_14028a2e0(void)\r\n\r\n{\r\n  _DAT_141193854 = RegisterWindowMessageA(\"{FEA8416F-2D59-478F-BEFF-5D96AFD6A551}\");\r\n  return;\r\n}\r\n\r\n",
+      "entry": "14028a2e0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "141271e90",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140da2b20",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "14028a2e0",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "14028a2e4",
+          "bytes": "488d0df510b600",
+          "references": [
+            {
+              "symbol": "s_{FEA8416F-2D59-478F-BEFF-5D96AFD_140deb3e0",
+              "to": "140deb3e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[0x140deb3e0]"
+        },
+        {
+          "address": "14028a2eb",
+          "bytes": "ff15871bad00",
+          "references": [
+            {
+              "symbol": "PTR_RegisterWindowMessageA_140d5be78",
+              "to": "140d5be78",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::RegisterWindowMessageA",
+              "to": "EXTERNAL:00001c6e",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5be78]"
+        },
+        {
+          "address": "14028a2f1",
+          "bytes": "89055d95f000",
+          "references": [
+            {
+              "symbol": "DAT_141193854",
+              "to": "141193854",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [0x141193854],EAX"
+        },
+        {
+          "address": "14028a2f7",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "14028a2fb",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_14028a2e0",
+      "requested_address": "14028a2e0"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

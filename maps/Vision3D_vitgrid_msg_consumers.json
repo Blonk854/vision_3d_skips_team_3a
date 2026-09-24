@@ -1,0 +1,1148 @@
+[
+  {
+    "label": "LBTNDBL",
+    "init": "1401bcd00",
+    "init_decomp": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_1401bcd00(void)\r\n\r\n{\r\n  _DAT_141158ab4 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_LBTNDBL_INNER\");\r\n  return;\r\n}\r\n\r\n",
+    "dat_candidates": [
+      "140d5be78",
+      "141158ab4",
+      "140dd3e88"
+    ],
+    "consumers": [
+      {
+        "dat": "140d5be78",
+        "from": "14001ab1b",
+        "type": "READ",
+        "function": "FUN_14001ab10",
+        "entry": "14001ab10",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001ab3b",
+        "type": "READ",
+        "function": "FUN_14001ab30",
+        "entry": "14001ab30",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b2db",
+        "type": "READ",
+        "function": "FUN_14001b2d0",
+        "entry": "14001b2d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b2fb",
+        "type": "READ",
+        "function": "FUN_14001b2f0",
+        "entry": "14001b2f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b31b",
+        "type": "READ",
+        "function": "FUN_14001b310",
+        "entry": "14001b310",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b33b",
+        "type": "READ",
+        "function": "FUN_14001b330",
+        "entry": "14001b330",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b35b",
+        "type": "READ",
+        "function": "FUN_14001b350",
+        "entry": "14001b350",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b37b",
+        "type": "READ",
+        "function": "FUN_14001b370",
+        "entry": "14001b370",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b39b",
+        "type": "READ",
+        "function": "FUN_14001b390",
+        "entry": "14001b390",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b3bb",
+        "type": "READ",
+        "function": "FUN_14001b3b0",
+        "entry": "14001b3b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b3db",
+        "type": "READ",
+        "function": "FUN_14001b3d0",
+        "entry": "14001b3d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205bb",
+        "type": "READ",
+        "function": "FUN_1400205b0",
+        "entry": "1400205b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205db",
+        "type": "READ",
+        "function": "FUN_1400205d0",
+        "entry": "1400205d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205fb",
+        "type": "READ",
+        "function": "FUN_1400205f0",
+        "entry": "1400205f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002061b",
+        "type": "READ",
+        "function": "FUN_140020610",
+        "entry": "140020610",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002063b",
+        "type": "READ",
+        "function": "FUN_140020630",
+        "entry": "140020630",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002065b",
+        "type": "READ",
+        "function": "FUN_140020650",
+        "entry": "140020650",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002067b",
+        "type": "READ",
+        "function": "FUN_140020670",
+        "entry": "140020670",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002069b",
+        "type": "READ",
+        "function": "FUN_140020690",
+        "entry": "140020690",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206bb",
+        "type": "READ",
+        "function": "FUN_1400206b0",
+        "entry": "1400206b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206db",
+        "type": "READ",
+        "function": "FUN_1400206d0",
+        "entry": "1400206d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206fb",
+        "type": "READ",
+        "function": "FUN_1400206f0",
+        "entry": "1400206f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002b56b",
+        "type": "READ",
+        "function": "FUN_14002b560",
+        "entry": "14002b560",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331bb",
+        "type": "READ",
+        "function": "FUN_1400331b0",
+        "entry": "1400331b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331db",
+        "type": "READ",
+        "function": "FUN_1400331d0",
+        "entry": "1400331d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331fb",
+        "type": "READ",
+        "function": "FUN_1400331f0",
+        "entry": "1400331f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003321b",
+        "type": "READ",
+        "function": "FUN_140033210",
+        "entry": "140033210",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003323b",
+        "type": "READ",
+        "function": "FUN_140033230",
+        "entry": "140033230",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003325b",
+        "type": "READ",
+        "function": "FUN_140033250",
+        "entry": "140033250",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003327b",
+        "type": "READ",
+        "function": "FUN_140033270",
+        "entry": "140033270",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003329b",
+        "type": "READ",
+        "function": "FUN_140033290",
+        "entry": "140033290",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332bb",
+        "type": "READ",
+        "function": "FUN_1400332b0",
+        "entry": "1400332b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332db",
+        "type": "READ",
+        "function": "FUN_1400332d0",
+        "entry": "1400332d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332fb",
+        "type": "READ",
+        "function": "FUN_1400332f0",
+        "entry": "1400332f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003331b",
+        "type": "READ",
+        "function": "FUN_140033310",
+        "entry": "140033310",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003333b",
+        "type": "READ",
+        "function": "FUN_140033330",
+        "entry": "140033330",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003335b",
+        "type": "READ",
+        "function": "FUN_140033350",
+        "entry": "140033350",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003337b",
+        "type": "READ",
+        "function": "FUN_140033370",
+        "entry": "140033370",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003339b",
+        "type": "READ",
+        "function": "FUN_140033390",
+        "entry": "140033390",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003c33b",
+        "type": "READ",
+        "function": "FUN_14003c330",
+        "entry": "14003c330",
+        "body": 28
+      }
+    ],
+    "dumped": [
+      {
+        "entry": "14001ab10",
+        "function": "FUN_14001ab10",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001ab10.c",
+        "c_bytes": 223
+      },
+      {
+        "entry": "14001ab30",
+        "function": "FUN_14001ab30",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001ab30.c",
+        "c_bytes": 223
+      },
+      {
+        "entry": "14001b2d0",
+        "function": "FUN_14001b2d0",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001b2d0.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b2f0",
+        "function": "FUN_14001b2f0",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001b2f0.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b310",
+        "function": "FUN_14001b310",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001b310.c",
+        "c_bytes": 220
+      },
+      {
+        "entry": "14001b330",
+        "function": "FUN_14001b330",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001b330.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b350",
+        "function": "FUN_14001b350",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001b350.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b370",
+        "function": "FUN_14001b370",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDBL_14001b370.c",
+        "c_bytes": 220
+      }
+    ]
+  },
+  {
+    "label": "LBTNDWN",
+    "init": "1401bcd20",
+    "init_decomp": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_1401bcd20(void)\r\n\r\n{\r\n  _DAT_141158ab0 = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_LBTNDWN_INNER\");\r\n  return;\r\n}\r\n\r\n",
+    "dat_candidates": [
+      "141158ab0",
+      "140d5be78",
+      "140dd3e30"
+    ],
+    "consumers": [
+      {
+        "dat": "140d5be78",
+        "from": "14001ab1b",
+        "type": "READ",
+        "function": "FUN_14001ab10",
+        "entry": "14001ab10",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001ab3b",
+        "type": "READ",
+        "function": "FUN_14001ab30",
+        "entry": "14001ab30",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b2db",
+        "type": "READ",
+        "function": "FUN_14001b2d0",
+        "entry": "14001b2d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b2fb",
+        "type": "READ",
+        "function": "FUN_14001b2f0",
+        "entry": "14001b2f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b31b",
+        "type": "READ",
+        "function": "FUN_14001b310",
+        "entry": "14001b310",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b33b",
+        "type": "READ",
+        "function": "FUN_14001b330",
+        "entry": "14001b330",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b35b",
+        "type": "READ",
+        "function": "FUN_14001b350",
+        "entry": "14001b350",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b37b",
+        "type": "READ",
+        "function": "FUN_14001b370",
+        "entry": "14001b370",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b39b",
+        "type": "READ",
+        "function": "FUN_14001b390",
+        "entry": "14001b390",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b3bb",
+        "type": "READ",
+        "function": "FUN_14001b3b0",
+        "entry": "14001b3b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b3db",
+        "type": "READ",
+        "function": "FUN_14001b3d0",
+        "entry": "14001b3d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205bb",
+        "type": "READ",
+        "function": "FUN_1400205b0",
+        "entry": "1400205b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205db",
+        "type": "READ",
+        "function": "FUN_1400205d0",
+        "entry": "1400205d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205fb",
+        "type": "READ",
+        "function": "FUN_1400205f0",
+        "entry": "1400205f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002061b",
+        "type": "READ",
+        "function": "FUN_140020610",
+        "entry": "140020610",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002063b",
+        "type": "READ",
+        "function": "FUN_140020630",
+        "entry": "140020630",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002065b",
+        "type": "READ",
+        "function": "FUN_140020650",
+        "entry": "140020650",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002067b",
+        "type": "READ",
+        "function": "FUN_140020670",
+        "entry": "140020670",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002069b",
+        "type": "READ",
+        "function": "FUN_140020690",
+        "entry": "140020690",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206bb",
+        "type": "READ",
+        "function": "FUN_1400206b0",
+        "entry": "1400206b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206db",
+        "type": "READ",
+        "function": "FUN_1400206d0",
+        "entry": "1400206d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206fb",
+        "type": "READ",
+        "function": "FUN_1400206f0",
+        "entry": "1400206f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002b56b",
+        "type": "READ",
+        "function": "FUN_14002b560",
+        "entry": "14002b560",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331bb",
+        "type": "READ",
+        "function": "FUN_1400331b0",
+        "entry": "1400331b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331db",
+        "type": "READ",
+        "function": "FUN_1400331d0",
+        "entry": "1400331d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331fb",
+        "type": "READ",
+        "function": "FUN_1400331f0",
+        "entry": "1400331f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003321b",
+        "type": "READ",
+        "function": "FUN_140033210",
+        "entry": "140033210",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003323b",
+        "type": "READ",
+        "function": "FUN_140033230",
+        "entry": "140033230",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003325b",
+        "type": "READ",
+        "function": "FUN_140033250",
+        "entry": "140033250",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003327b",
+        "type": "READ",
+        "function": "FUN_140033270",
+        "entry": "140033270",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003329b",
+        "type": "READ",
+        "function": "FUN_140033290",
+        "entry": "140033290",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332bb",
+        "type": "READ",
+        "function": "FUN_1400332b0",
+        "entry": "1400332b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332db",
+        "type": "READ",
+        "function": "FUN_1400332d0",
+        "entry": "1400332d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332fb",
+        "type": "READ",
+        "function": "FUN_1400332f0",
+        "entry": "1400332f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003331b",
+        "type": "READ",
+        "function": "FUN_140033310",
+        "entry": "140033310",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003333b",
+        "type": "READ",
+        "function": "FUN_140033330",
+        "entry": "140033330",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003335b",
+        "type": "READ",
+        "function": "FUN_140033350",
+        "entry": "140033350",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003337b",
+        "type": "READ",
+        "function": "FUN_140033370",
+        "entry": "140033370",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003339b",
+        "type": "READ",
+        "function": "FUN_140033390",
+        "entry": "140033390",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003c33b",
+        "type": "READ",
+        "function": "FUN_14003c330",
+        "entry": "14003c330",
+        "body": 28
+      }
+    ],
+    "dumped": [
+      {
+        "entry": "14001ab10",
+        "function": "FUN_14001ab10",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001ab10.c",
+        "c_bytes": 223
+      },
+      {
+        "entry": "14001ab30",
+        "function": "FUN_14001ab30",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001ab30.c",
+        "c_bytes": 223
+      },
+      {
+        "entry": "14001b2d0",
+        "function": "FUN_14001b2d0",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001b2d0.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b2f0",
+        "function": "FUN_14001b2f0",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001b2f0.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b310",
+        "function": "FUN_14001b310",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001b310.c",
+        "c_bytes": 220
+      },
+      {
+        "entry": "14001b330",
+        "function": "FUN_14001b330",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001b330.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b350",
+        "function": "FUN_14001b350",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001b350.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b370",
+        "function": "FUN_14001b370",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNDWN_14001b370.c",
+        "c_bytes": 220
+      }
+    ]
+  },
+  {
+    "label": "LBTNUP",
+    "init": "1401bcd40",
+    "init_decomp": "\r\n/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */\r\n\r\nvoid FUN_1401bcd40(void)\r\n\r\n{\r\n  _DAT_141158aac = RegisterWindowMessageA(\"ID_VITREPORTGRID_CLICK_LBTNUP_INNER\");\r\n  return;\r\n}\r\n\r\n",
+    "dat_candidates": [
+      "140d5be78",
+      "140dd3e08",
+      "141158aac"
+    ],
+    "consumers": [
+      {
+        "dat": "140d5be78",
+        "from": "14001ab1b",
+        "type": "READ",
+        "function": "FUN_14001ab10",
+        "entry": "14001ab10",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001ab3b",
+        "type": "READ",
+        "function": "FUN_14001ab30",
+        "entry": "14001ab30",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b2db",
+        "type": "READ",
+        "function": "FUN_14001b2d0",
+        "entry": "14001b2d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b2fb",
+        "type": "READ",
+        "function": "FUN_14001b2f0",
+        "entry": "14001b2f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b31b",
+        "type": "READ",
+        "function": "FUN_14001b310",
+        "entry": "14001b310",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b33b",
+        "type": "READ",
+        "function": "FUN_14001b330",
+        "entry": "14001b330",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b35b",
+        "type": "READ",
+        "function": "FUN_14001b350",
+        "entry": "14001b350",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b37b",
+        "type": "READ",
+        "function": "FUN_14001b370",
+        "entry": "14001b370",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b39b",
+        "type": "READ",
+        "function": "FUN_14001b390",
+        "entry": "14001b390",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b3bb",
+        "type": "READ",
+        "function": "FUN_14001b3b0",
+        "entry": "14001b3b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14001b3db",
+        "type": "READ",
+        "function": "FUN_14001b3d0",
+        "entry": "14001b3d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205bb",
+        "type": "READ",
+        "function": "FUN_1400205b0",
+        "entry": "1400205b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205db",
+        "type": "READ",
+        "function": "FUN_1400205d0",
+        "entry": "1400205d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400205fb",
+        "type": "READ",
+        "function": "FUN_1400205f0",
+        "entry": "1400205f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002061b",
+        "type": "READ",
+        "function": "FUN_140020610",
+        "entry": "140020610",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002063b",
+        "type": "READ",
+        "function": "FUN_140020630",
+        "entry": "140020630",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002065b",
+        "type": "READ",
+        "function": "FUN_140020650",
+        "entry": "140020650",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002067b",
+        "type": "READ",
+        "function": "FUN_140020670",
+        "entry": "140020670",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002069b",
+        "type": "READ",
+        "function": "FUN_140020690",
+        "entry": "140020690",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206bb",
+        "type": "READ",
+        "function": "FUN_1400206b0",
+        "entry": "1400206b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206db",
+        "type": "READ",
+        "function": "FUN_1400206d0",
+        "entry": "1400206d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400206fb",
+        "type": "READ",
+        "function": "FUN_1400206f0",
+        "entry": "1400206f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14002b56b",
+        "type": "READ",
+        "function": "FUN_14002b560",
+        "entry": "14002b560",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331bb",
+        "type": "READ",
+        "function": "FUN_1400331b0",
+        "entry": "1400331b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331db",
+        "type": "READ",
+        "function": "FUN_1400331d0",
+        "entry": "1400331d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400331fb",
+        "type": "READ",
+        "function": "FUN_1400331f0",
+        "entry": "1400331f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003321b",
+        "type": "READ",
+        "function": "FUN_140033210",
+        "entry": "140033210",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003323b",
+        "type": "READ",
+        "function": "FUN_140033230",
+        "entry": "140033230",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003325b",
+        "type": "READ",
+        "function": "FUN_140033250",
+        "entry": "140033250",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003327b",
+        "type": "READ",
+        "function": "FUN_140033270",
+        "entry": "140033270",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003329b",
+        "type": "READ",
+        "function": "FUN_140033290",
+        "entry": "140033290",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332bb",
+        "type": "READ",
+        "function": "FUN_1400332b0",
+        "entry": "1400332b0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332db",
+        "type": "READ",
+        "function": "FUN_1400332d0",
+        "entry": "1400332d0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "1400332fb",
+        "type": "READ",
+        "function": "FUN_1400332f0",
+        "entry": "1400332f0",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003331b",
+        "type": "READ",
+        "function": "FUN_140033310",
+        "entry": "140033310",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003333b",
+        "type": "READ",
+        "function": "FUN_140033330",
+        "entry": "140033330",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003335b",
+        "type": "READ",
+        "function": "FUN_140033350",
+        "entry": "140033350",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003337b",
+        "type": "READ",
+        "function": "FUN_140033370",
+        "entry": "140033370",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003339b",
+        "type": "READ",
+        "function": "FUN_140033390",
+        "entry": "140033390",
+        "body": 28
+      },
+      {
+        "dat": "140d5be78",
+        "from": "14003c33b",
+        "type": "READ",
+        "function": "FUN_14003c330",
+        "entry": "14003c330",
+        "body": 28
+      }
+    ],
+    "dumped": [
+      {
+        "entry": "14001ab10",
+        "function": "FUN_14001ab10",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001ab10.c",
+        "c_bytes": 223
+      },
+      {
+        "entry": "14001ab30",
+        "function": "FUN_14001ab30",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001ab30.c",
+        "c_bytes": 223
+      },
+      {
+        "entry": "14001b2d0",
+        "function": "FUN_14001b2d0",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001b2d0.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b2f0",
+        "function": "FUN_14001b2f0",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001b2f0.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b310",
+        "function": "FUN_14001b310",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001b310.c",
+        "c_bytes": 220
+      },
+      {
+        "entry": "14001b330",
+        "function": "FUN_14001b330",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001b330.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b350",
+        "function": "FUN_14001b350",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001b350.c",
+        "c_bytes": 221
+      },
+      {
+        "entry": "14001b370",
+        "function": "FUN_14001b370",
+        "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_msgconsumer_LBTNUP_14001b370.c",
+        "c_bytes": 220
+      }
+    ]
+  }
+]

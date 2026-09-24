@@ -1,0 +1,2752 @@
+{
+  "program": "Vision3D.exe",
+  "symbol_hits": [
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::~CVitExtReportGridWnd",
+      "entry": "14055ac50",
+      "body": 7
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::BestFitRow",
+      "entry": "140769990",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnCountGet",
+      "entry": "1407699b4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnHide",
+      "entry": "1407699c0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnUnHideAll",
+      "entry": "1407699d2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::DoPrintPreview",
+      "entry": "1407699fc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::EnsureVisibleColumn",
+      "entry": "140769a08",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::EnsureVisibleRow",
+      "entry": "140769a20",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::FilterStateClearAll",
+      "entry": "140769a38",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::FilterStateForOuterRowSerialize",
+      "entry": "140769a44",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::GetScrollBarCtrl",
+      "entry": "140769a86",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::GridSortOrderSetup",
+      "entry": "140769ab6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::IsPrintPreviewAvailable",
+      "entry": "140769ac2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnAdjustTreeRowFilteredState",
+      "entry": "140769bdc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemArray",
+      "entry": "140769c06",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemArrayImpl",
+      "entry": "140769c0c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCalcPrintableTreeItemIndent",
+      "entry": "140769c12",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnCmdMsg",
+      "entry": "140769c18",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnEndPrintPreview",
+      "entry": "140769c3c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAccelCommand",
+      "entry": "140769c48",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwAdjustRects",
+      "entry": "140769c4e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellKeyEvent",
+      "entry": "140769c54",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellSysKeyEvent",
+      "entry": "140769c5a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwBeginEdit",
+      "entry": "140769c60",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwCalcVisibleItemRect",
+      "entry": "140769c66",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwCanResizeColumn",
+      "entry": "140769c6c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwCanResizeRow",
+      "entry": "140769c72",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwCellJoinAdjustCoordinates",
+      "entry": "140769c78",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwCellJoinQueryInfo",
+      "entry": "140769c7e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwContentTip",
+      "entry": "140769c84",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwContentTipCancel",
+      "entry": "140769c8a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwContentTipWndGet",
+      "entry": "140769c90",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwDataDndCanStart",
+      "entry": "140769c96",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwDataDndDo",
+      "entry": "140769c9c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwDataDndGetStartOffset",
+      "entry": "140769ca2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwDataDndIsAllowed",
+      "entry": "140769ca8",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwEraseArea",
+      "entry": "140769cae",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwExpand",
+      "entry": "140769cb4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwFocusChanged",
+      "entry": "140769cba",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwFocusChanging",
+      "entry": "140769cc0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwHoverCell",
+      "entry": "140769cc6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwHoverRecalc",
+      "entry": "140769ccc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwHoverRemove",
+      "entry": "140769cd2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwPaintCell",
+      "entry": "140769cd8",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwPaintExpandedItemContent",
+      "entry": "140769cde",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwPaintExtraSpaceH",
+      "entry": "140769ce4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwPaintExtraSpaceV",
+      "entry": "140769cea",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwProcessVkBeginEdit",
+      "entry": "140769cf0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwQueryBackColor",
+      "entry": "140769cf6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryCellBorderHtSpaces",
+      "entry": "140769cfc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwQueryCellGridLines",
+      "entry": "140769d02",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwQueryEmptyAreaLinesMetrics",
+      "entry": "140769d08",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryGridLinesColor",
+      "entry": "140769d0e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryPixelColumnOffset",
+      "entry": "140769d14",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryPixelRowOffset",
+      "entry": "140769d1a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQuerySupportedAccelCommands",
+      "entry": "140769d20",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryTrackingCellMenu",
+      "entry": "140769d26",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryVisibleColumnRange",
+      "entry": "140769d2c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryVisibleRowRange",
+      "entry": "140769d32",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwResizingAdjustComputedTrackExtent",
+      "entry": "140769d38",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwResizingAdjustHtInfo",
+      "entry": "140769d3e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwResizingStateApply",
+      "entry": "140769d44",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGbwResizingStateUpdate",
+      "entry": "140769d4a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwSelectionCanModify",
+      "entry": "140769d50",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwSelectionChanged",
+      "entry": "140769d56",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwSetCursor",
+      "entry": "140769d5c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwTooltip",
+      "entry": "140769d62",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwWalkVisibleAreas",
+      "entry": "140769d68",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnGetPrintableWnd",
+      "entry": "140769d74",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridCalcOuterDropTarget",
+      "entry": "140769d80",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridCellGetToolTipText",
+      "entry": "140769d92",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridCellInputComplete",
+      "entry": "140769dfe",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridCellQueryTextColor",
+      "entry": "140769e5e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridFilterQueryFilteredState",
+      "entry": "140769ee8",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridFilterSortCommand",
+      "entry": "140769eee",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridHookCellPaintBackground",
+      "entry": "140769f00",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridHookCellPaintForeground",
+      "entry": "140769f06",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridHookOuterCellDND",
+      "entry": "140769f2a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridOuterDragOut",
+      "entry": "140769f36",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridQueryCenteredDndAlignment",
+      "entry": "140769f60",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridQueryDataProvider",
+      "entry": "140769f72",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnGridTrackOuterCellDND",
+      "entry": "140769fa2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPrepareDC",
+      "entry": "140769fb4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPreparePrinting",
+      "entry": "140769fba",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderAutoPreview",
+      "entry": "140769fd2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderGroupRow",
+      "entry": "140769fd8",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderSingleCellAtCenter",
+      "entry": "140769fde",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnPreparePrinting_RenderSingleCellAtTopOrBottom",
+      "entry": "140769fe4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnRecalcBars",
+      "entry": "140769ff6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridAutoPreviewAreaPaint",
+      "entry": "140769ffc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridAutoPreviewAreaQueryTextColor",
+      "entry": "14076a002",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnCategoryAdded",
+      "entry": "14076a008",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnCategoryRemoved",
+      "entry": "14076a00e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnChooserAdjustLocation",
+      "entry": "14076a014",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnChooserNoFieldsAvailableLabel",
+      "entry": "14076a01a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnChooserQueryCaption",
+      "entry": "14076a020",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnCtxMenuConstruct",
+      "entry": "14076a026",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnCtxMenuGetCtxColumn",
+      "entry": "14076a02c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridColumnCtxMenuTrack",
+      "entry": "14076a032",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridCommandProfileInit",
+      "entry": "14076a038",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridCommandProfileQueryName",
+      "entry": "14076a03e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridCommandProfileShutdown",
+      "entry": "14076a044",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridCreateCategoryComboBox",
+      "entry": "14076a04a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridCreateColumnChooser",
+      "entry": "14076a050",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridCreateGroupArea",
+      "entry": "14076a056",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridEmptyDataMessage",
+      "entry": "14076a05c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridFormatGroupRowText",
+      "entry": "14076a062",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridFormatSortByToolTipText",
+      "entry": "14076a068",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridGroupAreaQueryEmptyText",
+      "entry": "14076a06e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridItemInitializeOuterCells",
+      "entry": "14076a074",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridPaintGroupRow",
+      "entry": "14076a07a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridPaintHeaderRowBackground",
+      "entry": "14076a080",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridQueryColumnKeepActiveOnGroupingBehavior",
+      "entry": "14076a086",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridQueryItemExtraSpace",
+      "entry": "14076a08c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridReportSortOrderUpdateComplete",
+      "entry": "14076a092",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportGridSortOrderVerificationFailed",
+      "entry": "14076a098",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnReportMaxGroupColumnCountReached",
+      "entry": "14076a09e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnSiwDrawFocusRect",
+      "entry": "14076a0b6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnSiwPaintForeground",
+      "entry": "14076a0ec",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnSiwWalkItemsH",
+      "entry": "14076a122",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnSwDoMouseWheel",
+      "entry": "14076a14c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnSwRecalcLayout",
+      "entry": "14076a1dc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::OnSwUpdateScrollBars",
+      "entry": "14076a200",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeGridFilterCalcPlainUniqueValuesForColumn",
+      "entry": "14076a21e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeGridPaintExpandButton",
+      "entry": "14076a22a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeGridQueryColumnOutline",
+      "entry": "14076a230",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeGridQueryDrawOutline",
+      "entry": "14076a236",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeGridQueryKbCollapseEnabled",
+      "entry": "14076a23c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeGridQueryKbExpandEnabled",
+      "entry": "14076a242",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeGridQueryKbJumpParentEnabled",
+      "entry": "14076a248",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnTreeQueryPlainGridModeVeticalLayout",
+      "entry": "14076a25a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::PostNcDestroy",
+      "entry": "14076a2e4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::PreSubclassWindow",
+      "entry": "14076a2f0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportCategoryComboBoxGet",
+      "entry": "14076a2f6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportCategoryComboBoxIsVisible",
+      "entry": "14076a2fc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportCategoryComboBoxShow",
+      "entry": "14076a302",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnActivate",
+      "entry": "14076a308",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnAdjustIconAlignmentH",
+      "entry": "14076a30e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnAdjustIconAlignmentV",
+      "entry": "14076a314",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnAdjustStylesByMask",
+      "entry": "14076a31a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnAdjustTextAlignmentH",
+      "entry": "14076a320",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnAdjustTextAlignmentV",
+      "entry": "14076a326",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnChooserGet",
+      "entry": "14076a32c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnChooserIsVisible",
+      "entry": "14076a332",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnChooserShow",
+      "entry": "14076a338",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnGet",
+      "entry": "14076a33e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnGetCount",
+      "entry": "14076a344",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnGetNext",
+      "entry": "14076a34a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnGetStartPosition",
+      "entry": "14076a350",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnIsActive",
+      "entry": "14076a356",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnIsRegistered",
+      "entry": "14076a35c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnRegister",
+      "entry": "14076a362",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportColumnUnRegister",
+      "entry": "14076a368",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportFilterStateSerialize",
+      "entry": "14076a36e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGridGetStyle",
+      "entry": "14076a374",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGridGetStyleEx",
+      "entry": "14076a37a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGridModifyStyle",
+      "entry": "14076a380",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGridModifyStyleEx",
+      "entry": "14076a386",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGridStateSerialize",
+      "entry": "14076a38c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGroupAreaGet",
+      "entry": "14076a392",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGroupAreaIsVisible",
+      "entry": "14076a398",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportGroupAreaShow",
+      "entry": "14076a39e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemFocusGet",
+      "entry": "14076a3a4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemFromTreeItem",
+      "entry": "14076a3aa",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemGetCell",
+      "entry": "14076a3b0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemIsRegistered",
+      "entry": "14076a3b6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemModifySelectionForUnRegistering",
+      "entry": "14076a3bc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemRegister",
+      "entry": "14076a3c2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemSetCell",
+      "entry": "14076a3c8",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemUnRegister",
+      "entry": "14076a3ce",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemUnRegisterAll",
+      "entry": "14076a3d4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemUnRegisterSelection",
+      "entry": "14076a3da",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportSortOrderGet",
+      "entry": "14076a3e0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportSortOrderMaxGroupColumnCountGet",
+      "entry": "14076a3e6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportSortOrderMaxGroupColumnCountSet",
+      "entry": "14076a3ec",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportSortOrderSet",
+      "entry": "14076a3f2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportSortOrderUpdate",
+      "entry": "14076a3f8",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::ReportSortOrderVerify",
+      "entry": "14076a3fe",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::RowCountGet",
+      "entry": "14076a404",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::SelectionGetForCell",
+      "entry": "14076a44c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::SelectionGetForCellPainting",
+      "entry": "14076a458",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::WindowProc",
+      "entry": "14076a4d0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::_CreateHelper",
+      "entry": "14076a4dc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::_ReportColumnAdjustStylesByMask_Impl",
+      "entry": "14076a524",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::_ReportItemUnRegisterImpl",
+      "entry": "14076a52a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::_SelectSubtreeForUnRegistering",
+      "entry": "14076a530",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::_SelectionAreaConvert",
+      "entry": "14076a536",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::__PPVW_Impl_OnCmdMsg",
+      "entry": "14076a542",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::__PPVW_Impl_PreTranslateMessage",
+      "entry": "14076a548",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPPVW<CExtReportGridWnd>::__PPVW_Impl_WindowProc",
+      "entry": "14076a54e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManager::ReportGrid_GetGroupConnectorColor",
+      "entry": "14076b868",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManager::ReportGrid_GetHeaderTextColor",
+      "entry": "14076b86e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::ReportGrid_GetHeaderTextColor",
+      "entry": "14076b874",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::ReportGrid_GetHeaderTextColor",
+      "entry": "14076b87a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManager::ReportGrid_PaintGroupAreaBackground",
+      "entry": "14076b880",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::ReportGrid_PaintGroupAreaBackground",
+      "entry": "14076b886",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::ReportGrid_PaintGroupAreaBackground",
+      "entry": "14076b88c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManager::ReportGrid_PaintGroupAreaItemBackground",
+      "entry": "14076b892",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManager::ReportGrid_PaintHeaderRowBackground",
+      "entry": "14076b898",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::ReportGrid_PaintHeaderRowBackground",
+      "entry": "14076b89e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerOffice2003::ReportGrid_PaintHeaderRowBackground",
+      "entry": "14076b8a4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::ReportGrid_PaintHeaderRowBackground",
+      "entry": "14076b8aa",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManager::ReportGrid_PaintHeaderSortArrow",
+      "entry": "14076b8b0",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerNativeXP::ReportGrid_PaintHeaderSortArrow",
+      "entry": "14076b8b6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtPaintManagerOffice2007_Impl::ReportGrid_PaintHeaderSortArrow",
+      "entry": "14076b8bc",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellKeyEvent",
+      "entry": "14076bf22",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwBeginEdit",
+      "entry": "14076bf28",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwCanResizeColumn",
+      "entry": "14076bf2e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwCanResizeRow",
+      "entry": "14076bf34",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwEraseArea",
+      "entry": "14076bf3a",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwPaintCell",
+      "entry": "14076bf40",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwQueryCellGridLines",
+      "entry": "14076bf46",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwResizingStateApply",
+      "entry": "14076bf4c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwResizingStateUpdate",
+      "entry": "14076bf52",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "14076c03c",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridBaseWnd::OnGbwAdjustRects",
+      "entry": "14076c042",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridCellCheckBox::OnClick",
+      "entry": "14076c4d4",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAdjustRects",
+      "entry": "14076c4e6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "14076c4ec",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwBeginEdit",
+      "entry": "14076c4f2",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwPaintCell",
+      "entry": "14076c4f8",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtTreeGridWnd::OnGbwResizingStateUpdate",
+      "entry": "14076c4fe",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::GetRuntimeClass",
+      "entry": "14076c762",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::OnSwUpdateScrollBars",
+      "entry": "14076c768",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtReportGridWnd::WindowProc",
+      "entry": "14076c76e",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtControlBar::_ActivateOnClick",
+      "entry": "14076ce76",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtToolControlBar::_OnHookButtonClick",
+      "entry": "14076cfc6",
+      "body": 6
+    },
+    {
+      "name": "PROFUISM.DLL::CExtGridCell::OnClick",
+      "entry": "14076d10a",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Init",
+      "entry": "14076dba4",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearRows",
+      "entry": "14076dbaa",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+      "entry": "14076dbb0",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellButton",
+      "entry": "14076dbb6",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+      "entry": "14076dbbc",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCheck",
+      "entry": "14076dbc2",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+      "entry": "14076dbc8",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellCombo",
+      "entry": "14076dbce",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellHorizontalAlignment",
+      "entry": "14076dbd4",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+      "entry": "14076dbda",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellIcon",
+      "entry": "14076dbe0",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbe6",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbec",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbf2",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbf8",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dbfe",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellNum",
+      "entry": "14076dc04",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+      "entry": "14076dc0a",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddCellString",
+      "entry": "14076dc10",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc16",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc1c",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc22",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "14076dc28",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::AddRow",
+      "entry": "14076dc2e",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ClearAll",
+      "entry": "14076dc34",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+      "entry": "14076dc3a",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteRow",
+      "entry": "14076dc40",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeleteSelectedRows",
+      "entry": "14076dc46",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::DeselectAll",
+      "entry": "14076dc4c",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToExcel",
+      "entry": "14076dc52",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+      "entry": "14076dc58",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::ExportToTxtFile",
+      "entry": "14076dc5e",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc64",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc6a",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc70",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc76",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc7c",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc82",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc88",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCell",
+      "entry": "14076dc8e",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dc94",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dc9a",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dca0",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetCellText",
+      "entry": "14076dca6",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColName",
+      "entry": "14076dcac",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+      "entry": "14076dcb2",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetColNum",
+      "entry": "14076dcb8",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "entry": "14076dcbe",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "entry": "14076dcc4",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetSelectedRowsList",
+      "entry": "14076dcca",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasHeaderColumn",
+      "entry": "14076dcd0",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::HasSelection",
+      "entry": "14076dcd6",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::IsInitialized",
+      "entry": "14076dcdc",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::LoadStringA",
+      "entry": "14076dce2",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDownInnerCell",
+      "entry": "14076dce8",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnUpInnerCell",
+      "entry": "14076dcee",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDoubleInnerCell",
+      "entry": "14076dcf4",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnDownInnerCell",
+      "entry": "14076dcfa",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickMBtnUpInnerCell",
+      "entry": "14076dd00",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDoubleInnerCell",
+      "entry": "14076dd06",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnDownInnerCell",
+      "entry": "14076dd0c",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+      "entry": "14076dd12",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "14076dd18",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::PreTranslateMessage",
+      "entry": "14076dd1e",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::Redraw",
+      "entry": "14076dd24",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::SelectAll",
+      "entry": "14076dd2a",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetMessageMap",
+      "entry": "14076dd90",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetPrintString",
+      "entry": "14076dd96",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::GetRuntimeClass",
+      "entry": "14076dd9c",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnClickLeftBtnDoubleInnerCell",
+      "entry": "14076dda2",
+      "body": 6
+    },
+    {
+      "name": "DYTOOLS0.DLL::CVitExtReportGridWnd::OnShowContextMenu",
+      "entry": "14076dda8",
+      "body": 6
+    }
+  ],
+  "nearby_large": [
+    {
+      "init": "14001b2d0",
+      "nearby": [
+        {
+          "entry": "14001b3f0",
+          "name": "FUN_14001b3f0",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "14001b450",
+          "name": "FUN_14001b450",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "14001b4b0",
+          "name": "FUN_14001b4b0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "14001b510",
+          "name": "FUN_14001b510",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "14001b570",
+          "name": "FUN_14001b570",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "14001b5d0",
+          "name": "FUN_14001b5d0",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "14001c5c0",
+          "name": "FUN_14001c5c0",
+          "body": 86,
+          "delta": 4848
+        },
+        {
+          "entry": "14001c620",
+          "name": "FUN_14001c620",
+          "body": 86,
+          "delta": 4944
+        },
+        {
+          "entry": "14001c680",
+          "name": "FUN_14001c680",
+          "body": 86,
+          "delta": 5040
+        },
+        {
+          "entry": "14001c6e0",
+          "name": "FUN_14001c6e0",
+          "body": 86,
+          "delta": 5136
+        },
+        {
+          "entry": "14001c740",
+          "name": "FUN_14001c740",
+          "body": 86,
+          "delta": 5232
+        },
+        {
+          "entry": "140019e30",
+          "name": "FUN_140019e30",
+          "body": 105,
+          "delta": -5280
+        }
+      ]
+    },
+    {
+      "init": "14005da40",
+      "nearby": [
+        {
+          "entry": "14005db60",
+          "name": "FUN_14005db60",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "14005dbc0",
+          "name": "FUN_14005dbc0",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "14005dc20",
+          "name": "FUN_14005dc20",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "14005dc80",
+          "name": "FUN_14005dc80",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "14005dce0",
+          "name": "FUN_14005dce0",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "14005dd40",
+          "name": "FUN_14005dd40",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "14005cca0",
+          "name": "FUN_14005cca0",
+          "body": 147,
+          "delta": -3488
+        },
+        {
+          "entry": "14005c9a0",
+          "name": "FUN_14005c9a0",
+          "body": 185,
+          "delta": -4256
+        },
+        {
+          "entry": "14005edf0",
+          "name": "FUN_14005edf0",
+          "body": 86,
+          "delta": 5040
+        },
+        {
+          "entry": "14005ee50",
+          "name": "FUN_14005ee50",
+          "body": 86,
+          "delta": 5136
+        },
+        {
+          "entry": "14005eeb0",
+          "name": "FUN_14005eeb0",
+          "body": 86,
+          "delta": 5232
+        },
+        {
+          "entry": "14005ef10",
+          "name": "FUN_14005ef10",
+          "body": 86,
+          "delta": 5328
+        }
+      ]
+    },
+    {
+      "init": "140067b50",
+      "nearby": [
+        {
+          "entry": "140067c70",
+          "name": "FUN_140067c70",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "140067cd0",
+          "name": "FUN_140067cd0",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "140067d30",
+          "name": "FUN_140067d30",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "140067d90",
+          "name": "FUN_140067d90",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "140067df0",
+          "name": "FUN_140067df0",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "140067e50",
+          "name": "FUN_140067e50",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "1400671d0",
+          "name": "FUN_1400671d0",
+          "body": 147,
+          "delta": -2432
+        },
+        {
+          "entry": "1400670a0",
+          "name": "FUN_1400670a0",
+          "body": 155,
+          "delta": -2736
+        },
+        {
+          "entry": "140067000",
+          "name": "FUN_140067000",
+          "body": 155,
+          "delta": -2896
+        },
+        {
+          "entry": "140068ea0",
+          "name": "FUN_140068ea0",
+          "body": 86,
+          "delta": 4944
+        },
+        {
+          "entry": "140068f00",
+          "name": "FUN_140068f00",
+          "body": 86,
+          "delta": 5040
+        },
+        {
+          "entry": "140068f60",
+          "name": "FUN_140068f60",
+          "body": 86,
+          "delta": 5136
+        }
+      ]
+    },
+    {
+      "init": "1400a4600",
+      "nearby": [
+        {
+          "entry": "1400a4720",
+          "name": "FUN_1400a4720",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "1400a4780",
+          "name": "FUN_1400a4780",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "1400a47e0",
+          "name": "FUN_1400a47e0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "1400a4840",
+          "name": "FUN_1400a4840",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "1400a48a0",
+          "name": "FUN_1400a48a0",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "1400a4900",
+          "name": "FUN_1400a4900",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "1400a3c60",
+          "name": "FUN_1400a3c60",
+          "body": 147,
+          "delta": -2464
+        },
+        {
+          "entry": "1400a3ae0",
+          "name": "FUN_1400a3ae0",
+          "body": 86,
+          "delta": -2848
+        },
+        {
+          "entry": "1400a3a80",
+          "name": "FUN_1400a3a80",
+          "body": 86,
+          "delta": -2944
+        },
+        {
+          "entry": "1400a3a20",
+          "name": "FUN_1400a3a20",
+          "body": 86,
+          "delta": -3040
+        },
+        {
+          "entry": "1400a3750",
+          "name": "FUN_1400a3750",
+          "body": 86,
+          "delta": -3760
+        },
+        {
+          "entry": "1400a36f0",
+          "name": "FUN_1400a36f0",
+          "body": 86,
+          "delta": -3856
+        }
+      ]
+    },
+    {
+      "init": "1400e2d70",
+      "nearby": [
+        {
+          "entry": "1400e2e90",
+          "name": "FUN_1400e2e90",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "1400e2ef0",
+          "name": "FUN_1400e2ef0",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "1400e2f50",
+          "name": "FUN_1400e2f50",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "1400e2fb0",
+          "name": "FUN_1400e2fb0",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "1400e3010",
+          "name": "FUN_1400e3010",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "1400e3070",
+          "name": "FUN_1400e3070",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "1400e2580",
+          "name": "FUN_1400e2580",
+          "body": 147,
+          "delta": -2032
+        },
+        {
+          "entry": "1400e2450",
+          "name": "FUN_1400e2450",
+          "body": 155,
+          "delta": -2336
+        },
+        {
+          "entry": "1400e23b0",
+          "name": "FUN_1400e23b0",
+          "body": 155,
+          "delta": -2496
+        },
+        {
+          "entry": "1400e22f0",
+          "name": "FUN_1400e22f0",
+          "body": 185,
+          "delta": -2688
+        },
+        {
+          "entry": "1400e20e0",
+          "name": "FUN_1400e20e0",
+          "body": 86,
+          "delta": -3216
+        },
+        {
+          "entry": "1400e2080",
+          "name": "FUN_1400e2080",
+          "body": 86,
+          "delta": -3312
+        }
+      ]
+    },
+    {
+      "init": "14010d1f0",
+      "nearby": [
+        {
+          "entry": "14010d130",
+          "name": "FUN_14010d130",
+          "body": 155,
+          "delta": -192
+        },
+        {
+          "entry": "14010d310",
+          "name": "FUN_14010d310",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "14010d090",
+          "name": "FUN_14010d090",
+          "body": 155,
+          "delta": -352
+        },
+        {
+          "entry": "14010d370",
+          "name": "FUN_14010d370",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "14010d3d0",
+          "name": "FUN_14010d3d0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "14010cfd0",
+          "name": "FUN_14010cfd0",
+          "body": 185,
+          "delta": -544
+        },
+        {
+          "entry": "14010d430",
+          "name": "FUN_14010d430",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "14010d490",
+          "name": "FUN_14010d490",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "14010d4f0",
+          "name": "FUN_14010d4f0",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "14010c910",
+          "name": "FUN_14010c910",
+          "body": 86,
+          "delta": -2272
+        },
+        {
+          "entry": "14010c8b0",
+          "name": "FUN_14010c8b0",
+          "body": 86,
+          "delta": -2368
+        },
+        {
+          "entry": "14010c850",
+          "name": "FUN_14010c850",
+          "body": 86,
+          "delta": -2464
+        }
+      ]
+    },
+    {
+      "init": "14010f310",
+      "nearby": [
+        {
+          "entry": "14010f430",
+          "name": "FUN_14010f430",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "14010f490",
+          "name": "FUN_14010f490",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "14010f4f0",
+          "name": "FUN_14010f4f0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "14010f550",
+          "name": "FUN_14010f550",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "14010f5b0",
+          "name": "FUN_14010f5b0",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "14010f610",
+          "name": "FUN_14010f610",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "14010ec00",
+          "name": "FUN_14010ec00",
+          "body": 86,
+          "delta": -1808
+        },
+        {
+          "entry": "14010eba0",
+          "name": "FUN_14010eba0",
+          "body": 86,
+          "delta": -1904
+        },
+        {
+          "entry": "14010eb40",
+          "name": "FUN_14010eb40",
+          "body": 86,
+          "delta": -2000
+        },
+        {
+          "entry": "14010eae0",
+          "name": "FUN_14010eae0",
+          "body": 86,
+          "delta": -2096
+        },
+        {
+          "entry": "14010ea80",
+          "name": "FUN_14010ea80",
+          "body": 86,
+          "delta": -2192
+        },
+        {
+          "entry": "14010ea20",
+          "name": "FUN_14010ea20",
+          "body": 86,
+          "delta": -2288
+        }
+      ]
+    },
+    {
+      "init": "14019bc10",
+      "nearby": [
+        {
+          "entry": "14019bd30",
+          "name": "FUN_14019bd30",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "14019bd90",
+          "name": "FUN_14019bd90",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "14019bdf0",
+          "name": "FUN_14019bdf0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "14019be50",
+          "name": "FUN_14019be50",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "14019beb0",
+          "name": "FUN_14019beb0",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "14019bf10",
+          "name": "FUN_14019bf10",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "14019b200",
+          "name": "FUN_14019b200",
+          "body": 147,
+          "delta": -2576
+        },
+        {
+          "entry": "14019adb0",
+          "name": "FUN_14019adb0",
+          "body": 155,
+          "delta": -3680
+        },
+        {
+          "entry": "14019ad10",
+          "name": "FUN_14019ad10",
+          "body": 155,
+          "delta": -3840
+        },
+        {
+          "entry": "14019ac50",
+          "name": "FUN_14019ac50",
+          "body": 185,
+          "delta": -4032
+        },
+        {
+          "entry": "14019aa40",
+          "name": "FUN_14019aa40",
+          "body": 86,
+          "delta": -4560
+        },
+        {
+          "entry": "14019a9e0",
+          "name": "FUN_14019a9e0",
+          "body": 86,
+          "delta": -4656
+        }
+      ]
+    },
+    {
+      "init": "1401a56a0",
+      "nearby": [
+        {
+          "entry": "1401a57c0",
+          "name": "FUN_1401a57c0",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "1401a5820",
+          "name": "FUN_1401a5820",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "1401a5880",
+          "name": "FUN_1401a5880",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "1401a58e0",
+          "name": "FUN_1401a58e0",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "1401a5940",
+          "name": "FUN_1401a5940",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "1401a59a0",
+          "name": "FUN_1401a59a0",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "1401a4d20",
+          "name": "FUN_1401a4d20",
+          "body": 147,
+          "delta": -2432
+        },
+        {
+          "entry": "1401a4c30",
+          "name": "FUN_1401a4c30",
+          "body": 81,
+          "delta": -2672
+        },
+        {
+          "entry": "1401a4b90",
+          "name": "FUN_1401a4b90",
+          "body": 155,
+          "delta": -2832
+        },
+        {
+          "entry": "1401a4af0",
+          "name": "FUN_1401a4af0",
+          "body": 155,
+          "delta": -2992
+        },
+        {
+          "entry": "1401a69f0",
+          "name": "FUN_1401a69f0",
+          "body": 86,
+          "delta": 4944
+        },
+        {
+          "entry": "1401a6a50",
+          "name": "FUN_1401a6a50",
+          "body": 86,
+          "delta": 5040
+        }
+      ]
+    },
+    {
+      "init": "1401bcd00",
+      "nearby": [
+        {
+          "entry": "1401bce20",
+          "name": "FUN_1401bce20",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "1401bce80",
+          "name": "FUN_1401bce80",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "1401bcee0",
+          "name": "FUN_1401bcee0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "1401bcf40",
+          "name": "FUN_1401bcf40",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "1401bcfa0",
+          "name": "FUN_1401bcfa0",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "1401bd000",
+          "name": "FUN_1401bd000",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "1401bc660",
+          "name": "FUN_1401bc660",
+          "body": 155,
+          "delta": -1696
+        },
+        {
+          "entry": "1401bc5c0",
+          "name": "FUN_1401bc5c0",
+          "body": 155,
+          "delta": -1856
+        },
+        {
+          "entry": "1401bc500",
+          "name": "FUN_1401bc500",
+          "body": 185,
+          "delta": -2048
+        },
+        {
+          "entry": "1401bbe40",
+          "name": "FUN_1401bbe40",
+          "body": 86,
+          "delta": -3776
+        },
+        {
+          "entry": "1401bbde0",
+          "name": "FUN_1401bbde0",
+          "body": 86,
+          "delta": -3872
+        },
+        {
+          "entry": "1401bbd80",
+          "name": "FUN_1401bbd80",
+          "body": 86,
+          "delta": -3968
+        }
+      ]
+    },
+    {
+      "init": "14021a6d0",
+      "nearby": [
+        {
+          "entry": "14021a7f0",
+          "name": "FUN_14021a7f0",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "14021a850",
+          "name": "FUN_14021a850",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "14021a8b0",
+          "name": "FUN_14021a8b0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "14021a910",
+          "name": "FUN_14021a910",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "14021a970",
+          "name": "FUN_14021a970",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "14021a9d0",
+          "name": "FUN_14021a9d0",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "140219ff0",
+          "name": "FUN_140219ff0",
+          "body": 185,
+          "delta": -1760
+        },
+        {
+          "entry": "140219990",
+          "name": "FUN_140219990",
+          "body": 86,
+          "delta": -3392
+        },
+        {
+          "entry": "140219930",
+          "name": "FUN_140219930",
+          "body": 86,
+          "delta": -3488
+        },
+        {
+          "entry": "1402198d0",
+          "name": "FUN_1402198d0",
+          "body": 86,
+          "delta": -3584
+        },
+        {
+          "entry": "140219870",
+          "name": "FUN_140219870",
+          "body": 86,
+          "delta": -3680
+        },
+        {
+          "entry": "140219810",
+          "name": "FUN_140219810",
+          "body": 86,
+          "delta": -3776
+        }
+      ]
+    },
+    {
+      "init": "1402d25c0",
+      "nearby": [
+        {
+          "entry": "1402d26e0",
+          "name": "FUN_1402d26e0",
+          "body": 86,
+          "delta": 288
+        },
+        {
+          "entry": "1402d2740",
+          "name": "FUN_1402d2740",
+          "body": 86,
+          "delta": 384
+        },
+        {
+          "entry": "1402d27a0",
+          "name": "FUN_1402d27a0",
+          "body": 86,
+          "delta": 480
+        },
+        {
+          "entry": "1402d2800",
+          "name": "FUN_1402d2800",
+          "body": 86,
+          "delta": 576
+        },
+        {
+          "entry": "1402d2860",
+          "name": "FUN_1402d2860",
+          "body": 86,
+          "delta": 672
+        },
+        {
+          "entry": "1402d28c0",
+          "name": "FUN_1402d28c0",
+          "body": 86,
+          "delta": 768
+        },
+        {
+          "entry": "1402d1a20",
+          "name": "FUN_1402d1a20",
+          "body": 147,
+          "delta": -2976
+        },
+        {
+          "entry": "1402d1780",
+          "name": "FUN_1402d1780",
+          "body": 81,
+          "delta": -3648
+        },
+        {
+          "entry": "1402d16e0",
+          "name": "FUN_1402d16e0",
+          "body": 155,
+          "delta": -3808
+        },
+        {
+          "entry": "1402d1640",
+          "name": "FUN_1402d1640",
+          "body": 155,
+          "delta": -3968
+        },
+        {
+          "entry": "1402d3910",
+          "name": "FUN_1402d3910",
+          "body": 86,
+          "delta": 4944
+        },
+        {
+          "entry": "1402d3970",
+          "name": "FUN_1402d3970",
+          "body": 86,
+          "delta": 5040
+        }
+      ]
+    }
+  ],
+  "dumped": [
+    {
+      "entry": "14001b3f0",
+      "name": "FUN_14001b3f0",
+      "body": 86,
+      "delta": 288,
+      "init": "14001b2d0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14001b2d0_14001b3f0.c",
+      "interesting": true
+    },
+    {
+      "entry": "14001b450",
+      "name": "FUN_14001b450",
+      "body": 86,
+      "delta": 384,
+      "init": "14001b2d0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14001b2d0_14001b450.c",
+      "interesting": true
+    },
+    {
+      "entry": "14001b4b0",
+      "name": "FUN_14001b4b0",
+      "body": 86,
+      "delta": 480,
+      "init": "14001b2d0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14001b2d0_14001b4b0.c",
+      "interesting": true
+    },
+    {
+      "entry": "14005db60",
+      "name": "FUN_14005db60",
+      "body": 86,
+      "delta": 288,
+      "init": "14005da40",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14005da40_14005db60.c",
+      "interesting": true
+    },
+    {
+      "entry": "14005dbc0",
+      "name": "FUN_14005dbc0",
+      "body": 86,
+      "delta": 384,
+      "init": "14005da40",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14005da40_14005dbc0.c",
+      "interesting": true
+    },
+    {
+      "entry": "14005dc20",
+      "name": "FUN_14005dc20",
+      "body": 86,
+      "delta": 480,
+      "init": "14005da40",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14005da40_14005dc20.c",
+      "interesting": true
+    },
+    {
+      "entry": "140067c70",
+      "name": "FUN_140067c70",
+      "body": 86,
+      "delta": 288,
+      "init": "140067b50",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_140067b50_140067c70.c",
+      "interesting": true
+    },
+    {
+      "entry": "140067cd0",
+      "name": "FUN_140067cd0",
+      "body": 86,
+      "delta": 384,
+      "init": "140067b50",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_140067b50_140067cd0.c",
+      "interesting": true
+    },
+    {
+      "entry": "140067d30",
+      "name": "FUN_140067d30",
+      "body": 86,
+      "delta": 480,
+      "init": "140067b50",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_140067b50_140067d30.c",
+      "interesting": true
+    },
+    {
+      "entry": "1400a4720",
+      "name": "FUN_1400a4720",
+      "body": 86,
+      "delta": 288,
+      "init": "1400a4600",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1400a4600_1400a4720.c",
+      "interesting": true
+    },
+    {
+      "entry": "1400a4780",
+      "name": "FUN_1400a4780",
+      "body": 86,
+      "delta": 384,
+      "init": "1400a4600",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1400a4600_1400a4780.c",
+      "interesting": true
+    },
+    {
+      "entry": "1400a47e0",
+      "name": "FUN_1400a47e0",
+      "body": 86,
+      "delta": 480,
+      "init": "1400a4600",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1400a4600_1400a47e0.c",
+      "interesting": true
+    },
+    {
+      "entry": "1400e2e90",
+      "name": "FUN_1400e2e90",
+      "body": 86,
+      "delta": 288,
+      "init": "1400e2d70",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1400e2d70_1400e2e90.c",
+      "interesting": true
+    },
+    {
+      "entry": "1400e2ef0",
+      "name": "FUN_1400e2ef0",
+      "body": 86,
+      "delta": 384,
+      "init": "1400e2d70",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1400e2d70_1400e2ef0.c",
+      "interesting": true
+    },
+    {
+      "entry": "1400e2f50",
+      "name": "FUN_1400e2f50",
+      "body": 86,
+      "delta": 480,
+      "init": "1400e2d70",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1400e2d70_1400e2f50.c",
+      "interesting": true
+    },
+    {
+      "entry": "14010d130",
+      "name": "FUN_14010d130",
+      "body": 155,
+      "delta": -192,
+      "init": "14010d1f0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14010d1f0_14010d130.c",
+      "interesting": false
+    },
+    {
+      "entry": "14010d310",
+      "name": "FUN_14010d310",
+      "body": 86,
+      "delta": 288,
+      "init": "14010d1f0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14010d1f0_14010d310.c",
+      "interesting": true
+    },
+    {
+      "entry": "14010d090",
+      "name": "FUN_14010d090",
+      "body": 155,
+      "delta": -352,
+      "init": "14010d1f0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14010d1f0_14010d090.c",
+      "interesting": false
+    },
+    {
+      "entry": "14010f430",
+      "name": "FUN_14010f430",
+      "body": 86,
+      "delta": 288,
+      "init": "14010f310",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14010f310_14010f430.c",
+      "interesting": true
+    },
+    {
+      "entry": "14010f490",
+      "name": "FUN_14010f490",
+      "body": 86,
+      "delta": 384,
+      "init": "14010f310",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14010f310_14010f490.c",
+      "interesting": true
+    },
+    {
+      "entry": "14010f4f0",
+      "name": "FUN_14010f4f0",
+      "body": 86,
+      "delta": 480,
+      "init": "14010f310",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14010f310_14010f4f0.c",
+      "interesting": true
+    },
+    {
+      "entry": "14019bd30",
+      "name": "FUN_14019bd30",
+      "body": 86,
+      "delta": 288,
+      "init": "14019bc10",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14019bc10_14019bd30.c",
+      "interesting": true
+    },
+    {
+      "entry": "14019bd90",
+      "name": "FUN_14019bd90",
+      "body": 86,
+      "delta": 384,
+      "init": "14019bc10",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14019bc10_14019bd90.c",
+      "interesting": true
+    },
+    {
+      "entry": "14019bdf0",
+      "name": "FUN_14019bdf0",
+      "body": 86,
+      "delta": 480,
+      "init": "14019bc10",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14019bc10_14019bdf0.c",
+      "interesting": true
+    },
+    {
+      "entry": "1401a57c0",
+      "name": "FUN_1401a57c0",
+      "body": 86,
+      "delta": 288,
+      "init": "1401a56a0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1401a56a0_1401a57c0.c",
+      "interesting": true
+    },
+    {
+      "entry": "1401a5820",
+      "name": "FUN_1401a5820",
+      "body": 86,
+      "delta": 384,
+      "init": "1401a56a0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1401a56a0_1401a5820.c",
+      "interesting": true
+    },
+    {
+      "entry": "1401a5880",
+      "name": "FUN_1401a5880",
+      "body": 86,
+      "delta": 480,
+      "init": "1401a56a0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1401a56a0_1401a5880.c",
+      "interesting": true
+    },
+    {
+      "entry": "1401bce20",
+      "name": "FUN_1401bce20",
+      "body": 86,
+      "delta": 288,
+      "init": "1401bcd00",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1401bcd00_1401bce20.c",
+      "interesting": true
+    },
+    {
+      "entry": "1401bce80",
+      "name": "FUN_1401bce80",
+      "body": 86,
+      "delta": 384,
+      "init": "1401bcd00",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1401bcd00_1401bce80.c",
+      "interesting": true
+    },
+    {
+      "entry": "1401bcee0",
+      "name": "FUN_1401bcee0",
+      "body": 86,
+      "delta": 480,
+      "init": "1401bcd00",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1401bcd00_1401bcee0.c",
+      "interesting": true
+    },
+    {
+      "entry": "14021a7f0",
+      "name": "FUN_14021a7f0",
+      "body": 86,
+      "delta": 288,
+      "init": "14021a6d0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14021a6d0_14021a7f0.c",
+      "interesting": true
+    },
+    {
+      "entry": "14021a850",
+      "name": "FUN_14021a850",
+      "body": 86,
+      "delta": 384,
+      "init": "14021a6d0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14021a6d0_14021a850.c",
+      "interesting": true
+    },
+    {
+      "entry": "14021a8b0",
+      "name": "FUN_14021a8b0",
+      "body": 86,
+      "delta": 480,
+      "init": "14021a6d0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_14021a6d0_14021a8b0.c",
+      "interesting": true
+    },
+    {
+      "entry": "1402d26e0",
+      "name": "FUN_1402d26e0",
+      "body": 86,
+      "delta": 288,
+      "init": "1402d25c0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1402d25c0_1402d26e0.c",
+      "interesting": true
+    },
+    {
+      "entry": "1402d2740",
+      "name": "FUN_1402d2740",
+      "body": 86,
+      "delta": 384,
+      "init": "1402d25c0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1402d25c0_1402d2740.c",
+      "interesting": true
+    },
+    {
+      "entry": "1402d27a0",
+      "name": "FUN_1402d27a0",
+      "body": 86,
+      "delta": 480,
+      "init": "1402d25c0",
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\Vision3D_nearinit_1402d25c0_1402d27a0.c",
+      "interesting": true
+    }
+  ]
+}

@@ -1,0 +1,430 @@
+2026-09-22 05:29:25 INFO  (LoggingInitialization) Using log config file: jar:file:/C:/Users/s_sme/Documents/ghidra_12.1_PUBLIC_20260513/ghidra_12.1_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-09-22 05:29:25 INFO  (LoggingInitialization) Using log file: .\maps\rev2a_mfc140_import.log  
+2026-09-22 05:29:26 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-09-22 05:29:26 INFO  (Preferences) Loading user preferences: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\preferences  
+2026-09-22 05:29:26 INFO  (ClassSearcher) Searching for classes...  
+2026-09-22 05:29:27 INFO  (ClassSearcher) Class search complete (1180 ms)  
+2026-09-22 05:29:27 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-09-22 05:29:27 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-09-22 05:29:27 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-09-22 05:29:27 INFO  (DefaultTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2026-09-22 05:29:27 INFO  (FileCacheMaintenanceDaemon) Starting cache cleanup: C:\Users\s_sme\AppData\Local\ghidra\fscache2  
+2026-09-22 05:29:27 INFO  (FileCacheMaintenanceDaemon) Finished cache cleanup, estimated storage used: 0  
+2026-09-22 05:29:27 INFO  (AnalyzeHeadless) Headless startup complete (2881 ms)  
+2026-09-22 05:29:27 INFO  (ClassSearcher) Class searcher loaded 59 extension points (20 false positives)  
+2026-09-22 05:29:28 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\PyGhidra\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\WildcardAssembler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\SwiftDemangler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\DATA\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\GnuDemangler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\8051\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\Atmel\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\JVM\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\BSim\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\FunctionID\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\SystemEmulation\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\MicrosoftCodeAnalyzer\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\FileFormats\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Debug\Debugger\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\PDB\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\DecompilerDependent\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\VersionTracking\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Debug\Debugger-rmi-trace\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\Decompiler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\Base\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\BytePatterns\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\PIC\ghidra_scripts  
+2026-09-22 05:29:28 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2026-09-22 05:29:28 ERROR (HeadlessAnalyzer) Abort due to Headless analyzer error: Path element starting with '.' is not permitted java.lang.IllegalArgumentException: Path element starting with '.' is not permitted
+	at ghidra.util.NamingUtilities.checkName(NamingUtilities.java:108)
+	at ghidra.framework.protocol.ghidra.GhidraURL.checkValidProjectPath(GhidraURL.java:448)
+	at ghidra.framework.protocol.ghidra.GhidraURL.checkLocalAbsolutePath(GhidraURL.java:429)
+	at ghidra.framework.model.ProjectLocator.<init>(ProjectLocator.java:75)
+	at ghidra.framework.model.ProjectLocator.<init>(ProjectLocator.java:60)
+	at ghidra.app.util.headless.HeadlessAnalyzer.processLocal(HeadlessAnalyzer.java:431)
+	at ghidra.app.util.headless.AnalyzeHeadless.launch(AnalyzeHeadless.java:199)
+	at ghidra.GhidraLauncher.launch(GhidraLauncher.java:81)
+	at ghidra.Ghidra.main(Ghidra.java:54)
+ 
+2026-09-22 05:29:55 INFO  (LoggingInitialization) Using log config file: jar:file:/C:/Users/s_sme/Documents/ghidra_12.1_PUBLIC_20260513/ghidra_12.1_PUBLIC/Ghidra/Framework/Generic/lib/Generic.jar!/generic.log4j.xml  
+2026-09-22 05:29:55 INFO  (LoggingInitialization) Using log file: C:\Users\s_sme\Documents\Projects\vision_3d_skips\maps\rev2a_mfc140_import.log  
+2026-09-22 05:29:55 DEBUG (GhidraObjectInputFilter) Including serial input filter: FileSystem/data/client.rmi.serial.filter  
+2026-09-22 05:29:55 INFO  (Preferences) Loading user preferences: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\preferences  
+2026-09-22 05:29:55 INFO  (ClassSearcher) Searching for classes...  
+2026-09-22 05:29:56 INFO  (ClassSearcher) Class search complete (1181 ms)  
+2026-09-22 05:29:56 INFO  (DefaultSSLContextInitializer) Initializing SSL Context  
+2026-09-22 05:29:56 INFO  (SecureRandomFactory) Initializing Random Number Generator...  
+2026-09-22 05:29:56 INFO  (SecureRandomFactory) Random Number Generator initialization complete: SHA1PRNG  
+2026-09-22 05:29:56 INFO  (DefaultTrustManagerFactory) Trust manager disabled, cacerts have not been set  
+2026-09-22 05:29:57 INFO  (AnalyzeHeadless) Headless startup complete (2788 ms)  
+2026-09-22 05:29:57 INFO  (ClassSearcher) Class searcher loaded 59 extension points (20 false positives)  
+2026-09-22 05:29:57 INFO  (HeadlessAnalyzer) HEADLESS Script Paths:
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\PyGhidra\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\WildcardAssembler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\SwiftDemangler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\DATA\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\GnuDemangler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\8051\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\Atmel\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\JVM\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\BSim\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\FunctionID\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\SystemEmulation\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\MicrosoftCodeAnalyzer\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\FileFormats\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Debug\Debugger\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\PDB\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\DecompilerDependent\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\VersionTracking\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Debug\Debugger-rmi-trace\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\Decompiler\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\Base\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\BytePatterns\ghidra_scripts
+    C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Processors\PIC\ghidra_scripts  
+2026-09-22 05:29:57 INFO  (HeadlessAnalyzer) HEADLESS: execution starts  
+2026-09-22 05:29:57 INFO  (HeadlessAnalyzer) Creating project: C:\Users\s_sme\Documents\Projects\vision_3d_skips\v3d_files_uncomp\MFC140_STATION  
+2026-09-22 05:29:57 INFO  (DefaultProject) Creating project: C:\Users\s_sme\Documents\Projects\vision_3d_skips\v3d_files_uncomp\MFC140_STATION  
+2026-09-22 05:29:57 INFO  (HeadlessAnalyzer) REPORT: Processing input files:   
+2026-09-22 05:29:57 INFO  (HeadlessAnalyzer)      project: C:\Users\s_sme\Documents\Projects\vision_3d_skips\v3d_files_uncomp\MFC140_STATION  
+2026-09-22 05:29:57 INFO  (HeadlessAnalyzer) IMPORTING: file:///C:/Users/s_sme/Documents/Projects/vision_3d_skips/v3d_files_/mfc140.dll  
+2026-09-22 05:29:59 INFO  (ProgramLoader) Using Loader: Portable Executable (PE)  
+2026-09-22 05:29:59 INFO  (ProgramLoader) Using Language/Compiler: x86:LE:64:default:windows  
+2026-09-22 05:29:59 INFO  (ProgramLoader) Using Library Search Path: [., C:\WINDOWS\SysWOW64, C:\Program Files\Eclipse Adoptium\jdk-25.0.3.9-hotspot\bin, C:\WINDOWS\Sun\Java\bin, C:\WINDOWS\system32, C:\WINDOWS, C:\Program Files\WindowsApps\Microsoft.PowerShell_7.6.6.0_x64__8wekyb3d8bbwe, c:\Users\s_sme\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\debugCommand, c:\Users\s_sme\AppData\Roaming\Code\User\globalStorage\github.copilot-chat\copilotCli, %VISION_ROOT%\bin\win64\cvl, C:\Program Files\Python310\Scripts\, C:\Program Files\Python310\, C:\WINDOWS\System32\Wbem, C:\WINDOWS\System32\WindowsPowerShell\v1.0\, C:\WINDOWS\System32\OpenSSH\, C:\Program Files\nodejs\, C:\ProgramData\chocolatey\bin, C:\Program Files\GitHub CLI\, C:\Program Files\Git\cmd, C:\Users\s_sme\AppData\Roaming\Python\Python310\site-packages, C:\Users\s_sme\AppData\Roaming\Python\Python310\Scripts, C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common, C:\Program Files\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\, C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\, C:\Program Files\Microsoft SQL Server\140\Tools\Binn\, C:\Program Files\Microsoft SQL Server\140\DTS\Binn\, C:\Program Files (x86)\Microsoft SQL Server\Client SDK\ODBC\130\Tools\Binn\, C:\Program Files (x86)\Microsoft SQL Server\140\DTS\Binn\, C:\Program Files (x86)\Microsoft SQL Server\140\Tools\Binn\ManagementStudio\, C:\Program Files\MATLAB\MATLAB Runtime\v91\runtime\win64, C:\Users\s_sme\AppData\Local\CMake\cmake-4.1.2-windows-x86_64\bin, C:\Users\s_sme\.cargo\bin, C:\Users\s_sme\.lmstudio\bin, C:\Users\s_sme\AppData\Local\Programs\cursor\resources\app\bin, C:\Users\s_sme\AppData\Local\Programs\Zed\bin, C:\Users\s_sme\AppData\Roaming\npm, C:\Users\s_sme\AppData\Local\Python\bin, C:\Program Files\Python310, C:\Program Files\Python310\Scripts, C:\Users\s_sme\AppData\Roaming\Python\Python310, C:\Users\s_sme\AppData\Local\Programs\DockerDesktop\resources\bin, C:\Users\s_sme\AppData\Local\Programs\LEAD\bin, C:\Users\s_sme\AppData\Local\Programs\Microsoft VS Code\bin, c:\Users\s_sme\.vscode\extensions\ms-python.debugpy-2026.6.0-win32-x64\bundled\scripts\noConfigScripts]  
+2026-09-22 05:30:00 WARN  (ExportDataDirectory) Invalid or missing function at 1803cd8c8  
+2026-09-22 05:30:06 INFO  (TLSDirectory) TLS callbacks at 18011e640  
+2026-09-22 05:30:06 WARN  (ExportDataDirectory) Invalid or missing function at 18013f0f0  
+2026-09-22 05:30:07 WARN  (ExportDataDirectory) Invalid or missing function at 1800193f0  
+2026-09-22 05:30:08 WARN  (ExportDataDirectory) Invalid or missing function at 1800af92c  
+2026-09-22 05:30:09 INFO  (TLSDirectory) TLS callbacks at 1800d77f0  
+2026-09-22 05:30:09 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-09-22 05:30:10 INFO  (TLSDirectory) TLS callbacks at 1800a9818  
+2026-09-22 05:30:10 WARN  (ExportDataDirectory) Invalid or missing function at 1800bea08  
+2026-09-22 05:30:10 INFO  (TLSDirectory) TLS callbacks at 180605260  
+2026-09-22 05:30:10 WARN  (ExportDataDirectory) Invalid or missing function at 1806ee744  
+2026-09-22 05:30:14 INFO  (TLSDirectory) TLS callbacks at 180147040  
+2026-09-22 05:30:14 WARN  (ExportDataDirectory) Invalid or missing function at 180177ddc  
+2026-09-22 05:30:14 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-09-22 05:30:15 WARN  (ExportDataDirectory) Invalid or missing function at 1800a0bb4  
+2026-09-22 05:30:15 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-09-22 05:30:15 INFO  (TLSDirectory) TLS callbacks at 1802004c0  
+2026-09-22 05:30:16 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-09-22 05:30:16 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-09-22 05:30:16 INFO  (TLSDirectory) TLS callbacks at 18006ab98  
+2026-09-22 05:30:16 WARN  (ExportDataDirectory) Invalid or missing function at 18007f194  
+2026-09-22 05:30:17 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-09-22 05:30:17 WARN  (ExportDataDirectory) Invalid or missing function at 180056290  
+2026-09-22 05:30:17 DEBUG (WEVTResourceDataType) Error processing Provider Element.  
+2026-09-22 05:30:17 INFO  (ProgramLoader) Additional info:
+Loading file:///C:/Users/s_sme/Documents/Projects/vision_3d_skips/v3d_files_/mfc140.dll?MD5=c77513b5d3d548686c68c31502c7e3a5...
+------------------------------------------------
+
+Searching 41 paths for library ADVAPI32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/advapi32.dll
+Loading file:///C:/Windows/System32/advapi32.dll?MD5=31fabe19532416eea3b63e1d34d863a9...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\advapi32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-CONVERT-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-convert-l1-1-0.dll?MD5=3560176d0cdbe2f5d33f543348e0a027...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-convert-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-FILESYSTEM-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-filesystem-l1-1-0.dll?MD5=47555752931cecf90e796499b62ec729...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-filesystem-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-HEAP-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-heap-l1-1-0.dll?MD5=527bbbfded529ea77ee798d94ce0f243...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-heap-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-MATH-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-math-l1-1-0.dll?MD5=aa9624cb27cc50a3fbbd3b223a617b1c...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-math-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-MULTIBYTE-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-multibyte-l1-1-0.dll?MD5=6fcebd8391875127d03b4ea336b9b36b...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-multibyte-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-RUNTIME-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-runtime-l1-1-0.dll?MD5=bbaa58e9e1abdf7d8c4c69652d29d789...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-runtime-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-STDIO-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-stdio-l1-1-0.dll?MD5=ef37235fc43157a4c93241d5e49e304b...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-stdio-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-STRING-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-string-l1-1-0.dll?MD5=639b1fb35cb61ba633eb1791b750631f...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-string-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-TIME-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-time-l1-1-0.dll?MD5=fccce207a34c947f01d3f23a7dd09569...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-time-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library API-MS-WIN-CRT-UTILITY-L1-1-0.DLL...
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/api-ms-win-crt-utility-l1-1-0.dll?MD5=708a5bc205384633a7b6674eecc7f0f0...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-utility-l1-1-0.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library CRYPT32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/crypt32.dll
+Loading file:///C:/Windows/System32/crypt32.dll?MD5=ed8a2e8444b1f0619284a23079d8aede...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\crypt32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library GDI32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/gdi32.dll
+Loading file:///C:/Windows/System32/gdi32.dll?MD5=4bbf1e44b7096195feb0e064860bd617...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\gdi32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library GDIPLUS.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/GdiPlus.dll
+Loading file:///C:/Windows/System32/GdiPlus.dll?MD5=506994baa00b152fab8041059709593e...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\gdiplus.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library IMM32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/imm32.dll
+Loading file:///C:/Windows/System32/imm32.dll?MD5=3365b49ac10940cc58a9561afdf954af...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\imm32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library KERNEL32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/kernel32.dll
+Loading file:///C:/Windows/System32/kernel32.dll?MD5=40db0cc600f32984a675debd451a3ad4...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\kernel32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library MSIMG32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/msimg32.dll
+Loading file:///C:/Windows/System32/msimg32.dll?MD5=560a020f4067f713275907bd6e9dea15...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\msimg32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library ODBC32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/odbc32.dll
+Loading file:///C:/Windows/System32/odbc32.dll?MD5=96c1d74dace09e64a90a028dc2e08e5b...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\odbc32.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library OLE32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/ole32.dll
+Loading file:///C:/Windows/System32/ole32.dll?MD5=447cf821f21c88773db812f4b32d8a70...
+[ole32.dll]: failed to create WEVTResource at 180115218: Failed to resolve data length for WEVTResource
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\ole32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library OLEACC.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/oleacc.dll
+Loading file:///C:/Windows/System32/oleacc.dll?MD5=aae9a6bf186f399f3b883ad6e4aade02...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\oleacc.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library OLEAUT32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/oleaut32.dll
+Loading file:///C:/Windows/System32/oleaut32.dll?MD5=9153fbc6d2f35b00703617a2bf535f05...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\oleaut32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library OLEDLG.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/oledlg.dll
+Loading file:///C:/Windows/System32/oledlg.dll?MD5=af173b4bb33578aa7b9fde9a5d47eb63...
+Created exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\oledlg.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library SHELL32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/shell32.dll
+Loading file:///C:/Windows/System32/shell32.dll?MD5=92c07c100fb6ec00a85d52f1a077b427...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\shell32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library SHLWAPI.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/shlwapi.dll
+Loading file:///C:/Windows/System32/shlwapi.dll?MD5=5cbdf711ce2b02e249d4355fbc704a7d...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\shlwapi.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library URLMON.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/urlmon.dll
+Loading file:///C:/Windows/System32/urlmon.dll?MD5=60074f48e97ec8999e3b7d5731e5d469...
+[urlmon.dll]: failed to create WEVTResource at 18019dd50: Failed to resolve data length for WEVTResource
+Created exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\urlmon.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library USER32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/user32.dll
+Loading file:///C:/Windows/System32/user32.dll?MD5=e3934f79991ede68fe75a0d2a4be9353...
+[user32.dll]: failed to create WEVTResource at 1800bca70: Failed to resolve data length for WEVTResource
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\user32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library UXTHEME.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/uxtheme.dll
+Loading file:///C:/Windows/System32/uxtheme.dll?MD5=389c6ec1bb8076803ac948c1c77c8e19...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\uxtheme.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library VCRUNTIME140.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/vcruntime140.dll
+Loading file:///C:/Program Files/Eclipse Adoptium/jdk-25.0.3.9-hotspot/bin/vcruntime140.dll?MD5=caf9edded91c1f6c0022b278c16679aa...
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\vcruntime140.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library WININET.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/wininet.dll
+Loading file:///C:/Windows/System32/wininet.dll?MD5=34e46b317e73c40d434a327a35ddc24a...
+[wininet.dll]: failed to create WEVTResource at 1804bd798: Failed to resolve data length for WEVTResource
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\wininet.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library WINMM.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/winmm.dll
+Loading file:///C:/Windows/System32/winmm.dll?MD5=0059946611d1e824621bb881211acbd4...
+[winmm.dll]: failed to create WEVTResource at 180021310: Failed to resolve data length for WEVTResource
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\winmm.exports
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library WINSPOOL.DRV...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/winspool.drv
+Loading file:///C:/Windows/System32/winspool.drv?MD5=37868848a9dbec0d0d4d4689645ac5f3...
+[winspool.drv]: failed to create WEVTResource at 18008c4b8: Failed to resolve data length for WEVTResource
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\winspool.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Searching 41 paths for library WS2_32.DLL...
+Skipping library which is the wrong architecture: file:///C:/Windows/SysWOW64/ws2_32.dll
+Loading file:///C:/Windows/System32/ws2_32.dll?MD5=77c6a898a0111c787574eb9594c09d93...
+[ws2_32.dll]: failed to create WEVTResource at 1800604b8: Failed to resolve data length for WEVTResource
+Using existing exports file: C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\ws2_32.exports
+WARNING: Existing exports file may not be an exact match.
+Library not saved to project.
+------------------------------------------------
+
+Applying C:\Users\s_sme\Documents\ghidra_12.1_PUBLIC_20260513\ghidra_12.1_PUBLIC\Ghidra\Features\Base\data\symbols\win64\mfc140.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\advapi32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\kernel32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\vcruntime140.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-runtime-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-string-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-multibyte-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-stdio-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-utility-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-heap-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-convert-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-math-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-time-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\api-ms-win-crt-filesystem-l1-1-0.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\user32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\gdi32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\ole32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\oleaut32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\shlwapi.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\imm32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\uxtheme.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\shell32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\wininet.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\ws2_32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\oleacc.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\winspool.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\odbc32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\oledlg.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\urlmon.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\msimg32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\winmm.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\crypt32.exports
+Applying C:\Users\s_sme\AppData\Roaming\ghidra\ghidra_12.1_PUBLIC\symbols\win64\gdiplus.exports
+Linking the External Programs of 'mfc140.dll' to imported libraries...
+  [ADVAPI32.DLL] -> not found in project
+  [KERNEL32.DLL] -> not found in project
+  [VCRUNTIME140.DLL] -> not found in project
+  [API-MS-WIN-CRT-RUNTIME-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-STRING-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-MULTIBYTE-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-STDIO-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-UTILITY-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-HEAP-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-CONVERT-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-MATH-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-TIME-L1-1-0.DLL] -> not found in project
+  [API-MS-WIN-CRT-FILESYSTEM-L1-1-0.DLL] -> not found in project
+  [USER32.DLL] -> not found in project
+  [GDI32.DLL] -> not found in project
+  [OLE32.DLL] -> not found in project
+  [OLEAUT32.DLL] -> not found in project
+  [SHLWAPI.DLL] -> not found in project
+  [IMM32.DLL] -> not found in project
+  [UXTHEME.DLL] -> not found in project
+  [SHELL32.DLL] -> not found in project
+  [WININET.DLL] -> not found in project
+  [WS2_32.DLL] -> not found in project
+  [OLEACC.DLL] -> not found in project
+  [WINSPOOL.DRV] -> not found in project
+  [ODBC32.DLL] -> not found in project
+  [OLEDLG.DLL] -> not found in project
+  [URLMON.DLL] -> not found in project
+  [MSIMG32.DLL] -> not found in project
+  [WINMM.DLL] -> not found in project
+  [CRYPT32.DLL] -> not found in project
+  [GDIPLUS.DLL] -> not found in project
+------------------------------------------------
+
+  
+2026-09-22 05:30:17 INFO  (HeadlessAnalyzer) IMPORTING: Loaded 0 additional files  
+2026-09-22 05:30:18 INFO  (LocalFileSystem) /mfc140.dll: file created (s_sme)  
+2026-09-22 05:30:18 INFO  (HeadlessAnalyzer) REPORT: Save succeeded for: /mfc140.dll (MFC140_STATION:/mfc140.dll)  
+2026-09-22 05:30:18 INFO  (HeadlessAnalyzer) REPORT: Import succeeded  

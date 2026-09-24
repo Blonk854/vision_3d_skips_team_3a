@@ -1,0 +1,2929 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [
+    {
+      "hits": [
+        {
+          "address": "1405506ef",
+          "bytes": "c683400a000000",
+          "caller": "1405505b0",
+          "text": "MOV byte ptr [RBX + 0xa40],0x0",
+          "window": [
+            {
+              "address": "1405506af",
+              "bytes": "4533c0",
+              "text": "XOR R8D,R8D"
+            },
+            {
+              "address": "1405506b2",
+              "bytes": "418d5034",
+              "text": "LEA EDX,[R8 + 0x34]"
+            },
+            {
+              "address": "1405506b6",
+              "bytes": "e8c3f02200",
+              "text": "CALL 0x14077f77e"
+            },
+            {
+              "address": "1405506bb",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405506bc",
+              "bytes": "488d8d08490000",
+              "text": "LEA RCX,[RBP + 0x4908]"
+            },
+            {
+              "address": "1405506c3",
+              "bytes": "83f807",
+              "text": "CMP EAX,0x7"
+            },
+            {
+              "address": "1405506c6",
+              "bytes": "7513",
+              "text": "JNZ 0x1405506db"
+            },
+            {
+              "address": "1405506c8",
+              "bytes": "ff152aea8000",
+              "text": "CALL qword ptr [0x140d5f0f8]"
+            },
+            {
+              "address": "1405506ce",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405506cf",
+              "bytes": "488d8d00490000",
+              "text": "LEA RCX,[RBP + 0x4900]"
+            },
+            {
+              "address": "1405506d6",
+              "bytes": "e9dd020000",
+              "text": "JMP 0x1405509b8"
+            },
+            {
+              "address": "1405506db",
+              "bytes": "ff1517ea8000",
+              "text": "CALL qword ptr [0x140d5f0f8]"
+            },
+            {
+              "address": "1405506e1",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405506e2",
+              "bytes": "488d8d00490000",
+              "text": "LEA RCX,[RBP + 0x4900]"
+            },
+            {
+              "address": "1405506e9",
+              "bytes": "ff1509ea8000",
+              "text": "CALL qword ptr [0x140d5f0f8]"
+            },
+            {
+              "address": "1405506ef",
+              "bytes": "c683400a000000",
+              "text": "MOV byte ptr [RBX + 0xa40],0x0"
+            }
+          ]
+        },
+        {
+          "address": "1405508dc",
+          "bytes": "c683400a000001",
+          "caller": "1405505b0",
+          "text": "MOV byte ptr [RBX + 0xa40],0x1",
+          "window": [
+            {
+              "address": "140550897",
+              "bytes": "4c8b83500a0000",
+              "text": "MOV R8,qword ptr [RBX + 0xa50]"
+            },
+            {
+              "address": "14055089e",
+              "bytes": "488b93480a0000",
+              "text": "MOV RDX,qword ptr [RBX + 0xa48]"
+            },
+            {
+              "address": "1405508a5",
+              "bytes": "488d4c2450",
+              "text": "LEA RCX,[RSP + 0x50]"
+            },
+            {
+              "address": "1405508aa",
+              "bytes": "e8e1eaffff",
+              "text": "CALL 0x14054f390"
+            },
+            {
+              "address": "1405508af",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405508b0",
+              "bytes": "488d4c2450",
+              "text": "LEA RCX,[RSP + 0x50]"
+            },
+            {
+              "address": "1405508b5",
+              "bytes": "e866040000",
+              "text": "CALL 0x140550d20"
+            },
+            {
+              "address": "1405508ba",
+              "bytes": "84c0",
+              "text": "TEST AL,AL"
+            },
+            {
+              "address": "1405508bc",
+              "bytes": "751e",
+              "text": "JNZ 0x1405508dc"
+            },
+            {
+              "address": "1405508be",
+              "bytes": "4c8d056b1d9000",
+              "text": "LEA R8,[0x140e52630]"
+            },
+            {
+              "address": "1405508c5",
+              "bytes": "ba04000000",
+              "text": "MOV EDX,0x4"
+            },
+            {
+              "address": "1405508ca",
+              "bytes": "488d4c2420",
+              "text": "LEA RCX,[RSP + 0x20]"
+            },
+            {
+              "address": "1405508cf",
+              "bytes": "ff1583298000",
+              "text": "CALL qword ptr [0x140d53258]"
+            },
+            {
+              "address": "1405508d5",
+              "bytes": "baa30d0000",
+              "text": "MOV EDX,0xda3"
+            },
+            {
+              "address": "1405508da",
+              "bytes": "eb7d",
+              "text": "JMP 0x140550959"
+            },
+            {
+              "address": "1405508dc",
+              "bytes": "c683400a000001",
+              "text": "MOV byte ptr [RBX + 0xa40],0x1"
+            }
+          ]
+        },
+        {
+          "address": "1405c43e0",
+          "bytes": "c686400a000000",
+          "caller": "1405c4320",
+          "text": "MOV byte ptr [RSI + 0xa40],0x0",
+          "window": [
+            {
+              "address": "1405c4398",
+              "bytes": "e8e3f91700",
+              "text": "CALL 0x140743d80"
+            },
+            {
+              "address": "1405c439d",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405c439e",
+              "bytes": "488d8eb81f0000",
+              "text": "LEA RCX,[RSI + 0x1fb8]"
+            },
+            {
+              "address": "1405c43a5",
+              "bytes": "ff1565ad7900",
+              "text": "CALL qword ptr [0x140d5f110]"
+            },
+            {
+              "address": "1405c43ab",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405c43ac",
+              "bytes": "488d8ec01f0000",
+              "text": "LEA RCX,[RSI + 0x1fc0]"
+            },
+            {
+              "address": "1405c43b3",
+              "bytes": "ff1557ad7900",
+              "text": "CALL qword ptr [0x140d5f110]"
+            },
+            {
+              "address": "1405c43b9",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405c43ba",
+              "bytes": "488d8ec81f0000",
+              "text": "LEA RCX,[RSI + 0x1fc8]"
+            },
+            {
+              "address": "1405c43c1",
+              "bytes": "ff1549ad7900",
+              "text": "CALL qword ptr [0x140d5f110]"
+            },
+            {
+              "address": "1405c43c7",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405c43c8",
+              "bytes": "488d8ed01f0000",
+              "text": "LEA RCX,[RSI + 0x1fd0]"
+            },
+            {
+              "address": "1405c43cf",
+              "bytes": "ff153bad7900",
+              "text": "CALL qword ptr [0x140d5f110]"
+            },
+            {
+              "address": "1405c43d5",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1405c43d6",
+              "bytes": "c786440a000000000000",
+              "text": "MOV dword ptr [RSI + 0xa44],0x0"
+            },
+            {
+              "address": "1405c43e0",
+              "bytes": "c686400a000000",
+              "text": "MOV byte ptr [RSI + 0xa40],0x0"
+            }
+          ]
+        },
+        {
+          "address": "1405c4b23",
+          "bytes": "c683400a000001",
+          "caller": "1405c4ae0",
+          "text": "MOV byte ptr [RBX + 0xa40],0x1",
+          "window": [
+            {
+              "address": "1405c4ae2",
+              "bytes": "4883ec30",
+              "text": "SUB RSP,0x30"
+            },
+            {
+              "address": "1405c4ae6",
+              "bytes": "488bd9",
+              "text": "MOV RBX,RCX"
+            },
+            {
+              "address": "1405c4ae9",
+              "bytes": "e808ad1b00",
+              "text": "CALL 0x14077f7f6"
+            },
+            {
+              "address": "1405c4aee",
+              "bytes": "4c8d0dfb05b100",
+              "text": "LEA R9,[0x1410d50f0]"
+            },
+            {
+              "address": "1405c4af5",
+              "bytes": "c744242000000000",
+              "text": "MOV dword ptr [RSP + 0x20],0x0"
+            },
+            {
+              "address": "1405c4afd",
+              "bytes": "4c8d05cc05b100",
+              "text": "LEA R8,[0x1410d50d0]"
+            },
+            {
+              "address": "1405c4b04",
+              "bytes": "33d2",
+              "text": "XOR EDX,EDX"
+            },
+            {
+              "address": "1405c4b06",
+              "bytes": "488b4808",
+              "text": "MOV RCX,qword ptr [RAX + 0x8]"
+            },
+            {
+              "address": "1405c4b0a",
+              "bytes": "e829171e00",
+              "text": "CALL 0x1407a6238"
+            },
+            {
+              "address": "1405c4b0f",
+              "bytes": "488bc8",
+              "text": "MOV RCX,RAX"
+            },
+            {
+              "address": "1405c4b12",
+              "bytes": "ba02000000",
+              "text": "MOV EDX,0x2"
+            },
+            {
+              "address": "1405c4b17",
+              "bytes": "e844c0f1ff",
+              "text": "CALL 0x1404e0b60"
+            },
+            {
+              "address": "1405c4b1c",
+              "bytes": "85c0",
+              "text": "TEST EAX,EAX"
+            },
+            {
+              "address": "1405c4b1e",
+              "bytes": "7416",
+              "text": "JZ 0x1405c4b36"
+            },
+            {
+              "address": "1405c4b20",
+              "bytes": "488bcb",
+              "text": "MOV RCX,RBX"
+            },
+            {
+              "address": "1405c4b23",
+              "bytes": "c683400a000001",
+              "text": "MOV byte ptr [RBX + 0xa40],0x1"
+            }
+          ]
+        },
+        {
+          "address": "14063fa59",
+          "bytes": "889d400a0000",
+          "caller": "14063f900",
+          "text": "MOV byte ptr [RBP + 0xa40],BL",
+          "window": [
+            {
+              "address": "14063fa1b",
+              "bytes": "33d2",
+              "text": "XOR EDX,EDX"
+            },
+            {
+              "address": "14063fa1d",
+              "bytes": "488bcf",
+              "text": "MOV RCX,RDI"
+            },
+            {
+              "address": "14063fa20",
+              "bytes": "e89bf7ffff",
+              "text": "CALL 0x14063f1c0"
+            },
+            {
+              "address": "14063fa25",
+              "bytes": "458bce",
+              "text": "MOV R9D,R14D"
+            },
+            {
+              "address": "14063fa28",
+              "bytes": "f20f1097501f0000",
+              "text": "MOVSD XMM2,qword ptr [RDI + 0x1f50]"
+            },
+            {
+              "address": "14063fa30",
+              "bytes": "f20f108f481f0000",
+              "text": "MOVSD XMM1,qword ptr [RDI + 0x1f48]"
+            },
+            {
+              "address": "14063fa38",
+              "bytes": "488d4dc0",
+              "text": "LEA RCX,[RBP + -0x40]"
+            },
+            {
+              "address": "14063fa3c",
+              "bytes": "ff151e397100",
+              "text": "CALL qword ptr [0x140d53360]"
+            },
+            {
+              "address": "14063fa42",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "14063fa43",
+              "bytes": "488d4d50",
+              "text": "LEA RCX,[RBP + 0x50]"
+            },
+            {
+              "address": "14063fa47",
+              "bytes": "ff1543297100",
+              "text": "CALL qword ptr [0x140d52390]"
+            },
+            {
+              "address": "14063fa4d",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "14063fa4e",
+              "bytes": "4438b7102b0000",
+              "text": "CMP byte ptr [RDI + 0x2b10],R14B"
+            },
+            {
+              "address": "14063fa55",
+              "bytes": "750a",
+              "text": "JNZ 0x14063fa61"
+            },
+            {
+              "address": "14063fa57",
+              "bytes": "32db",
+              "text": "XOR BL,BL"
+            },
+            {
+              "address": "14063fa59",
+              "bytes": "889d400a0000",
+              "text": "MOV byte ptr [RBP + 0xa40],BL"
+            }
+          ]
+        },
+        {
+          "address": "14063fa63",
+          "bytes": "889d400a0000",
+          "caller": "14063f900",
+          "text": "MOV byte ptr [RBP + 0xa40],BL",
+          "window": [
+            {
+              "address": "14063fa25",
+              "bytes": "458bce",
+              "text": "MOV R9D,R14D"
+            },
+            {
+              "address": "14063fa28",
+              "bytes": "f20f1097501f0000",
+              "text": "MOVSD XMM2,qword ptr [RDI + 0x1f50]"
+            },
+            {
+              "address": "14063fa30",
+              "bytes": "f20f108f481f0000",
+              "text": "MOVSD XMM1,qword ptr [RDI + 0x1f48]"
+            },
+            {
+              "address": "14063fa38",
+              "bytes": "488d4dc0",
+              "text": "LEA RCX,[RBP + -0x40]"
+            },
+            {
+              "address": "14063fa3c",
+              "bytes": "ff151e397100",
+              "text": "CALL qword ptr [0x140d53360]"
+            },
+            {
+              "address": "14063fa42",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "14063fa43",
+              "bytes": "488d4d50",
+              "text": "LEA RCX,[RBP + 0x50]"
+            },
+            {
+              "address": "14063fa47",
+              "bytes": "ff1543297100",
+              "text": "CALL qword ptr [0x140d52390]"
+            },
+            {
+              "address": "14063fa4d",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "14063fa4e",
+              "bytes": "4438b7102b0000",
+              "text": "CMP byte ptr [RDI + 0x2b10],R14B"
+            },
+            {
+              "address": "14063fa55",
+              "bytes": "750a",
+              "text": "JNZ 0x14063fa61"
+            },
+            {
+              "address": "14063fa57",
+              "bytes": "32db",
+              "text": "XOR BL,BL"
+            },
+            {
+              "address": "14063fa59",
+              "bytes": "889d400a0000",
+              "text": "MOV byte ptr [RBP + 0xa40],BL"
+            },
+            {
+              "address": "14063fa5f",
+              "bytes": "eb22",
+              "text": "JMP 0x14063fa83"
+            },
+            {
+              "address": "14063fa61",
+              "bytes": "b301",
+              "text": "MOV BL,0x1"
+            },
+            {
+              "address": "14063fa63",
+              "bytes": "889d400a0000",
+              "text": "MOV byte ptr [RBP + 0xa40],BL"
+            }
+          ]
+        },
+        {
+          "address": "1406a4c22",
+          "bytes": "8885400a0000",
+          "caller": "1406a4a20",
+          "text": "MOV byte ptr [RBP + 0xa40],AL",
+          "window": [
+            {
+              "address": "1406a4bd4",
+              "bytes": "ba01000000",
+              "text": "MOV EDX,0x1"
+            },
+            {
+              "address": "1406a4bd9",
+              "bytes": "488d8d00010000",
+              "text": "LEA RCX,[RBP + 0x100]"
+            },
+            {
+              "address": "1406a4be0",
+              "bytes": "ff15bae86a00",
+              "text": "CALL qword ptr [0x140d534a0]"
+            },
+            {
+              "address": "1406a4be6",
+              "bytes": "488bd8",
+              "text": "MOV RBX,RAX"
+            },
+            {
+              "address": "1406a4be9",
+              "bytes": "e852ccffff",
+              "text": "CALL 0x1406a1840"
+            },
+            {
+              "address": "1406a4bee",
+              "bytes": "488bd0",
+              "text": "MOV RDX,RAX"
+            },
+            {
+              "address": "1406a4bf1",
+              "bytes": "4c8bc3",
+              "text": "MOV R8,RBX"
+            },
+            {
+              "address": "1406a4bf4",
+              "bytes": "488d8d40020000",
+              "text": "LEA RCX,[RBP + 0x240]"
+            },
+            {
+              "address": "1406a4bfb",
+              "bytes": "ff15cf006b00",
+              "text": "CALL qword ptr [0x140d54cd0]"
+            },
+            {
+              "address": "1406a4c01",
+              "bytes": "90",
+              "text": "NOP"
+            },
+            {
+              "address": "1406a4c02",
+              "bytes": "488d8d00010000",
+              "text": "LEA RCX,[RBP + 0x100]"
+            },
+            {
+              "address": "1406a4c09",
+              "bytes": "ff1599e86a00",
+              "text": "CALL qword ptr [0x140d534a8]"
+            },
+            {
+              "address": "1406a4c0f",
+              "bytes": "8b8684010000",
+              "text": "MOV EAX,dword ptr [RSI + 0x184]"
+            },
+            {
+              "address": "1406a4c15",
+              "bytes": "89853c0a0000",
+              "text": "MOV dword ptr [RBP + 0xa3c],EAX"
+            },
+            {
+              "address": "1406a4c1b",
+              "bytes": "0fb686ec170000",
+              "text": "MOVZX EAX,byte ptr [RSI + 0x17ec]"
+            },
+            {
+              "address": "1406a4c22",
+              "bytes": "8885400a0000",
+              "text": "MOV byte ptr [RBP + 0xa40],AL"
+            }
+          ]
+        },
+        {
+          "address": "1407455d6",
+          "bytes": "418887400a0000",
+          "caller": "140745450",
+          "text": "MOV byte ptr [R15 + 0xa40],AL",
+          "window": [
+            {
+              "address": "140745592",
+              "bytes": "488d4c2460",
+              "text": "LEA RCX,[RSP + 0x60]"
+            },
+            {
+              "address": "140745597",
+              "bytes": "ff158b9b6100",
+              "text": "CALL qword ptr [0x140d5f128]"
+            },
+            {
+              "address": "14074559d",
+              "bytes": "488bc8",
+              "text": "MOV RCX,RAX"
+            },
+            {
+              "address": "1407455a0",
+              "bytes": "ff15d2806100",
+              "text": "CALL qword ptr [0x140d5d678]"
+            },
+            {
+              "address": "1407455a6",
+              "bytes": "f2410f1187d8100000",
+              "text": "MOVSD qword ptr [R15 + 0x10d8],XMM0"
+            },
+            {
+              "address": "1407455af",
+              "bytes": "ba150a0000",
+              "text": "MOV EDX,0xa15"
+            },
+            {
+              "address": "1407455b4",
+              "bytes": "498bcf",
+              "text": "MOV RCX,R15"
+            },
+            {
+              "address": "1407455b7",
+              "bytes": "e85ea20300",
+              "text": "CALL 0x14077f81a"
+            },
+            {
+              "address": "1407455bc",
+              "bytes": "4533c9",
+              "text": "XOR R9D,R9D"
+            },
+            {
+              "address": "1407455bf",
+              "bytes": "4533c0",
+              "text": "XOR R8D,R8D"
+            },
+            {
+              "address": "1407455c2",
+              "bytes": "baf0000000",
+              "text": "MOV EDX,0xf0"
+            },
+            {
+              "address": "1407455c7",
+              "bytes": "488b4840",
+              "text": "MOV RCX,qword ptr [RAX + 0x40]"
+            },
+            {
+              "address": "1407455cb",
+              "bytes": "ff1587686100",
+              "text": "CALL qword ptr [0x140d5be58]"
+            },
+            {
+              "address": "1407455d1",
+              "bytes": "85c0",
+              "text": "TEST EAX,EAX"
+            },
+            {
+              "address": "1407455d3",
+              "bytes": "0f95c0",
+              "text": "SETNZ AL"
+            },
+            {
+              "address": "1407455d6",
+              "bytes": "418887400a0000",
+              "text": "MOV byte ptr [R15 + 0xa40],AL"
+            }
+          ]
+        }
+      ],
+      "scanned_instructions": 2639324,
+      "scope": "saved Listing; explicit MOV byte ptr [register + offset] only; excludes aliases, wider stores and other write opcodes",
+      "slot": "0xa40"
+    }
+  ],
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "--byte-store-offset",
+    "0xa40",
+    "0x1404dd140",
+    "--output",
+    "maps/rev2a_skip_policy_dialog_stores.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nlonglong * FUN_1404dd140(longlong param_1,CSimpleStringT<char,1> *param_2,int param_3)\r\n\r\n{\r\n  char cVar1;\r\n  undefined1 uVar2;\r\n  int iVar3;\r\n  DWORD DVar4;\r\n  undefined8 uVar5;\r\n  undefined8 uVar6;\r\n  char *pcVar7;\r\n  longlong lVar8;\r\n  longlong *plVar9;\r\n  longlong *plVar10;\r\n  longlong *plVar11;\r\n  undefined8 local_res20;\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> local_118 [8];\r\n  undefined4 local_110;\r\n  undefined8 local_10c;\r\n  undefined4 local_104;\r\n  undefined8 local_100;\r\n  undefined8 local_f8;\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> local_f0 [8];\r\n  longlong local_e8;\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> local_e0 [8];\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> local_d8 [8];\r\n  CLogManagerFunction local_d0 [40];\r\n  undefined8 local_a8;\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *local_a0;\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *local_98;\r\n  CIniFileAvivion_Parameter local_88 [80];\r\n  \r\n  local_a8 = 0xfffffffffffffffe;\r\n  ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>\r\n            ((CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *)&local_res20,\r\n             \"CAVisionApp::ProductionStartStandard\");\r\n  CLogManagerFunction::CLogManagerFunction\r\n            (local_d0,0x16,\r\n             (CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *)&local_res20,0);\r\n  ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n  ~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>\r\n            ((CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *)&local_res20);\r\n  cVar1 = FUN_1404d62e0(param_1);\r\n  if (cVar1 == '\\0') {\r\n    CLogManagerFunction::Write(local_d0,4,\"MakeProductionCalibCheck failed.\");\r\n    plVar10 = (longlong *)0x0;\r\n    goto LAB_1404dd4d0;\r\n  }\r\n  plVar10 = (longlong *)0x0;\r\n  *(undefined4 *)(param_1 + 0x834) = 0;\r\n  *(undefined1 *)(param_1 + 0x830) = 0;\r\n  ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n  CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>(local_118);\r\n  local_110 = 0xffffffff;\r\n  local_10c = 0;\r\n  local_104 = 0;\r\n  local_100 = 0;\r\n  local_f8 = 0;\r\n  local_100 = FUN_1404ca6d0(&local_100,0,0);\r\n  local_110 = 0;\r\n  local_10c = CONCAT44(local_10c._4_4_,4);\r\n  local_104 = 1;\r\n  plVar11 = (longlong *)(param_1 + 0x1b0);\r\n  plVar9 = plVar11;\r\n  if (param_1 == -0x1a8) {\r\n    plVar9 = plVar10;\r\n  }\r\n  local_res20 = 0;\r\n  (**(code **)(*plVar9 + 0x198))(plVar9,local_118,&local_res20);\r\n  lVar8 = *(longlong *)(param_1 + 0x40);\r\n  local_e8 = lVar8;\r\n  if (lVar8 == 0) {\r\n    CLogManagerFunction::Write(local_d0,4,\"pMainFrame is null\");\r\n  }\r\n  else {\r\n    if (DAT_1411697c8 == 1) {\r\n      CIniFileAvivion_Parameter::CIniFileAvivion_Parameter(local_88);\r\n      local_a0 = local_e0;\r\n      ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n      CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>(local_f0,\"Socket port offset\");\r\n      ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n      CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>\r\n                ((CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *)&local_res20,\r\n                 \"Production\");\r\n      local_98 = local_d8;\r\n      uVar5 = ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n              CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>\r\n                        (local_e0,(CStringT<char,class_StrTraitMFC_DLL<char,class_ATL::ChTraitsCRT<char>_>_>\r\n                                   *)&DAT_1411697e0);\r\n      uVar6 = ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n              CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>\r\n                        (local_d8,(CStringT<char,class_StrTraitMFC_DLL<char,class_ATL::ChTraitsCRT<char>_>_>\r\n                                   *)&DAT_1411697d0);\r\n      uVar2 = FUN_1404d6240(param_1);\r\n      iVar3 = CIniFileBase::GetValeurIni_int\r\n                        ((CIniFileBase *)local_88,\r\n                         (CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *)\r\n                         &local_res20,local_f0);\r\n      lVar8 = local_e8;\r\n      iVar3 = FUN_14063ac30(local_e8,uVar6,iVar3,DAT_1411697d8,uVar5,0,uVar2);\r\n      ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n      ~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>\r\n                ((CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_> *)&local_res20);\r\n      ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n      ~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>(local_f0);\r\n      if (iVar3 != 0) {\r\n        CIniFileAvivion_Parameter::~CIniFileAvivion_Parameter(local_88);\r\n        goto LAB_1404dd3c2;\r\n      }\r\n      CLogManagerFunction::Write(local_d0,4,\"m_pMainWnd->StartNetWork() failed.\\n\");\r\n      local_10c = CONCAT44(local_10c._4_4_,0xb);\r\n      if (param_1 == -0x1a8) {\r\n        plVar11 = (longlong *)0x0;\r\n      }\r\n      local_res20 = 0;\r\n      (**(code **)(*plVar11 + 0x198))(plVar11,local_118,&local_res20);\r\n      CIniFileAvivion_Parameter::~CIniFileAvivion_Parameter(local_88);\r\n    }\r\n    else {\r\nLAB_1404dd3c2:\r\n      FUN_1404d11e0(param_1,0);\r\n      *(undefined1 *)(param_1 + 0x198) = 0;\r\n      *(bool *)(param_1 + 0x199) = param_3 != 0;\r\n      (**(code **)(*plVar11 + 0xf8))(plVar11);\r\n      (**(code **)(*plVar11 + 0x100))(plVar11,0);\r\n      (**(code **)(*plVar11 + 0x108))(plVar11,0);\r\n      DVar4 = GetCurrentThreadId();\r\n      CLogManagerFunction::Write(local_d0,2,\"Thread ID %lu\\n\",(ulonglong)DVar4);\r\n      cVar1 = FUN_140596cc0(lVar8 + 0x5840,param_2);\r\n      if (cVar1 == '\\0') {\r\n        CLogManagerFunction::Write\r\n                  (local_d0,10,\"oRecentProductionFiles.Add(\\'%s\\') failed.\",*(undefined8 *)param_2);\r\n      }\r\n      lVar8 = **(longlong **)(param_1 + 0x810);\r\n      pcVar7 = ATL::CSimpleStringT<char,1>::operator_char_const____ptr64(param_2);\r\n      lVar8 = (**(code **)(lVar8 + 0x118))(*(undefined8 *)(param_1 + 0x810),pcVar7,1);\r\n      if (lVar8 != 0) {\r\n        FUN_1406971b0(lVar8,0);\r\n        (**(code **)(*plVar11 + 0xf0))(plVar11,0);\r\n        plVar10 = (longlong *)0x1;\r\n        goto LAB_1404dd4ba;\r\n      }\r\n      CLogManagerFunction::Write\r\n                (local_d0,4,\"m_pDocTemplateProduction->OpenDocumentFile(\\'%s\\') failed.\",\r\n                 *(undefined8 *)param_2);\r\n    }\r\n    plVar10 = (longlong *)0x0;\r\n  }\r\nLAB_1404dd4ba:\r\n  FUN_1404ac1d0(&local_100);\r\n  ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::\r\n  ~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>(local_118);\r\nLAB_1404dd4d0:\r\n  CLogManagerFunction::~CLogManagerFunction(local_d0);\r\n  return plVar10;\r\n}\r\n\r\n",
+      "entry": "1404dd140",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412c079c",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140f44890",
+          "type": "DATA"
+        },
+        {
+          "caller": "1404d4510",
+          "caller_name": "FUN_1404d4510",
+          "from": "1404d4574",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1404dcf50",
+          "caller_name": "FUN_1404dcf50",
+          "from": "1404dd0da",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1404dba70",
+          "caller_name": "FUN_1404dba70",
+          "from": "1404dbbf3",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1404dd140",
+          "bytes": "4489442418",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x18]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x18],R8D"
+        },
+        {
+          "address": "1404dd145",
+          "bytes": "55",
+          "references": [],
+          "text": "PUSH RBP"
+        },
+        {
+          "address": "1404dd146",
+          "bytes": "56",
+          "references": [],
+          "text": "PUSH RSI"
+        },
+        {
+          "address": "1404dd147",
+          "bytes": "57",
+          "references": [],
+          "text": "PUSH RDI"
+        },
+        {
+          "address": "1404dd148",
+          "bytes": "4154",
+          "references": [],
+          "text": "PUSH R12"
+        },
+        {
+          "address": "1404dd14a",
+          "bytes": "4155",
+          "references": [],
+          "text": "PUSH R13"
+        },
+        {
+          "address": "1404dd14c",
+          "bytes": "4156",
+          "references": [],
+          "text": "PUSH R14"
+        },
+        {
+          "address": "1404dd14e",
+          "bytes": "4157",
+          "references": [],
+          "text": "PUSH R15"
+        },
+        {
+          "address": "1404dd150",
+          "bytes": "488d6c24e0",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x58]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RBP,[RSP + -0x20]"
+        },
+        {
+          "address": "1404dd155",
+          "bytes": "4881ec20010000",
+          "references": [],
+          "text": "SUB RSP,0x120"
+        },
+        {
+          "address": "1404dd15c",
+          "bytes": "48c745b0feffffff",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xa8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RBP + -0x50],-0x2"
+        },
+        {
+          "address": "1404dd164",
+          "bytes": "48899c2460010000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x160],RBX"
+        },
+        {
+          "address": "1404dd16c",
+          "bytes": "4c8be2",
+          "references": [],
+          "text": "MOV R12,RDX"
+        },
+        {
+          "address": "1404dd16f",
+          "bytes": "4c8bf9",
+          "references": [],
+          "text": "MOV R15,RCX"
+        },
+        {
+          "address": "1404dd172",
+          "bytes": "488d150fde9500",
+          "references": [
+            {
+              "symbol": "s_CAVisionApp::ProductionStartStan_140e3af88",
+              "to": "140e3af88",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[0x140e3af88]"
+        },
+        {
+          "address": "1404dd179",
+          "bytes": "488d4d78",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd17d",
+          "bytes": "ff157d1f8800",
+          "references": [
+            {
+              "symbol": "PTR_CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f100",
+              "to": "140d5f100",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f2",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f100]"
+        },
+        {
+          "address": "1404dd183",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd184",
+          "bytes": "4533c9",
+          "references": [],
+          "text": "XOR R9D,R9D"
+        },
+        {
+          "address": "1404dd187",
+          "bytes": "4c8d4578",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd18b",
+          "bytes": "418d5116",
+          "references": [],
+          "text": "LEA EDX,[R9 + 0x16]"
+        },
+        {
+          "address": "1404dd18f",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd193",
+          "bytes": "ff15af608700",
+          "references": [
+            {
+              "symbol": "PTR_CLogManagerFunction_140d53248",
+              "to": "140d53248",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::CLogManagerFunction",
+              "to": "EXTERNAL:00001089",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53248]"
+        },
+        {
+          "address": "1404dd199",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd19a",
+          "bytes": "488d4d78",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd19e",
+          "bytes": "ff15541f8800",
+          "references": [
+            {
+              "symbol": "PTR_~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f0f8",
+              "to": "140d5f0f8",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f1",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f0f8]"
+        },
+        {
+          "address": "1404dd1a4",
+          "bytes": "498bcf",
+          "references": [],
+          "text": "MOV RCX,R15"
+        },
+        {
+          "address": "1404dd1a7",
+          "bytes": "e83491ffff",
+          "references": [
+            {
+              "symbol": "FUN_1404d62e0",
+              "to": "1404d62e0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404d62e0"
+        },
+        {
+          "address": "1404dd1ac",
+          "bytes": "84c0",
+          "references": [],
+          "text": "TEST AL,AL"
+        },
+        {
+          "address": "1404dd1ae",
+          "bytes": "751d",
+          "references": [
+            {
+              "symbol": "LAB_1404dd1cd",
+              "to": "1404dd1cd",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1404dd1cd"
+        },
+        {
+          "address": "1404dd1b0",
+          "bytes": "4c8d05f9dd9500",
+          "references": [
+            {
+              "symbol": "s_MakeProductionCalibCheck_failed._140e3afb0",
+              "to": "140e3afb0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x140e3afb0]"
+        },
+        {
+          "address": "1404dd1b7",
+          "bytes": "ba04000000",
+          "references": [],
+          "text": "MOV EDX,0x4"
+        },
+        {
+          "address": "1404dd1bc",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd1c0",
+          "bytes": "ff1592608700",
+          "references": [
+            {
+              "symbol": "PTR_Write_140d53258",
+              "to": "140d53258",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::Write",
+              "to": "EXTERNAL:0000108b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53258]"
+        },
+        {
+          "address": "1404dd1c6",
+          "bytes": "32db",
+          "references": [],
+          "text": "XOR BL,BL"
+        },
+        {
+          "address": "1404dd1c8",
+          "bytes": "e903030000",
+          "references": [
+            {
+              "symbol": "LAB_1404dd4d0",
+              "to": "1404dd4d0",
+              "type": "UNCONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JMP 0x1404dd4d0"
+        },
+        {
+          "address": "1404dd1cd",
+          "bytes": "33db",
+          "references": [],
+          "text": "XOR EBX,EBX"
+        },
+        {
+          "address": "1404dd1cf",
+          "bytes": "41899f34080000",
+          "references": [],
+          "text": "MOV dword ptr [R15 + 0x834],EBX"
+        },
+        {
+          "address": "1404dd1d6",
+          "bytes": "41889f30080000",
+          "references": [],
+          "text": "MOV byte ptr [R15 + 0x830],BL"
+        },
+        {
+          "address": "1404dd1dd",
+          "bytes": "488d4c2440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x118]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x40]"
+        },
+        {
+          "address": "1404dd1e2",
+          "bytes": "ff15281f8800",
+          "references": [
+            {
+              "symbol": "PTR_CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f110",
+              "to": "140d5f110",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f4",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f110]"
+        },
+        {
+          "address": "1404dd1e8",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd1e9",
+          "bytes": "c7442448ffffffff",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x110]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x48],0xffffffff"
+        },
+        {
+          "address": "1404dd1f1",
+          "bytes": "48895c244c",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x10c]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x4c],RBX"
+        },
+        {
+          "address": "1404dd1f6",
+          "bytes": "895c2454",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x104]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x54],EBX"
+        },
+        {
+          "address": "1404dd1fa",
+          "bytes": "48895c2458",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x100]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x58],RBX"
+        },
+        {
+          "address": "1404dd1ff",
+          "bytes": "48895c2460",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xf8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x60],RBX"
+        },
+        {
+          "address": "1404dd204",
+          "bytes": "4533c0",
+          "references": [],
+          "text": "XOR R8D,R8D"
+        },
+        {
+          "address": "1404dd207",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1404dd209",
+          "bytes": "488d4c2458",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x100]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x58]"
+        },
+        {
+          "address": "1404dd20e",
+          "bytes": "e8bdd4feff",
+          "references": [
+            {
+              "symbol": "FUN_1404ca6d0",
+              "to": "1404ca6d0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404ca6d0"
+        },
+        {
+          "address": "1404dd213",
+          "bytes": "4889442458",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x100]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x58],RAX"
+        },
+        {
+          "address": "1404dd218",
+          "bytes": "895c2448",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x110]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x48],EBX"
+        },
+        {
+          "address": "1404dd21c",
+          "bytes": "c744244c04000000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x10c]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x4c],0x4"
+        },
+        {
+          "address": "1404dd224",
+          "bytes": "c744245401000000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x104]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x54],0x1"
+        },
+        {
+          "address": "1404dd22c",
+          "bytes": "4d8dafa8010000",
+          "references": [],
+          "text": "LEA R13,[R15 + 0x1a8]"
+        },
+        {
+          "address": "1404dd233",
+          "bytes": "4d8db7b0010000",
+          "references": [],
+          "text": "LEA R14,[R15 + 0x1b0]"
+        },
+        {
+          "address": "1404dd23a",
+          "bytes": "498bce",
+          "references": [],
+          "text": "MOV RCX,R14"
+        },
+        {
+          "address": "1404dd23d",
+          "bytes": "4d85ed",
+          "references": [],
+          "text": "TEST R13,R13"
+        },
+        {
+          "address": "1404dd240",
+          "bytes": "480f44cb",
+          "references": [],
+          "text": "CMOVZ RCX,RBX"
+        },
+        {
+          "address": "1404dd244",
+          "bytes": "48895d78",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RBP + 0x78],RBX"
+        },
+        {
+          "address": "1404dd248",
+          "bytes": "488b01",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX]"
+        },
+        {
+          "address": "1404dd24b",
+          "bytes": "4c8d4578",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd24f",
+          "bytes": "488d542440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x118]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[RSP + 0x40]"
+        },
+        {
+          "address": "1404dd254",
+          "bytes": "ff9098010000",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0x198]"
+        },
+        {
+          "address": "1404dd25a",
+          "bytes": "498b4740",
+          "references": [],
+          "text": "MOV RAX,qword ptr [R15 + 0x40]"
+        },
+        {
+          "address": "1404dd25e",
+          "bytes": "4889442470",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xe8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x70],RAX"
+        },
+        {
+          "address": "1404dd263",
+          "bytes": "4885c0",
+          "references": [],
+          "text": "TEST RAX,RAX"
+        },
+        {
+          "address": "1404dd266",
+          "bytes": "7519",
+          "references": [
+            {
+              "symbol": "LAB_1404dd281",
+              "to": "1404dd281",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1404dd281"
+        },
+        {
+          "address": "1404dd268",
+          "bytes": "4c8d0569dd9500",
+          "references": [
+            {
+              "symbol": "s_pMainFrame_is_null_140e3afd8",
+              "to": "140e3afd8",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x140e3afd8]"
+        },
+        {
+          "address": "1404dd26f",
+          "bytes": "8d5304",
+          "references": [],
+          "text": "LEA EDX,[RBX + 0x4]"
+        },
+        {
+          "address": "1404dd272",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd276",
+          "bytes": "ff15dc5f8700",
+          "references": [
+            {
+              "symbol": "PTR_Write_140d53258",
+              "to": "140d53258",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::Write",
+              "to": "EXTERNAL:0000108b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53258]"
+        },
+        {
+          "address": "1404dd27c",
+          "bytes": "e939020000",
+          "references": [
+            {
+              "symbol": "LAB_1404dd4ba",
+              "to": "1404dd4ba",
+              "type": "UNCONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JMP 0x1404dd4ba"
+        },
+        {
+          "address": "1404dd281",
+          "bytes": "833d40c5c80001",
+          "references": [
+            {
+              "symbol": "DAT_1411697c8",
+              "to": "1411697c8",
+              "type": "READ"
+            }
+          ],
+          "text": "CMP dword ptr [0x1411697c8],0x1"
+        },
+        {
+          "address": "1404dd288",
+          "bytes": "0f8531010000",
+          "references": [
+            {
+              "symbol": "LAB_1404dd3bf",
+              "to": "1404dd3bf",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1404dd3bf"
+        },
+        {
+          "address": "1404dd28e",
+          "bytes": "488d4dd0",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x88]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x30]"
+        },
+        {
+          "address": "1404dd292",
+          "bytes": "ff15906a8700",
+          "references": [
+            {
+              "symbol": "PTR_CIniFileAvivion_Parameter_140d53d28",
+              "to": "140d53d28",
+              "type": "READ"
+            },
+            {
+              "symbol": "DYTOOLS0.DLL::CIniFileAvivion_Parameter::CIniFileAvivion_Parameter",
+              "to": "EXTERNAL:000011db",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53d28]"
+        },
+        {
+          "address": "1404dd298",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd299",
+          "bytes": "488d442478",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xe0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RAX,[RSP + 0x78]"
+        },
+        {
+          "address": "1404dd29e",
+          "bytes": "488945b8",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xa0]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RBP + -0x48],RAX"
+        },
+        {
+          "address": "1404dd2a2",
+          "bytes": "488d1547dd9500",
+          "references": [
+            {
+              "symbol": "s_Socket_port_offset_140e3aff0",
+              "to": "140e3aff0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[0x140e3aff0]"
+        },
+        {
+          "address": "1404dd2a9",
+          "bytes": "488d4c2468",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xf0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x68]"
+        },
+        {
+          "address": "1404dd2ae",
+          "bytes": "ff154c1e8800",
+          "references": [
+            {
+              "symbol": "PTR_CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f100",
+              "to": "140d5f100",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f2",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f100]"
+        },
+        {
+          "address": "1404dd2b4",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd2b5",
+          "bytes": "488d1524c79500",
+          "references": [
+            {
+              "symbol": "s_Production_140e399e0",
+              "to": "140e399e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[0x140e399e0]"
+        },
+        {
+          "address": "1404dd2bc",
+          "bytes": "488d4d78",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd2c0",
+          "bytes": "ff153a1e8800",
+          "references": [
+            {
+              "symbol": "PTR_CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f100",
+              "to": "140d5f100",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f2",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f100]"
+        },
+        {
+          "address": "1404dd2c6",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd2c7",
+          "bytes": "488d4580",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd8]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RAX,[RBP + -0x80]"
+        },
+        {
+          "address": "1404dd2cb",
+          "bytes": "488945c0",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x98]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RBP + -0x40],RAX"
+        },
+        {
+          "address": "1404dd2cf",
+          "bytes": "488d150ac5c800",
+          "references": [
+            {
+              "symbol": "DAT_1411697e0",
+              "to": "1411697e0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[0x1411697e0]"
+        },
+        {
+          "address": "1404dd2d6",
+          "bytes": "488d4c2478",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xe0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x78]"
+        },
+        {
+          "address": "1404dd2db",
+          "bytes": "ff15271e8800",
+          "references": [
+            {
+              "symbol": "PTR_CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f108",
+              "to": "140d5f108",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f3",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f108]"
+        },
+        {
+          "address": "1404dd2e1",
+          "bytes": "488bf0",
+          "references": [],
+          "text": "MOV RSI,RAX"
+        },
+        {
+          "address": "1404dd2e4",
+          "bytes": "488d15e5c4c800",
+          "references": [
+            {
+              "symbol": "DAT_1411697d0",
+              "to": "1411697d0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[0x1411697d0]"
+        },
+        {
+          "address": "1404dd2eb",
+          "bytes": "488d4d80",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd8]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x80]"
+        },
+        {
+          "address": "1404dd2ef",
+          "bytes": "ff15131e8800",
+          "references": [
+            {
+              "symbol": "PTR_CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f108",
+              "to": "140d5f108",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f3",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f108]"
+        },
+        {
+          "address": "1404dd2f5",
+          "bytes": "488bf8",
+          "references": [],
+          "text": "MOV RDI,RAX"
+        },
+        {
+          "address": "1404dd2f8",
+          "bytes": "498bcf",
+          "references": [],
+          "text": "MOV RCX,R15"
+        },
+        {
+          "address": "1404dd2fb",
+          "bytes": "e8408fffff",
+          "references": [
+            {
+              "symbol": "FUN_1404d6240",
+              "to": "1404d6240",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404d6240"
+        },
+        {
+          "address": "1404dd300",
+          "bytes": "0fb6d8",
+          "references": [],
+          "text": "MOVZX EBX,AL"
+        },
+        {
+          "address": "1404dd303",
+          "bytes": "4c8d442468",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xf0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[RSP + 0x68]"
+        },
+        {
+          "address": "1404dd308",
+          "bytes": "488d5578",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd30c",
+          "bytes": "488d4dd0",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x88]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x30]"
+        },
+        {
+          "address": "1404dd310",
+          "bytes": "ff1542698700",
+          "references": [
+            {
+              "symbol": "PTR_GetValeurIni_int_140d53c58",
+              "to": "140d53c58",
+              "type": "READ"
+            },
+            {
+              "symbol": "DYTOOLS0.DLL::CIniFileBase::GetValeurIni_int",
+              "to": "EXTERNAL:000011c1",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53c58]"
+        },
+        {
+          "address": "1404dd316",
+          "bytes": "448bc0",
+          "references": [],
+          "text": "MOV R8D,EAX"
+        },
+        {
+          "address": "1404dd319",
+          "bytes": "885c2430",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x128]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV byte ptr [RSP + 0x30],BL"
+        },
+        {
+          "address": "1404dd31d",
+          "bytes": "c744242800000000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x130]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x28],0x0"
+        },
+        {
+          "address": "1404dd325",
+          "bytes": "4889742420",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x138]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x20],RSI"
+        },
+        {
+          "address": "1404dd32a",
+          "bytes": "448b0da7c4c800",
+          "references": [
+            {
+              "symbol": "DAT_1411697d8",
+              "to": "1411697d8",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV R9D,dword ptr [0x1411697d8]"
+        },
+        {
+          "address": "1404dd331",
+          "bytes": "488bd7",
+          "references": [],
+          "text": "MOV RDX,RDI"
+        },
+        {
+          "address": "1404dd334",
+          "bytes": "488b7c2470",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xe8]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RDI,qword ptr [RSP + 0x70]"
+        },
+        {
+          "address": "1404dd339",
+          "bytes": "488bcf",
+          "references": [],
+          "text": "MOV RCX,RDI"
+        },
+        {
+          "address": "1404dd33c",
+          "bytes": "e8efd81500",
+          "references": [
+            {
+              "symbol": "FUN_14063ac30",
+              "to": "14063ac30",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14063ac30"
+        },
+        {
+          "address": "1404dd341",
+          "bytes": "85c0",
+          "references": [],
+          "text": "TEST EAX,EAX"
+        },
+        {
+          "address": "1404dd343",
+          "bytes": "0f94c3",
+          "references": [],
+          "text": "SETZ BL"
+        },
+        {
+          "address": "1404dd346",
+          "bytes": "488d4d78",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd34a",
+          "bytes": "ff15a81d8800",
+          "references": [
+            {
+              "symbol": "PTR_~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f0f8",
+              "to": "140d5f0f8",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f1",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f0f8]"
+        },
+        {
+          "address": "1404dd350",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd351",
+          "bytes": "488d4c2468",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xf0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x68]"
+        },
+        {
+          "address": "1404dd356",
+          "bytes": "ff159c1d8800",
+          "references": [
+            {
+              "symbol": "PTR_~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f0f8",
+              "to": "140d5f0f8",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f1",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f0f8]"
+        },
+        {
+          "address": "1404dd35c",
+          "bytes": "84db",
+          "references": [],
+          "text": "TEST BL,BL"
+        },
+        {
+          "address": "1404dd35e",
+          "bytes": "7453",
+          "references": [
+            {
+              "symbol": "LAB_1404dd3b3",
+              "to": "1404dd3b3",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x1404dd3b3"
+        },
+        {
+          "address": "1404dd360",
+          "bytes": "4c8d05a1dc9500",
+          "references": [
+            {
+              "symbol": "s_m_pMainWnd->StartNetWork()_faile_140e3b008",
+              "to": "140e3b008",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x140e3b008]"
+        },
+        {
+          "address": "1404dd367",
+          "bytes": "ba04000000",
+          "references": [],
+          "text": "MOV EDX,0x4"
+        },
+        {
+          "address": "1404dd36c",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd370",
+          "bytes": "ff15e25e8700",
+          "references": [
+            {
+              "symbol": "PTR_Write_140d53258",
+              "to": "140d53258",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::Write",
+              "to": "EXTERNAL:0000108b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53258]"
+        },
+        {
+          "address": "1404dd376",
+          "bytes": "c744244c0b000000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x10c]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x4c],0xb"
+        },
+        {
+          "address": "1404dd37e",
+          "bytes": "4d85ed",
+          "references": [],
+          "text": "TEST R13,R13"
+        },
+        {
+          "address": "1404dd381",
+          "bytes": "b800000000",
+          "references": [],
+          "text": "MOV EAX,0x0"
+        },
+        {
+          "address": "1404dd386",
+          "bytes": "4c0f44f0",
+          "references": [],
+          "text": "CMOVZ R14,RAX"
+        },
+        {
+          "address": "1404dd38a",
+          "bytes": "48894578",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RBP + 0x78],RAX"
+        },
+        {
+          "address": "1404dd38e",
+          "bytes": "498b06",
+          "references": [],
+          "text": "MOV RAX,qword ptr [R14]"
+        },
+        {
+          "address": "1404dd391",
+          "bytes": "4c8d4578",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x20]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[RBP + 0x78]"
+        },
+        {
+          "address": "1404dd395",
+          "bytes": "488d542440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x118]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[RSP + 0x40]"
+        },
+        {
+          "address": "1404dd39a",
+          "bytes": "498bce",
+          "references": [],
+          "text": "MOV RCX,R14"
+        },
+        {
+          "address": "1404dd39d",
+          "bytes": "ff9098010000",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0x198]"
+        },
+        {
+          "address": "1404dd3a3",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd3a4",
+          "bytes": "488d4dd0",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x88]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x30]"
+        },
+        {
+          "address": "1404dd3a8",
+          "bytes": "ff1582698700",
+          "references": [
+            {
+              "symbol": "PTR_~CIniFileAvivion_Parameter_140d53d30",
+              "to": "140d53d30",
+              "type": "READ"
+            },
+            {
+              "symbol": "DYTOOLS0.DLL::CIniFileAvivion_Parameter::~CIniFileAvivion_Parameter",
+              "to": "EXTERNAL:000011dc",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53d30]"
+        },
+        {
+          "address": "1404dd3ae",
+          "bytes": "e9e9000000",
+          "references": [
+            {
+              "symbol": "LAB_1404dd49c",
+              "to": "1404dd49c",
+              "type": "UNCONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JMP 0x1404dd49c"
+        },
+        {
+          "address": "1404dd3b3",
+          "bytes": "488d4dd0",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x88]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x30]"
+        },
+        {
+          "address": "1404dd3b7",
+          "bytes": "ff1573698700",
+          "references": [
+            {
+              "symbol": "PTR_~CIniFileAvivion_Parameter_140d53d30",
+              "to": "140d53d30",
+              "type": "READ"
+            },
+            {
+              "symbol": "DYTOOLS0.DLL::CIniFileAvivion_Parameter::~CIniFileAvivion_Parameter",
+              "to": "EXTERNAL:000011dc",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53d30]"
+        },
+        {
+          "address": "1404dd3bd",
+          "bytes": "eb03",
+          "references": [
+            {
+              "symbol": "LAB_1404dd3c2",
+              "to": "1404dd3c2",
+              "type": "UNCONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JMP 0x1404dd3c2"
+        },
+        {
+          "address": "1404dd3bf",
+          "bytes": "488bf8",
+          "references": [],
+          "text": "MOV RDI,RAX"
+        },
+        {
+          "address": "1404dd3c2",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1404dd3c4",
+          "bytes": "498bcf",
+          "references": [],
+          "text": "MOV RCX,R15"
+        },
+        {
+          "address": "1404dd3c7",
+          "bytes": "e8143effff",
+          "references": [
+            {
+              "symbol": "FUN_1404d11e0",
+              "to": "1404d11e0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404d11e0"
+        },
+        {
+          "address": "1404dd3cc",
+          "bytes": "41c6879801000000",
+          "references": [],
+          "text": "MOV byte ptr [R15 + 0x198],0x0"
+        },
+        {
+          "address": "1404dd3d4",
+          "bytes": "837d7000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x18]",
+              "type": "READ"
+            }
+          ],
+          "text": "CMP dword ptr [RBP + 0x70],0x0"
+        },
+        {
+          "address": "1404dd3d8",
+          "bytes": "0f95c0",
+          "references": [],
+          "text": "SETNZ AL"
+        },
+        {
+          "address": "1404dd3db",
+          "bytes": "41888799010000",
+          "references": [],
+          "text": "MOV byte ptr [R15 + 0x199],AL"
+        },
+        {
+          "address": "1404dd3e2",
+          "bytes": "498b06",
+          "references": [],
+          "text": "MOV RAX,qword ptr [R14]"
+        },
+        {
+          "address": "1404dd3e5",
+          "bytes": "498bce",
+          "references": [],
+          "text": "MOV RCX,R14"
+        },
+        {
+          "address": "1404dd3e8",
+          "bytes": "ff90f8000000",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0xf8]"
+        },
+        {
+          "address": "1404dd3ee",
+          "bytes": "498b06",
+          "references": [],
+          "text": "MOV RAX,qword ptr [R14]"
+        },
+        {
+          "address": "1404dd3f1",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1404dd3f3",
+          "bytes": "498bce",
+          "references": [],
+          "text": "MOV RCX,R14"
+        },
+        {
+          "address": "1404dd3f6",
+          "bytes": "ff9000010000",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0x100]"
+        },
+        {
+          "address": "1404dd3fc",
+          "bytes": "498b06",
+          "references": [],
+          "text": "MOV RAX,qword ptr [R14]"
+        },
+        {
+          "address": "1404dd3ff",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1404dd401",
+          "bytes": "498bce",
+          "references": [],
+          "text": "MOV RCX,R14"
+        },
+        {
+          "address": "1404dd404",
+          "bytes": "ff9008010000",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0x108]"
+        },
+        {
+          "address": "1404dd40a",
+          "bytes": "ff15d87b8700",
+          "references": [
+            {
+              "symbol": "PTR_GetCurrentThreadId_140d54fe8",
+              "to": "140d54fe8",
+              "type": "READ"
+            },
+            {
+              "symbol": "KERNEL32.DLL::GetCurrentThreadId",
+              "to": "EXTERNAL:00001be2",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d54fe8]"
+        },
+        {
+          "address": "1404dd410",
+          "bytes": "448bc8",
+          "references": [],
+          "text": "MOV R9D,EAX"
+        },
+        {
+          "address": "1404dd413",
+          "bytes": "4c8d0516dc9500",
+          "references": [
+            {
+              "symbol": "s_Thread_ID_%lu_140e3b030",
+              "to": "140e3b030",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x140e3b030]"
+        },
+        {
+          "address": "1404dd41a",
+          "bytes": "ba02000000",
+          "references": [],
+          "text": "MOV EDX,0x2"
+        },
+        {
+          "address": "1404dd41f",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd423",
+          "bytes": "ff152f5e8700",
+          "references": [
+            {
+              "symbol": "PTR_Write_140d53258",
+              "to": "140d53258",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::Write",
+              "to": "EXTERNAL:0000108b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53258]"
+        },
+        {
+          "address": "1404dd429",
+          "bytes": "488d8f40580000",
+          "references": [],
+          "text": "LEA RCX,[RDI + 0x5840]"
+        },
+        {
+          "address": "1404dd430",
+          "bytes": "498bd4",
+          "references": [],
+          "text": "MOV RDX,R12"
+        },
+        {
+          "address": "1404dd433",
+          "bytes": "e888980b00",
+          "references": [
+            {
+              "symbol": "FUN_140596cc0",
+              "to": "140596cc0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x140596cc0"
+        },
+        {
+          "address": "1404dd438",
+          "bytes": "84c0",
+          "references": [],
+          "text": "TEST AL,AL"
+        },
+        {
+          "address": "1404dd43a",
+          "bytes": "751a",
+          "references": [
+            {
+              "symbol": "LAB_1404dd456",
+              "to": "1404dd456",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1404dd456"
+        },
+        {
+          "address": "1404dd43c",
+          "bytes": "4d8b0c24",
+          "references": [],
+          "text": "MOV R9,qword ptr [R12]"
+        },
+        {
+          "address": "1404dd440",
+          "bytes": "4c8d05f9db9500",
+          "references": [
+            {
+              "symbol": "s_oRecentProductionFiles.Add('%s')_140e3b040",
+              "to": "140e3b040",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x140e3b040]"
+        },
+        {
+          "address": "1404dd447",
+          "bytes": "ba0a000000",
+          "references": [],
+          "text": "MOV EDX,0xa"
+        },
+        {
+          "address": "1404dd44c",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd450",
+          "bytes": "ff15025e8700",
+          "references": [
+            {
+              "symbol": "PTR_Write_140d53258",
+              "to": "140d53258",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::Write",
+              "to": "EXTERNAL:0000108b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53258]"
+        },
+        {
+          "address": "1404dd456",
+          "bytes": "498b8710080000",
+          "references": [],
+          "text": "MOV RAX,qword ptr [R15 + 0x810]"
+        },
+        {
+          "address": "1404dd45d",
+          "bytes": "488b18",
+          "references": [],
+          "text": "MOV RBX,qword ptr [RAX]"
+        },
+        {
+          "address": "1404dd460",
+          "bytes": "498bcc",
+          "references": [],
+          "text": "MOV RCX,R12"
+        },
+        {
+          "address": "1404dd463",
+          "bytes": "ff15bf1c8800",
+          "references": [
+            {
+              "symbol": "PTR_operator_char_const*___ptr64_140d5f128",
+              "to": "140d5f128",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CSimpleStringT<char,1>::operator_char_const*___ptr64",
+              "to": "EXTERNAL:000019f7",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f128]"
+        },
+        {
+          "address": "1404dd469",
+          "bytes": "488bd0",
+          "references": [],
+          "text": "MOV RDX,RAX"
+        },
+        {
+          "address": "1404dd46c",
+          "bytes": "41b801000000",
+          "references": [],
+          "text": "MOV R8D,0x1"
+        },
+        {
+          "address": "1404dd472",
+          "bytes": "498b8f10080000",
+          "references": [],
+          "text": "MOV RCX,qword ptr [R15 + 0x810]"
+        },
+        {
+          "address": "1404dd479",
+          "bytes": "ff9318010000",
+          "references": [],
+          "text": "CALL qword ptr [RBX + 0x118]"
+        },
+        {
+          "address": "1404dd47f",
+          "bytes": "4885c0",
+          "references": [],
+          "text": "TEST RAX,RAX"
+        },
+        {
+          "address": "1404dd482",
+          "bytes": "751c",
+          "references": [
+            {
+              "symbol": "LAB_1404dd4a0",
+              "to": "1404dd4a0",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1404dd4a0"
+        },
+        {
+          "address": "1404dd484",
+          "bytes": "4d8b0c24",
+          "references": [],
+          "text": "MOV R9,qword ptr [R12]"
+        },
+        {
+          "address": "1404dd488",
+          "bytes": "4c8d05e1db9500",
+          "references": [
+            {
+              "symbol": "s_m_pDocTemplateProduction->OpenDo_140e3b070",
+              "to": "140e3b070",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x140e3b070]"
+        },
+        {
+          "address": "1404dd48f",
+          "bytes": "8d5004",
+          "references": [],
+          "text": "LEA EDX,[RAX + 0x4]"
+        },
+        {
+          "address": "1404dd492",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd496",
+          "bytes": "ff15bc5d8700",
+          "references": [
+            {
+              "symbol": "PTR_Write_140d53258",
+              "to": "140d53258",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::Write",
+              "to": "EXTERNAL:0000108b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53258]"
+        },
+        {
+          "address": "1404dd49c",
+          "bytes": "32db",
+          "references": [],
+          "text": "XOR BL,BL"
+        },
+        {
+          "address": "1404dd49e",
+          "bytes": "eb1a",
+          "references": [
+            {
+              "symbol": "LAB_1404dd4ba",
+              "to": "1404dd4ba",
+              "type": "UNCONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JMP 0x1404dd4ba"
+        },
+        {
+          "address": "1404dd4a0",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1404dd4a2",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "1404dd4a5",
+          "bytes": "e8069d1b00",
+          "references": [
+            {
+              "symbol": "FUN_1406971b0",
+              "to": "1406971b0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1406971b0"
+        },
+        {
+          "address": "1404dd4aa",
+          "bytes": "498b06",
+          "references": [],
+          "text": "MOV RAX,qword ptr [R14]"
+        },
+        {
+          "address": "1404dd4ad",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1404dd4af",
+          "bytes": "498bce",
+          "references": [],
+          "text": "MOV RCX,R14"
+        },
+        {
+          "address": "1404dd4b2",
+          "bytes": "ff90f0000000",
+          "references": [],
+          "text": "CALL qword ptr [RAX + 0xf0]"
+        },
+        {
+          "address": "1404dd4b8",
+          "bytes": "b301",
+          "references": [],
+          "text": "MOV BL,0x1"
+        },
+        {
+          "address": "1404dd4ba",
+          "bytes": "488d4c2458",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x100]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x58]"
+        },
+        {
+          "address": "1404dd4bf",
+          "bytes": "e80cedfcff",
+          "references": [
+            {
+              "symbol": "FUN_1404ac1d0",
+              "to": "1404ac1d0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404ac1d0"
+        },
+        {
+          "address": "1404dd4c4",
+          "bytes": "488d4c2440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x118]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x40]"
+        },
+        {
+          "address": "1404dd4c9",
+          "bytes": "ff15291c8800",
+          "references": [
+            {
+              "symbol": "PTR_~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f0f8",
+              "to": "140d5f0f8",
+              "type": "READ"
+            },
+            {
+              "symbol": "MFC140.DLL::ATL::CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>::~CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>",
+              "to": "EXTERNAL:000019f1",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d5f0f8]"
+        },
+        {
+          "address": "1404dd4cf",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1404dd4d0",
+          "bytes": "488d4d88",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0xd0]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RBP + -0x78]"
+        },
+        {
+          "address": "1404dd4d4",
+          "bytes": "ff15765d8700",
+          "references": [
+            {
+              "symbol": "PTR_~CLogManagerFunction_140d53250",
+              "to": "140d53250",
+              "type": "READ"
+            },
+            {
+              "symbol": "BASETOOLS.DLL::CLogManagerFunction::~CLogManagerFunction",
+              "to": "EXTERNAL:0000108a",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x140d53250]"
+        },
+        {
+          "address": "1404dd4da",
+          "bytes": "0fb6c3",
+          "references": [],
+          "text": "MOVZX EAX,BL"
+        },
+        {
+          "address": "1404dd4dd",
+          "bytes": "488b9c2460010000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "READ"
+            }
+          ],
+          "text": "MOV RBX,qword ptr [RSP + 0x160]"
+        },
+        {
+          "address": "1404dd4e5",
+          "bytes": "4881c420010000",
+          "references": [],
+          "text": "ADD RSP,0x120"
+        },
+        {
+          "address": "1404dd4ec",
+          "bytes": "415f",
+          "references": [],
+          "text": "POP R15"
+        },
+        {
+          "address": "1404dd4ee",
+          "bytes": "415e",
+          "references": [],
+          "text": "POP R14"
+        },
+        {
+          "address": "1404dd4f0",
+          "bytes": "415d",
+          "references": [],
+          "text": "POP R13"
+        },
+        {
+          "address": "1404dd4f2",
+          "bytes": "415c",
+          "references": [],
+          "text": "POP R12"
+        },
+        {
+          "address": "1404dd4f4",
+          "bytes": "5f",
+          "references": [],
+          "text": "POP RDI"
+        },
+        {
+          "address": "1404dd4f5",
+          "bytes": "5e",
+          "references": [],
+          "text": "POP RSI"
+        },
+        {
+          "address": "1404dd4f6",
+          "bytes": "5d",
+          "references": [],
+          "text": "POP RBP"
+        },
+        {
+          "address": "1404dd4f7",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1404dd140",
+      "requested_address": "1404dd140"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

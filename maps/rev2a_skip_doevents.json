@@ -1,0 +1,318 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "--program",
+    "DyTools0.dll",
+    "0x1800772b0",
+    "--output",
+    "maps/rev2a_skip_doevents.json"
+  ],
+  "compiler": "windows",
+  "function_count": 14500,
+  "functions": [
+    {
+      "decompilation": "\r\n/* void __cdecl DoEvents(void) */\r\n\r\nvoid __cdecl DoEvents(void)\r\n\r\n{\r\n  int iVar1;\r\n  CWinThread *pCVar2;\r\n  tagMSG local_38;\r\n  \r\n                    /* 0x772b0  1468  ?DoEvents@@YAXXZ */\r\n  iVar1 = PeekMessageA(&local_38,(HWND)0x0,0,0,0);\r\n  while (((iVar1 != 0 && (pCVar2 = AfxGetThread(), pCVar2 != (CWinThread *)0x0)) &&\r\n         (iVar1 = (**(code **)(*(longlong *)pCVar2 + 200))(pCVar2), iVar1 != 0))) {\r\n    iVar1 = PeekMessageA(&local_38,(HWND)0x0,0,0,0);\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1800772b0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1801edc64",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802792bc",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1800772b0",
+          "bytes": "4053",
+          "references": [],
+          "text": "PUSH RBX"
+        },
+        {
+          "address": "1800772b2",
+          "bytes": "4883ec60",
+          "references": [],
+          "text": "SUB RSP,0x60"
+        },
+        {
+          "address": "1800772b6",
+          "bytes": "33db",
+          "references": [],
+          "text": "XOR EBX,EBX"
+        },
+        {
+          "address": "1800772b8",
+          "bytes": "488d4c2430",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x38]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x30]"
+        },
+        {
+          "address": "1800772bd",
+          "bytes": "4533c9",
+          "references": [],
+          "text": "XOR R9D,R9D"
+        },
+        {
+          "address": "1800772c0",
+          "bytes": "895c2420",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x48]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x20],EBX"
+        },
+        {
+          "address": "1800772c4",
+          "bytes": "4533c0",
+          "references": [],
+          "text": "XOR R8D,R8D"
+        },
+        {
+          "address": "1800772c7",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1800772c9",
+          "bytes": "ff15910c0e00",
+          "references": [
+            {
+              "symbol": "PTR_PeekMessageA_180157f60",
+              "to": "180157f60",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::PeekMessageA",
+              "to": "EXTERNAL:000009b0",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x180157f60]"
+        },
+        {
+          "address": "1800772cf",
+          "bytes": "85c0",
+          "references": [],
+          "text": "TEST EAX,EAX"
+        },
+        {
+          "address": "1800772d1",
+          "bytes": "7435",
+          "references": [
+            {
+              "symbol": "LAB_180077308",
+              "to": "180077308",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x180077308"
+        },
+        {
+          "address": "1800772d3",
+          "bytes": "e80a770a00",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::AfxGetThread",
+              "to": "18011e9e2",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x18011e9e2"
+        },
+        {
+          "address": "1800772d8",
+          "bytes": "4885c0",
+          "references": [],
+          "text": "TEST RAX,RAX"
+        },
+        {
+          "address": "1800772db",
+          "bytes": "742b",
+          "references": [
+            {
+              "symbol": "LAB_180077308",
+              "to": "180077308",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x180077308"
+        },
+        {
+          "address": "1800772dd",
+          "bytes": "488b10",
+          "references": [],
+          "text": "MOV RDX,qword ptr [RAX]"
+        },
+        {
+          "address": "1800772e0",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "1800772e3",
+          "bytes": "ff92c8000000",
+          "references": [],
+          "text": "CALL qword ptr [RDX + 0xc8]"
+        },
+        {
+          "address": "1800772e9",
+          "bytes": "85c0",
+          "references": [],
+          "text": "TEST EAX,EAX"
+        },
+        {
+          "address": "1800772eb",
+          "bytes": "741b",
+          "references": [
+            {
+              "symbol": "LAB_180077308",
+              "to": "180077308",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x180077308"
+        },
+        {
+          "address": "1800772ed",
+          "bytes": "4533c9",
+          "references": [],
+          "text": "XOR R9D,R9D"
+        },
+        {
+          "address": "1800772f0",
+          "bytes": "895c2420",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x48]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x20],EBX"
+        },
+        {
+          "address": "1800772f4",
+          "bytes": "4533c0",
+          "references": [],
+          "text": "XOR R8D,R8D"
+        },
+        {
+          "address": "1800772f7",
+          "bytes": "488d4c2430",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x38]",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RCX,[RSP + 0x30]"
+        },
+        {
+          "address": "1800772fc",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1800772fe",
+          "bytes": "ff155c0c0e00",
+          "references": [
+            {
+              "symbol": "PTR_PeekMessageA_180157f60",
+              "to": "180157f60",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::PeekMessageA",
+              "to": "EXTERNAL:000009b0",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x180157f60]"
+        },
+        {
+          "address": "180077304",
+          "bytes": "85c0",
+          "references": [],
+          "text": "TEST EAX,EAX"
+        },
+        {
+          "address": "180077306",
+          "bytes": "75cb",
+          "references": [
+            {
+              "symbol": "LAB_1800772d3",
+              "to": "1800772d3",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x1800772d3"
+        },
+        {
+          "address": "180077308",
+          "bytes": "4883c460",
+          "references": [],
+          "text": "ADD RSP,0x60"
+        },
+        {
+          "address": "18007730c",
+          "bytes": "5b",
+          "references": [],
+          "text": "POP RBX"
+        },
+        {
+          "address": "18007730d",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "DoEvents",
+      "requested_address": "1800772b0"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "f5421b5509236d6a5ba7b20c6e764f0af5e0be131bf2b08e2bbe774ac805767e",
+  "source_size": 2742784
+}

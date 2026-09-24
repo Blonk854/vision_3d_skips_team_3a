@@ -1,0 +1,229 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "--program",
+    "mfc140.dll",
+    "--output",
+    "maps/rev2a_mfc140_top_frame_getter.json",
+    "0x1802ac6a0"
+  ],
+  "compiler": "windows",
+  "function_count": 17765,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid FUN_1802ac6a0(longlong param_1)\r\n\r\n{\r\n  HWND pHVar1;\r\n  \r\n                    /* 0x2ac6a0  5701   */\r\n  pHVar1 = GetParent(*(HWND *)(param_1 + 0x40));\r\n  pHVar1 = GetParent(pHVar1);\r\n  FUN_18028f480(pHVar1);\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1802ac6a0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1804153a8",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802df732",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": "1802abbf0",
+          "caller_name": "FUN_1802abbf0",
+          "from": "1802abc65",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180085850",
+          "caller_name": "FUN_180085850",
+          "from": "180085879",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac860",
+          "caller_name": "FUN_1802ac860",
+          "from": "1802ac928",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac860",
+          "caller_name": "FUN_1802ac860",
+          "from": "1802ac973",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac0b0",
+          "caller_name": "FUN_1802ac0b0",
+          "from": "1802ac0cf",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac3c0",
+          "caller_name": "FUN_1802ac3c0",
+          "from": "1802ac3e9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac3c0",
+          "caller_name": "FUN_1802ac3c0",
+          "from": "1802ac437",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac700",
+          "caller_name": "FUN_1802ac700",
+          "from": "1802ac726",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac070",
+          "caller_name": "FUN_1802ac070",
+          "from": "1802ac081",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801a5a10",
+          "caller_name": "FUN_1801a5a10",
+          "from": "1801a5bb8",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801c72f0",
+          "caller_name": "FUN_1801c72f0",
+          "from": "1801c74d6",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802abb20",
+          "caller_name": "FUN_1802abb20",
+          "from": "1802abb45",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac2e0",
+          "caller_name": "FUN_1802ac2e0",
+          "from": "1802ac300",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac6d0",
+          "caller_name": "FUN_1802ac6d0",
+          "from": "1802ac6d4",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802ac9a0",
+          "caller_name": "FUN_1802ac9a0",
+          "from": "1802ac9c4",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1802ac6a0",
+          "bytes": "4883ec28",
+          "references": [],
+          "text": "SUB RSP,0x28"
+        },
+        {
+          "address": "1802ac6a4",
+          "bytes": "488b4940",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RCX + 0x40]"
+        },
+        {
+          "address": "1802ac6a8",
+          "bytes": "ff15b21c0200",
+          "references": [
+            {
+              "symbol": "PTR_GetParent_1802ce360",
+              "to": "1802ce360",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::GetParent",
+              "to": "EXTERNAL:0000022b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x1802ce360]"
+        },
+        {
+          "address": "1802ac6ae",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "1802ac6b1",
+          "bytes": "ff15a91c0200",
+          "references": [
+            {
+              "symbol": "PTR_GetParent_1802ce360",
+              "to": "1802ce360",
+              "type": "READ"
+            },
+            {
+              "symbol": "USER32.DLL::GetParent",
+              "to": "EXTERNAL:0000022b",
+              "type": "COMPUTED_CALL"
+            }
+          ],
+          "text": "CALL qword ptr [0x1802ce360]"
+        },
+        {
+          "address": "1802ac6b7",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "1802ac6ba",
+          "bytes": "4883c428",
+          "references": [],
+          "text": "ADD RSP,0x28"
+        },
+        {
+          "address": "1802ac6be",
+          "bytes": "e9bd2dfeff",
+          "references": [
+            {
+              "symbol": "FUN_18028f480",
+              "to": "18028f480",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "JMP 0x18028f480"
+        }
+      ],
+      "name": "FUN_1802ac6a0",
+      "requested_address": "1802ac6a0"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe",
+  "source_size": 5784856
+}

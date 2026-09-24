@@ -1,0 +1,1189 @@
+{
+  "msgmap": "180262070",
+  "parent_fn": "0",
+  "entries": "1801999f8",
+  "entries_list": [
+    {
+      "stride": 32,
+      "count": 0,
+      "entries": []
+    },
+    {
+      "stride": 40,
+      "count": 80,
+      "entries": [
+        {
+          "i": 0,
+          "addr": "1801999f8",
+          "nMessage": "0",
+          "nCode": 0,
+          "nID": 0,
+          "nLastID": 0,
+          "nSig": "0",
+          "pfn": "65006300780045",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 1,
+          "addr": "180199a20",
+          "nMessage": "700041002e006c",
+          "nCode": 7078000,
+          "nID": 6488169,
+          "nLastID": 7602273,
+          "nSig": "6e006f0069",
+          "pfn": "6c6563784520534d",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 2,
+          "addr": "180199a48",
+          "nMessage": "20746f6e20736920",
+          "nCode": 1953721961,
+          "nID": 1701604449,
+          "nLastID": 1852776548,
+          "nSig": "6f63207369687420",
+          "pfn": "6f72726528207265",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 3,
+          "addr": "180199a70",
+          "nMessage": "692065646f632072",
+          "nCode": 2016419955,
+          "nID": 1480077349,
+          "nLastID": 11817,
+          "nSig": "6c69614600000000",
+          "pfn": "534d206e7572206f",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 4,
+          "addr": "180199a98",
+          "nMessage": "61206c6563784520",
+          "nCode": 1768714352,
+          "nID": 1769234787,
+          "nLastID": 673214063,
+          "nSig": "6f6320726f727265",
+          "pfn": "5838302578302073",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 5,
+          "addr": "180199ac0",
+          "nMessage": "2e29",
+          "nCode": 0,
+          "nID": 0,
+          "nLastID": 541937475,
+          "nSig": "616320726f727265",
+          "pfn": "3d64253d72682820",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 6,
+          "addr": "180199ae8",
+          "nMessage": "202c583830257830",
+          "nCode": 1685013367,
+          "nID": 1680162149,
+          "nLastID": 1701060652,
+          "nSig": "6f69747069726373",
+          "pfn": "706c6568202c2273",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 7,
+          "addr": "180199b10",
+          "nMessage": "7325223d656c6966",
+          "nCode": 1746938914,
+          "nID": 1668312165,
+          "nLastID": 624785524,
+          "nSig": "5838302578303d64",
+          "pfn": "7325223d65637275",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 8,
+          "addr": "180199b38",
+          "nMessage": "292022",
+          "nCode": 1852534357,
+          "nID": 544110447,
+          "nLastID": 1701017701,
+          "nSig": "2e6e6f697470",
+          "pfn": "656c696620747874",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 9,
+          "addr": "180199b60",
+          "nMessage": "297478742e2a2820",
+          "nCode": 1949182588,
+          "nID": 1098675320,
+          "nLastID": 673213548,
+          "nSig": "2a2e2a7c292a2e2a",
+          "pfn": "7478742e2a",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 10,
+          "addr": "180199b88",
+          "nMessage": "7478742e00747874",
+          "nCode": 0,
+          "nID": 0,
+          "nLastID": 1852404304,
+          "nSig": "656c694674",
+          "pfn": "696c616d6f6e4143",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 11,
+          "addr": "180199bb0",
+          "nMessage": "6956646972477365",
+          "nCode": 30565,
+          "nID": 0,
+          "nLastID": 1869771333,
+          "nSig": "73206e6568772072",
+          "pfn": "20732520656c6966",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 12,
+          "addr": "180199bd8",
+          "nMessage": "726f6d654d43202d",
+          "nCode": 1668826489,
+          "nID": 1769238629,
+          "nLastID": 540700271,
+          "nSig": "6f727245002e7325",
+          "pfn": "2065766173206e65",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 13,
+          "addr": "180199c00",
+          "nMessage": "20732520656c6966",
+          "nCode": 1178804269,
+          "nID": 1164274793,
+          "nLastID": 1885692792,
+          "nSig": "7325203a6e6f6974",
+          "pfn": "687720726f727245",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 14,
+          "addr": "180199c28",
+          "nMessage": "2065766173206e65",
+          "nCode": 1701603686,
+          "nID": 544417056,
+          "nLastID": 1162027053,
+          "nSig": "6e6f697470656378",
+          "pfn": "2e",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 15,
+          "addr": "180199c50",
+          "nMessage": "687720726f727245",
+          "nCode": 1931505253,
+          "nID": 543520353,
+          "nLastID": 1701603686,
+          "nSig": "c000c00732520",
+          "pfn": "74610000000c",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 16,
+          "addr": "180199c78",
+          "nMessage": "7477",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1962444,
+          "nSig": "0",
+          "pfn": "20001df1d8",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 17,
+          "addr": "180199ca0",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 3,
+          "nLastID": 1962556,
+          "nSig": "0",
+          "pfn": "60001df258",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 18,
+          "addr": "180199cc8",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 3,
+          "nLastID": 1962652,
+          "nSig": "0",
+          "pfn": "78001df2b8",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 19,
+          "addr": "180199cf0",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 4,
+          "nLastID": 1962780,
+          "nSig": "0",
+          "pfn": "78001df340",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 20,
+          "addr": "180199d18",
+          "nMessage": "100000000",
+          "nCode": 1953060419,
+          "nID": 1634885968,
+          "nLastID": 1702126957,
+          "nSig": "3a3a6567616d4972",
+          "pfn": "6f69737265766e6f",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 21,
+          "addr": "180199d40",
+          "nMessage": "74656d617261506e",
+          "nCode": 7565925,
+          "nID": 0,
+          "nLastID": 1851880020,
+          "nSig": "332e25203d205873",
+          "pfn": "3d2059736e617254",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 22,
+          "addr": "180199d68",
+          "nMessage": "64202c66332e2520",
+          "nCode": 1818321747,
+          "nID": 540876901,
+          "nLastID": 1714630181,
+          "nSig": "636570734164202c",
+          "pfn": "5364202c66332e25",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 23,
+          "addr": "180199d90",
+          "nMessage": "2064725f72616568",
+          "nCode": 774185021,
+          "nID": 539780659,
+          "nLastID": 1953452644,
+          "nSig": "64725f6e6f697461",
+          "pfn": "66664f202c66332e",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 24,
+          "addr": "180199db8",
+          "nMessage": "6c65786950746573",
+          "nCode": 673201440,
+          "nID": 1714630181,
+          "nLastID": 774185004,
+          "nSig": "1993052200296633",
+          "pfn": "1df398",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 25,
+          "addr": "180199de0",
+          "nMessage": "300000000",
+          "nCode": 1962912,
+          "nID": 32,
+          "nLastID": 0,
+          "nSig": "1993052200000001",
+          "pfn": "1df3d4",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 26,
+          "addr": "180199e08",
+          "nMessage": "500000000",
+          "nCode": 1962992,
+          "nID": 32,
+          "nLastID": 0,
+          "nSig": "1993052200000001",
+          "pfn": "0",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 27,
+          "addr": "180199e30",
+          "nMessage": "100000000",
+          "nCode": 1963056,
+          "nID": 32,
+          "nLastID": 0,
+          "nSig": "1993052200000005",
+          "pfn": "1d6488",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 28,
+          "addr": "180199e58",
+          "nMessage": "200000000",
+          "nCode": 1963224,
+          "nID": 40,
+          "nLastID": 0,
+          "nSig": "1993052200000001",
+          "pfn": "1df658",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 29,
+          "addr": "180199e80",
+          "nMessage": "300000000",
+          "nCode": 1963552,
+          "nID": 64,
+          "nLastID": 0,
+          "nSig": "1993052200000001",
+          "pfn": "1df658",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 30,
+          "addr": "180199ea8",
+          "nMessage": "300000000",
+          "nCode": 1963616,
+          "nID": 64,
+          "nLastID": 0,
+          "nSig": "1993052200000001",
+          "pfn": "1df6e0",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 31,
+          "addr": "180199ed0",
+          "nMessage": "700000000",
+          "nCode": 1963768,
+          "nID": 128,
+          "nLastID": 0,
+          "nSig": "1993052200000001",
+          "pfn": "1df748",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 32,
+          "addr": "180199ef8",
+          "nMessage": "500000000",
+          "nCode": 1963864,
+          "nID": 56,
+          "nLastID": 0,
+          "nSig": "1993052200000001",
+          "pfn": "0",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 33,
+          "addr": "180199f20",
+          "nMessage": "100000000",
+          "nCode": 1963928,
+          "nID": 32,
+          "nLastID": 0,
+          "nSig": "801b4c1000000005",
+          "pfn": "18011ecbe",
+          "function": "MFC140.DLL::CWnd::GetRuntimeClass",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011ecbe.c"
+        },
+        {
+          "i": 34,
+          "addr": "180199f48",
+          "nMessage": "180116890",
+          "nCode": 2148590768,
+          "nID": 1,
+          "nLastID": 2148590768,
+          "nSig": "8010e4b000000001",
+          "pfn": "18011ea84",
+          "function": "MFC140.DLL::CCmdTarget::OnCmdMsg",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011ea84.c"
+        },
+        {
+          "i": 35,
+          "addr": "180199f70",
+          "nMessage": "18011e9a6",
+          "nCode": 2148657112,
+          "nID": 1,
+          "nLastID": 2148657118,
+          "nSig": "8011e7e400000001",
+          "pfn": "18011e7ea",
+          "function": "MFC140.DLL::CCmdTarget::GetTypeLibCache",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e7ea.c"
+        },
+        {
+          "i": 36,
+          "addr": "180199f98",
+          "nMessage": "18011e7f0",
+          "nCode": 2148629344,
+          "nID": 1,
+          "nLastID": 2148657142,
+          "nSig": "8011e7fc00000001",
+          "pfn": "18011e802",
+          "function": "MFC140.DLL::CCmdTarget::GetConnectionMap",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e802.c"
+        },
+        {
+          "i": 37,
+          "addr": "180199fc0",
+          "nMessage": "18011e8a4",
+          "nCode": 2148657160,
+          "nID": 1,
+          "nLastID": 2148657166,
+          "nSig": "8011e81400000001",
+          "pfn": "18011e81a",
+          "function": "MFC140.DLL::CCmdTarget::GetExtraConnectionPoints",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e81a.c"
+        },
+        {
+          "i": 38,
+          "addr": "180199fe8",
+          "nMessage": "18011e820",
+          "nCode": 2148657814,
+          "nID": 1,
+          "nLastID": 2148657190,
+          "nSig": "8011e83200000001",
+          "pfn": "18011e82c",
+          "function": "MFC140.DLL::CWnd::CreateEx",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e82c.c"
+        },
+        {
+          "i": 39,
+          "addr": "18019a010",
+          "nMessage": "18011e838",
+          "nCode": 2148657214,
+          "nID": 1,
+          "nLastID": 2148657826,
+          "nSig": "8011e85000000001",
+          "pfn": "18011e856",
+          "function": "MFC140.DLL::CWnd::SetMenu",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e856.c"
+        },
+        {
+          "i": 40,
+          "addr": "18019a038",
+          "nMessage": "1801181d0",
+          "nCode": 2148657274,
+          "nID": 1,
+          "nLastID": 2148657280,
+          "nSig": "8011e88600000001",
+          "pfn": "18011e88c",
+          "function": "MFC140.DLL::CWnd::WinHelpInternal",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e88c.c"
+        },
+        {
+          "i": 41,
+          "addr": "18019a060",
+          "nMessage": "18011e892",
+          "nCode": 2148657304,
+          "nID": 1,
+          "nLastID": 2148657310,
+          "nSig": "8011e8aa00000001",
+          "pfn": "18011e8b0",
+          "function": "MFC140.DLL::CWnd::get_accParent",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e8b0.c"
+        },
+        {
+          "i": 42,
+          "addr": "18019a088",
+          "nMessage": "18011e8b6",
+          "nCode": 2148657340,
+          "nID": 1,
+          "nLastID": 2148657346,
+          "nSig": "8011e8c800000001",
+          "pfn": "18011e8ce",
+          "function": "MFC140.DLL::CWnd::get_accDescription",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e8ce.c"
+        },
+        {
+          "i": 43,
+          "addr": "18019a0b0",
+          "nMessage": "18011e8d4",
+          "nCode": 2148657370,
+          "nID": 1,
+          "nLastID": 2148657376,
+          "nSig": "8011e8e600000001",
+          "pfn": "18011e8ec",
+          "function": "MFC140.DLL::CWnd::get_accKeyboardShortcut",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e8ec.c"
+        },
+        {
+          "i": 44,
+          "addr": "18019a0d8",
+          "nMessage": "18011e8f2",
+          "nCode": 2148657400,
+          "nID": 1,
+          "nLastID": 2148657406,
+          "nSig": "8011e90400000001",
+          "pfn": "18011e90a",
+          "function": "MFC140.DLL::CWnd::accLocation",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e90a.c"
+        },
+        {
+          "i": 45,
+          "addr": "18019a100",
+          "nMessage": "18011e910",
+          "nCode": 2148657430,
+          "nID": 1,
+          "nLastID": 2148657436,
+          "nSig": "8011e92200000001",
+          "pfn": "18011e928",
+          "function": "MFC140.DLL::CWnd::put_accValue",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e928.c"
+        },
+        {
+          "i": 46,
+          "addr": "18019a128",
+          "nMessage": "18011e92e",
+          "nCode": 2148657460,
+          "nID": 1,
+          "nLastID": 2148657466,
+          "nSig": "8011e94000000001",
+          "pfn": "18011e946",
+          "function": "MFC140.DLL::CWnd::GetSuperWndProcAddr",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e946.c"
+        },
+        {
+          "i": 47,
+          "addr": "18019a150",
+          "nMessage": "18010e4b0",
+          "nCode": 2147759408,
+          "nID": 1,
+          "nLastID": 2147759728,
+          "nSig": "8011eaba00000001",
+          "pfn": "18011e94c",
+          "function": "MFC140.DLL::CWnd::OnAmbientProperty",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e94c.c"
+        },
+        {
+          "i": 48,
+          "addr": "18019a178",
+          "nMessage": "18011eac0",
+          "nCode": 2148657490,
+          "nID": 1,
+          "nLastID": 2148657502,
+          "nSig": "8011eac600000001",
+          "pfn": "18011e964",
+          "function": "MFC140.DLL::CWnd::OnChildNotify",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e964.c"
+        },
+        {
+          "i": 49,
+          "addr": "18019a1a0",
+          "nMessage": "18011e96a",
+          "nCode": 2148657520,
+          "nID": 1,
+          "nLastID": 2148657526,
+          "nSig": "8011e97c00000001",
+          "pfn": "18011e982",
+          "function": "MFC140.DLL::CWnd::OnGesturePan",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e982.c"
+        },
+        {
+          "i": 50,
+          "addr": "18019a1c8",
+          "nMessage": "18011e988",
+          "nCode": 2148657550,
+          "nID": 1,
+          "nLastID": 2148657556,
+          "nSig": "8011e99a00000001",
+          "pfn": "18011ead2",
+          "function": "MFC140.DLL::CWnd::CheckAutoCenter",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011ead2.c"
+        },
+        {
+          "i": 51,
+          "addr": "18019a1f0",
+          "nMessage": "18011e9a0",
+          "nCode": 2148657580,
+          "nID": 1,
+          "nLastID": 2148657586,
+          "nSig": "8011ead800000001",
+          "pfn": "18011eade",
+          "function": "MFC140.DLL::CWnd::GetOccDialogInfo",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011eade.c"
+        },
+        {
+          "i": 52,
+          "addr": "18019a218",
+          "nMessage": "180116930",
+          "nCode": 2148631136,
+          "nID": 1,
+          "nLastID": 0,
+          "nSig": "1400000000",
+          "pfn": "0",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 53,
+          "addr": "18019a240",
+          "nMessage": "1",
+          "nCode": 2148226288,
+          "nID": 1,
+          "nLastID": 15,
+          "nSig": "0",
+          "pfn": "13",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 54,
+          "addr": "18019a268",
+          "nMessage": "180118010",
+          "nCode": 78,
+          "nID": 65006,
+          "nLastID": 0,
+          "nSig": "410000ffff",
+          "pfn": "18005f93c",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 55,
+          "addr": "18019a290",
+          "nMessage": "fdf80000004e",
+          "nCode": 0,
+          "nID": 65535,
+          "nLastID": 65,
+          "nSig": "8005f93c00000000",
+          "pfn": "0",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 56,
+          "addr": "18019a2b8",
+          "nMessage": "0",
+          "nCode": 0,
+          "nID": 0,
+          "nLastID": 0,
+          "nSig": "8011ecd600000000",
+          "pfn": "18019a230",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 57,
+          "addr": "18019a2e0",
+          "nMessage": "6e65696461724758",
+          "nCode": 1852791412,
+          "nID": 1918976613,
+          "nLastID": 0,
+          "nSig": "5053494400000000",
+          "pfn": "25257525",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 58,
+          "addr": "18019a308",
+          "nMessage": "c2c80000",
+          "nCode": 429065506,
+          "nID": 2,
+          "nLastID": 1964020,
+          "nSig": "0",
+          "pfn": "20001df808",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 59,
+          "addr": "18019a330",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 4,
+          "nLastID": 1964096,
+          "nSig": "0",
+          "pfn": "20001df860",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 60,
+          "addr": "18019a358",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1988952,
+          "nSig": "0",
+          "pfn": "50001df8d8",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 61,
+          "addr": "18019a380",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1988952,
+          "nSig": "0",
+          "pfn": "50001df908",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 62,
+          "addr": "18019a3a8",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1964396,
+          "nSig": "0",
+          "pfn": "50001df978",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 63,
+          "addr": "18019a3d0",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1964464,
+          "nSig": "0",
+          "pfn": "50001df9b8",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 64,
+          "addr": "18019a3f8",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1964680,
+          "nSig": "0",
+          "pfn": "30001dfa90",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 65,
+          "addr": "18019a420",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 4,
+          "nLastID": 1964768,
+          "nSig": "0",
+          "pfn": "50001dfb00",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 66,
+          "addr": "18019a448",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 5,
+          "nLastID": 1964908,
+          "nSig": "0",
+          "pfn": "80001dfba0",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 67,
+          "addr": "18019a470",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 3,
+          "nLastID": 1965084,
+          "nSig": "0",
+          "pfn": "48001dfc38",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 68,
+          "addr": "18019a498",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1988952,
+          "nSig": "0",
+          "pfn": "50001dfce0",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 69,
+          "addr": "18019a4c0",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 2,
+          "nLastID": 1965432,
+          "nSig": "0",
+          "pfn": "48001dfd88",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 70,
+          "addr": "18019a4e8",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 1,
+          "nLastID": 1965516,
+          "nSig": "0",
+          "pfn": "30001dfdd8",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 71,
+          "addr": "18019a510",
+          "nMessage": "100000000",
+          "nCode": 429065506,
+          "nID": 0,
+          "nLastID": 0,
+          "nSig": "0",
+          "pfn": "20001dfe08",
+          "function": null,
+          "body": null
+        },
+        {
+          "i": 72,
+          "addr": "18019a538",
+          "nMessage": "500000000",
+          "nCode": 2149272736,
+          "nID": 1,
+          "nLastID": 2148659392,
+          "nSig": "8011906000000001",
+          "pfn": "18010e4b0",
+          "function": "CProcessLauncher::~CProcessLauncher",
+          "body": 3,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18010e4b0.c"
+        },
+        {
+          "i": 73,
+          "addr": "18019a560",
+          "nMessage": "18010e4b0",
+          "nCode": 2148590768,
+          "nID": 1,
+          "nLastID": 2148657796,
+          "nSig": "8011e9a600000001",
+          "pfn": "18011e7d8",
+          "function": "MFC140.DLL::CCmdTarget::IsInvokeAllowed",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e7d8.c"
+        },
+        {
+          "i": 74,
+          "addr": "18019a588",
+          "nMessage": "18011e7de",
+          "nCode": 2148657124,
+          "nID": 1,
+          "nLastID": 2148657130,
+          "nSig": "8011e7f000000001",
+          "pfn": "18011a1a0",
+          "function": "CXListCtrl::GetMessageMap",
+          "body": 5,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011a1a0.c"
+        },
+        {
+          "i": 75,
+          "addr": "18019a5b0",
+          "nMessage": "18011e7f6",
+          "nCode": 2148657148,
+          "nID": 1,
+          "nLastID": 2148657154,
+          "nSig": "8011e8a400000001",
+          "pfn": "18011e808",
+          "function": "MFC140.DLL::CCmdTarget::GetEventSinkMap",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e808.c"
+        },
+        {
+          "i": 76,
+          "addr": "18019a5d8",
+          "nMessage": "18011e80e",
+          "nCode": 2148657172,
+          "nID": 1,
+          "nLastID": 2148657178,
+          "nSig": "8011e82000000001",
+          "pfn": "18011afc0",
+          "function": "CXListCtrl::PreSubclassWindow",
+          "body": 5,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011afc0.c"
+        },
+        {
+          "i": 77,
+          "addr": "18019a600",
+          "nMessage": "18011e826",
+          "nCode": 2148657202,
+          "nID": 1,
+          "nLastID": 2148657196,
+          "nSig": "8011e83800000001",
+          "pfn": "18011e83e",
+          "function": "MFC140.DLL::CWnd::PreCreateWindow",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e83e.c"
+        },
+        {
+          "i": 78,
+          "addr": "18019a628",
+          "nMessage": "18011eaa2",
+          "nCode": 2148657232,
+          "nID": 1,
+          "nLastID": 2148657238,
+          "nSig": "8011adb000000001",
+          "pfn": "18011e87a",
+          "function": "MFC140.DLL::CWnd::GetScrollBarCtrl",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e87a.c"
+        },
+        {
+          "i": 79,
+          "addr": "18019a650",
+          "nMessage": "18011e880",
+          "nCode": 2148657286,
+          "nID": 1,
+          "nLastID": 2148657292,
+          "nSig": "8011e89200000001",
+          "pfn": "18011e898",
+          "function": "MFC140.DLL::CWnd::EndModalLoop",
+          "body": 6,
+          "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_afxhandler_18011e898.c"
+        }
+      ]
+    },
+    {
+      "stride": 24,
+      "count": 0,
+      "entries": []
+    }
+  ],
+  "dat_xrefs": [
+    {
+      "dat": "18026ddf0",
+      "xrefs": [
+        {
+          "from": "180040b01",
+          "type": "WRITE",
+          "function": "FUN_180040af0",
+          "entry": "180040af0",
+          "body": 28
+        },
+        {
+          "from": "18011550d",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026ddec",
+      "xrefs": [
+        {
+          "from": "180040b21",
+          "type": "WRITE",
+          "function": "FUN_180040b10",
+          "entry": "180040b10",
+          "body": 28
+        },
+        {
+          "from": "1801154ca",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026dde8",
+      "xrefs": [
+        {
+          "from": "180040b41",
+          "type": "WRITE",
+          "function": "FUN_180040b30",
+          "entry": "180040b30",
+          "body": 28
+        },
+        {
+          "from": "18011548b",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026ddf4",
+      "xrefs": [
+        {
+          "from": "180040c01",
+          "type": "WRITE",
+          "function": "FUN_180040bf0",
+          "entry": "180040bf0",
+          "body": 28
+        },
+        {
+          "from": "180115554",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026ddf8",
+      "xrefs": [
+        {
+          "from": "180040be1",
+          "type": "WRITE",
+          "function": "FUN_180040bd0",
+          "entry": "180040bd0",
+          "body": 28
+        },
+        {
+          "from": "180115593",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026ddfc",
+      "xrefs": [
+        {
+          "from": "180040bc1",
+          "type": "WRITE",
+          "function": "FUN_180040bb0",
+          "entry": "180040bb0",
+          "body": 28
+        },
+        {
+          "from": "1801155d6",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026de00",
+      "xrefs": [
+        {
+          "from": "180040ba1",
+          "type": "WRITE",
+          "function": "FUN_180040b90",
+          "entry": "180040b90",
+          "body": 28
+        },
+        {
+          "from": "18011561d",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026de04",
+      "xrefs": [
+        {
+          "from": "180040b81",
+          "type": "WRITE",
+          "function": "FUN_180040b70",
+          "entry": "180040b70",
+          "body": 28
+        },
+        {
+          "from": "180115659",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    },
+    {
+      "dat": "18026de08",
+      "xrefs": [
+        {
+          "from": "180040b61",
+          "type": "WRITE",
+          "function": "FUN_180040b50",
+          "entry": "180040b50",
+          "body": 28
+        },
+        {
+          "from": "180115695",
+          "type": "READ",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+          "entry": "1801153d0",
+          "body": 822
+        }
+      ]
+    }
+  ],
+  "msgmap_raw": [
+    "0",
+    "1801999f8",
+    "5c6c61626f6c47",
+    "0"
+  ]
+}

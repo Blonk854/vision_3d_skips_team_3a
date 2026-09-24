@@ -1,0 +1,6209 @@
+{
+  "program": "AvVTraitLib.dll",
+  "language": "x86:LE:64:default",
+  "image_base": "180000000",
+  "functions_total": 140531,
+  "functions_named_non_FUN": 23495,
+  "mode_counts": {
+    "other": 1824,
+    "compose": 67,
+    "library": 2178,
+    "ui": 1373,
+    "production": 18,
+    "review": 21
+  },
+  "top_classes": [
+    {
+      "class": "CExtGridWnd",
+      "count": 176
+    },
+    {
+      "class": "CModelFamily",
+      "count": 170
+    },
+    {
+      "class": "CBibliotheque",
+      "count": 141
+    },
+    {
+      "class": "CVTrait_Chip",
+      "count": 132
+    },
+    {
+      "class": "CExtReportGridWnd",
+      "count": 129
+    },
+    {
+      "class": "CWnd",
+      "count": 118
+    },
+    {
+      "class": "CExtGridCell",
+      "count": 112
+    },
+    {
+      "class": "CVTrait_CustomComponent",
+      "count": 111
+    },
+    {
+      "class": "CVTrait_Profile",
+      "count": 98
+    },
+    {
+      "class": "CExtGridBaseWnd",
+      "count": 97
+    },
+    {
+      "class": "CExtTreeGridWnd",
+      "count": 89
+    },
+    {
+      "class": "CVTrait_Blob",
+      "count": 87
+    },
+    {
+      "class": "CModelFamilyComponent",
+      "count": 82
+    },
+    {
+      "class": "CEditeurBibliothequeTree",
+      "count": 75
+    },
+    {
+      "class": "CVTrait_Edge",
+      "count": 72
+    },
+    {
+      "class": "CVTrait",
+      "count": 71
+    },
+    {
+      "class": "CModel_Shape",
+      "count": 69
+    },
+    {
+      "class": "CEditeurBibliothequeDoc",
+      "count": 69
+    },
+    {
+      "class": "CFamilyOCV_PartNumberInformation",
+      "count": 68
+    },
+    {
+      "class": "CInfoVTrait",
+      "count": 64
+    },
+    {
+      "class": "CVTrait_PatMax",
+      "count": 63
+    },
+    {
+      "class": "CEditeurBibliothequeTreeTwoLevel",
+      "count": 63
+    },
+    {
+      "class": "CcBlob",
+      "count": 61
+    },
+    {
+      "class": "CVTrait_Histo",
+      "count": 53
+    },
+    {
+      "class": "CInfoModel",
+      "count": 52
+    },
+    {
+      "class": "CModel",
+      "count": 51
+    },
+    {
+      "class": "CDocument",
+      "count": 48
+    },
+    {
+      "class": "CExtSplitterBaseWnd",
+      "count": 47
+    },
+    {
+      "class": "CModelShape_Component",
+      "count": 44
+    },
+    {
+      "class": "MFC140.DLL",
+      "count": 44
+    },
+    {
+      "class": "CModel_Font",
+      "count": 42
+    },
+    {
+      "class": "CInfoFamily",
+      "count": 40
+    },
+    {
+      "class": "CVTrait_Matlab",
+      "count": 40
+    },
+    {
+      "class": "CPoliceTabTrain",
+      "count": 38
+    },
+    {
+      "class": "CLettre",
+      "count": 37
+    },
+    {
+      "class": "CModelEquationHelper",
+      "count": 36
+    },
+    {
+      "class": "CVTrait_Copla",
+      "count": 35
+    },
+    {
+      "class": "CVTrait_Joint3D",
+      "count": 35
+    },
+    {
+      "class": "CChildFrameBib",
+      "count": 34
+    },
+    {
+      "class": "CExtScrollWnd",
+      "count": 34
+    },
+    {
+      "class": "CcPMPattern",
+      "count": 33
+    },
+    {
+      "class": "CcCaliper",
+      "count": 33
+    },
+    {
+      "class": "CFileOrFolderListDlg",
+      "count": 33
+    },
+    {
+      "class": "CPoliceTabParam",
+      "count": 33
+    },
+    {
+      "class": "CEditeurBibliothequeTreeOneLevel",
+      "count": 33
+    },
+    {
+      "class": "CExtNcFrameImpl",
+      "count": 33
+    },
+    {
+      "class": "CFrameWnd",
+      "count": 32
+    },
+    {
+      "class": "CVCBARCODE.DLL",
+      "count": 32
+    },
+    {
+      "class": "CBmFileData",
+      "count": 31
+    },
+    {
+      "class": "CAlphabet",
+      "count": 30
+    },
+    {
+      "class": "CVTrait_OCR3",
+      "count": 29
+    },
+    {
+      "class": "CVTrait_OCR2",
+      "count": 29
+    },
+    {
+      "class": "CLibProReportDoc",
+      "count": 29
+    },
+    {
+      "class": "CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>",
+      "count": 28
+    },
+    {
+      "class": "CModelFamilyResults",
+      "count": 27
+    },
+    {
+      "class": "CExtGridCellComboBox",
+      "count": 27
+    },
+    {
+      "class": "CView",
+      "count": 27
+    },
+    {
+      "class": "CVTraitRes_Joint3D",
+      "count": 25
+    },
+    {
+      "class": "CFontParam_OCV",
+      "count": 25
+    },
+    {
+      "class": "CVTrait_GeometricShapeFinder",
+      "count": 23
+    },
+    {
+      "class": "CExtScrollItemWnd",
+      "count": 23
+    },
+    {
+      "class": "CRunContextModel_Component",
+      "count": 22
+    },
+    {
+      "class": "ccUIShapes",
+      "count": 22
+    },
+    {
+      "class": "CSharedLib_ConnectionInfo",
+      "count": 21
+    },
+    {
+      "class": "CBlkFileBibliotheque",
+      "count": 21
+    },
+    {
+      "class": "CLibProReportMainView",
+      "count": 21
+    },
+    {
+      "class": "CHeaderAxesMapCorrection",
+      "count": 20
+    },
+    {
+      "class": "CcOcv",
+      "count": 20
+    },
+    {
+      "class": "CcProces",
+      "count": 20
+    },
+    {
+      "class": "CcQfp",
+      "count": 20
+    },
+    {
+      "class": "CCmdTarget",
+      "count": 20
+    },
+    {
+      "class": "CArray<CInfosPatte,CInfosPatte>",
+      "count": 19
+    },
+    {
+      "class": "CRunContextPads",
+      "count": 19
+    },
+    {
+      "class": "CTabLettres",
+      "count": 19
+    },
+    {
+      "class": "CcHisto",
+      "count": 19
+    },
+    {
+      "class": "CReqImgCtrl",
+      "count": 18
+    },
+    {
+      "class": "CMDIChildWnd",
+      "count": 18
+    },
+    {
+      "class": "CEquationTolerance",
+      "count": 17
+    },
+    {
+      "class": "CVTraitRes_DetectJoint",
+      "count": 17
+    },
+    {
+      "class": "CPkgType",
+      "count": 17
+    },
+    {
+      "class": "CcArea",
+      "count": 16
+    },
+    {
+      "class": "CPkgTypeTree",
+      "count": 16
+    },
+    {
+      "class": "CSharedLib_AdministerLibraries",
+      "count": 16
+    },
+    {
+      "class": "CPoliceTrainAllDlg",
+      "count": 16
+    },
+    {
+      "class": "CLibProReportChildFrame",
+      "count": 16
+    },
+    {
+      "class": "CExtHookSpy",
+      "count": 16
+    },
+    {
+      "class": "CExtHookSink",
+      "count": 16
+    },
+    {
+      "class": "CDC",
+      "count": 16
+    },
+    {
+      "class": "CRunContextModel",
+      "count": 15
+    },
+    {
+      "class": "CLibraryLock",
+      "count": 15
+    },
+    {
+      "class": "CModelEquationChecker",
+      "count": 15
+    },
+    {
+      "class": "CPropertyPage",
+      "count": 15
+    },
+    {
+      "class": "CRunContextModel_Font",
+      "count": 15
+    },
+    {
+      "class": "CFormView",
+      "count": 15
+    },
+    {
+      "class": "CcSop",
+      "count": 15
+    },
+    {
+      "class": "CLibraryHelperExportThread",
+      "count": 14
+    },
+    {
+      "class": "MCLMCRRT9_1.DLL",
+      "count": 14
+    },
+    {
+      "class": "ccUIObject",
+      "count": 14
+    },
+    {
+      "class": "CArchive",
+      "count": 14
+    },
+    {
+      "class": "CPropertySheet",
+      "count": 14
+    },
+    {
+      "class": "CListCtrl",
+      "count": 14
+    },
+    {
+      "class": "CArray<CResult_Ocv_Lettre,CResult_Ocv_Lettre&___ptr64>",
+      "count": 13
+    },
+    {
+      "class": "CLibraryUsingContext",
+      "count": 13
+    },
+    {
+      "class": "CModelResult",
+      "count": 13
+    },
+    {
+      "class": "CExtResizableDialog",
+      "count": 13
+    },
+    {
+      "class": "CTestCoverageHelper",
+      "count": 13
+    },
+    {
+      "class": "CExtResDlg",
+      "count": 13
+    },
+    {
+      "class": "CWinThread",
+      "count": 13
+    },
+    {
+      "class": "CDlgSaveLibrary",
+      "count": 12
+    },
+    {
+      "class": "CVTrait_CustomComponentMZ",
+      "count": 12
+    },
+    {
+      "class": "CModeleListCtrl_Tolerances",
+      "count": 12
+    },
+    {
+      "class": "CExtResizablePropertySheet",
+      "count": 12
+    },
+    {
+      "class": "CDialog",
+      "count": 12
+    },
+    {
+      "class": "CFontString",
+      "count": 11
+    },
+    {
+      "class": "CInputIdentity",
+      "count": 11
+    },
+    {
+      "class": "CScoringFunctionParam",
+      "count": 11
+    },
+    {
+      "class": "CVTraitRes_Chip",
+      "count": 11
+    },
+    {
+      "class": "CResult",
+      "count": 11
+    },
+    {
+      "class": "CFileFind",
+      "count": 11
+    },
+    {
+      "class": "CListBox",
+      "count": 11
+    }
+  ],
+  "class_samples": {
+    "CExtGridWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+        "entry": "1807fb60e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::AdvGetStyle",
+        "entry": "1807fb614"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::AdvModifyStyle",
+        "entry": "1807fb61a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BestFitColumn",
+        "entry": "1807fb620"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BestFitColumns",
+        "entry": "1807fb626"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BestFitRow",
+        "entry": "1807fb62c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BestFitRows",
+        "entry": "1807fb632"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridWnd::BseGetStyle",
+        "entry": "1807fb638"
+      }
+    ],
+    "CModelFamily": [
+      {
+        "name": "CModelFamily::ActivateShLCommentAutomatic",
+        "entry": "180503410"
+      },
+      {
+        "name": "CModelFamily::ClearGoldenImage",
+        "entry": "180503680"
+      },
+      {
+        "name": "CModelFamily::GetComment",
+        "entry": "180503de0"
+      },
+      {
+        "name": "CModelFamily::GetGoldenImage",
+        "entry": "180504000"
+      },
+      {
+        "name": "CModelFamily::GetGoldenImageFormSizeY_um",
+        "entry": "180504030"
+      },
+      {
+        "name": "CModelFamily::GetGoldenImageXFormSizeX_um",
+        "entry": "180504040"
+      },
+      {
+        "name": "CModelFamily::GetImagesDefinitionsJokerZone",
+        "entry": "180504110"
+      },
+      {
+        "name": "CModelFamily::GetModelFamilyFilePath",
+        "entry": "1805043c0"
+      }
+    ],
+    "CBibliotheque": [
+      {
+        "name": "CBibliotheque::AttachReport",
+        "entry": "180503650"
+      },
+      {
+        "name": "CBibliotheque::DetachReport",
+        "entry": "180503900"
+      },
+      {
+        "name": "CBibliotheque::GetCompleteLibName",
+        "entry": "180503e10"
+      },
+      {
+        "name": "CBibliotheque::GetFileVersionMajor",
+        "entry": "180503fd0"
+      },
+      {
+        "name": "CBibliotheque::GetFileVersionMinor",
+        "entry": "180503fe0"
+      },
+      {
+        "name": "CBibliotheque::GetForceUnloadModeleWhenSave",
+        "entry": "180503ff0"
+      },
+      {
+        "name": "CBibliotheque::GetLibrarySavingDate",
+        "entry": "1805041c0"
+      },
+      {
+        "name": "CBibliotheque::GetModelFamilyMap",
+        "entry": "180504420"
+      }
+    ],
+    "CVTrait_Chip": [
+      {
+        "name": "CVTrait_Chip::ActivatedLighting3D",
+        "entry": "18050e5a0"
+      },
+      {
+        "name": "CVTrait_Chip::GetBody_Blob_Filter_AreaMin_mm2",
+        "entry": "18050eb50"
+      },
+      {
+        "name": "CVTrait_Chip::GetBody_Blob_Threshold_MaxDistance_um",
+        "entry": "18050eb60"
+      },
+      {
+        "name": "CVTrait_Chip::GetBody_Blob_Threshold_Thickness_per",
+        "entry": "18050eb70"
+      },
+      {
+        "name": "CVTrait_Chip::GetBody_Size_X_um",
+        "entry": "18050eb80"
+      },
+      {
+        "name": "CVTrait_Chip::GetBody_Size_Y_um",
+        "entry": "18050eb90"
+      },
+      {
+        "name": "CVTrait_Chip::GetCopla_MeasureArea_um",
+        "entry": "18050ebc0"
+      },
+      {
+        "name": "CVTrait_Chip::GetJoint_AnalysisParamLeft",
+        "entry": "18050ed10"
+      }
+    ],
+    "CExtReportGridWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::ReportItemUnRegisterAll",
+        "entry": "1807fbe9c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::BestFitRow",
+        "entry": "1807fbea2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnCountGet",
+        "entry": "1807fbea8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnHide",
+        "entry": "1807fbeae"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::ColumnUnHideAll",
+        "entry": "1807fbeb4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::EnsureVisibleColumn",
+        "entry": "1807fbeba"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::EnsureVisibleRow",
+        "entry": "1807fbec0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtReportGridWnd::FilterStateClearAll",
+        "entry": "1807fbec6"
+      }
+    ],
+    "CWnd": [
+      {
+        "name": "MFC140.DLL::CWnd::DefWindowProcA",
+        "entry": "1806745d0"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::DestroyWindow",
+        "entry": "1806ee9a0"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::GetAccessibilityHitTest",
+        "entry": "180707e00"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::CWnd",
+        "entry": "180811e3c"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::FromHandle",
+        "entry": "180811e42"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::PreSubclassWindow",
+        "entry": "180811e48"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::Create",
+        "entry": "180811e4e"
+      },
+      {
+        "name": "MFC140.DLL::CWnd::CreateEx",
+        "entry": "180811e54"
+      }
+    ],
+    "CExtGridCell": [
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::AssignColors",
+        "entry": "1807fc442"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::AssignJoin",
+        "entry": "1807fc448"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareColors",
+        "entry": "1807fc460"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareEx",
+        "entry": "1807fc466"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareJoin",
+        "entry": "1807fc46c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::CompareStyleOnly",
+        "entry": "1807fc472"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::DataProviderGet",
+        "entry": "1807fc484"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCell::DataProviderSet",
+        "entry": "1807fc48a"
+      }
+    ],
+    "CVTrait_CustomComponent": [
+      {
+        "name": "CVTrait_CustomComponent::GetBridgesAutoPropagation",
+        "entry": "180585660"
+      },
+      {
+        "name": "CVTrait_CustomComponent::GetJointHistoResults",
+        "entry": "180585830"
+      },
+      {
+        "name": "CVTrait_CustomComponent::GetJointsAutoPropagation",
+        "entry": "180585840"
+      },
+      {
+        "name": "CVTrait_CustomComponent::GetLeadsAutoPropagation",
+        "entry": "180585860"
+      },
+      {
+        "name": "CVTrait_CustomComponent::GetOperationProfileStatRef",
+        "entry": "180585920"
+      },
+      {
+        "name": "CVTrait_CustomComponent::GetProfileAutoPropagation",
+        "entry": "180585990"
+      },
+      {
+        "name": "CVTrait_CustomComponent::GetProfileExpertMode",
+        "entry": "1805859a0"
+      },
+      {
+        "name": "CVTrait_CustomComponent::GetProfileMode",
+        "entry": "1805859b0"
+      }
+    ],
+    "CVTrait_Profile": [
+      {
+        "name": "CVTrait_Profile::ForceTestAllAlgos",
+        "entry": "1805855f0"
+      },
+      {
+        "name": "CVTrait_Profile::Get3DPath_ThicknessFilter_um",
+        "entry": "180585600"
+      },
+      {
+        "name": "CVTrait_Profile::GetPropertypage",
+        "entry": "180585a20"
+      },
+      {
+        "name": "CVTrait_Profile::GetSampling",
+        "entry": "180585ca0"
+      },
+      {
+        "name": "CVTrait_Profile::Is3DPath_ActivateThicknessFilter",
+        "entry": "180586eb0"
+      },
+      {
+        "name": "CVTrait_Profile::Set3DPath_ActivateThicknessFilter",
+        "entry": "180587de0"
+      },
+      {
+        "name": "CVTrait_Profile::Set3DPath_ThicknessFilter_um",
+        "entry": "180587df0"
+      },
+      {
+        "name": "CVTrait_Profile::SetStopAtFirstBadResult",
+        "entry": "180588240"
+      }
+    ],
+    "CExtGridBaseWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::ColumnCountSet",
+        "entry": "1807fb65c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultColumnWidthGet",
+        "entry": "1807fb680"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultColumnWidthSet",
+        "entry": "1807fb686"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultRowHeightGet",
+        "entry": "1807fb68c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::DefaultRowHeightSet",
+        "entry": "1807fb692"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::EnsureVisibleColumn",
+        "entry": "1807fb698"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::EnsureVisibleColumnIsLocked",
+        "entry": "1807fb69e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridBaseWnd::EnsureVisibleColumnLock",
+        "entry": "1807fb6a4"
+      }
+    ],
+    "CExtTreeGridWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::FilterStateForOuterColumnSerialize",
+        "entry": "1807fbecc"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::FocusSet",
+        "entry": "1807fbed8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::HitTest",
+        "entry": "1807fbeea"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinAdjustCoordinates",
+        "entry": "1807fbef0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinGet",
+        "entry": "1807fbef6"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinSet",
+        "entry": "1807fbefc"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCellJoinTest",
+        "entry": "1807fbf02"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtTreeGridWnd::ItemCopyMove",
+        "entry": "1807fbf08"
+      }
+    ],
+    "CVTrait_Blob": [
+      {
+        "name": "CVTrait_Blob::CleanGraphicResult",
+        "entry": "180584840"
+      },
+      {
+        "name": "CVTrait_Blob::GetConversion16Strategy",
+        "entry": "180585690"
+      },
+      {
+        "name": "CVTrait_Blob::GetConversion16_MaxThickness_um",
+        "entry": "1805856b0"
+      },
+      {
+        "name": "CVTrait_Blob::GetFilter",
+        "entry": "1805857b0"
+      },
+      {
+        "name": "CVTrait_Blob::GetPropertypage",
+        "entry": "1805859d0"
+      },
+      {
+        "name": "CVTrait_Blob::GetRlEBuffer",
+        "entry": "180585c40"
+      },
+      {
+        "name": "CVTrait_Blob::GetbMaxTache",
+        "entry": "180585da0"
+      },
+      {
+        "name": "CVTrait_Blob::MaskIsUsed",
+        "entry": "180586f00"
+      }
+    ],
+    "CModelFamilyComponent": [
+      {
+        "name": "CModelFamilyComponent::Get3DCenterInpection",
+        "entry": "180503cb0"
+      },
+      {
+        "name": "CModelFamilyComponent::GetModelFamilyImgCheckPathList",
+        "entry": "1805043f0"
+      },
+      {
+        "name": "CModelFamilyComponent::Is3DCenterInpectionPowerEnabled",
+        "entry": "180504f30"
+      },
+      {
+        "name": "CModelFamilyComponent::IsTestIPCActivated",
+        "entry": "1805052c0"
+      },
+      {
+        "name": "CModelFamilyComponent::SetModelFamilyImgCheckPathList",
+        "entry": "180506630"
+      },
+      {
+        "name": "CModelFamilyComponent::ViObj_GetType",
+        "entry": "180507790"
+      },
+      {
+        "name": "CModelFamilyComponent::Copy",
+        "entry": "1805cd350"
+      },
+      {
+        "name": "CModelFamilyComponent::CModelFamilyComponent",
+        "entry": "1807985b0"
+      }
+    ],
+    "CEditeurBibliothequeTree": [
+      {
+        "name": "CEditeurBibliothequeTree::AddModel",
+        "entry": "1806fd6d0"
+      },
+      {
+        "name": "CEditeurBibliothequeTree::DeleteItems",
+        "entry": "1806fd700"
+      },
+      {
+        "name": "CEditeurBibliothequeTree::GetType",
+        "entry": "1806fd7a0"
+      },
+      {
+        "name": "CEditeurBibliothequeTree::Is2LevelsTreeView",
+        "entry": "1806fd7c0"
+      },
+      {
+        "name": "CEditeurBibliothequeTree::SetType",
+        "entry": "1806fe530"
+      },
+      {
+        "name": "CEditeurBibliothequeTree::_GetBaseClass",
+        "entry": "180708580"
+      },
+      {
+        "name": "CEditeurBibliothequeTree::CreateObject",
+        "entry": "18070a690"
+      },
+      {
+        "name": "CEditeurBibliothequeTree::CEditeurBibliothequeTree",
+        "entry": "18070ab10"
+      }
+    ],
+    "CVTrait_Edge": [
+      {
+        "name": "CVTrait_Edge::CleanGraphicResult",
+        "entry": "180584860"
+      },
+      {
+        "name": "CVTrait_Edge::DrawResultTransition",
+        "entry": "1805855d0"
+      },
+      {
+        "name": "CVTrait_Edge::GetAngleDelta",
+        "entry": "180585620"
+      },
+      {
+        "name": "CVTrait_Edge::GetAnglePas",
+        "entry": "180585630"
+      },
+      {
+        "name": "CVTrait_Edge::GetContrastMin",
+        "entry": "180585680"
+      },
+      {
+        "name": "CVTrait_Edge::GetConversion16Strategy",
+        "entry": "1805856a0"
+      },
+      {
+        "name": "CVTrait_Edge::GetConversion16_MaxThickness_um",
+        "entry": "1805856c0"
+      },
+      {
+        "name": "CVTrait_Edge::GetFiltreDemiL_px",
+        "entry": "1805857d0"
+      }
+    ],
+    "CVTrait": [
+      {
+        "name": "CVTrait::`default_constructor_closure'",
+        "entry": "180502f00"
+      },
+      {
+        "name": "CVTrait::ActiveTraitement",
+        "entry": "180503430"
+      },
+      {
+        "name": "CVTrait::EqConditionalExecution",
+        "entry": "1805039a0"
+      },
+      {
+        "name": "CVTrait::EqConditionalExecution",
+        "entry": "1805039d0"
+      },
+      {
+        "name": "CVTrait::EqExecRecalage_T",
+        "entry": "180503a00"
+      },
+      {
+        "name": "CVTrait::EqExecRecalage_X",
+        "entry": "180503a30"
+      },
+      {
+        "name": "CVTrait::EqRecalage_T",
+        "entry": "180503a60"
+      },
+      {
+        "name": "CVTrait::EqRecalage_T",
+        "entry": "180503a90"
+      }
+    ],
+    "CModel_Shape": [
+      {
+        "name": "CModel_Shape::GetDlgModelSize",
+        "entry": "180503ec0"
+      },
+      {
+        "name": "CModel_Shape::GetEquationError",
+        "entry": "180503f80"
+      },
+      {
+        "name": "CModel_Shape::GetLightInfo",
+        "entry": "180504200"
+      },
+      {
+        "name": "CModel_Shape::GetSerializeVersion",
+        "entry": "180504680"
+      },
+      {
+        "name": "CModel_Shape::GetVTraitCount",
+        "entry": "180504880"
+      },
+      {
+        "name": "CModel_Shape::GetpParser",
+        "entry": "180504900"
+      },
+      {
+        "name": "CModel_Shape::IsActivated",
+        "entry": "180504fa0"
+      },
+      {
+        "name": "CModel_Shape::CModel_Shape",
+        "entry": "1807bbc70"
+      }
+    ],
+    "CEditeurBibliothequeDoc": [
+      {
+        "name": "CEditeurBibliothequeDoc::IsRunning",
+        "entry": "1806fd7d0"
+      },
+      {
+        "name": "CEditeurBibliothequeDoc::SetChildFrameBib",
+        "entry": "1806fe4f0"
+      },
+      {
+        "name": "CEditeurBibliothequeDoc::SetRunning",
+        "entry": "1806fe500"
+      },
+      {
+        "name": "CEditeurBibliothequeDoc::SetTreeView",
+        "entry": "1806fe520"
+      },
+      {
+        "name": "CEditeurBibliothequeDoc::pConsole",
+        "entry": "1806fe930"
+      },
+      {
+        "name": "CEditeurBibliothequeDoc::_GetBaseClass",
+        "entry": "1806fe940"
+      },
+      {
+        "name": "CEditeurBibliothequeDoc::CreateObject",
+        "entry": "1806fe950"
+      },
+      {
+        "name": "CEditeurBibliothequeDoc::CEditeurBibliothequeDoc",
+        "entry": "1806feaa0"
+      }
+    ],
+    "CFamilyOCV_PartNumberInformation": [
+      {
+        "name": "CFamilyOCV_PartNumberInformation::GetGroupMap",
+        "entry": "180504050"
+      },
+      {
+        "name": "CFamilyOCV_PartNumberInformation::GetIdTextMap",
+        "entry": "180504060"
+      },
+      {
+        "name": "CFamilyOCV_PartNumberInformation::IsActive",
+        "entry": "180504fd0"
+      },
+      {
+        "name": "CFamilyOCV_PartNumberInformation::IsModified",
+        "entry": "1805051a0"
+      },
+      {
+        "name": "CFamilyOCV_PartNumberInformation::SetActive",
+        "entry": "180505ee0"
+      },
+      {
+        "name": "CFamilyOCV_PartNumberInformation::SetModified",
+        "entry": "180506760"
+      },
+      {
+        "name": "CFamilyOCV_PartNumberInformation::ViObj_GetType",
+        "entry": "180507700"
+      },
+      {
+        "name": "CFamilyOCV_PartNumberInformation::GetTextCount",
+        "entry": "180508870"
+      }
+    ],
+    "CInfoVTrait": [
+      {
+        "name": "CInfoVTrait::CInfoVTrait",
+        "entry": "1805007c0"
+      },
+      {
+        "name": "CInfoVTrait::operator=",
+        "entry": "180502440"
+      },
+      {
+        "name": "CInfoVTrait::GetBrightnessType",
+        "entry": "180503db0"
+      },
+      {
+        "name": "CInfoVTrait::GetCustomThickness",
+        "entry": "180503e70"
+      },
+      {
+        "name": "CInfoVTrait::GetMapInfoBridges2D",
+        "entry": "1805042c0"
+      },
+      {
+        "name": "CInfoVTrait::GetMapInfoBridges3D",
+        "entry": "1805042d0"
+      },
+      {
+        "name": "CInfoVTrait::GetMapInfoBridges",
+        "entry": "1805042e0"
+      },
+      {
+        "name": "CInfoVTrait::GetMapInfoJoints2D",
+        "entry": "1805042f0"
+      }
+    ],
+    "CVTrait_PatMax": [
+      {
+        "name": "CVTrait_PatMax::ActiveIt",
+        "entry": "18050e5b0"
+      },
+      {
+        "name": "CVTrait_PatMax::CleanGraphicResult",
+        "entry": "18050eae0"
+      },
+      {
+        "name": "CVTrait_PatMax::GetBib",
+        "entry": "18050eb40"
+      },
+      {
+        "name": "CVTrait_PatMax::GetConversion16Strategy",
+        "entry": "18050eba0"
+      },
+      {
+        "name": "CVTrait_PatMax::GetConversion16_MaxThickness_um",
+        "entry": "18050ebb0"
+      },
+      {
+        "name": "CVTrait_PatMax::GetPropertypage",
+        "entry": "18050ef80"
+      },
+      {
+        "name": "CVTrait_PatMax::GetScaleXmax",
+        "entry": "18050f010"
+      },
+      {
+        "name": "CVTrait_PatMax::GetScaleYmax",
+        "entry": "18050f020"
+      }
+    ],
+    "CEditeurBibliothequeTreeTwoLevel": [
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::OnDragOver",
+        "entry": "1805366b0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::CreateObject",
+        "entry": "180714ba0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::CEditeurBibliothequeTreeTwoLevel",
+        "entry": "1807150c0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::~CEditeurBibliothequeTreeTwoLevel",
+        "entry": "1807151a0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::AddFamiliesItems",
+        "entry": "1807152e0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::AddFamilyItem",
+        "entry": "1807153d0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::AddModel",
+        "entry": "180715520"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeTwoLevel::AskTstToRunFamilyAnalysis",
+        "entry": "1807156d0"
+      }
+    ],
+    "CcBlob": [
+      {
+        "name": "CcBlob::FluxIsUsed",
+        "entry": "1805052f0"
+      },
+      {
+        "name": "CcBlob::GetFiltreCOGNEX",
+        "entry": "1805857c0"
+      },
+      {
+        "name": "CcBlob::GetMaxArea",
+        "entry": "1805858a0"
+      },
+      {
+        "name": "CcBlob::GetNFound",
+        "entry": "1805858c0"
+      },
+      {
+        "name": "CcBlob::Load",
+        "entry": "180586ef0"
+      },
+      {
+        "name": "CcBlob::SetAngleLimits",
+        "entry": "180587e20"
+      },
+      {
+        "name": "CcBlob::SetElongationLimits",
+        "entry": "180587f50"
+      },
+      {
+        "name": "CcBlob::SetFiltreCOGNEX",
+        "entry": "180587f70"
+      }
+    ],
+    "CVTrait_Histo": [
+      {
+        "name": "CVTrait_Histo::ActiveManualThickness",
+        "entry": "1805842a0"
+      },
+      {
+        "name": "CVTrait_Histo::CleanGraphicResult",
+        "entry": "180584880"
+      },
+      {
+        "name": "CVTrait_Histo::CopyHistogramTab",
+        "entry": "180584980"
+      },
+      {
+        "name": "CVTrait_Histo::GetBorneInf",
+        "entry": "180585640"
+      },
+      {
+        "name": "CVTrait_Histo::GetBorneSup",
+        "entry": "180585650"
+      },
+      {
+        "name": "CVTrait_Histo::GetDetailedResults",
+        "entry": "1805856d0"
+      },
+      {
+        "name": "CVTrait_Histo::GetGreyRangeInf",
+        "entry": "1805857e0"
+      },
+      {
+        "name": "CVTrait_Histo::GetGreyRangeSup",
+        "entry": "1805857f0"
+      }
+    ],
+    "CInfoModel": [
+      {
+        "name": "CInfoModel::CInfoModel",
+        "entry": "180500720"
+      },
+      {
+        "name": "CInfoModel::operator=",
+        "entry": "1805023c0"
+      },
+      {
+        "name": "CInfoModel::Activate",
+        "entry": "1805033f0"
+      },
+      {
+        "name": "CInfoModel::GetAngleCompareToModelFamily_dg",
+        "entry": "180503d00"
+      },
+      {
+        "name": "CInfoModel::GetBodyBrightness",
+        "entry": "180503d40"
+      },
+      {
+        "name": "CInfoModel::GetBodySize",
+        "entry": "180503d50"
+      },
+      {
+        "name": "CInfoModel::GetBodyThickness",
+        "entry": "180503d80"
+      },
+      {
+        "name": "CInfoModel::GetListEquations",
+        "entry": "180504230"
+      }
+    ],
+    "CModel": [
+      {
+        "name": "CModel::Copy",
+        "entry": "1805038b0"
+      },
+      {
+        "name": "CModel::Edit",
+        "entry": "180503960"
+      },
+      {
+        "name": "CModel::GetAngleAgainstModelFamily_dg",
+        "entry": "180503cf0"
+      },
+      {
+        "name": "CModel::GetCreationDateTime",
+        "entry": "180503e60"
+      },
+      {
+        "name": "CModel::GetInitialSystemName",
+        "entry": "180504170"
+      },
+      {
+        "name": "CModel::GetClassID",
+        "entry": "1805041d0"
+      },
+      {
+        "name": "CModel::GetModelFilePath",
+        "entry": "180504460"
+      },
+      {
+        "name": "CModel::GetModifDateTime",
+        "entry": "1805044d0"
+      }
+    ],
+    "CDocument": [
+      {
+        "name": "MFC140.DLL::CDocument::GetThisClass",
+        "entry": "1808127a2"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::CDocument",
+        "entry": "1808127a8"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::SetTitle",
+        "entry": "1808127ae"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::SetPathName",
+        "entry": "1808127b4"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::ClearPathName",
+        "entry": "1808127ba"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::GetFirstViewPosition",
+        "entry": "1808127c0"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::GetNextView",
+        "entry": "1808127c6"
+      },
+      {
+        "name": "MFC140.DLL::CDocument::UpdateAllViews",
+        "entry": "1808127cc"
+      }
+    ],
+    "CExtSplitterBaseWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::ActivateNext",
+        "entry": "1807fc93a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::CanActivateNext",
+        "entry": "1807fc940"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::Create",
+        "entry": "1807fc946"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::CreateCommon",
+        "entry": "1807fc94c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::CreateStatic",
+        "entry": "1807fc958"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::CreateView",
+        "entry": "1807fc95e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::DeleteColumn",
+        "entry": "1807fc964"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtSplitterBaseWnd::DeleteRow",
+        "entry": "1807fc96a"
+      }
+    ],
+    "CModelShape_Component": [
+      {
+        "name": "CModelShape_Component::`default_constructor_closure'",
+        "entry": "180502ef0"
+      },
+      {
+        "name": "CModelShape_Component::Copy",
+        "entry": "1806ab530"
+      },
+      {
+        "name": "CModelShape_Component::CModelShape_Component",
+        "entry": "1807cb0c0"
+      },
+      {
+        "name": "CModelShape_Component::CModelShape_Component",
+        "entry": "1807cb140"
+      },
+      {
+        "name": "CModelShape_Component::~CModelShape_Component",
+        "entry": "1807cb2a0"
+      },
+      {
+        "name": "CModelShape_Component::operator=",
+        "entry": "1807cb2e0"
+      },
+      {
+        "name": "CModelShape_Component::BuildLightLevelTab",
+        "entry": "1807cb3f0"
+      },
+      {
+        "name": "CModelShape_Component::Chip_GetCount",
+        "entry": "1807cbe00"
+      }
+    ],
+    "MFC140.DLL": [
+      {
+        "name": "MFC140.DLL::operator_delete",
+        "entry": "180811d8e"
+      },
+      {
+        "name": "MFC140.DLL::AfxThrowArchiveException",
+        "entry": "180811d94"
+      },
+      {
+        "name": "MFC140.DLL::AfxMessageBox",
+        "entry": "180811da6"
+      },
+      {
+        "name": "MFC140.DLL::operator_delete[]",
+        "entry": "180811dac"
+      },
+      {
+        "name": "MFC140.DLL::AfxThrowMemoryException",
+        "entry": "180811db2"
+      },
+      {
+        "name": "MFC140.DLL::AfxThrowInvalidArgException",
+        "entry": "180811db8"
+      },
+      {
+        "name": "MFC140.DLL::AfxThrowFileException",
+        "entry": "180811dbe"
+      },
+      {
+        "name": "MFC140.DLL::DDX_Control",
+        "entry": "180811de2"
+      }
+    ],
+    "CModel_Font": [
+      {
+        "name": "CModel_Font::Add",
+        "entry": "1806e77a0"
+      },
+      {
+        "name": "CModel_Font::Copy",
+        "entry": "1806e7f20"
+      },
+      {
+        "name": "CModel_Font::Delete",
+        "entry": "1806e7f70"
+      },
+      {
+        "name": "CModel_Font::EspaceHauteur",
+        "entry": "1806e8840"
+      },
+      {
+        "name": "CModel_Font::EspaceLargeur",
+        "entry": "1806e8860"
+      },
+      {
+        "name": "CModel_Font::EspaceSize",
+        "entry": "1806e8880"
+      },
+      {
+        "name": "CModel_Font::Existe",
+        "entry": "1806e88a0"
+      },
+      {
+        "name": "CModel_Font::Get",
+        "entry": "1806e88b0"
+      }
+    ],
+    "CInfoFamily": [
+      {
+        "name": "CInfoFamily::CInfoFamily",
+        "entry": "180500690"
+      },
+      {
+        "name": "CInfoFamily::operator=",
+        "entry": "180502350"
+      },
+      {
+        "name": "CInfoFamily::AddInfoModel",
+        "entry": "1805034c0"
+      },
+      {
+        "name": "CInfoFamily::GetName",
+        "entry": "1805045a0"
+      },
+      {
+        "name": "CInfoFamily::GetComponentDescription",
+        "entry": "180504870"
+      },
+      {
+        "name": "CInfoFamily::IsActivated",
+        "entry": "180504f60"
+      },
+      {
+        "name": "CInfoFamily::IsResultConsolidationOK",
+        "entry": "180505250"
+      },
+      {
+        "name": "CInfoFamily::SetActivated",
+        "entry": "180505ed0"
+      }
+    ],
+    "CVTrait_Matlab": [
+      {
+        "name": "CVTrait_Matlab::GetDllImages",
+        "entry": "1805856e0"
+      },
+      {
+        "name": "CVTrait_Matlab::GetDllInputs",
+        "entry": "180585710"
+      },
+      {
+        "name": "CVTrait_Matlab::GetDllName",
+        "entry": "180585740"
+      },
+      {
+        "name": "CVTrait_Matlab::GetImageLightLevel",
+        "entry": "180585800"
+      },
+      {
+        "name": "CVTrait_Matlab::GetNbImgRequested",
+        "entry": "1805858e0"
+      },
+      {
+        "name": "CVTrait_Matlab::GetPropertypageName",
+        "entry": "180585af0"
+      },
+      {
+        "name": "CVTrait_Matlab::GetRequiredImages",
+        "entry": "180585bb0"
+      },
+      {
+        "name": "CVTrait_Matlab::SetDllInputs",
+        "entry": "180587f30"
+      }
+    ],
+    "CPoliceTabTrain": [
+      {
+        "name": "CPoliceTabTrain::`default_constructor_closure'",
+        "entry": "1806e7690"
+      },
+      {
+        "name": "CPoliceTabTrain::LpAire",
+        "entry": "1806e96c0"
+      },
+      {
+        "name": "CPoliceTabTrain::SetParent",
+        "entry": "1806ec8e0"
+      },
+      {
+        "name": "CPoliceTabTrain::_bClic",
+        "entry": "1806ed1c0"
+      },
+      {
+        "name": "CPoliceTabTrain::_bLPAire",
+        "entry": "1806ed1d0"
+      },
+      {
+        "name": "CPoliceTabTrain::CPoliceTabTrain",
+        "entry": "1806f81f0"
+      },
+      {
+        "name": "CPoliceTabTrain::~CPoliceTabTrain",
+        "entry": "1806f83e0"
+      },
+      {
+        "name": "CPoliceTabTrain::DoDataExchange",
+        "entry": "1806f8640"
+      }
+    ],
+    "CLettre": [
+      {
+        "name": "CLettre::CLettre",
+        "entry": "180500b80"
+      },
+      {
+        "name": "CLettre::~CLettre",
+        "entry": "180501780"
+      },
+      {
+        "name": "CLettre::_PropagationSize",
+        "entry": "180507ec0"
+      },
+      {
+        "name": "CLettre::_bQuarantaine",
+        "entry": "1805083c0"
+      },
+      {
+        "name": "CLettre::_bQuarantaine",
+        "entry": "1805083d0"
+      },
+      {
+        "name": "CLettre::_dElasticity",
+        "entry": "180508550"
+      },
+      {
+        "name": "CLettre::_dElasticity",
+        "entry": "180508560"
+      },
+      {
+        "name": "CLettre::_dGrainCoarse",
+        "entry": "180508570"
+      }
+    ],
+    "CModelEquationHelper": [
+      {
+        "name": "CModelEquationHelper::CModelEquationHelper",
+        "entry": "180500c00"
+      },
+      {
+        "name": "CModelEquationHelper::~CModelEquationHelper",
+        "entry": "180579a30"
+      },
+      {
+        "name": "CModelEquationHelper::AddBracketsBoundEquation",
+        "entry": "180579a40"
+      },
+      {
+        "name": "CModelEquationHelper::AddDoubleCommentEquation",
+        "entry": "180579ab0"
+      },
+      {
+        "name": "CModelEquationHelper::AreAllVariableAuthorized",
+        "entry": "180579ce0"
+      },
+      {
+        "name": "CModelEquationHelper::AreAllVariableDefined",
+        "entry": "180579da0"
+      },
+      {
+        "name": "CModelEquationHelper::AreAllVariableIgnored",
+        "entry": "180579e30"
+      },
+      {
+        "name": "CModelEquationHelper::CheckCommentEquation",
+        "entry": "180579ee0"
+      }
+    ],
+    "CVTrait_Copla": [
+      {
+        "name": "CVTrait_Copla::ActiveManualThickness",
+        "entry": "18050e5f0"
+      },
+      {
+        "name": "CVTrait_Copla::GetManualThickness_mm",
+        "entry": "18050ed30"
+      },
+      {
+        "name": "CVTrait_Copla::GetPropertypage",
+        "entry": "18050ef70"
+      },
+      {
+        "name": "CVTrait_Copla::IsManualThicknessActivated",
+        "entry": "18050f200"
+      },
+      {
+        "name": "CVTrait_Copla::SetAngle",
+        "entry": "18050f8d0"
+      },
+      {
+        "name": "CVTrait_Copla::CreateObject",
+        "entry": "1805ab6e0"
+      },
+      {
+        "name": "CVTrait_Copla::CVTrait_Copla",
+        "entry": "1805ab7c0"
+      },
+      {
+        "name": "CVTrait_Copla::CVTrait_Copla",
+        "entry": "1805ab8a0"
+      }
+    ],
+    "CVTrait_Joint3D": [
+      {
+        "name": "CVTrait_Joint3D::CleanGraphicResult",
+        "entry": "1805848a0"
+      },
+      {
+        "name": "CVTrait_Joint3D::GetContextParameter",
+        "entry": "180585670"
+      },
+      {
+        "name": "CVTrait_Joint3D::GetMapResult",
+        "entry": "180585880"
+      },
+      {
+        "name": "CVTrait_Joint3D::GetMapTolerance",
+        "entry": "180585890"
+      },
+      {
+        "name": "CVTrait_Joint3D::SetContextParameters",
+        "entry": "180587e80"
+      },
+      {
+        "name": "CVTrait_Joint3D::SetJoint3DInspectionParam",
+        "entry": "180588070"
+      },
+      {
+        "name": "CVTrait_Joint3D::GetJointInspectionParam",
+        "entry": "180588920"
+      },
+      {
+        "name": "CVTrait_Joint3D::CreateObject",
+        "entry": "18060ccd0"
+      }
+    ],
+    "CChildFrameBib": [
+      {
+        "name": "CChildFrameBib::OnUpdateLibraryProperty",
+        "entry": "180587a40"
+      },
+      {
+        "name": "CChildFrameBib::_GetBaseClass",
+        "entry": "1806fd2e0"
+      },
+      {
+        "name": "CChildFrameBib::CreateObject",
+        "entry": "1806fd2f0"
+      },
+      {
+        "name": "CChildFrameBib::CChildFrameBib",
+        "entry": "1806fd390"
+      },
+      {
+        "name": "CChildFrameBib::~CChildFrameBib",
+        "entry": "1806fd470"
+      },
+      {
+        "name": "CChildFrameBib::DestroyWindow",
+        "entry": "1806fd740"
+      },
+      {
+        "name": "CChildFrameBib::GetDispatchMap",
+        "entry": "1806fd750"
+      },
+      {
+        "name": "CChildFrameBib::GetMessageMap",
+        "entry": "1806fd760"
+      }
+    ],
+    "CExtScrollWnd": [
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcClientSizes",
+        "entry": "1807fbc2c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcMouseScrollLines",
+        "entry": "1807fbc32"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcPopOverRect",
+        "entry": "1807fbc38"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwCalcPopOverScrollBarRects",
+        "entry": "1807fbc3e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwDoRedraw",
+        "entry": "1807fbc50"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwDoScrollWindow",
+        "entry": "1807fbc62"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwEnableScrollBarCtrl",
+        "entry": "1807fbc68"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtScrollWnd::OnSwEnsurePointAvail",
+        "entry": "1807fbc6e"
+      }
+    ],
+    "CcPMPattern": [
+      {
+        "name": "CcPMPattern::Accept",
+        "entry": "1805031b0"
+      },
+      {
+        "name": "CcPMPattern::ContrastThreshold",
+        "entry": "180503690"
+      },
+      {
+        "name": "CcPMPattern::Elasticity",
+        "entry": "180503980"
+      },
+      {
+        "name": "CcPMPattern::GetMaskAffRectPrm",
+        "entry": "180504380"
+      },
+      {
+        "name": "CcPMPattern::GetResulatIdxForShowFeatures",
+        "entry": "1805045d0"
+      },
+      {
+        "name": "CcPMPattern::IgnorePolarity",
+        "entry": "180504920"
+      },
+      {
+        "name": "CcPMPattern::IsMaskActivated",
+        "entry": "180505170"
+      },
+      {
+        "name": "CcPMPattern::SetMaskPrm",
+        "entry": "180506610"
+      }
+    ],
+    "CcCaliper": [
+      {
+        "name": "CcCaliper::Show",
+        "entry": "1805072e0"
+      },
+      {
+        "name": "CcCaliper::DrawResultTransition",
+        "entry": "1805855e0"
+      },
+      {
+        "name": "CcCaliper::GetEchantillonnage",
+        "entry": "180585770"
+      },
+      {
+        "name": "CcCaliper::GetSamplingParams",
+        "entry": "180585cb0"
+      },
+      {
+        "name": "CcCaliper::SetEchantillonnage",
+        "entry": "180587f40"
+      },
+      {
+        "name": "CcCaliper::SetScoring_Contrast",
+        "entry": "1805881a0"
+      },
+      {
+        "name": "CcCaliper::SetScoring_SizeDifNorm",
+        "entry": "1805881e0"
+      },
+      {
+        "name": "CcCaliper::_DefaultColor",
+        "entry": "1805888f0"
+      }
+    ],
+    "CFileOrFolderListDlg": [
+      {
+        "name": "CFileOrFolderListDlg::~CFileOrFolderListDlg",
+        "entry": "1805a76e0"
+      },
+      {
+        "name": "CFileOrFolderListDlg::AddFileNameExt",
+        "entry": "1805a7850"
+      },
+      {
+        "name": "CFileOrFolderListDlg::_csDirectory",
+        "entry": "1805a8cc0"
+      },
+      {
+        "name": "CFileOrFolderListDlg::_csDirectory",
+        "entry": "1805a8cf0"
+      },
+      {
+        "name": "CFileOrFolderListDlg::_csEntirePath",
+        "entry": "1805a8d30"
+      },
+      {
+        "name": "CFileOrFolderListDlg::_csEntirePath",
+        "entry": "1805a8d60"
+      },
+      {
+        "name": "CFileOrFolderListDlg::PreTranslateMessage",
+        "entry": "1806f4940"
+      },
+      {
+        "name": "CFileOrFolderListDlg::CFileOrFolderListDlg",
+        "entry": "18074bf10"
+      }
+    ],
+    "CPoliceTabParam": [
+      {
+        "name": "CPoliceTabParam::~CPoliceTabParam",
+        "entry": "1806e72a0"
+      },
+      {
+        "name": "CPoliceTabParam::`default_constructor_closure'",
+        "entry": "1806e7680"
+      },
+      {
+        "name": "CPoliceTabParam::SetParent",
+        "entry": "1806ec8d0"
+      },
+      {
+        "name": "CPoliceTabParam::SetTabTrain",
+        "entry": "1806ec950"
+      },
+      {
+        "name": "CPoliceTabParam::CPoliceTabParam",
+        "entry": "1806f4970"
+      },
+      {
+        "name": "CPoliceTabParam::AfficheLettre",
+        "entry": "1806f4ff0"
+      },
+      {
+        "name": "CPoliceTabParam::AlgoConfusion",
+        "entry": "1806f50a0"
+      },
+      {
+        "name": "CPoliceTabParam::CurrentPropagate",
+        "entry": "1806f52f0"
+      }
+    ],
+    "CEditeurBibliothequeTreeOneLevel": [
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::SetSelection",
+        "entry": "1806fe510"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::CreateObject",
+        "entry": "1807118c0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::CEditeurBibliothequeTreeOneLevel",
+        "entry": "1807119d0"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::~CEditeurBibliothequeTreeOneLevel",
+        "entry": "180711a00"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::AddModel",
+        "entry": "180711b30"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::DeleteItem",
+        "entry": "180711c80"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::DeleteItems",
+        "entry": "180711d40"
+      },
+      {
+        "name": "CEditeurBibliothequeTreeOneLevel::DeleteModel",
+        "entry": "180712080"
+      }
+    ],
+    "CExtNcFrameImpl": [
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_AdjustVistaDwmCompatibilityIssues",
+        "entry": "1807fb752"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_CalcWindowRect",
+        "entry": "1807fb758"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_CheckCursor",
+        "entry": "1807fb75e"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_DelayRgnAdjustment",
+        "entry": "1807fb764"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_FilterWindowProc",
+        "entry": "1807fb76a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_GetForceEmptyNcBorder",
+        "entry": "1807fb770"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_GetFrameWindow",
+        "entry": "1807fb776"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtNcFrameImpl::NcFrameImpl_GetIcon",
+        "entry": "1807fb77c"
+      }
+    ],
+    "CFrameWnd": [
+      {
+        "name": "MFC140.DLL::CFrameWnd::~CFrameWnd",
+        "entry": "1806fd540"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::Create",
+        "entry": "180812652"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetActiveDocument",
+        "entry": "180812658"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::SetActiveView",
+        "entry": "18081265e"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetActiveFrame",
+        "entry": "180812664"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetMessageString",
+        "entry": "18081266a"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::RecalcLayout",
+        "entry": "180812670"
+      },
+      {
+        "name": "MFC140.DLL::CFrameWnd::GetMenu",
+        "entry": "180812676"
+      }
+    ],
+    "CVCBARCODE.DLL": [
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_3",
+        "entry": "1807fcb74"
+      },
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_5",
+        "entry": "1807fcb7a"
+      },
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_7",
+        "entry": "1807fcb80"
+      },
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_8",
+        "entry": "1807fcb86"
+      },
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_42",
+        "entry": "1807fcb8c"
+      },
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_43",
+        "entry": "1807fcb92"
+      },
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_20",
+        "entry": "1807fcb98"
+      },
+      {
+        "name": "CVCBARCODE.DLL::Ordinal_21",
+        "entry": "1807fcb9e"
+      }
+    ],
+    "CBmFileData": [
+      {
+        "name": "CBmFileData::CBmFileData",
+        "entry": "1805002b0"
+      },
+      {
+        "name": "CBmFileData::operator=",
+        "entry": "180502160"
+      },
+      {
+        "name": "CBmFileData::GetPackageTypeTree",
+        "entry": "180504570"
+      },
+      {
+        "name": "CBmFileData::CBmFileData",
+        "entry": "180524da0"
+      },
+      {
+        "name": "CBmFileData::~CBmFileData",
+        "entry": "180524f70"
+      },
+      {
+        "name": "CBmFileData::CheckPkgTypeExists",
+        "entry": "180525470"
+      },
+      {
+        "name": "CBmFileData::CheckSubPkgTypeExists",
+        "entry": "1805254a0"
+      },
+      {
+        "name": "CBmFileData::CreatePkgALL",
+        "entry": "180525510"
+      }
+    ],
+    "CAlphabet": [
+      {
+        "name": "CAlphabet::Joker",
+        "entry": "1805053d0"
+      },
+      {
+        "name": "CAlphabet::Joker",
+        "entry": "1805053e0"
+      },
+      {
+        "name": "CAlphabet::CAlphabet",
+        "entry": "18072fcc0"
+      },
+      {
+        "name": "CAlphabet::CAlphabet",
+        "entry": "18072fd10"
+      },
+      {
+        "name": "CAlphabet::~CAlphabet",
+        "entry": "1807301d0"
+      },
+      {
+        "name": "CAlphabet::operator=",
+        "entry": "180730750"
+      },
+      {
+        "name": "CAlphabet::Add",
+        "entry": "180730f20"
+      },
+      {
+        "name": "CAlphabet::AlgoConfusionRun",
+        "entry": "180731040"
+      }
+    ],
+    "CVTrait_OCR3": [
+      {
+        "name": "CVTrait_OCR3::GetPropertypage",
+        "entry": "180585a10"
+      },
+      {
+        "name": "CVTrait_OCR3::GetPropertypageName",
+        "entry": "180585b50"
+      },
+      {
+        "name": "CVTrait_OCR3::CreateObject",
+        "entry": "18061a6c0"
+      },
+      {
+        "name": "CVTrait_OCR3::CVTrait_OCR3",
+        "entry": "18061aab0"
+      },
+      {
+        "name": "CVTrait_OCR3::CVTrait_OCR3",
+        "entry": "18061abc0"
+      },
+      {
+        "name": "CVTrait_OCR3::CVTrait_OCR3",
+        "entry": "18061ae20"
+      },
+      {
+        "name": "CVTrait_OCR3::CVTrait_OCR3",
+        "entry": "18061af20"
+      },
+      {
+        "name": "CVTrait_OCR3::~CVTrait_OCR3",
+        "entry": "18061b1a0"
+      }
+    ],
+    "CVTrait_OCR2": [
+      {
+        "name": "CVTrait_OCR2::CreateObject",
+        "entry": "180615ac0"
+      },
+      {
+        "name": "CVTrait_OCR2::CVTrait_OCR2",
+        "entry": "180615eb0"
+      },
+      {
+        "name": "CVTrait_OCR2::CVTrait_OCR2",
+        "entry": "180615fc0"
+      },
+      {
+        "name": "CVTrait_OCR2::CVTrait_OCR2",
+        "entry": "1806160f0"
+      },
+      {
+        "name": "CVTrait_OCR2::~CVTrait_OCR2",
+        "entry": "180616460"
+      },
+      {
+        "name": "CVTrait_OCR2::operator=",
+        "entry": "180616720"
+      },
+      {
+        "name": "CVTrait_OCR2::AddCharacter",
+        "entry": "180616960"
+      },
+      {
+        "name": "CVTrait_OCR2::CalculPos",
+        "entry": "180616a60"
+      }
+    ],
+    "CLibProReportDoc": [
+      {
+        "name": "CLibProReportDoc::GetExcelAppPtr",
+        "entry": "18070bc60"
+      },
+      {
+        "name": "CLibProReportDoc::GetLibraryDoc",
+        "entry": "18070bdb0"
+      },
+      {
+        "name": "CLibProReportDoc::GetWorksheetsPtr",
+        "entry": "18070cee0"
+      },
+      {
+        "name": "CLibProReportDoc::IsReadOnly",
+        "entry": "18070daa0"
+      },
+      {
+        "name": "CLibProReportDoc::SetExcelAppPtr",
+        "entry": "1807103f0"
+      },
+      {
+        "name": "CLibProReportDoc::SetLibEditorViewToUpdate",
+        "entry": "180710450"
+      },
+      {
+        "name": "CLibProReportDoc::SetLibraryDoc",
+        "entry": "180710460"
+      },
+      {
+        "name": "CLibProReportDoc::SetWorksheetsPtr",
+        "entry": "1807107c0"
+      }
+    ],
+    "CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>": [
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontCharsetGet",
+        "entry": "1807fc496"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontCharsetSet",
+        "entry": "1807fc49c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontCharsetSetDefault",
+        "entry": "1807fc4a2"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontFaceNameGet",
+        "entry": "1807fc4a8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontFaceNameSet",
+        "entry": "1807fc4ae"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontFaceNameSetDefault",
+        "entry": "1807fc4b4"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontHeightGet",
+        "entry": "1807fc4c0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGCF<CExtGCC<CExtGCCT<CExtGridCell>_>_>::FontHeightSet",
+        "entry": "1807fc4c6"
+      }
+    ],
+    "CModelFamilyResults": [
+      {
+        "name": "CModelFamilyResults::GetEncompassingSearchArea_px",
+        "entry": "180503f70"
+      },
+      {
+        "name": "CModelFamilyResults::SetEncompassingSearchArea_px",
+        "entry": "180506250"
+      },
+      {
+        "name": "CModelFamilyResults::CModelFamilyResults",
+        "entry": "1807a7fb0"
+      },
+      {
+        "name": "CModelFamilyResults::CModelFamilyResults",
+        "entry": "1807a8030"
+      },
+      {
+        "name": "CModelFamilyResults::~CModelFamilyResults",
+        "entry": "1807a8080"
+      },
+      {
+        "name": "CModelFamilyResults::operator=",
+        "entry": "1807a8220"
+      },
+      {
+        "name": "CModelFamilyResults::AddModelResult",
+        "entry": "1807a8390"
+      },
+      {
+        "name": "CModelFamilyResults::ComputeMissingComponent",
+        "entry": "1807a83c0"
+      }
+    ],
+    "CExtGridCellComboBox": [
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::Assign",
+        "entry": "1807fc43c"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::Empty",
+        "entry": "1807fc490"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::IconGetSize",
+        "entry": "1807fc574"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnCompareItems",
+        "entry": "1807fc63a"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnCreateListBoxItemFont",
+        "entry": "1807fc646"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnInplaceControlPreTranslateMessage",
+        "entry": "1807fc6b8"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnInplaceControlTextInputComplete",
+        "entry": "1807fc6d0"
+      },
+      {
+        "name": "PROFUISM.DLL::CExtGridCellComboBox::OnPaintIcon",
+        "entry": "1807fc724"
+      }
+    ],
+    "CView": [
+      {
+        "name": "MFC140.DLL::CView::IsSelected",
+        "entry": "180812910"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnDragEnter",
+        "entry": "180812916"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnDragOver",
+        "entry": "18081291c"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnDragLeave",
+        "entry": "180812922"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnDrop",
+        "entry": "180812928"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnDropEx",
+        "entry": "18081292e"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnDragScroll",
+        "entry": "180812934"
+      },
+      {
+        "name": "MFC140.DLL::CView::OnUpdate",
+        "entry": "18081293a"
+      }
+    ],
+    "CVTraitRes_Joint3D": [
+      {
+        "name": "CVTraitRes_Joint3D::GeHeight_per",
+        "entry": "180503c80"
+      },
+      {
+        "name": "CVTraitRes_Joint3D::GetLenght_um",
+        "entry": "1805041b0"
+      },
+      {
+        "name": "CVTraitRes_Joint3D::GetTailVolume_per",
+        "entry": "180504770"
+      },
+      {
+        "name": "CVTraitRes_Joint3D::GetTerminationHeight_um",
+        "entry": "180504790"
+      },
+      {
+        "name": "CVTraitRes_Joint3D::GetWettingAngle_deg",
+        "entry": "1805048c0"
+      },
+      {
+        "name": "CVTraitRes_Joint3D::GetWidth_per",
+        "entry": "1805048d0"
+      },
+      {
+        "name": "CVTraitRes_Joint3D::IsConvexity_OK",
+        "entry": "180505040"
+      },
+      {
+        "name": "CVTraitRes_Joint3D::IsHeight_percent_OK",
+        "entry": "1805050f0"
+      }
+    ],
+    "CFontParam_OCV": [
+      {
+        "name": "CFontParam_OCV::IsNoStringToRead",
+        "entry": "1805051d0"
+      },
+      {
+        "name": "CFontParam_OCV::_PropagationSize",
+        "entry": "180507eb0"
+      },
+      {
+        "name": "CFontParam_OCV::_bAlgoConfusionActif",
+        "entry": "180508380"
+      },
+      {
+        "name": "CFontParam_OCV::_bAlgoConfusionActif",
+        "entry": "180508390"
+      },
+      {
+        "name": "CFontParam_OCV::_bRotation",
+        "entry": "1805083f0"
+      },
+      {
+        "name": "CFontParam_OCV::_bScoreConfusionApp",
+        "entry": "180508400"
+      },
+      {
+        "name": "CFontParam_OCV::_bScoreConfusionApp",
+        "entry": "180508410"
+      },
+      {
+        "name": "CFontParam_OCV::_csArStringsToReadGet",
+        "entry": "180508490"
+      }
+    ],
+    "CVTrait_GeometricShapeFinder": [
+      {
+        "name": "CVTrait_GeometricShapeFinder::_dGrainFine",
+        "entry": "180588c50"
+      },
+      {
+        "name": "CVTrait_GeometricShapeFinder::CVTrait_GeometricShapeFinder",
+        "entry": "180605230"
+      },
+      {
+        "name": "CVTrait_GeometricShapeFinder::CVTrait_GeometricShapeFinder",
+        "entry": "180605280"
+      },
+      {
+        "name": "CVTrait_GeometricShapeFinder::CVTrait_GeometricShapeFinder",
+        "entry": "1806052c0"
+      },
+      {
+        "name": "CVTrait_GeometricShapeFinder::~CVTrait_GeometricShapeFinder",
+        "entry": "180605300"
+      },
+      {
+        "name": "CVTrait_GeometricShapeFinder::operator=",
+        "entry": "180605320"
+      },
+      {
+        "name": "CVTrait_GeometricShapeFinder::DrawCircle",
+        "entry": "180605410"
+      },
+      {
+        "name": "CVTrait_GeometricShapeFinder::DrawRectangle",
+        "entry": "180605610"
+      }
+    ]
+  },
+  "class_method_strings_count": 504,
+  "class_method_strings_sample": [
+    {
+      "string": "CResGraphHisto::Serialize",
+      "address": "181062fa0"
+    },
+    {
+      "string": "CAutoTestBaseController::ActionCancel",
+      "address": "181063240"
+    },
+    {
+      "string": "CAutoTestBaseController::ActionWait",
+      "address": "181063278"
+    },
+    {
+      "string": "CAutoTestBaseController::ActionResume",
+      "address": "1810632b0"
+    },
+    {
+      "string": "CAutoTestBaseController::LoadFamily",
+      "address": "1810632f0"
+    },
+    {
+      "string": "CAutoTestBaseController::UnloadFamily",
+      "address": "181063358"
+    },
+    {
+      "string": "CAutoTestChipCoplaPP::OnInitDialog",
+      "address": "1810645c0"
+    },
+    {
+      "string": "CAutoTestChipCoplaPP::OnClickApply",
+      "address": "1810645e8"
+    },
+    {
+      "string": "CAutoTestChipCoplaPP::ApplyAutoAddChipCopla",
+      "address": "181064610"
+    },
+    {
+      "string": "CAutoTestChipCoplaPP::ActivateChipCopla",
+      "address": "181064688"
+    },
+    {
+      "string": "CAutoTestChipManager::RefreshTrees",
+      "address": "181064a38"
+    },
+    {
+      "string": "CAutoTestChipPresencePP::OnInitDialog",
+      "address": "181065280"
+    },
+    {
+      "string": "CAutoTestChipPresencePP::OnClickApply",
+      "address": "1810652a8"
+    },
+    {
+      "string": "CAutoTestChipPresencePP::ApplyAutoChip",
+      "address": "1810652d0"
+    },
+    {
+      "string": "CAutoTestCoplaPP::OnInitDialog",
+      "address": "181065c90"
+    },
+    {
+      "string": "CAutoTestCoplaPP::OnClickApply",
+      "address": "181065cb0"
+    },
+    {
+      "string": "CAutoTestCoplaPP::ApplyAutoCopla",
+      "address": "181065cd0"
+    },
+    {
+      "string": "CAutoTestErrorGrid::Init",
+      "address": "181068420"
+    },
+    {
+      "string": "CAutoTestErrorGrid::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "181068440"
+    },
+    {
+      "string": "CAutoTestErrorManagerDlg::OnInitDialog",
+      "address": "181068500"
+    },
+    {
+      "string": "CAutoTestErrorManagerDlg::OnClickSave",
+      "address": "181068528"
+    },
+    {
+      "string": "CAutoTestErrorManagerDlg::OnEditError",
+      "address": "181068628"
+    },
+    {
+      "string": "CAutoTestsManagerDlg::OnInitDialog",
+      "address": "18106a510"
+    },
+    {
+      "string": "CAutoTestsManagerDlg::OnCancel",
+      "address": "18106a538"
+    },
+    {
+      "string": "CBmFileData::GetFileVersionMajor",
+      "address": "18106b0b8"
+    },
+    {
+      "string": "CBmFileData::GetFileVersionMinor",
+      "address": "18106b170"
+    },
+    {
+      "string": "CChipJointReportGridWnd::Init",
+      "address": "18106c960"
+    },
+    {
+      "string": "CChipJointReportGridWnd::AddRow_Joint",
+      "address": "18106c990"
+    },
+    {
+      "string": "CChipJointReportGridWnd::OnSize",
+      "address": "18106c9b8"
+    },
+    {
+      "string": "CChipJointReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "18106c9d8"
+    },
+    {
+      "string": "CCoplaShape_Base::SetDefaultRectangle",
+      "address": "18106d158"
+    },
+    {
+      "string": "CCoplaShape::SetDefaultRectangle",
+      "address": "18106d180"
+    },
+    {
+      "string": "CCoplaShape::SetDefaultCircle",
+      "address": "18106d1e8"
+    },
+    {
+      "string": "CCoplaShape::SetDefaultPolygon",
+      "address": "18106d238"
+    },
+    {
+      "string": "CCoplaShape::ConvertAlgoPointsToWireframe",
+      "address": "18106d258"
+    },
+    {
+      "string": "CCustomReportGridWnd::Init",
+      "address": "18106eab0"
+    },
+    {
+      "string": "CCustomReportGridWnd::AddRow_Pin",
+      "address": "18106ead8"
+    },
+    {
+      "string": "CCustomReportGridWnd::AddRow_Joint",
+      "address": "18106eb00"
+    },
+    {
+      "string": "CCustomReportGridWnd::AddRow_Bridge",
+      "address": "18106eb28"
+    },
+    {
+      "string": "CCustomReportGridWnd::AddRow_Profil",
+      "address": "18106eb50"
+    },
+    {
+      "string": "CCustomReportGridWnd::OnSize",
+      "address": "18106eb78"
+    },
+    {
+      "string": "CCustomReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "18106eb98"
+    },
+    {
+      "string": "CPropertyGridEquation::Init",
+      "address": "18106fe50"
+    },
+    {
+      "string": "CPropertyGridEquation::AddEquation",
+      "address": "18106ff60"
+    },
+    {
+      "string": "CPropertyGridEquation::UpdateModelShapeEquation",
+      "address": "18106ffa0"
+    },
+    {
+      "string": "CPropertyGridEquation::UpdateGridEquation",
+      "address": "18106ffd0"
+    },
+    {
+      "string": "CPropertyGridEquation::OnSize",
+      "address": "181070000"
+    },
+    {
+      "string": "CPropertyGridEquation::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "181070020"
+    },
+    {
+      "string": "cv::Mat::Mat",
+      "address": "181071018"
+    },
+    {
+      "string": "CEquationTolerance::ViObj_ReadData",
+      "address": "181071248"
+    },
+    {
+      "string": "CEquationTolerance::ViObj_WriteData",
+      "address": "181071270"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::Run",
+      "address": "181071c68"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::UpdatePatMaxConfusionLists",
+      "address": "181071ca0"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::RunPatMax",
+      "address": "181071ff8"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::InternalFunction_RunSaveImage",
+      "address": "1810724a0"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::UpdatePatMaxUseMaxScoreThreshold",
+      "address": "181072588"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::IsConfusionTextIncludedInTarget",
+      "address": "181072618"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::RunFindBestOverallText",
+      "address": "181072650"
+    },
+    {
+      "string": "CFamilyOCV_Data::ViObj_ReadData",
+      "address": "181072910"
+    },
+    {
+      "string": "CFamilyOCV_Data::ViObj_WriteData",
+      "address": "181072a28"
+    },
+    {
+      "string": "CFamilyOCV_Page::OpenTextListDlg",
+      "address": "181077090"
+    },
+    {
+      "string": "CFamilyOCV_PartNumberInformation::ViObj_ReadData",
+      "address": "181077830"
+    },
+    {
+      "string": "CFamilyOCV_PartNumberInformation::ViObj_WriteData",
+      "address": "181077930"
+    },
+    {
+      "string": "CFamilyOCV_TextGroup::ViObj_ReadData",
+      "address": "181077cc8"
+    },
+    {
+      "string": "CFamilyOCV_TextGroup::ViObj_WriteData",
+      "address": "181077d20"
+    },
+    {
+      "string": "CInfoFamily::GetEncompassingArea3D",
+      "address": "18107bac8"
+    },
+    {
+      "string": "CInfoModel::GetProcessing3DAreas",
+      "address": "18107c5d0"
+    },
+    {
+      "string": "CInfoModel::GetEncompassingArea3D",
+      "address": "18107c680"
+    },
+    {
+      "string": "CInfoModel::GetBestCoplaAreaLenght",
+      "address": "18107c6a8"
+    },
+    {
+      "string": "CJoint3DThresholdGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "18107def0"
+    },
+    {
+      "string": "CJointInspectParam_Base::Serialize",
+      "address": "18107e238"
+    },
+    {
+      "string": "CJointHistoInspectParam::Serialize",
+      "address": "18107e260"
+    },
+    {
+      "string": "CJoint3DInspectParam::CMeasure_Joint3D::Serialize",
+      "address": "18107e288"
+    },
+    {
+      "string": "CJoint3DInspectParam::Serialize",
+      "address": "18107eca0"
+    },
+    {
+      "string": "CLibraryHelperExportBuilderCSV::Write",
+      "address": "18107eed0"
+    },
+    {
+      "string": "CLibraryHelperExportThread::ActiveSet",
+      "address": "18107f970"
+    },
+    {
+      "string": "CLibraryHelperExportThread::Handler",
+      "address": "18107f9b8"
+    },
+    {
+      "string": "CLibraryHelperExportThread::OnFreeSpaceThreshold",
+      "address": "18107f9e0"
+    },
+    {
+      "string": "CLibraryHelperExportThread::PushResult",
+      "address": "18107fa30"
+    },
+    {
+      "string": "CLibraryHelperExportThread::SetHeader",
+      "address": "18107fac0"
+    },
+    {
+      "string": "CLibraryHelperExportThread::UpdateTargetFolder",
+      "address": "18107fb18"
+    },
+    {
+      "string": "CLibraryHelperExportThread::Start",
+      "address": "18107fbc0"
+    },
+    {
+      "string": "CLibraryHelperExportThread::Stop",
+      "address": "18107fc18"
+    },
+    {
+      "string": "CModelEquationChecker::CheckEquation",
+      "address": "181080470"
+    },
+    {
+      "string": "CModelEquationChecker::CheckEquation_Syntax",
+      "address": "181080498"
+    },
+    {
+      "string": "CModelEquationChecker::CheckSyntax",
+      "address": "1810804d8"
+    },
+    {
+      "string": "CModelEquationChecker::GetEquationVariableMapTestable",
+      "address": "181080500"
+    },
+    {
+      "string": "CModelEquationChecker::GetEquationVariableMapWithType",
+      "address": "181080538"
+    },
+    {
+      "string": "CModelEquationChecker::CheckValidTraits",
+      "address": "181080570"
+    },
+    {
+      "string": "CModelEquationHelper::SplitEquation",
+      "address": "181080aa0"
+    },
+    {
+      "string": "COverhangComputePosition::MakeIpcTest",
+      "address": "181081b38"
+    },
+    {
+      "string": "COverhangComputePosition::ComputeElmtAxis",
+      "address": "181081b70"
+    },
+    {
+      "string": "COverhangComputePosition::GetTolerancesIPC_per",
+      "address": "181081bd0"
+    },
+    {
+      "string": "CPropertyGridCoplaExShapeSelection::Init",
+      "address": "181082b88"
+    },
+    {
+      "string": "CPropertyGridCoplaExShapeSelection::AddExShapeRow",
+      "address": "181082bd8"
+    },
+    {
+      "string": "CPropertyGridCoplaExShapeSelection::UpdateExShapeRow",
+      "address": "181082c10"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::Init",
+      "address": "181084a90"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::AddVTraitRow",
+      "address": "181084ab8"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::UpdateVTraitRow",
+      "address": "181084c40"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::AddVTraitToVector",
+      "address": "181084c70"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::CreateNewVTraitIntoModelShape",
+      "address": "181084cb0"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::OnUpdateVTraitSelection",
+      "address": "181084e48"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "181084e98"
+    },
+    {
+      "string": "CRunContextPads::GetPadParamCount",
+      "address": "1810858c0"
+    },
+    {
+      "string": "CRunContextPads::GetPadParam",
+      "address": "181085900"
+    },
+    {
+      "string": "CRunContextPads::UpdatePadParam",
+      "address": "181085960"
+    },
+    {
+      "string": "CVitImageLoader_DlgModelContext::LoadImageA",
+      "address": "181089e50"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBodyBlob::OnHScroll",
+      "address": "18108b2a0"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBodyBlob::ConvertValueToSilder",
+      "address": "18108b2c8"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBodyBlob::ConvertSilderToValue",
+      "address": "18108b310"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBodyBlob::OnCtlColor",
+      "address": "18108b348"
+    },
+    {
+      "string": "CVTraitPropPage_ChipCopla::OnInitDialog",
+      "address": "18108bff0"
+    },
+    {
+      "string": "CVTraitPropPage_Copla::OnInitDialog",
+      "address": "18108d2c0"
+    },
+    {
+      "string": "CVTrait_Copla::Serialize",
+      "address": "18108f218"
+    },
+    {
+      "string": "CVTrait_Copla::Duplique",
+      "address": "18108f238"
+    },
+    {
+      "string": "CVTrait_Copla::CalculPos",
+      "address": "18108f250"
+    },
+    {
+      "string": "CVTrait_Copla::GetInfoVTrait",
+      "address": "18108f4d0"
+    },
+    {
+      "string": "CVTrait_CustomComponent::DeleteExtraProfiles",
+      "address": "181090470"
+    },
+    {
+      "string": "CVTrait_CustomComponent::GetEquationVariable_3D",
+      "address": "1810905e0"
+    },
+    {
+      "string": "CVTrait_CustomComponent::DetectionPattes",
+      "address": "181090680"
+    },
+    {
+      "string": "CVTrait_CustomComponent::GetRequiredImages",
+      "address": "181090748"
+    },
+    {
+      "string": "CVTrait_CustomComponent::Is2DTestable",
+      "address": "181090778"
+    },
+    {
+      "string": "CVTrait_CustomComponent::GetPropertypage",
+      "address": "1810907a0"
+    },
+    {
+      "string": "CVTrait_CustomComponent::GetInfoVTrait",
+      "address": "181090810"
+    },
+    {
+      "string": "CVTrait_CustomComponent::UpdateIndexTabDetectPins",
+      "address": "181090838"
+    },
+    {
+      "string": "CVTrait_CustomComponent::RestoreIndexTabDetectPins",
+      "address": "1810908a8"
+    },
+    {
+      "string": "CVTrait_CustomComponent::UpdateIndexTabDetectBridges",
+      "address": "1810908e0"
+    },
+    {
+      "string": "CVTrait_CustomComponent::UpdateIndexTabDetectJoints",
+      "address": "1810909b8"
+    },
+    {
+      "string": "CVTrait_CustomComponent::UpdateIndexTabDetectProfiles",
+      "address": "181090a90"
+    },
+    {
+      "string": "CVTrait_CustomComponent::DeactivateAllJoints3D",
+      "address": "181090ba8"
+    },
+    {
+      "string": "CVTrait_CustomComponent::DeactivateAllProfiles3D",
+      "address": "181090bd8"
+    },
+    {
+      "string": "CVTrait_CustomComponentMZ::GetInfoVTrait",
+      "address": "181091118"
+    },
+    {
+      "string": "CVTrait_DetectAngle::Serialize",
+      "address": "1810915b8"
+    },
+    {
+      "string": "CVTrait_DetectCorps::Serialize",
+      "address": "181091c20"
+    },
+    {
+      "string": "CVTrait_DetectCorps::RunFunction_CheckPresence3D",
+      "address": "181091d18"
+    },
+    {
+      "string": "CVTrait_DetectJoint::Serialize",
+      "address": "181092378"
+    },
+    {
+      "string": "CVTrait_DetectJoint::OldSerialize",
+      "address": "181092398"
+    },
+    {
+      "string": "CVTrait_DetectJoint_Side::Serialize",
+      "address": "1810929f8"
+    },
+    {
+      "string": "CVTrait_DetectJoint_Side::Init_Joint3D_FromHisto",
+      "address": "181092b60"
+    },
+    {
+      "string": "CVTrait_DetectPatte::Serialize",
+      "address": "181093228"
+    },
+    {
+      "string": "CVTrait_DetectPont::Serialize",
+      "address": "181093a10"
+    },
+    {
+      "string": "CVTrait_DetectProfile::DeSerialize_Old",
+      "address": "181094120"
+    },
+    {
+      "string": "CVTrait_DetectProfile::Serialize",
+      "address": "181094148"
+    },
+    {
+      "string": "CSopQfpParam::Serialize",
+      "address": "181094a90"
+    },
+    {
+      "string": "CJointPontParam::Serialize",
+      "address": "181094bc0"
+    },
+    {
+      "string": "CEdgeParam::Serialize",
+      "address": "181094bf0"
+    },
+    {
+      "string": "CInfoImage::Serialize",
+      "address": "181094c18"
+    },
+    {
+      "string": "CVTrait::Serialize",
+      "address": "181095188"
+    },
+    {
+      "string": "CVTrait::GetInfoVTrait",
+      "address": "1810951d8"
+    },
+    {
+      "string": "CVTrait_BGA::Serialize",
+      "address": "1810956f0"
+    },
+    {
+      "string": "CVTrait_BGA::GetInfoVTrait",
+      "address": "181095710"
+    },
+    {
+      "string": "CVTrait_BGA::RunFunction_CheckPresence3D",
+      "address": "181095730"
+    },
+    {
+      "string": "CVTrait_Blob::Serialize",
+      "address": "181096120"
+    },
+    {
+      "string": "CVTrait_Blob::GetInfoVTrait",
+      "address": "181096260"
+    },
+    {
+      "string": "CVTrait_Chip::Serialize",
+      "address": "181096fc8"
+    },
+    {
+      "string": "CVTrait_Chip::Run",
+      "address": "1810974c0"
+    },
+    {
+      "string": "CVTrait_Chip::RunFunction_BodyDetectionPatMax",
+      "address": "181097520"
+    },
+    {
+      "string": "CVTrait_Chip::RunFunction_BodyDetectionBlob",
+      "address": "181097568"
+    },
+    {
+      "string": "CVTrait_Chip::RunFunction_JointAnalysis",
+      "address": "181097680"
+    },
+    {
+      "string": "CVTrait_Chip::RunFunction_Joint3DAnalysis",
+      "address": "1810976a8"
+    },
+    {
+      "string": "CVTrait_Chip::RunFunction_CheckCopla",
+      "address": "1810976d8"
+    },
+    {
+      "string": "CVTrait_Chip::GetInfoVTrait",
+      "address": "181097728"
+    },
+    {
+      "string": "CVTrait_Codebarre_CVB::Serialize",
+      "address": "181098158"
+    },
+    {
+      "string": "CVTrait_Codebarre_CVB::GetInfoVTrait",
+      "address": "1810982f0"
+    },
+    {
+      "string": "CVTrait_DataMatrix::GetInfoVTrait",
+      "address": "181098968"
+    },
+    {
+      "string": "CVTrait_DataMatrix_CVB::Serialize",
+      "address": "181098e68"
+    },
+    {
+      "string": "CVTrait_DataMatrix_CVB::GetInfoVTrait",
+      "address": "181098e90"
+    },
+    {
+      "string": "CVTrait_Edge::Serialize",
+      "address": "1810994a8"
+    },
+    {
+      "string": "CVTrait_Edge::GetInfoVTrait",
+      "address": "1810995a8"
+    },
+    {
+      "string": "CVTrait_GeometricShapeFinder::Serialize",
+      "address": "1810999f0"
+    },
+    {
+      "string": "CVTrait_GeometricShapeFinder::GetInfoVTrait",
+      "address": "181099ae8"
+    },
+    {
+      "string": "CVTrait_Helicoptere::Serialize",
+      "address": "181099f78"
+    },
+    {
+      "string": "CVTrait_Helicoptere::GetInfoVTrait",
+      "address": "181099f98"
+    },
+    {
+      "string": "CVTrait_Histo::Serialize",
+      "address": "18109a608"
+    },
+    {
+      "string": "CVTrait_Histo::GetInfoVTrait",
+      "address": "18109a628"
+    },
+    {
+      "string": "CVTrait_IdCode::Serialize",
+      "address": "18109ab98"
+    },
+    {
+      "string": "CVTrait_IdCode::Duplique",
+      "address": "18109abb8"
+    },
+    {
+      "string": "CVTrait_IdCode::Run",
+      "address": "18109abd8"
+    },
+    {
+      "string": "CVTrait_IdCode::GetPropertypage",
+      "address": "18109abf0"
+    },
+    {
+      "string": "CVTrait_IdCode::IsValidLicence",
+      "address": "18109ac10"
+    },
+    {
+      "string": "CVTrait_IdCode::GetInfoVTrait",
+      "address": "18109ac30"
+    },
+    {
+      "string": "CVTrait_Joint3D::Serialize",
+      "address": "18109b4e0"
+    },
+    {
+      "string": "CVTrait_Joint3D::Duplique",
+      "address": "18109b500"
+    },
+    {
+      "string": "CVTrait_Joint3D::CalculPos",
+      "address": "18109b520"
+    },
+    {
+      "string": "CVTrait_Joint3D::GetEquationVariable_2D",
+      "address": "18109b568"
+    },
+    {
+      "string": "CVTrait_Joint3D::GetEquationVariable",
+      "address": "18109b590"
+    },
+    {
+      "string": "CVTrait_Joint3D::GetInfoVTrait",
+      "address": "18109b5e0"
+    },
+    {
+      "string": "CVTrait_Matlab::Serialize",
+      "address": "18109bd48"
+    },
+    {
+      "string": "CVTrait_Matlab::GetInfoVTrait",
+      "address": "18109bf20"
+    },
+    {
+      "string": "CVTrait_OCR2::Serialize",
+      "address": "18109c730"
+    },
+    {
+      "string": "CVTrait_OCR2::GetInfoVTrait",
+      "address": "18109ca88"
+    },
+    {
+      "string": "COcrStringParam::Serialize",
+      "address": "18109cfa8"
+    },
+    {
+      "string": "COcrFilterParam::Serialize",
+      "address": "18109cfc8"
+    },
+    {
+      "string": "CVTrait_OCR3::Serialize",
+      "address": "18109d268"
+    },
+    {
+      "string": "CVTrait_OCR3::GetInfoVTrait",
+      "address": "18109d3b0"
+    },
+    {
+      "string": "CVTrait_PatMax::Serialize",
+      "address": "18109ddf0"
+    },
+    {
+      "string": "CVTrait_PatMax::GetInfoVTrait",
+      "address": "18109ded0"
+    },
+    {
+      "string": "CVTrait_Profile::Serialize",
+      "address": "18109ee80"
+    },
+    {
+      "string": "CVTrait_Profile::GetInfoVTrait",
+      "address": "18109f0b0"
+    },
+    {
+      "string": "CVTrait_Qfp::Serialize",
+      "address": "18109f5d8"
+    },
+    {
+      "string": "CVTrait_Qfp::GetInfoVTrait",
+      "address": "18109f608"
+    },
+    {
+      "string": "CVTrait_QRCode::GetInfoVTrait",
+      "address": "18109fb68"
+    },
+    {
+      "string": "CVTrait_Search::Serialize",
+      "address": "1810a0078"
+    },
+    {
+      "string": "CVTrait_Search::GetInfoVTrait",
+      "address": "1810a00c0"
+    },
+    {
+      "string": "CVTrait_So::Serialize",
+      "address": "1810a05c0"
+    },
+    {
+      "string": "CVTrait_So::GetInfoVTrait",
+      "address": "1810a05d8"
+    },
+    {
+      "string": "CVTraitRes::Serialize",
+      "address": "1810a15e8"
+    },
+    {
+      "string": "CVTraitRes_Edge::Serialize",
+      "address": "1810a1600"
+    },
+    {
+      "string": "CVTraitRes_Histo::Serialize",
+      "address": "1810a1620"
+    },
+    {
+      "string": "CVTraitRes_DetectCorps::Serialize",
+      "address": "1810a1640"
+    },
+    {
+      "string": "CVTraitRes_DetectAngle::Serialize",
+      "address": "1810a1668"
+    },
+    {
+      "string": "CVTraitRes_DetectPatte::Serialize",
+      "address": "1810a1690"
+    },
+    {
+      "string": "CVTraitRes_DetectPont::Serialize",
+      "address": "1810a16b8"
+    },
+    {
+      "string": "CVTraitRes_BGA::Serialize",
+      "address": "1810a16e0"
+    },
+    {
+      "string": "CVTraitRes_PatMax::Serialize",
+      "address": "1810a1700"
+    },
+    {
+      "string": "CVTraitRes_Qfp::Serialize",
+      "address": "1810a1720"
+    },
+    {
+      "string": "CVTraitRes_So::Serialize",
+      "address": "1810a1740"
+    },
+    {
+      "string": "CVTraitRes_Blob::Serialize",
+      "address": "1810a1760"
+    },
+    {
+      "string": "CVTraitRes_DataMatrix::Serialize",
+      "address": "1810a1780"
+    },
+    {
+      "string": "CVTraitRes_OCR::Serialize",
+      "address": "1810a17a8"
+    },
+    {
+      "string": "CVTraitRes_Matlab::Serialize",
+      "address": "1810a17c8"
+    },
+    {
+      "string": "CVTraitRes_Thickness::Serialize",
+      "address": "1810a17e8"
+    },
+    {
+      "string": "CVTraitRes_Joint3D::Serialize",
+      "address": "1810a1808"
+    },
+    {
+      "string": "CResChipJoint::Serialize",
+      "address": "1810a1828"
+    },
+    {
+      "string": "CVTraitRes_Chip::Serialize",
+      "address": "1810a1848"
+    },
+    {
+      "string": "CVTraitRes_Search::Serialize",
+      "address": "1810a1880"
+    },
+    {
+      "string": "CVTraitRes_Profile::Serialize",
+      "address": "1810a18a0"
+    },
+    {
+      "string": "CComponentDefinitionDlg::OnC2FDone",
+      "address": "1810a3800"
+    },
+    {
+      "string": "algo::percentile",
+      "address": "1810a4298"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBody::Console3DRange_Enter",
+      "address": "1810b68c0"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBody::Console3DRange_Restore",
+      "address": "1810b68f0"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBody::Console3DRange_Update",
+      "address": "1810b6928"
+    },
+    {
+      "string": "CVTraitPropPage_ChipBody::SwitchToBlobTest",
+      "address": "1810b6958"
+    },
+    {
+      "string": "CVTraitPropPage_ChipJoint::UpdateDataJoint3D_FromGrid",
+      "address": "1810b8e80"
+    },
+    {
+      "string": "CVTraitPropPage_ChipJoint::ShowGraphJoint3D",
+      "address": "1810b8eb8"
+    },
+    {
+      "string": "CVTraitPropPage_Modele::AddDefaultTool",
+      "address": "1810bb188"
+    },
+    {
+      "string": "CVTraitPropPage_Modele::OnUpdatePageFromVTraitSelectionChanged",
+      "address": "1810bb1b0"
+    },
+    {
+      "string": "CVTraitPropPage_Modele::ConsolidateModelDescription",
+      "address": "1810bb1f0"
+    },
+    {
+      "string": "CVTraitPropPage_Modele::OnShowComponentDescriptionOnConsole",
+      "address": "1810bb3e0"
+    },
+    {
+      "string": "CVTraitPropPage_Modele::DrawComponentDescription",
+      "address": "1810bb460"
+    },
+    {
+      "string": "CVTraitPropPage_DetectJointSide::UpdateDataJoint3D_FromGrid",
+      "address": "1810c5e20"
+    },
+    {
+      "string": "CVTraitPropPage_DetectJointSide::ShowGraphJoint3D",
+      "address": "1810c5e60"
+    },
+    {
+      "string": "CFudicialFinder::Find",
+      "address": "1810cdf18"
+    },
+    {
+      "string": "CEditeurBibliothequeDoc::OnOpenDocument",
+      "address": "1810d5780"
+    },
+    {
+      "string": "CEditeurBibliothequeDoc::OnOpenDocumentModifiedFromCDocument",
+      "address": "1810d57a8"
+    },
+    {
+      "string": "CEditeurBibliothequeDoc::DoFileSave",
+      "address": "1810d5a60"
+    },
+    {
+      "string": "CEditeurBibliothequeDoc::OnLibraryExport",
+      "address": "1810d5b30"
+    },
+    {
+      "string": "CEditeurBibliothequeDoc::OnCloseDocument",
+      "address": "1810d5b88"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnInitialUpdate",
+      "address": "1810d8c00"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::GetMonoSelection",
+      "address": "1810d8d78"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::GetMultiSelection",
+      "address": "1810d8dc8"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::GetHighlight",
+      "address": "1810d8e40"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::GetSelection",
+      "address": "1810d8e88"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::SetSelection",
+      "address": "1810d8eb0"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AddModelsItems",
+      "address": "1810d8f30"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnLButtonDown",
+      "address": "1810d8f80"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnLButtonDblClk",
+      "address": "1810d8fd8"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AppendRootMenuForFileSharing",
+      "address": "1810d9008"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AppendModelMenuForFileSharing",
+      "address": "1810d9058"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AppendModelFamilyMenuForFileSharing",
+      "address": "1810d9090"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AppendMultiMenuForFileSharing",
+      "address": "1810d90f8"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AppendMenuCopyPaste",
+      "address": "1810d9130"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AppendMenuImportExport",
+      "address": "1810d9160"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnDelete",
+      "address": "1810d9198"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnViewModel",
+      "address": "1810d91d8"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnRenameModel",
+      "address": "1810d9228"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::LaunchLibPro",
+      "address": "1810d9250"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnUnreserveLibrary",
+      "address": "1810d9320"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnUpdateLibrary",
+      "address": "1810d9368"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::UpdateRootItem",
+      "address": "1810d9398"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::AddModelItem",
+      "address": "1810d93d8"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnManage3DTests",
+      "address": "1810d9418"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnModelUnreserve",
+      "address": "1810d9448"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnMultipleUnreserve",
+      "address": "1810d9538"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnMDLExport",
+      "address": "1810d9578"
+    },
+    {
+      "string": "CEditeurBibliothequeTree::OnUpdate",
+      "address": "1810d95a0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeOneLevel::UpdateModel",
+      "address": "1810da158"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::RemoveFamilyItems",
+      "address": "1810db3c0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::AddFamiliesItems",
+      "address": "1810db3f8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnAddModelFamily",
+      "address": "1810db430"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnDeleteModelFamily",
+      "address": "1810db468"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnSaveModelFamily",
+      "address": "1810db4e8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::EditModelFamilyComponent",
+      "address": "1810db560"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnViewModelFamily",
+      "address": "1810db668"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnRenameModelFamily",
+      "address": "1810db6a0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::DeleteModelFamily",
+      "address": "1810db6f0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::DeleteModelFamilies",
+      "address": "1810db728"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::DeleteModels",
+      "address": "1810db778"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::EditModel",
+      "address": "1810db7d0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::RenameModel",
+      "address": "1810db800"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::DeleteModel",
+      "address": "1810db830"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SaveModelFamily",
+      "address": "1810db860"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SaveModelFamilies",
+      "address": "1810db898"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnDragStart",
+      "address": "1810db8d0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnLaunchAnalisysModelFamilyInTST",
+      "address": "1810dbb60"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnMButtonUp",
+      "address": "1810dbba8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::AskTstToRunFamilyAnalysis",
+      "address": "1810dbbd8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnLaunchLibProOnFamily",
+      "address": "1810dbc18"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::UpdateFamilyItem",
+      "address": "1810dbc58"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::RemoveDeletedFamilies",
+      "address": "1810dbc90"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::RemoveFamilyItem",
+      "address": "1810dbcc8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::AddFamilyItem",
+      "address": "1810dbd88"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::FindInsertPosition",
+      "address": "1810dbdb8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SynchronizeFamBibTree",
+      "address": "1810dbdf0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SynchronizeFamily",
+      "address": "1810dbe28"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SynchronizeFamilyWithoutEraseModel",
+      "address": "1810dbec0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::UpdateFamily",
+      "address": "1810dbf08"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::UpdateModel",
+      "address": "1810dbf38"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::DeleteItem",
+      "address": "1810dbf68"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::DeleteItems",
+      "address": "1810dbfb8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SaveItem",
+      "address": "1810dbfe8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SaveItems",
+      "address": "1810dc018"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::EditItem",
+      "address": "1810dc048"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::GetFamilyName",
+      "address": "1810dc078"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::AddModel",
+      "address": "1810dc0a8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::GetContextMenuMono",
+      "address": "1810dc0d8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::GetContextMenuMulti",
+      "address": "1810dc110"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnContextMenu",
+      "address": "1810dc148"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnContextMenuMono",
+      "address": "1810dc178"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnContextMenuMulti",
+      "address": "1810dc1b0"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnModelFamilyUnreserve",
+      "address": "1810dc1e8"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::OnEdit",
+      "address": "1810dc298"
+    },
+    {
+      "string": "CEditeurBibliothequeTreeTwoLevel::SetSelection",
+      "address": "1810dc2c8"
+    },
+    {
+      "string": "CScoringFunctionParam::Serialize",
+      "address": "1810ddf80"
+    },
+    {
+      "string": "CcBlob_FilterParam::Serialize",
+      "address": "1810df390"
+    },
+    {
+      "string": "CLettreConfusion::Serialize",
+      "address": "1810e0528"
+    },
+    {
+      "string": "CLettre::Serialize",
+      "address": "1810e0548"
+    },
+    {
+      "string": "CTabLettres::Serialize",
+      "address": "1810e0560"
+    },
+    {
+      "string": "CAlphabet::Serialize",
+      "address": "1810e05a8"
+    },
+    {
+      "string": "CVTrait_Thickness::Serialize",
+      "address": "1810eb558"
+    },
+    {
+      "string": "CWireframeCoplaToolsDlg::TransformCcGenPolyToCcAffRect",
+      "address": "1810ec0c0"
+    },
+    {
+      "string": "CWireframeCoplaToolsDlg::TransformCcAffRectToCcGenPoly",
+      "address": "1810ec108"
+    },
+    {
+      "string": "CReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "1810f75d0"
+    },
+    {
+      "string": "CModelFamily::InitData",
+      "address": "1810f9518"
+    },
+    {
+      "string": "CModelFamily::GetTrueTreatmentArea3D_X_mm",
+      "address": "1810f95a8"
+    },
+    {
+      "string": "CModelFamily::GetTrueTreatmentArea3D_Y_mm",
+      "address": "1810f9618"
+    },
+    {
+      "string": "CModelFamily::Is2DTestable",
+      "address": "1810f9648"
+    },
+    {
+      "string": "CModelFamily::Split_HybridToSimple",
+      "address": "1810f9668"
+    },
+    {
+      "string": "CModelFamily::CreateModel",
+      "address": "1810f9710"
+    },
+    {
+      "string": "CModelFamily::EditModel",
+      "address": "1810f97c0"
+    },
+    {
+      "string": "CModelFamily::ViewModel",
+      "address": "1810f9888"
+    },
+    {
+      "string": "CModelFamily::AddModel",
+      "address": "1810f9918"
+    },
+    {
+      "string": "CModelFamily::DeleteModel",
+      "address": "1810f99b8"
+    },
+    {
+      "string": "CModelFamily::GetModelIterator",
+      "address": "1810f9a60"
+    },
+    {
+      "string": "CModelFamily::GetFirstModel",
+      "address": "1810f9a80"
+    },
+    {
+      "string": "CModelFamily::GetNextModel",
+      "address": "1810f9ac8"
+    },
+    {
+      "string": "CModelFamily::GetModel",
+      "address": "1810f9ae8"
+    },
+    {
+      "string": "CModelFamily::LoadTreatments",
+      "address": "1810f9b00"
+    },
+    {
+      "string": "CModelFamily::UnLoadTreatments",
+      "address": "1810f9b60"
+    },
+    {
+      "string": "CModelFamily::LoadOCV",
+      "address": "1810f9bb0"
+    },
+    {
+      "string": "CModelFamily::LoadModels",
+      "address": "1810f9c28"
+    },
+    {
+      "string": "CModelFamily::LoadModels_LoadOneModel",
+      "address": "1810f9c98"
+    },
+    {
+      "string": "CModelFamily::SaveModels",
+      "address": "1810f9e40"
+    },
+    {
+      "string": "CModelFamily::SaveModels_DeleteModelFiles",
+      "address": "1810f9ea0"
+    },
+    {
+      "string": "CModelFamily::SaveModels_SaveOneModel",
+      "address": "1810f9ef0"
+    },
+    {
+      "string": "CModelFamily::SaveModels_SaveModelInOleStreamFile",
+      "address": "1810fa058"
+    },
+    {
+      "string": "CModelFamily::IncrementModelName",
+      "address": "1810fa248"
+    },
+    {
+      "string": "CModelFamily::RenameModel",
+      "address": "1810fa2a0"
+    },
+    {
+      "string": "CModelFamily::RotateFamilyAndModels",
+      "address": "1810fa398"
+    },
+    {
+      "string": "CModelFamily::UpdateGeometricalInfoFromModels",
+      "address": "1810fa3c0"
+    },
+    {
+      "string": "CModelFamily::SaveModelListInArchive",
+      "address": "1810fa408"
+    },
+    {
+      "string": "CModelFamily::ViObj_ReadData",
+      "address": "1810fa4a0"
+    },
+    {
+      "string": "CModelFamily::ViObj_WriteData",
+      "address": "1810fa670"
+    },
+    {
+      "string": "CModelFamily::AddModelsFromFamily",
+      "address": "1810faae8"
+    },
+    {
+      "string": "CModelFamily::ReplaceModelsFromFamily",
+      "address": "1810fabb8"
+    },
+    {
+      "string": "CModelFamily::GetIndex",
+      "address": "1810fac48"
+    },
+    {
+      "string": "CModelFamily::CheckListOrder",
+      "address": "1810fac88"
+    },
+    {
+      "string": "CModelFamily::MoveModel",
+      "address": "1810fad10"
+    },
+    {
+      "string": "CModelFamily::ID_Icon",
+      "address": "1810fadf8"
+    },
+    {
+      "string": "CModelFamily::IsImagesAnalysisAuthorized",
+      "address": "1810faec8"
+    },
+    {
+      "string": "CModelFamily::ComputeSearchAreaPosition_px",
+      "address": "1810faef8"
+    },
+    {
+      "string": "CModelFamily::ApplyAnalysisFunctionMask",
+      "address": "1810fafa0"
+    },
+    {
+      "string": "CModelFamily::GetTrueTreatmentAreaX_mm",
+      "address": "1810fb070"
+    },
+    {
+      "string": "CModelFamily::GetTrueTreatmentAreaY_mm",
+      "address": "1810fb098"
+    },
+    {
+      "string": "CModelFamily::SetEditStatus",
+      "address": "1810fb0c0"
+    },
+    {
+      "string": "CModelFamily::Save",
+      "address": "1810fb148"
+    },
+    {
+      "string": "CModelFamily::Save_SaveFamilyFile_mf",
+      "address": "1810fb270"
+    },
+    {
+      "string": "CModelFamily::ConsolidateComponentDescriptionFamily",
+      "address": "1810fb330"
+    },
+    {
+      "string": "CModelFamily::GetInfoFamily",
+      "address": "1810fb490"
+    },
+    {
+      "string": "CModelFamily::LoadGoldenImage",
+      "address": "1810fb4f8"
+    },
+    {
+      "string": "CModelFamilyComponent::IsCapableOfTestIPC",
+      "address": "1810fc358"
+    },
+    {
+      "string": "CModelFamilyComponent::EditModel",
+      "address": "1810fc468"
+    },
+    {
+      "string": "CModelFamilyComponent::ViewModel",
+      "address": "1810fc5a8"
+    },
+    {
+      "string": "CModelFamilyComponent::GetBestKnownComponentDescription",
+      "address": "1810fc5e0"
+    },
+    {
+      "string": "CModelFamilyComponent::PropagateGeometricalInfo",
+      "address": "1810fc618"
+    },
+    {
+      "string": "CModelFamilyComponent::ViObj_WriteData",
+      "address": "1810fc858"
+    },
+    {
+      "string": "CModelFamilyComponent::RotateFamilyAndModels",
+      "address": "1810fc990"
+    },
+    {
+      "string": "CModelFamilyComponent::UpdateGeometricalInfoFromModels",
+      "address": "1810fc9c0"
+    },
+    {
+      "string": "CModelFamilyComponent::GetProcessing3DAreas",
+      "address": "1810fca70"
+    },
+    {
+      "string": "CModelFamilyComponent::ImagesAnalysis_RunOCV",
+      "address": "1810fcbd8"
+    },
+    {
+      "string": "CModelFamilyDlg::OnShowComponentDescriptionOnConsole",
+      "address": "1810fd408"
+    },
+    {
+      "string": "CModelFamilyDlg::DrawComponentDescription",
+      "address": "1810fd480"
+    },
+    {
+      "string": "CModelFamilyTestDlg::OnInitDialog",
+      "address": "181101cc0"
+    },
+    {
+      "string": "CModelFamilyTestDlg::OnButtonTest",
+      "address": "181101ce8"
+    },
+    {
+      "string": "CModelFamilyTestDlg::RunFamily",
+      "address": "181101da8"
+    },
+    {
+      "string": "CInfosPatte::Serialize",
+      "address": "1811021d0"
+    },
+    {
+      "string": "CInfosComposant::Serialize",
+      "address": "1811021f8"
+    },
+    {
+      "string": "CModel::Rename",
+      "address": "181102548"
+    },
+    {
+      "string": "CModel::LoadTreatments",
+      "address": "181102578"
+    },
+    {
+      "string": "CModel::SaveTreatments",
+      "address": "1811026a8"
+    }
+  ],
+  "focus_strings_count": 866,
+  "focus_strings": [
+    {
+      "string": "images",
+      "address": "18105f2fc"
+    },
+    {
+      "string": "image",
+      "address": "181060ab4"
+    },
+    {
+      "string": "ImageCamA",
+      "address": "181060cb8"
+    },
+    {
+      "string": "ImageCamB",
+      "address": "181060cf8"
+    },
+    {
+      "string": "ImageMerged",
+      "address": "181060d68"
+    },
+    {
+      "string": "CAutoTestChipCoplaPP::OnClickApply",
+      "address": "1810645e8"
+    },
+    {
+      "string": "CAutoTestChipPresencePP::OnClickApply",
+      "address": "1810652a8"
+    },
+    {
+      "string": "CAutoTestCoplaPP::OnClickApply",
+      "address": "181065cb0"
+    },
+    {
+      "string": "CAutoTestErrorGrid::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "181068440"
+    },
+    {
+      "string": "CAutoTestErrorManagerDlg::OnClickSave",
+      "address": "181068528"
+    },
+    {
+      "string": "CChipJointReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "18106c9d8"
+    },
+    {
+      "string": "CCustomReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "18106eb98"
+    },
+    {
+      "string": "Texte",
+      "address": "18106f02c"
+    },
+    {
+      "string": "Texte Error",
+      "address": "18106ff08"
+    },
+    {
+      "string": "CPropertyGridEquation::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "181070020"
+    },
+    {
+      "string": "STEP 1. Run the current text id=%d (%s) on the other trained images. Number of texts : %d. Score min confusion %.2f\n",
+      "address": "181071cd0"
+    },
+    {
+      "string": "Run current text %d (%s) on the trained image of the text %d (%s). \n",
+      "address": "181071d50"
+    },
+    {
+      "string": "Test Ok (Step1). The following texts are added to each other's confusion list : Text %d (%s) and Text %d (%s). \n",
+      "address": "181071da0"
+    },
+    {
+      "string": "STEP 2. Run the other texts on the current text id=%d (%s) trained image. Number of texts : %d \n",
+      "address": "181071e20"
+    },
+    {
+      "string": "Run the text %d (%s) on the trained image of the current text %d (%s). \n",
+      "address": "181071e90"
+    },
+    {
+      "string": "Test Ok (Step2). The following texts are added to each other's confusion list : Text %d (%s) and Text %d (%s). \n",
+      "address": "181071ee0"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::InternalFunction_RunSaveImage",
+      "address": "1810724a0"
+    },
+    {
+      "string": "Family OCV Patmax run images saving folder",
+      "address": "1810724d8"
+    },
+    {
+      "string": "p_poTexteResultLocalisation ptr is empty\n",
+      "address": "181072518"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::IsConfusionTextIncludedInTarget",
+      "address": "181072618"
+    },
+    {
+      "string": "CFamilyOCV_Analysis::RunFindBestOverallText",
+      "address": "181072650"
+    },
+    {
+      "string": "Unable to read Text\n",
+      "address": "181072988"
+    },
+    {
+      "string": "Unable to write Text \n",
+      "address": "181072a90"
+    },
+    {
+      "string": "%s\\Image-ocv.bmp",
+      "address": "181075990"
+    },
+    {
+      "string": "CFamilyOCV_Page::OpenTextListDlg",
+      "address": "181077090"
+    },
+    {
+      "string": "CFamilyOCV_TextGroup::ViObj_ReadData",
+      "address": "181077cc8"
+    },
+    {
+      "string": "CFamilyOCV_TextGroup::ViObj_WriteData",
+      "address": "181077d20"
+    },
+    {
+      "string": "CFamilyOCV_TextsOverviewDlg",
+      "address": "1810784b0"
+    },
+    {
+      "string": "CFamilyOCV_TextsOverviewDlg1",
+      "address": "181078530"
+    },
+    {
+      "string": "CFamilyOCV_TextsOverviewDlg2",
+      "address": "181078568"
+    },
+    {
+      "string": "CJoint3DThresholdGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "18107def0"
+    },
+    {
+      "string": "Resolution cropped image Z (um)",
+      "address": "18107e9e0"
+    },
+    {
+      "string": "Image directory",
+      "address": "181081a50"
+    },
+    {
+      "string": "CPropertyGridVTraitSelection::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "181084e98"
+    },
+    {
+      "string": "LoadImage",
+      "address": "1810897f0"
+    },
+    {
+      "string": "CVitImageLoader",
+      "address": "181089800"
+    },
+    {
+      "string": "3D image not available in bmp format\n",
+      "address": "181089810"
+    },
+    {
+      "string": "RotateImage",
+      "address": "181089838"
+    },
+    {
+      "string": "DEV ERROR:: Bad implementation. You forgot to tuse LoadImage before!!!!!\n",
+      "address": "181089850"
+    },
+    {
+      "string": "Compute rotated image failed\n",
+      "address": "1810898a0"
+    },
+    {
+      "string": "RotateImageinternal",
+      "address": "1810898d0"
+    },
+    {
+      "string": "CRotateImageThread",
+      "address": "181089950"
+    },
+    {
+      "string": "CenterImageAndRotate",
+      "address": "1810899f8"
+    },
+    {
+      "string": "CopyPaste=true: 'copySubImage' failed\n",
+      "address": "181089a10"
+    },
+    {
+      "string": "CopyPaste)false: 'copySubImage' failed\n",
+      "address": "181089a58"
+    },
+    {
+      "string": "CopyPaste)false: 'pasteSubImage' failed\n",
+      "address": "181089a80"
+    },
+    {
+      "string": "CVitImageLoader_DlgModelContext::LoadImageA",
+      "address": "181089e50"
+    },
+    {
+      "string": "Image unbound\n",
+      "address": "18108da10"
+    },
+    {
+      "string": "Image named",
+      "address": "18108e2f8"
+    },
+    {
+      "string": "%s Image unbound\n",
+      "address": "18108f2f0"
+    },
+    {
+      "string": "CVTrait_CustomComponent::GetRequiredImages",
+      "address": "181090748"
+    },
+    {
+      "string": "CInfoImage",
+      "address": "181094c08"
+    },
+    {
+      "string": "CInfoImage::Serialize",
+      "address": "181094c18"
+    },
+    {
+      "string": "Conversion 16b to 8b image: Max robust filter (%)",
+      "address": "181096098"
+    },
+    {
+      "string": "Conversion 16b to 8b image: Body tickness tolerances (%)",
+      "address": "1810960e0"
+    },
+    {
+      "string": "%s NANs percentage in image %f %%\n",
+      "address": "1810961d0"
+    },
+    {
+      "string": "Exception catched: treatment area is partially outside of image -> clip treatment area\n",
+      "address": "1810975a0"
+    },
+    {
+      "string": "%s empty search area: Image unbound\n",
+      "address": "1810975f8"
+    },
+    {
+      "string": "GetRequiredImages",
+      "address": "181097700"
+    },
+    {
+      "string": "CVB image failed to init\n",
+      "address": "1810981c8"
+    },
+    {
+      "string": "NANs percentage in image %f %%\n",
+      "address": "181099530"
+    },
+    {
+      "string": "Type of result (0:Average,1:Median,2:Mod,3:Deviation,4:Area %)",
+      "address": "18109a568"
+    },
+    {
+      "string": "GetInputsImageDeclaration",
+      "address": "18109bdf0"
+    },
+    {
+      "string": "mlfGetInputsImageDeclaration",
+      "address": "18109be10"
+    },
+    {
+      "string": "p_iImageWidth_px = %d p_iImageHeight_px = %d p_lpBytes = %I64d\n",
+      "address": "18109d690"
+    },
+    {
+      "string": "ImageFilter",
+      "address": "18109d720"
+    },
+    {
+      "string": "Train_Image_2_Train",
+      "address": "18109e278"
+    },
+    {
+      "string": "[%d] Nans detected in wxh=[%dx%d] image (ratio = %lf %%)\n",
+      "address": "18109eef8"
+    },
+    {
+      "string": "[%d] Nans detected in wxh=[%dx%d] image\n",
+      "address": "18109ef38"
+    },
+    {
+      "string": "No image avalaible!!\n",
+      "address": "18109ef68"
+    },
+    {
+      "string": "nProjectionImagePerBin NULL.\n",
+      "address": "18109ef80"
+    },
+    {
+      "string": "Empty projection image.\n",
+      "address": "18109efa0"
+    },
+    {
+      "string": "Exception catched: Component inspection failed because Profile treatment has been executed outside the image (%s).\n",
+      "address": "18109efc0"
+    },
+    {
+      "string": "Exception catched: Component inspection failed because Profile treatment has been executed outside the image.\n",
+      "address": "18109f040"
+    },
+    {
+      "string": "SetRequiredImages",
+      "address": "18109f5f0"
+    },
+    {
+      "string": "Building wired model and rotating images...",
+      "address": "1810a3828"
+    },
+    {
+      "string": "Restoring images at theorical orientation...",
+      "address": "1810a3898"
+    },
+    {
+      "string": "Crop Image (0,1)",
+      "address": "1810a3c98"
+    },
+    {
+      "string": "minimum of the image ocupied by PCB in percent [0,100]",
+      "address": "1810a3da0"
+    },
+    {
+      "string": "OpenImageFile",
+      "address": "1810a3fb8"
+    },
+    {
+      "string": "Allocate image file failed",
+      "address": "1810a3fc8"
+    },
+    {
+      "string": "Open image file %s failed",
+      "address": "1810a3fe8"
+    },
+    {
+      "string": "No image found in %s ",
+      "address": "1810a4038"
+    },
+    {
+      "string": "OnClickCheckUse3D",
+      "address": "1810b8e68"
+    },
+    {
+      "string": "Image filter check light setting: Activated (0,1)",
+      "address": "1810bb100"
+    },
+    {
+      "string": "Image filter check family name: Activated (0,1)",
+      "address": "1810bb138"
+    },
+    {
+      "string": "OnCheckImageMode",
+      "address": "1810cdc60"
+    },
+    {
+      "string": "SetImageList",
+      "address": "1810d0f00"
+    },
+    {
+      "string": "Ignore images from an empty panel",
+      "address": "1810d59b8"
+    },
+    {
+      "string": "header cell is null for tree column",
+      "address": "1810d8c30"
+    },
+    {
+      "string": "header cell is null for test column",
+      "address": "1810d8c58"
+    },
+    {
+      "string": "header cell is null for comment column",
+      "address": "1810d8cf8"
+    },
+    {
+      "string": "header cell is null for light info  column",
+      "address": "1810d8d20"
+    },
+    {
+      "string": "header cell is null for first column",
+      "address": "1810d8d50"
+    },
+    {
+      "string": "OnGbwAnalyzeCellMouseClickEvent",
+      "address": "1810dd320"
+    },
+    {
+      "string": "CVC_BC_NO_IMAGE: No image: An error occurred. ",
+      "address": "1810ddda8"
+    },
+    {
+      "string": "CVC_BC_NOT_8BIT: Image is not 8b: An error occurred. ",
+      "address": "1810dddd8"
+    },
+    {
+      "string": "CImage_CVB",
+      "address": "1810ddee0"
+    },
+    {
+      "string": "CreateGenericImage failed: W = %d / H = %d\n",
+      "address": "1810ddef0"
+    },
+    {
+      "string": "Image",
+      "address": "1810de820"
+    },
+    {
+      "string": "VitImageManager.exe",
+      "address": "1810de928"
+    },
+    {
+      "string": "Empty images\n",
+      "address": "1810df9e0"
+    },
+    {
+      "string": "Can't compute result: NAN image.\n",
+      "address": "1810dfa50"
+    },
+    {
+      "string": "SetCellText",
+      "address": "1810e8fb0"
+    },
+    {
+      "string": "Mouse double click",
+      "address": "1810ee840"
+    },
+    {
+      "string": "-------> Debut creation des blocks image",
+      "address": "1810f66d0"
+    },
+    {
+      "string": "-------> Fin creation des %d blocks image",
+      "address": "1810f6700"
+    },
+    {
+      "string": "CReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "address": "1810f75d0"
+    },
+    {
+      "string": "p_pModelFamilyImageResult or m_pFamilyResult NULL ptr\n",
+      "address": "1810f78c0"
+    },
+    {
+      "string": "p_pModelFamilyImageResult should be a CLibProVBIResult*\n",
+      "address": "1810f78f8"
+    },
+    {
+      "string": "OIS_Analysis:count= %d | Family= %s | Thread 0x%X\n",
+      "address": "1810f7a60"
+    },
+    {
+      "string": "OIS_Analysis:Image= %s count= %d/%d | Thread 0x%X\n",
+      "address": "1810f7ac8"
+    },
+    {
+      "string": "OIS_Analysis:Image= %s count= %d/%d ImagesAnalysis= OK | Thread 0x%X\n",
+      "address": "1810f7b20"
+    },
+    {
+      "string": "OIS_Analysis:Image= %s count= %d/%d ImagesAnalysis= FAILED | Thread 0x%X\n",
+      "address": "1810f7b70"
+    },
+    {
+      "string": "Allow to use 2D model to test 3D image (0,1)",
+      "address": "1810f9530"
+    },
+    {
+      "string": "Unable to write golden image xform size X\n",
+      "address": "1810faa88"
+    },
+    {
+      "string": "Unable to write golden image xform size Y\n",
+      "address": "1810faab8"
+    },
+    {
+      "string": "ImagesAnalysis:run all model",
+      "address": "1810fae30"
+    },
+    {
+      "string": "ImagesAnalysis: winner run",
+      "address": "1810fae88"
+    },
+    {
+      "string": "ERROR ImagesAnalysis %s failed\n",
+      "address": "1810faea8"
+    },
+    {
+      "string": "CModelFamily::IsImagesAnalysisAuthorized",
+      "address": "1810faec8"
+    },
+    {
+      "string": "ERROR pVectImg NULL ptr (no images) or no asked level GetLightLevelBitTab == 0\n",
+      "address": "1810faf50"
+    },
+    {
+      "string": "CModelFamily::LoadGoldenImage",
+      "address": "1810fb4f8"
+    },
+    {
+      "string": "Can not read image path\n",
+      "address": "1810fc818"
+    },
+    {
+      "string": "Can not read image check path\n",
+      "address": "1810fc838"
+    },
+    {
+      "string": "Unable to write image path list array header\n",
+      "address": "1810fc8e0"
+    },
+    {
+      "string": "Can not write image path %s\n",
+      "address": "1810fc910"
+    },
+    {
+      "string": "Unable to write image check path list array header\n",
+      "address": "1810fc930"
+    },
+    {
+      "string": "Can not write image check path %s\n",
+      "address": "1810fc968"
+    },
+    {
+      "string": "ImagesAnalysisUpdateRunContext",
+      "address": "1810fca50"
+    },
+    {
+      "string": "CModelFamilyComponent::ImagesAnalysis_RunOCV",
+      "address": "1810fcbd8"
+    },
+    {
+      "string": "CModelFamilyResults_Image",
+      "address": "1810fed00"
+    },
+    {
+      "string": "OnDeleteImageFile",
+      "address": "181100428"
+    },
+    {
+      "string": "Error This image '%s' is not a VBI/OIS/OTR\n",
+      "address": "181100490"
+    },
+    {
+      "string": "OnCertifyWithVitImageManager",
+      "address": "1811004d8"
+    },
+    {
+      "string": "Family=%s: Images count= %d\n",
+      "address": "181101dc8"
+    },
+    {
+      "string": "Family=%s: add block Images count= %d\n",
+      "address": "181101de8"
+    },
+    {
+      "string": "ImagesAnalysisEx",
+      "address": "181102c98"
+    },
+    {
+      "string": "ImagesAnalysisEx should be called only when treatments are loaded",
+      "address": "181105370"
+    },
+    {
+      "string": "Cannot compress golden image",
+      "address": "181107330"
+    },
+    {
+      "string": "Cannot Load Golden Image block",
+      "address": "181107350"
+    },
+    {
+      "string": "failed to write model family golden image for (%s)\n",
+      "address": "1811073d0"
+    },
+    {
+      "string": "failed to read golden image for (%s) \n",
+      "address": "1811075a8"
+    },
+    {
+      "string": "ColorImage",
+      "address": "1811078d8"
+    },
+    {
+      "string": "CBlkFileModelFamily::CreateAndAddGoldenImageBlock",
+      "address": "1811079b8"
+    },
+    {
+      "string": "CBlkFileModelFamily::LoadModelFamilyGoldenImage",
+      "address": "181107b58"
+    },
+    {
+      "string": "The file does not have an golden image block \n",
+      "address": "181107b88"
+    },
+    {
+      "string": "CBlkFileModelFamily::SaveModelFamilyGoldenImage",
+      "address": "181107bb8"
+    },
+    {
+      "string": "Cannot Load Image block",
+      "address": "181107be8"
+    },
+    {
+      "string": "Cannot compress image",
+      "address": "181107c00"
+    },
+    {
+      "string": "Text Error",
+      "address": "181109330"
+    },
+    {
+      "string": "CBibliotheque::GetModelFamilyRequiredImages",
+      "address": "181109478"
+    },
+    {
+      "string": "CBibliotheque::SetLibraryImageFolder",
+      "address": "18110b568"
+    },
+    {
+      "string": "All models programmed both in 2D and 3D (2 columns) will be splitted in 2 models (2D and 3D)\n",
+      "address": "18110b670"
+    },
+    {
+      "string": "CBibliotheque::PropagateImagesDefinitions",
+      "address": "18110bd88"
+    },
+    {
+      "string": "CBibliotheque::ImagesDefinitionsConversion",
+      "address": "18110be80"
+    },
+    {
+      "string": "Use library images definitions\n",
+      "address": "18110bf48"
+    },
+    {
+      "string": "Use %.XML images definitions\n",
+      "address": "18110bf68"
+    },
+    {
+      "string": "Closing } missing from property escape sequence.",
+      "address": "1811145d8"
+    },
+    {
+      "string": "Missing } in quantified repetition.",
+      "address": "181114678"
+    },
+    {
+      "string": "Missing } in hexadecimal escape sequence.",
+      "address": "181114d90"
+    },
+    {
+      "string": "??0CVTrait@@QEAA@AEBVCRequiredImages@@@Z",
+      "address": "1811ffeda"
+    },
+    {
+      "string": "??0CVTrait@@QEAA@HAEBVCRequiredImages@@@Z",
+      "address": "1811fff03"
+    },
+    {
+      "string": "??0CVTrait_OCR3@@QEAA@HAEBVCRequiredImages@@@Z",
+      "address": "181200641"
+    },
+    {
+      "string": "??0CVitImageLoader@@AEAA@XZ",
+      "address": "18120079d"
+    },
+    {
+      "string": "??1CVitImageLoader@@AEAA@XZ",
+      "address": "181201893"
+    },
+    {
+      "string": "??4CVitImageLoader@@QEAAAEAV0@AEBV0@@Z",
+      "address": "1812029a5"
+    },
+    {
+      "string": "??_7CModelFamily@@6BIRequiredImages@@@",
+      "address": "1812033ea"
+    },
+    {
+      "string": "??_7CModelFamilyComponent@@6BIRequiredImages@@@",
+      "address": "18120342f"
+    },
+    {
+      "string": "??_7CVTrait@@6BIRequiredImages@@@",
+      "address": "1812039a3"
+    },
+    {
+      "string": "??_7CVTrait_Blob@@6BIRequiredImages@@@",
+      "address": "181203c24"
+    },
+    {
+      "string": "??_7CVTrait_Chip@@6BIRequiredImages@@@",
+      "address": "181203c6a"
+    },
+    {
+      "string": "??_7CVTrait_Copla@@6BIRequiredImages@@@",
+      "address": "181203cb1"
+    },
+    {
+      "string": "??_7CVTrait_CustomComponent@@6BIRequiredImages@@@",
+      "address": "181203d03"
+    },
+    {
+      "string": "??_7CVTrait_CustomComponentMZ@@6BIRequiredImages@@@",
+      "address": "181203d61"
+    },
+    {
+      "string": "??_7CVTrait_Edge@@6BIRequiredImages@@@",
+      "address": "181203db4"
+    },
+    {
+      "string": "??_7CVTrait_GeometricShapeFinder@@6BIRequiredImages@@@",
+      "address": "181203e0a"
+    },
+    {
+      "string": "??_7CVTrait_Histo@@6BIRequiredImages@@@",
+      "address": "181203e61"
+    },
+    {
+      "string": "??_7CVTrait_Joint3D@@6BIRequiredImages@@@",
+      "address": "181203eab"
+    },
+    {
+      "string": "??_7CVTrait_Matlab@@6BIRequiredImages@@@",
+      "address": "181203ef6"
+    },
+    {
+      "string": "??_7CVTrait_OCR2@@6BIRequiredImages@@@",
+      "address": "181203f3e"
+    },
+    {
+      "string": "??_7CVTrait_OCR3@@6BIRequiredImages@@@",
+      "address": "181203f84"
+    },
+    {
+      "string": "??_7CVTrait_PatMax@@6BIRequiredImages@@@",
+      "address": "181203fcc"
+    },
+    {
+      "string": "??_7CVTrait_Profile@@6BIRequiredImages@@@",
+      "address": "181204017"
+    },
+    {
+      "string": "??_7CVTrait_Thickness@@6BIRequiredImages@@@",
+      "address": "181204065"
+    },
+    {
+      "string": "?AddText@CFamilyOCV_PartNumberInformation@@QEAA_NIPEAVCFamilyOCV_Data@@@Z",
+      "address": "18120545b"
+    },
+    {
+      "string": "?AddTextToIdTextMap@CFamilyOCV_PartNumberInformation@@QEAA_NPEAVCFamilyOCV_Data@@@Z",
+      "address": "1812054a5"
+    },
+    {
+      "string": "?BMP_LoadImg@CVitImageLoader@@CA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@H@Z",
+      "address": "1812063de"
+    },
+    {
+      "string": "?BMP_LoadOneImgInGreyPelVect@CVitImageLoader@@CA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEAVCcPelBuffer@@PEAVvitXform@@H@Z",
+      "address": "181206446"
+    },
+    {
+      "string": "?BMP_ModifLightInFileName@CVitImageLoader@@CA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEBV23@H@Z",
+      "address": "1812064dd"
+    },
+    {
+      "string": "?CheckAndPutInImage@CcArea@@QEAA_NAEAVCcPelBuffer@@AEAJ1@Z",
+      "address": "181206fcc"
+    },
+    {
+      "string": "?CheckAndPutInImage@CcArea@@QEAA_NAEBVccPelRect@@AEBVvitXform@@AEAJ2@Z",
+      "address": "181207007"
+    },
+    {
+      "string": "?ClearBufferImg@CVitImageLoader@@SAXQEAVCConsoleDisplay@@@Z",
+      "address": "1812081b2"
+    },
+    {
+      "string": "?ClearGoldenImage@CModelFamily@@QEAAXXZ",
+      "address": "1812081ee"
+    },
+    {
+      "string": "?ClearImageArray@CVTrait_Matlab@@IEAAXXZ",
+      "address": "181208216"
+    },
+    {
+      "string": "?ClearRuntimeImages@CVTrait_OCR3@@AEAAXXZ",
+      "address": "181208305"
+    },
+    {
+      "string": "?CloneGroup@CFamilyOCV_PartNumberInformation@@AEAAPEAVCFamilyOCV_TextGroup@@PEAV2@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEAI@Z",
+      "address": "1812083e7"
+    },
+    {
+      "string": "?ComputeMissingComponent@CModelFamilyResults@@QEAAX_N@Z",
+      "address": "181209109"
+    },
+    {
+      "string": "?CreateColumn@CModeleListCtrl_Tolerances@@QEAAXXZ",
+      "address": "18120a186"
+    },
+    {
+      "string": "?CreateImagesArrayStruct@CVTrait_Matlab@@IEAAXAEAPEAUmxArray_tag@@@Z",
+      "address": "18120a267"
+    },
+    {
+      "string": "?DeleteAndReplaceText@CFamilyOCV_PartNumberInformation@@QEAA_NIIPEAVCFamilyOCV_Data@@@Z",
+      "address": "18120b554"
+    },
+    {
+      "string": "?DeleteText@CFamilyOCV_PartNumberInformation@@QEAA_NII@Z",
+      "address": "18120c45b"
+    },
+    {
+      "string": "?DrawConsoleAireTexte@CPoliceTabTrain@@QEAAXH@Z",
+      "address": "18120cc09"
+    },
+    {
+      "string": "?Edit@CModel@@UEAA?AW4eFunctionResult@@PEAVCLibraryUsingContext@@PEAVCImagesDefinitions@@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PEAVCConsoleDisplay@@AEAPEAV1@_NPEAVCWnd@@PEAVCDebugData@@K55@Z",
+      "address": "18120d564"
+    },
+    {
+      "string": "?Edit@CModel_Font@@UEAA?AW4eFunctionResult@@PEAVCLibraryUsingContext@@PEAVCImagesDefinitions@@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PEAVCConsoleDisplay@@AEAPEAVCModel@@_NPEAVCWnd@@PEAVCDebugData@@K55@Z",
+      "address": "18120d803"
+    },
+    {
+      "string": "?Edit@CModel_Shape@@UEAA?AW4eFunctionResult@@PEAVCLibraryUsingContext@@PEAVCImagesDefinitions@@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PEAVCConsoleDisplay@@AEAPEAVCModel@@_NPEAVCWnd@@PEAVCDebugData@@K55@Z",
+      "address": "18120d8e6"
+    },
+    {
+      "string": "?ExecRecalVTraitContext@CModel_Shape@@QEAA_NAEBVCModelPositionInImage@@PEAVCZoneStorage@@PEAVCConsoleDisplay@@HNNNAEAPEAVCVTraitRes@@AEAH4AEBVCVTraitContext@@PEAVCVTraitRes_TabDetect@@@Z",
+      "address": "18120edf2"
+    },
+    {
+      "string": "?ExportMeasureInTextResult@CModel_Shape@@AEAA_NAEAVCParser@@AEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEAV34@@Z",
+      "address": "18120f597"
+    },
+    {
+      "string": "?FontModelLoadImage@CModel_Font@@QEAAXPEAVCConsoleDisplay@@H_NN@Z",
+      "address": "18121045d"
+    },
+    {
+      "string": "?GenerateNewIdText@CFamilyOCV_PartNumberInformation@@AEAAIXZ",
+      "address": "181210679"
+    },
+    {
+      "string": "?GenerateNewIdTextForText@CFamilyOCV_PartNumberInformation@@AEAAIPEAVCFamilyOCV_Data@@@Z",
+      "address": "1812106b6"
+    },
+    {
+      "string": "?GetDllDefaultImages@CVTrait_Matlab@@QEBA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEAH@Z",
+      "address": "181213796"
+    },
+    {
+      "string": "?GetDllImages@CVTrait_Matlab@@QEBA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@XZ",
+      "address": "181213874"
+    },
+    {
+      "string": "?GetFirstActiveTextString@CFamilyOCV_PartNumberInformation@@QEBA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@V23@_N@Z",
+      "address": "1812153d9"
+    },
+    {
+      "string": "?GetFirstTextForPN@CFamilyOCV_PartNumberInformation@@QEBAPEAVCFamilyOCV_Data@@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@_N11@Z",
+      "address": "181215563"
+    },
+    {
+      "string": "?GetGoldenImage@CModelFamily@@QEBA?AV?$ccPelBuffer@VccPackedRGB32Pel@@@@XZ",
+      "address": "181215743"
+    },
+    {
+      "string": "?GetGoldenImageFormSizeY_um@CModelFamily@@QEBANXZ",
+      "address": "18121578e"
+    },
+    {
+      "string": "?GetGoldenImageXFormSizeX_um@CModelFamily@@QEBANXZ",
+      "address": "1812157c0"
+    },
+    {
+      "string": "?GetGroupFromIdGroup@CFamilyOCV_PartNumberInformation@@AEBAPEAVCFamilyOCV_TextGroup@@AEBI@Z",
+      "address": "181215a5c"
+    },
+    {
+      "string": "?GetGroupFromPN@CFamilyOCV_PartNumberInformation@@AEBAPEAVCFamilyOCV_TextGroup@@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "181215ab8"
+    },
+    {
+      "string": "?GetGroupMap@CFamilyOCV_PartNumberInformation@@QEBAAEBV?$map@IPEAVCFamilyOCV_TextGroup@@U?$less@I@std@@V?$allocator@U?$pair@$$CBIPEAVCFamilyOCV_TextGroup@@@std@@@3@@std@@XZ",
+      "address": "181215b4a"
+    },
+    {
+      "string": "?GetIdTextMap@CFamilyOCV_PartNumberInformation@@QEAAAEAV?$map@IPEAVCFamilyOCV_Data@@U?$less@I@std@@V?$allocator@U?$pair@$$CBIPEAVCFamilyOCV_Data@@@std@@@3@@std@@XZ",
+      "address": "18121617a"
+    },
+    {
+      "string": "?GetImageLightLevel@CVTrait_Matlab@@QEAAHI@Z",
+      "address": "1812162eb"
+    },
+    {
+      "string": "?GetImageProcessingPosition@CVTrait@@UEBA_NAEAVCViUnitPoint@@@Z",
+      "address": "181216318"
+    },
+    {
+      "string": "?GetImageProcessingPosition@CVTrait_Edge@@UEBA_NAEAVCViUnitPoint@@@Z",
+      "address": "181216358"
+    },
+    {
+      "string": "?GetImageProcessingPosition@CVTrait_Histo@@UEBA_NAEAVCViUnitPoint@@@Z",
+      "address": "18121639d"
+    },
+    {
+      "string": "?GetImageProcessingPosition@CVTrait_Joint3D@@UEBA_NAEAVCViUnitPoint@@@Z",
+      "address": "1812163e3"
+    },
+    {
+      "string": "?GetImagesDefinitions@CBmFileData@@QEBA?AVCImagesDefinitions@@XZ",
+      "address": "18121642b"
+    },
+    {
+      "string": "?GetImagesDefinitions@CLibraryUsingContext@@QEBA?AVCImagesDefinitions@@XZ",
+      "address": "18121646c"
+    },
+    {
+      "string": "?GetImagesDefinitionsJokerZone@CModelFamily@@QEBA?AVCImagesDefinitions@@XZ",
+      "address": "1812164b6"
+    },
+    {
+      "string": "?GetInputsImageDeclaration@CVTrait_Matlab@@IEBA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEAH@Z",
+      "address": "181216c7b"
+    },
+    {
+      "string": "?GetLibraryImageFolder@CBibliotheque@@QEAA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@XZ",
+      "address": "181217426"
+    },
+    {
+      "string": "?GetLibraryImageFolder@CBmFileData@@QEAA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@XZ",
+      "address": "181217494"
+    },
+    {
+      "string": "?GetListTextForPN@CFamilyOCV_PartNumberInformation@@QEAAXAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEAV?$list@PEAVCFamilyOCV_Data@@V?$allocator@PEAVCFamilyOCV_Data@@@std@@@std@@_N2@Z",
+      "address": "1812184bd"
+    },
+    {
+      "string": "?GetLoadedpZoneStorage@CVitImageLoader@@SAPEAVCZoneStorage@@XZ",
+      "address": "181218831"
+    },
+    {
+      "string": "?GetModelFamilyRequiredImages@CBibliotheque@@QEBA_NV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEAVCRequiredImages@@@Z",
+      "address": "181219f43"
+    },
+    {
+      "string": "?GetRequiredImage_Body@CVTrait_Chip@@QEBA?AVCRequiredImages@@XZ",
+      "address": "18121d69e"
+    },
+    {
+      "string": "?GetRequiredImage_Copla@CVTrait_Chip@@QEBA?AVCRequiredImages@@XZ",
+      "address": "18121d6de"
+    },
+    {
+      "string": "?GetRequiredImage_Joint2D@CVTrait_Chip@@QEBAAEBVCRequiredImages@@XZ",
+      "address": "18121d71f"
+    },
+    {
+      "string": "?GetRequiredImage_Joint@CVTrait_Chip@@QEBA?AVCRequiredImages@@XZ",
+      "address": "18121d763"
+    },
+    {
+      "string": "?GetRequiredImage_Presence3D@CVTrait_Chip@@QEBA?AVCRequiredImages@@XZ",
+      "address": "18121d7a4"
+    },
+    {
+      "string": "?GetRequiredImage_Presence@CVTrait_Chip@@QEBA?AVCRequiredImages@@XZ",
+      "address": "18121d7ea"
+    },
+    {
+      "string": "?GetRequiredImages@CFamilyOCV_PartNumberInformation@@QEBA?AVCRequiredImages@@XZ",
+      "address": "18121d82e"
+    },
+    {
+      "string": "?GetRequiredImages@CModel@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121d87e"
+    },
+    {
+      "string": "?GetRequiredImages@CModelFamily@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121d8b4"
+    },
+    {
+      "string": "?GetRequiredImages@CModelFamilyComponent@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121d8f0"
+    },
+    {
+      "string": "?GetRequiredImages@CModel_Font@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121d935"
+    },
+    {
+      "string": "?GetRequiredImages@CVTrait@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121d970"
+    },
+    {
+      "string": "?GetRequiredImages@CVTrait_Chip@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121d9a7"
+    },
+    {
+      "string": "?GetRequiredImages@CVTrait_CustomComponent@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121d9e3"
+    },
+    {
+      "string": "?GetRequiredImages@CVTrait_Matlab@@UEBA?AVCRequiredImages@@XZ",
+      "address": "18121da2a"
+    },
+    {
+      "string": "?GetRequiredImagesCorps@CVTrait_CustomComponent@@QEBA?AVCRequiredImages@@XZ",
+      "address": "18121da68"
+    },
+    {
+      "string": "?GetText@CFamilyOCV_PartNumberInformation@@QEBAPEAVCFamilyOCV_Data@@II@Z",
+      "address": "18121faf4"
+    },
+    {
+      "string": "?GetTextCount@CFamilyOCV_PartNumberInformation@@QEBAII@Z",
+      "address": "18121fb3d"
+    },
+    {
+      "string": "?GetTextCount@CFamilyOCV_PartNumberInformation@@QEBAIXZ",
+      "address": "18121fb76"
+    },
+    {
+      "string": "?GetTextFromIdText@CFamilyOCV_PartNumberInformation@@QEBAPEAVCFamilyOCV_Data@@AEBI@Z",
+      "address": "18121fbae"
+    },
+    {
+      "string": "?GetTextInformation@CFamilyOCV_PartNumberInformation@@QEBA?AV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@II@Z",
+      "address": "18121fc03"
+    },
+    {
+      "string": "?GetTextInfos@CFamilyOCV_PartNumberInformation@@QEBA_NIIAEA_NAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@10@Z",
+      "address": "18121fc83"
+    },
+    {
+      "string": "?HasActiveTextByGroup@CFamilyOCV_PartNumberInformation@@QEAA_NI_N@Z",
+      "address": "181222578"
+    },
+    {
+      "string": "?HasActiveTextByPN@CFamilyOCV_PartNumberInformation@@QEAA_NV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@_N@Z",
+      "address": "1812225bc"
+    },
+    {
+      "string": "?HasActiveTextInOtherGroups@CFamilyOCV_PartNumberInformation@@QEAA_NV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@I_N@Z",
+      "address": "18122263b"
+    },
+    {
+      "string": "?HasGoldenImage@CModelFamily@@QEBA_NXZ",
+      "address": "1812228f8"
+    },
+    {
+      "string": "?HasText@CFamilyOCV_PartNumberInformation@@QEBA_N_N0@Z",
+      "address": "181222ab0"
+    },
+    {
+      "string": "?ImagesAnalysis@CModel@@QEAA_NQEAVCRunContextModel@@AEAVCModelResult@@_N@Z",
+      "address": "181222cbd"
+    },
+    {
+      "string": "?ImagesAnalysis@CModelFamily@@QEAA_NAEAVCRunContextModelFamily@@AEAVCModelFamilyResults@@_N@Z",
+      "address": "181222d08"
+    },
+    {
+      "string": "?ImagesAnalysis@CModelFamily@@QEAA_NAEAVCRunContextModelFamily@@AEAVCModelResult@@AEAHPEAVCRect@@@Z",
+      "address": "181222d66"
+    },
+    {
+      "string": "?ImagesAnalysisEx@CModel@@MEAA_NQEAVCRunContextModel@@AEAVCModelResult@@_N@Z",
+      "address": "181222dca"
+    },
+    {
+      "string": "?ImagesAnalysisEx@CModelShape_Component@@EEAA_NQEAVCRunContextModel@@AEAVCModelResult@@_N@Z",
+      "address": "181222e17"
+    },
+    {
+      "string": "?ImagesAnalysisEx@CModelShape_Fiducial@@EEAA_NQEAVCRunContextModel@@AEAVCModelResult@@_N@Z",
+      "address": "181222e73"
+    },
+    {
+      "string": "?ImagesAnalysisEx@CModelShape_IDCode@@EEAA_NQEAVCRunContextModel@@AEAVCModelResult@@_N@Z",
+      "address": "181222ece"
+    },
+    {
+      "string": "?ImagesAnalysisEx@CModelShape_SkipMark@@EEAA_NQEAVCRunContextModel@@AEAVCModelResult@@_N@Z",
+      "address": "181222f27"
+    },
+    {
+      "string": "?ImagesAnalysisEx@CModel_Font@@EEAA_NQEAVCRunContextModel@@AEAVCModelResult@@_N@Z",
+      "address": "181222f82"
+    },
+    {
+      "string": "?ImagesAnalysisUpdateRunContext@CModelFamily@@MEAAXAEAVCRunContextModelFamily@@@Z",
+      "address": "181222fd4"
+    },
+    {
+      "string": "?ImagesAnalysisUpdateRunContext@CModelFamily@@MEAAXQEAVCRunContextModel@@@Z",
+      "address": "181223026"
+    },
+    {
+      "string": "?ImagesAnalysisUpdateRunContext@CModelFamilyComponent@@MEAAXAEAVCRunContextModelFamily@@@Z",
+      "address": "181223072"
+    },
+    {
+      "string": "?ImagesAnalysisUpdateRunContext@CModelFamilyComponent@@MEAAXQEAVCRunContextModel@@@Z",
+      "address": "1812230cd"
+    },
+    {
+      "string": "?ImagesAnalysis_RunOCV@CModelFamily@@MEAA_NAEAVCRunContextModel@@AEAVCModelFamilyResults@@@Z",
+      "address": "181223122"
+    },
+    {
+      "string": "?ImagesAnalysis_RunOCV@CModelFamilyComponent@@MEAA_NAEAVCRunContextModel@@AEAVCModelFamilyResults@@@Z",
+      "address": "18122317f"
+    },
+    {
+      "string": "?ImagesDefinitionsConversion@CBibliotheque@@QEAA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@_N@Z",
+      "address": "1812231e5"
+    },
+    {
+      "string": "?InitDefaultImages@CVTrait_Matlab@@QEAAXXZ",
+      "address": "181223a8c"
+    },
+    {
+      "string": "?InitSlideImageSel@CReqImgCtrl@@IEAAXXZ",
+      "address": "181223dec"
+    },
+    {
+      "string": "?IsGoldenImageLoaded@CModelFamily@@QEBA_NXZ",
+      "address": "18122526f"
+    },
+    {
+      "string": "?IsImagesAnalysisAuthorized@CModelFamily@@QEBA_N_N@Z",
+      "address": "1812252fc"
+    },
+    {
+      "string": "?IsMustBeMissing@CModelFamilyResults@@QEBA_NXZ",
+      "address": "181225ec9"
+    },
+    {
+      "string": "?IsMustBeMissing@CRunContextModelFamily@@QEBA_NXZ",
+      "address": "181225ef8"
+    },
+    {
+      "string": "?IsTextIdInGroup@CFamilyOCV_PartNumberInformation@@QEBA_NAEBI0@Z",
+      "address": "181226682"
+    },
+    {
+      "string": "?IsUseOnlyTheImageLevel_index0@CRunContextModel_IDCode@@QEBA_NXZ",
+      "address": "181226a34"
+    },
+    {
+      "string": "?LoadGoldenImage@CModelFamily@@QEAA_NXZ",
+      "address": "181227aaa"
+    },
+    {
+      "string": "?LoadImageA@CVitImageLoader@@SA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEBVCRequiredImages@@PEAVCConsoleDisplay@@_N3PEAN@Z",
+      "address": "181227ad2"
+    },
+    {
+      "string": "?MakeOIS@CImgPropertiesDlg@@AEAAXXZ",
+      "address": "181228174"
+    },
+    {
+      "string": "?MoveText@CFamilyOCV_PartNumberInformation@@QEAA_NIII@Z",
+      "address": "181228671"
+    },
+    {
+      "string": "?MoveTextsFromGroupToGroup@CFamilyOCV_PartNumberInformation@@QEAA_NII@Z",
+      "address": "1812286a9"
+    },
+    {
+      "string": "?OIS_LoadImg@CVitImageLoader@@CA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "181228999"
+    },
+    {
+      "string": "?OIS_LoadOneImgInGreyPelVect@CVitImageLoader@@CA_NPEAVCcPelBuffer@@AEAVCVitImgFile@@H@Z",
+      "address": "181228a00"
+    },
+    {
+      "string": "?OnClick@CPoliceTrainAllDlg@@IEAAXPEAUtagNMHDR@@PEA_J@Z",
+      "address": "181228dd4"
+    },
+    {
+      "string": "?OnClickListConfusion@CPoliceTabParam@@IEAAXPEAUtagNMHDR@@PEA_J@Z",
+      "address": "181228e0c"
+    },
+    {
+      "string": "?OnRadio2DClicked@CReqImgCtrl@@IEAAXXZ",
+      "address": "18122a4f6"
+    },
+    {
+      "string": "?OnRadio3DClicked@CReqImgCtrl@@IEAAXXZ",
+      "address": "18122a51d"
+    },
+    {
+      "string": "?OnSetLibraryImageFolder@CEditeurBibliothequeDoc@@IEAAXXZ",
+      "address": "18122a760"
+    },
+    {
+      "string": "?PropagateImagesDefinitions@CBibliotheque@@QEAA_NXZ",
+      "address": "18122b587"
+    },
+    {
+      "string": "?RemoveTextFromIdTextMap@CFamilyOCV_PartNumberInformation@@QEAAXI@Z",
+      "address": "18122c328"
+    },
+    {
+      "string": "?RotateImage@CVitImageLoader@@CA_NAEBVCRect@@N@Z",
+      "address": "18122cd07"
+    },
+    {
+      "string": "?RotateImage@CVitImageLoader@@SA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@AEBVCRequiredImages@@AEBVCRect@@NPEAVCConsoleDisplay@@@Z",
+      "address": "18122cd38"
+    },
+    {
+      "string": "?SetGoldenImage@CModelFamily@@QEAAXAEBV?$ccPelBuffer@VccPackedRGB32Pel@@@@@Z",
+      "address": "1812321ff"
+    },
+    {
+      "string": "?SetGoldenImage@CModelFamily@@QEAA_NAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "18123224c"
+    },
+    {
+      "string": "?SetGoldenImageLoaded@CModelFamily@@QEAAX_N@Z",
+      "address": "1812322b5"
+    },
+    {
+      "string": "?SetGoldenImageXFormSizeX_um@CModelFamily@@QEAAXN@Z",
+      "address": "1812322e3"
+    },
+    {
+      "string": "?SetGoldenImageXFormSizeY_um@CModelFamily@@QEAAXN@Z",
+      "address": "181232317"
+    },
+    {
+      "string": "?SetImageLightLevel@CVTrait_Matlab@@QEAAXIH@Z",
+      "address": "181232580"
+    },
+    {
+      "string": "?SetImagesDefinitions@CBmFileData@@QEAAXAEBVCImagesDefinitions@@@Z",
+      "address": "1812325ae"
+    },
+    {
+      "string": "?SetImagesDefinitions@CLibraryUsingContext@@QEAAXAEBVCImagesDefinitions@@@Z",
+      "address": "1812325f1"
+    },
+    {
+      "string": "?SetImagesDefinitionsJokerZone@CModelFamily@@QEAAXAEBVCImagesDefinitions@@@Z",
+      "address": "18123263d"
+    },
+    {
+      "string": "?SetJoint2D_ReqImgages@CVTrait_Chip@@QEAAXAEBVCRequiredImages@@@Z",
+      "address": "18123289c"
+    },
+    {
+      "string": "?SetLibraryImageFolder@CBibliotheque@@QEAAXV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "181232cfb"
+    },
+    {
+      "string": "?SetLibraryImageFolder@CBmFileData@@QEAAXAEBV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "181232d68"
+    },
+    {
+      "string": "?SetMustBeMissing@CModelFamilyResults@@QEAAX_N@Z",
+      "address": "1812338a8"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "1812347a8"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_Blob@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "1812347e1"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_Chip@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "18123481f"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_Copla@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "18123485d"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_CustomComponent@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "18123489c"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_Edge@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "1812348e5"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_Histo@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "181234923"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_Joint3D@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "181234962"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_PatMax@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "1812349a3"
+    },
+    {
+      "string": "?SetRequiredImages@CVTrait_Profile@@UEAAXAEBVCRequiredImages@@@Z",
+      "address": "1812349e3"
+    },
+    {
+      "string": "?SetTabletImage@CcBlob@@QEAAXVccUITablet@@@Z",
+      "address": "1812368e3"
+    },
+    {
+      "string": "?ShowSegmentedImage@CcBlob@@QEAAXPEAVccWin32Display@@@Z",
+      "address": "18123889c"
+    },
+    {
+      "string": "?UnloadGoldenImage@CModelFamily@@QEAAXXZ",
+      "address": "181239823"
+    },
+    {
+      "string": "?UpdateIdTextMap@CFamilyOCV_PartNumberInformation@@QEAAXXZ",
+      "address": "181239df5"
+    },
+    {
+      "string": "?UpdateSliderImageSel@CReqImgCtrl@@QEAAXXZ",
+      "address": "18123a89d"
+    },
+    {
+      "string": "?UpdateSliderPos@CReqImgCtrl@@QEAAXAEBVCRequiredImages@@@Z",
+      "address": "18123a8c8"
+    },
+    {
+      "string": "?UpdateTextActive@CFamilyOCV_PartNumberInformation@@QEAA_NII_N@Z",
+      "address": "18123a9b8"
+    },
+    {
+      "string": "?UpdateTextTest180@CFamilyOCV_PartNumberInformation@@QEAA_NII_N@Z",
+      "address": "18123a9f9"
+    },
+    {
+      "string": "?_aTrainedGradProjectedImage@CVTrait_Profile@@QEAAPEAVCArrayDbl@@XZ",
+      "address": "18123cef9"
+    },
+    {
+      "string": "?_aTrainedProjectedImage@CVTrait_Profile@@QEAAPEAVCArrayDbl@@XZ",
+      "address": "18123cf3d"
+    },
+    {
+      "string": "?_bCenterRotationOnText@CFontParam_OCV@@QEAAHXZ",
+      "address": "18123d1d6"
+    },
+    {
+      "string": "?_bCenterRotationOnText@CFontParam_OCV@@QEAAXH@Z",
+      "address": "18123d206"
+    },
+    {
+      "string": "?HSLL_OnMouseClick@CExtHookSpy@@MEAA_NPEAUHWND__@@IIVCPoint@@@Z",
+      "address": "18124979e"
+    },
+    {
+      "string": "?OnHookSpyMouseClickMsg@CExtHookSpy@@UEAA_NPEAUtagMSG@@@Z",
+      "address": "181249ae8"
+    },
+    {
+      "string": "?ColumnAdd@CExtGridBaseWnd@@QEAA_NJ_N@Z",
+      "address": "18124a3b4"
+    },
+    {
+      "string": "?ColumnRemoveAll@CExtGridBaseWnd@@QEAAJ_N@Z",
+      "address": "18124a3de"
+    },
+    {
+      "string": "?OnGbwAnalyzeCellMouseClickEvent@CExtGridWnd@@UEAA_NIIIVCPoint@@@Z",
+      "address": "18124a622"
+    },
+    {
+      "string": "?BestFitColumn@CExtGridWnd@@UEAA_NJH_N000@Z",
+      "address": "18124a6f0"
+    },
+    {
+      "string": "?BestFitColumns@CExtGridWnd@@UEAAJJJH_N000@Z",
+      "address": "18124a71e"
+    },
+    {
+      "string": "?ColumnCountGet@CExtGridWnd@@UEBAJXZ",
+      "address": "18124a894"
+    },
+    {
+      "string": "?ColumnCountSet@CExtGridBaseWnd@@UEAAJJ_N@Z",
+      "address": "18124a8bc"
+    },
+    {
+      "string": "?ColumnHide@CExtGridWnd@@UEAA_NJJ_N@Z",
+      "address": "18124a8ea"
+    },
+    {
+      "string": "?ColumnInsert@CExtGridWnd@@UEAA_NJJ_N@Z",
+      "address": "18124a912"
+    },
+    {
+      "string": "?ColumnRemove@CExtGridWnd@@UEAAJJJ_N@Z",
+      "address": "18124a93c"
+    },
+    {
+      "string": "?ColumnUnHideAll@CExtGridWnd@@UEAA_N_N@Z",
+      "address": "18124a966"
+    },
+    {
+      "string": "?DefaultColumnWidthGet@CExtGridBaseWnd@@UEBAHXZ",
+      "address": "18124a9e6"
+    },
+    {
+      "string": "?DefaultColumnWidthSet@CExtGridBaseWnd@@UEAAHH_N@Z",
+      "address": "18124aa18"
+    },
+    {
+      "string": "?EnsureVisibleColumn@CExtGridBaseWnd@@UEAA_NJ_N@Z",
+      "address": "18124aab2"
+    },
+    {
+      "string": "?EnsureVisibleColumnIsLocked@CExtGridBaseWnd@@UEBA_NXZ",
+      "address": "18124aae6"
+    },
+    {
+      "string": "?EnsureVisibleColumnLock@CExtGridBaseWnd@@UEAAXXZ",
+      "address": "18124ab20"
+    },
+    {
+      "string": "?EnsureVisibleColumnUnlock@CExtGridBaseWnd@@UEAAXXZ",
+      "address": "18124ab54"
+    },
+    {
+      "string": "?FilterStateForOuterColumnSerialize@CExtGridWnd@@UEAA_NAEAVCArchive@@_NJ11@Z",
+      "address": "18124ac8a"
+    },
+    {
+      "string": "?FrozenColumnCountLeftGet@CExtGridBaseWnd@@UEBAJXZ",
+      "address": "18124ad9e"
+    },
+    {
+      "string": "?FrozenColumnCountLeftSet@CExtGridBaseWnd@@UEAAXJ_N@Z",
+      "address": "18124add4"
+    },
+    {
+      "string": "?FrozenColumnCountRightGet@CExtGridBaseWnd@@UEBAJXZ",
+      "address": "18124ae0c"
+    },
+    {
+      "string": "?FrozenColumnCountRightSet@CExtGridBaseWnd@@UEAAXJ_N@Z",
+      "address": "18124ae42"
+    },
+    {
+      "string": "?NcFrameImpl_GetScTipText@CExtNcFrameImpl@@UEBAPEBDI@Z",
+      "address": "18124b558"
+    },
+    {
+      "string": "?OnBestFitAdjustColumn@CExtGridWnd@@UEAAXAEAHPEBVCExtGridCell@@JJHH@Z",
+      "address": "18124bb14"
+    },
+    {
+      "string": "?OnGbwCanResizeColumn@CExtGridWnd@@UEAA_NJPEAH0@Z",
+      "address": "18124be46"
+    },
+    {
+      "string": "?OnGbwQueryPixelColumnOffset@CExtGridBaseWnd@@UEAAJJ@Z",
+      "address": "18124c590"
+    },
+    {
+      "string": "?OnGbwQueryVisibleColumnRange@CExtGridBaseWnd@@UEBAXAEAJ00@Z",
+      "address": "18124c676"
+    },
+    {
+      "string": "?OnGridCellGetToolTipText@CExtGridWnd@@UEBA_NAEBVCExtGridCell@@AEBVCExtGridHitTestInfo@@AEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "18124ca64"
+    },
+    {
+      "string": "?OnGridCellInplaceControlTextInputComplete@CExtGridWnd@@UEAAXAEAVCExtGridCell@@PEAUHWND__@@JJJJHHPEBD_N@Z",
+      "address": "18124d18e"
+    },
+    {
+      "string": "?OnGridCellInplaceControlTextInputVerify@CExtGridWnd@@UEAA_NAEBVCExtGridCell@@PEAUHWND__@@JJJJHHPEBD2AEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@_N@Z",
+      "address": "18124d1fa"
+    },
+    {
+      "string": "?OnGridCellPopupListBoxItemClick@CExtGridWnd@@UEAA_NAEAVCExtPopupInplaceListBox@@AEAUTrackCellStateInfo_t@CExtGridCell@@@Z",
+      "address": "18124d5ce"
+    },
+    {
+      "string": "?OnGridCellQueryTextColor@CExtGridWnd@@UEBAKAEBVCExtGridCell@@AEAVCDC@@JJJJHHKK@Z",
+      "address": "18124dab2"
+    },
+    {
+      "string": "?OnGridDoAutoBestFitColumnsForRow@CExtGridWnd@@UEAAXJ_N@Z",
+      "address": "18124db86"
+    },
+    {
+      "string": "?OnGridDoAutoBestFitRowsForColumn@CExtGridWnd@@UEAAXJ_N@Z",
+      "address": "18124dc3e"
+    },
+    {
+      "string": "?OnGridFilterCalcColumnIndicesForFilteringRows@CExtGridWnd@@UEAAXJ_NAEAV?$CList@JAEAJ@@@Z",
+      "address": "18124df48"
+    },
+    {
+      "string": "?OnGridFilterCalcPlainUniqueValuesForColumn@CExtGridWnd@@UEBA_NAEAV?$CExtArray@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@@J@Z",
+      "address": "18124dfa4"
+    },
+    {
+      "string": "?OnGridFilterCalcRowIndicesForFilteringColumns@CExtGridWnd@@UEAAXJ_NAEAV?$CList@JAEAJ@@@Z",
+      "address": "18124e0ce"
+    },
+    {
+      "string": "?OnGridFilterUpdateForColumns@CExtGridWnd@@UEAAXJJ_NPEAVCExtGridCellHeaderFilter@@0@Z",
+      "address": "18124e29c"
+    },
+    {
+      "string": "?OnGridPaintCellTextHook@CExtGridWnd@@UEBA_N_NAEBVCExtGridCell@@AEBUtagRECT@@AEAVCDC@@JJJJHH222KK@Z",
+      "address": "18124e6e4"
+    },
+    {
+      "string": "?OnGridQueryAutoBestFitColumns@CExtGridWnd@@UEBA_NXZ",
+      "address": "18124e794"
+    },
+    {
+      "string": "?OnGridQueryAutoBestFitColumnsForRow@CExtGridWnd@@UEBA_NJ@Z",
+      "address": "18124e7cc"
+    },
+    {
+      "string": "?OnGridQueryAutoBestFitRowsForColumn@CExtGridWnd@@UEBA_NJ@Z",
+      "address": "18124e83e"
+    },
+    {
+      "string": "?OnGridQueryPpvwVisibilityForColumn@CExtGridWnd@@UEBA_NJH@Z",
+      "address": "18124e96e"
+    },
+    {
+      "string": "?OnSiwGetReadOnlyTextColor@CExtScrollItemWnd@@UEBAKXZ",
+      "address": "18124ee70"
+    },
+    {
+      "string": "?OuterColumnCountLeftGet@CExtGridBaseWnd@@UEBAJXZ",
+      "address": "18124fa7c"
+    },
+    {
+      "string": "?OuterColumnCountLeftSet@CExtGridWnd@@UEAAJJ_N@Z",
+      "address": "18124fab0"
+    },
+    {
+      "string": "?OuterColumnCountRightGet@CExtGridBaseWnd@@UEBAJXZ",
+      "address": "18124fae4"
+    },
+    {
+      "string": "?OuterColumnCountRightSet@CExtGridWnd@@UEAAJJ_N@Z",
+      "address": "18124fb1a"
+    },
+    {
+      "string": "?OuterColumnWidthGet@CExtGridBaseWnd@@UEBAH_NJ0@Z",
+      "address": "18124fb4e"
+    },
+    {
+      "string": "?OuterColumnWidthSet@CExtGridBaseWnd@@UEAAX_NJH@Z",
+      "address": "18124fb82"
+    },
+    {
+      "string": "?UpdateStaticFilterValueForOuterColumn@CExtGridWnd@@UEAAXJ_NJ@Z",
+      "address": "181250524"
+    },
+    {
+      "string": "?ReportColumnUnRegister@CExtReportGridWnd@@QEAAJPEBD0_N@Z",
+      "address": "18125097a"
+    },
+    {
+      "string": "?ColumnCountGet@CExtReportGridWnd@@UEBAJXZ",
+      "address": "181250a6c"
+    },
+    {
+      "string": "?ColumnHide@CExtReportGridWnd@@UEAA_NJJ_N@Z",
+      "address": "181250a9a"
+    },
+    {
+      "string": "?ColumnUnHideAll@CExtReportGridWnd@@UEAA_N_N@Z",
+      "address": "181250ac8"
+    },
+    {
+      "string": "?EnsureVisibleColumn@CExtReportGridWnd@@UEAA_NJ_N@Z",
+      "address": "181250afa"
+    },
+    {
+      "string": "?FilterStateForOuterColumnSerialize@CExtTreeGridWnd@@UEAA_NAEAVCArchive@@_NJ11@Z",
+      "address": "181250b9c"
+    },
+    {
+      "string": "?OnBestFitAdjustColumn@CExtTreeGridWnd@@UEAAXAEAHPEBVCExtGridCell@@JJHH@Z",
+      "address": "1812516fc"
+    },
+    {
+      "string": "?OnGbwCanResizeColumn@CExtTreeGridWnd@@UEAA_NJPEAH0@Z",
+      "address": "18125194c"
+    },
+    {
+      "string": "?OnGridCellQueryTextColor@CExtReportGridWnd@@UEBAKAEBVCExtGridCell@@AEAVCDC@@JJJJHHKK@Z",
+      "address": "181251bd8"
+    },
+    {
+      "string": "?OnGridFilterCalcPlainUniqueValuesForColumn@CExtTreeGridWnd@@UEBA_NAEAV?$CExtArray@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@@J@Z",
+      "address": "181251c32"
+    },
+    {
+      "string": "?OnGridFilterCalcRowIndicesForFilteringColumns@CExtTreeGridWnd@@UEAAXJ_NAEAV?$CList@JAEAJ@@@Z",
+      "address": "181251d64"
+    },
+    {
+      "string": "?OnReportGridAutoPreviewAreaQueryTextColor@CExtReportGridWnd@@UEBAKPEBVCExtReportGridItem@@PEBVCExtGridCell@@@Z",
+      "address": "1812521d0"
+    },
+    {
+      "string": "?OnReportGridColumnCategoryAdded@CExtReportGridWnd@@UEAAXPEBD@Z",
+      "address": "181252242"
+    },
+    {
+      "string": "?OnReportGridColumnCategoryRemoved@CExtReportGridWnd@@UEAAXPEBD@Z",
+      "address": "181252284"
+    },
+    {
+      "string": "?OnReportGridColumnChooserAdjustLocation@CExtReportGridWnd@@UEAAXXZ",
+      "address": "1812522c8"
+    },
+    {
+      "string": "?OnReportGridColumnChooserNoFieldsAvailableLabel@CExtReportGridWnd@@UEBAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "18125230e"
+    },
+    {
+      "string": "?OnReportGridColumnChooserQueryCaption@CExtReportGridWnd@@UEBAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "18125239e"
+    },
+    {
+      "string": "?OnReportGridColumnCtxMenuConstruct@CExtReportGridWnd@@UEAA_NPEAVCExtPopupMenuWnd@@PEAVCWnd@@PEAVCExtReportGridColumn@@AEAK@Z",
+      "address": "181252424"
+    },
+    {
+      "string": "?OnReportGridColumnCtxMenuGetCtxColumn@CExtReportGridWnd@@UEAAPEAVCExtReportGridColumn@@XZ",
+      "address": "1812524a4"
+    },
+    {
+      "string": "?OnReportGridColumnCtxMenuTrack@CExtReportGridWnd@@UEAA_NPEAVCWnd@@PEAVCExtReportGridColumn@@AEBUtagPOINT@@AEBUtagRECT@@3K@Z",
+      "address": "181252502"
+    },
+    {
+      "string": "?OnReportGridCreateColumnChooser@CExtReportGridWnd@@UEAAPEAVCExtReportGridColumnChooserWnd@@XZ",
+      "address": "1812526ac"
+    },
+    {
+      "string": "?OnReportGridFormatGroupRowText@CExtReportGridWnd@@UEBAXPEBVCExtReportGridItem@@AEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@J@Z",
+      "address": "1812527e6"
+    },
+    {
+      "string": "?OnReportGridFormatSortByToolTipText@CExtReportGridWnd@@UEBAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@PEBVCExtReportGridColumn@@@Z",
+      "address": "18125287e"
+    },
+    {
+      "string": "?OnReportGridGroupAreaQueryEmptyText@CExtReportGridWnd@@UEBAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "18125291c"
+    },
+    {
+      "string": "?OnReportGridQueryColumnKeepActiveOnGroupingBehavior@CExtReportGridWnd@@UEBA_NPEBD0@Z",
+      "address": "181252ad2"
+    },
+    {
+      "string": "?OnReportMaxGroupColumnCountReached@CExtReportGridWnd@@UEAAXXZ",
+      "address": "181252c30"
+    },
+    {
+      "string": "?OnTreeGridFilterCalcPlainUniqueValuesForColumn@CExtReportGridWnd@@UEBAXPEAU_TREEITEM@@AEAV?$CExtArray@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@@J_N2@Z",
+      "address": "181252ee8"
+    },
+    {
+      "string": "?OnTreeGridQueryColumnOutline@CExtReportGridWnd@@UEBA_NJ@Z",
+      "address": "181253046"
+    },
+    {
+      "string": "?ReportColumnActivate@CExtReportGridWnd@@UEAA_NPEBD0_NJ1@Z",
+      "address": "1812533fc"
+    },
+    {
+      "string": "?ReportColumnAdjustIconAlignmentH@CExtReportGridWnd@@UEAAXPEAVCExtReportGridColumn@@K_N@Z",
+      "address": "18125343a"
+    },
+    {
+      "string": "?ReportColumnAdjustIconAlignmentV@CExtReportGridWnd@@UEAAXPEAVCExtReportGridColumn@@K_N@Z",
+      "address": "181253496"
+    },
+    {
+      "string": "?ReportColumnAdjustStylesByMask@CExtReportGridWnd@@UEAAXPEAVCExtReportGridColumn@@KK_N1@Z",
+      "address": "1812534f2"
+    },
+    {
+      "string": "?ReportColumnAdjustTextAlignmentH@CExtReportGridWnd@@UEAAXPEAVCExtReportGridColumn@@K_N@Z",
+      "address": "18125354e"
+    },
+    {
+      "string": "?ReportColumnAdjustTextAlignmentV@CExtReportGridWnd@@UEAAXPEAVCExtReportGridColumn@@K_N@Z",
+      "address": "1812535aa"
+    },
+    {
+      "string": "?ReportColumnChooserGet@CExtReportGridWnd@@UEAAPEAVCExtReportGridColumnChooserWnd@@XZ",
+      "address": "181253606"
+    },
+    {
+      "string": "?ReportColumnChooserIsVisible@CExtReportGridWnd@@UEBA_NXZ",
+      "address": "18125365e"
+    },
+    {
+      "string": "?ReportColumnChooserShow@CExtReportGridWnd@@UEAAX_N@Z",
+      "address": "18125369a"
+    },
+    {
+      "string": "?ReportColumnGet@CExtReportGridWnd@@UEAAPEAVCExtReportGridColumn@@PEBD0@Z",
+      "address": "1812536d2"
+    },
+    {
+      "string": "?ReportColumnGetCount@CExtReportGridWnd@@UEBAJ_N0@Z",
+      "address": "18125371e"
+    },
+    {
+      "string": "?ReportColumnGetNext@CExtReportGridWnd@@UEAAPEAVCExtReportGridColumn@@AEAPEAU__POSITION@@PEBD_N2@Z",
+      "address": "181253754"
+    },
+    {
+      "string": "?ReportColumnGetStartPosition@CExtReportGridWnd@@UEBAPEAU__POSITION@@PEBD_N1@Z",
+      "address": "1812537ba"
+    },
+    {
+      "string": "?ReportColumnIsActive@CExtReportGridWnd@@UEBA_NPEBD0@Z",
+      "address": "18125380c"
+    },
+    {
+      "string": "?ReportColumnIsRegistered@CExtReportGridWnd@@UEBA_NPEBVCExtReportGridColumn@@@Z",
+      "address": "181253846"
+    },
+    {
+      "string": "?ReportColumnRegister@CExtReportGridWnd@@UEAAPEAVCExtReportGridColumn@@PEBD0_N1PEAUCRuntimeClass@@@Z",
+      "address": "181253898"
+    },
+    {
+      "string": "?ReportColumnUnRegister@CExtReportGridWnd@@UEAA_NPEAVCExtReportGridColumn@@_N@Z",
+      "address": "181253900"
+    },
+    {
+      "string": "?ReportItemGetCell@CExtReportGridWnd@@UEAAPEAVCExtGridCell@@PEBVCExtReportGridColumn@@PEBVCExtReportGridItem@@PEAUCRuntimeClass@@_N3@Z",
+      "address": "181253c26"
+    },
+    {
+      "string": "?ReportItemSetCell@CExtReportGridWnd@@UEAA_NPEBVCExtReportGridColumn@@PEBVCExtReportGridItem@@PEBVCExtGridCell@@_NPEAUCRuntimeClass@@@Z",
+      "address": "181253dcc"
+    },
+    {
+      "string": "?ReportSortOrderMaxGroupColumnCountGet@CExtReportGridWnd@@UEBAJXZ",
+      "address": "181253f34"
+    },
+    {
+      "string": "?ReportSortOrderMaxGroupColumnCountSet@CExtReportGridWnd@@UEAAXJ_N@Z",
+      "address": "181253f78"
+    },
+    {
+      "string": "?UpdateStaticFilterValueForOuterColumn@CExtTreeGridWnd@@UEAAXJ_NJ@Z",
+      "address": "1812541f6"
+    },
+    {
+      "string": "?_ReportColumnAdjustStylesByMask_Impl@CExtReportGridWnd@@MEAAJPEAVCExtReportGridColumn@@PEAU_TREEITEM@@KK_N@Z",
+      "address": "1812543d8"
+    },
+    {
+      "string": "?OnGbwAnalyzeCellMouseClickEvent@CExtReportGridWnd@@UEAA_NIIIVCPoint@@@Z",
+      "address": "181254650"
+    },
+    {
+      "string": "?OnGridCellGetToolTipText@CExtReportGridWnd@@UEBA_NAEBVCExtGridCell@@AEBVCExtGridHitTestInfo@@AEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "18125469c"
+    },
+    {
+      "string": "?SetTextColor@CExtEditBase@@QEAAXK@Z",
+      "address": "181254742"
+    },
+    {
+      "string": "?SetTooltipText@CExtComboBoxBase@@QEAAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@H@Z",
+      "address": "181254882"
+    },
+    {
+      "string": "?SetTextColor@CExtComboBoxBase@@QEAAXK@Z",
+      "address": "1812548f2"
+    },
+    {
+      "string": "?SelectionGetFirstRowInColumn@CExtGridBaseWnd@@QEBAJJ@Z",
+      "address": "1812554ba"
+    },
+    {
+      "string": "?SelectionGetLastRowInColumn@CExtGridBaseWnd@@QEBAJJ@Z",
+      "address": "1812554f4"
+    },
+    {
+      "string": "?ColumnInsert@CExtReportGridSortOrder@@UEAA_NPEAVCExtReportGridColumn@@J_N@Z",
+      "address": "181255720"
+    },
+    {
+      "string": "?GetTextBuffer@CExtGridCellString@@UEBAPEBDXZ",
+      "address": "1812569f4"
+    },
+    {
+      "string": "?OnAdjustMeasureTextFlags@CExtGridCell@@UEBAXAEAIJJJJHHK@Z",
+      "address": "181256f24"
+    },
+    {
+      "string": "?OnClick@CExtGridCell@@UEAA_NAEAVCExtGridWnd@@AEBVCExtGridHitTestInfo@@III@Z",
+      "address": "1812573bc"
+    },
+    {
+      "string": "?OnGetToolTipText@CExtGridCell@@UEBAXAEBVCExtGridWnd@@AEBVCExtGridHitTestInfo@@AEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "181257586"
+    },
+    {
+      "string": "?OnInplaceControlTextInputComplete@CExtGridCellComboBox@@UEAAXPEAUHWND__@@AEAVCExtGridWnd@@JJJJHHPEBD_N@Z",
+      "address": "181257ea0"
+    },
+    {
+      "string": "?OnInplaceControlTextInputVerify@CExtGridCell@@UEBA_NPEAUHWND__@@AEAVCExtGridWnd@@JJJJHHPEBD2AEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@_N@Z",
+      "address": "181257f0c"
+    },
+    {
+      "string": "?OnMeasureTextSize@CExtGridCell@@UEBA?AVCSize@@AEBVCExtGridWnd@@AEAVCDC@@JJJJHHAEBUtagRECT@@22K@Z",
+      "address": "1812580be"
+    },
+    {
+      "string": "?OnPaintText@CExtGridCell@@UEBAXAEBUtagRECT@@AEBVCExtGridWnd@@AEAVCDC@@JJJJHH000KK@Z",
+      "address": "181258556"
+    },
+    {
+      "string": "?OnParseAutoEditStartText@CExtGridCell@@UEBA_NAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "1812585ae"
+    },
+    {
+      "string": "?OnParseText@CExtGridCellComboBox@@UEBAJPEBD@Z",
+      "address": "181258624"
+    },
+    {
+      "string": "?OnPopupListBoxItemClick@CExtGridCell@@UEAA_NAEAVCExtPopupInplaceListBox@@AEAUTrackCellStateInfo_t@1@@Z",
+      "address": "181258824"
+    },
+    {
+      "string": "?OnQueryDrawTextFlags@CExtGridCell@@UEBAIJJJJHHKK_N00@Z",
+      "address": "181258db8"
+    },
+    {
+      "string": "?OnQueryDrawTextFlagsForInplaceEdit@CExtGridCell@@UEBAIJJJJHHKK_N00@Z",
+      "address": "181258df2"
+    },
+    {
+      "string": "?OnQueryTextAreaMargins@CExtGridCell@@UEBA?AVCRect@@AEBVCExtGridWnd@@AEAVCDC@@JJJJHHKK@Z",
+      "address": "181259004"
+    },
+    {
+      "string": "?OnQueryTextColor@CExtGridCellComboBox@@UEBAKAEBVCExtGridWnd@@AEAVCDC@@JJJJHHKK@Z",
+      "address": "181259060"
+    },
+    {
+      "string": "?OnQueryTextForInplaceControl@CExtGridCell@@UEBAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "1812590b4"
+    },
+    {
+      "string": "?TextColorGet@?$CExtGCC@V?$CExtGCCT@VCExtGridCell@@@@@@UEBAKW4e_cell_state_t@CExtGridCell@@@Z",
+      "address": "181259404"
+    },
+    {
+      "string": "?TextColorSet@?$CExtGCC@V?$CExtGCCT@VCExtGridCell@@@@@@UEAAKW4e_cell_state_t@CExtGridCell@@K@Z",
+      "address": "181259464"
+    },
+    {
+      "string": "?TextGet@CExtGridCellString@@UEBAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@Z",
+      "address": "1812594c6"
+    },
+    {
+      "string": "?TextSet@CExtGridCellComboBox@@UEAAXPEBD_N@Z",
+      "address": "181259530"
+    },
+    {
+      "string": "?TextSetOnPaste@CExtGridCell@@UEAAXPEBD_N@Z",
+      "address": "181259560"
+    },
+    {
+      "string": "?SetTooltipText@CExtComboBoxBase@@QEAAXHH@Z",
+      "address": "18125a396"
+    },
+    {
+      "string": "?SetTooltipText@CExtButton@@QEAAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@H@Z",
+      "address": "18125a418"
+    },
+    {
+      "string": "?SetTooltipText@CExtButton@@QEAAXPEBDH@Z",
+      "address": "18125a482"
+    },
+    {
+      "string": "?DeleteColumn@CExtSplitterBaseWnd@@UEAAXH@Z",
+      "address": "18125ad5a"
+    },
+    {
+      "string": "?GetColumnCount@CExtSplitterBaseWnd@@UEBAHXZ",
+      "address": "18125aefc"
+    },
+    {
+      "string": "?GetColumnInfo@CExtSplitterBaseWnd@@UEBAXHAEAH0@Z",
+      "address": "18125af2c"
+    },
+    {
+      "string": "?SetColumnInfo@CExtSplitterBaseWnd@@UEAAXHHH@Z",
+      "address": "18125b452"
+    },
+    {
+      "string": "?SplitColumn@CExtSplitterBaseWnd@@UEAAHH@Z",
+      "address": "18125b512"
+    },
+    {
+      "string": "?TrackColumnSize@CExtSplitterBaseWnd@@MEAAXHH@Z",
+      "address": "18125b5c8"
+    },
+    {
+      "string": "?SelectionGetNextRowInColumn@CExtGridBaseWnd@@QEBAJJJ@Z",
+      "address": "18125b7e4"
+    },
+    {
+      "string": "?OnGbwAnalyzeCellMouseClickEvent@CExtTreeGridWnd@@UEAA_NIIIVCPoint@@@Z",
+      "address": "18125bb66"
+    },
+    {
+      "string": "?OnTreeGridFilterCalcPlainUniqueValuesForColumn@CExtTreeGridWnd@@UEBAXPEAU_TREEITEM@@AEAV?$CExtArray@V?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@@@J_N2@Z",
+      "address": "18125be8a"
+    },
+    {
+      "string": "?OnTreeGridQueryColumnOutline@CExtTreeGridWnd@@UEBA_NJ@Z",
+      "address": "18125bf98"
+    },
+    {
+      "string": "?GetInnerOuterTypeOfColumn@CExtGridHitTestInfo@@QEBAHXZ",
+      "address": "18125c37c"
+    },
+    {
+      "string": "?SetTooltipText@CExtEditBase@@QEAAXAEAV?$CStringT@DV?$StrTraitMFC_DLL@DV?$ChTraitsCRT@D@ATL@@@@@ATL@@H@Z",
+      "address": "18125c56e"
+    },
+    {
+      "string": "?ReportColumnRename@CExtReportGridWnd@@QEAA_NPEBD000_N@Z",
+      "address": "18125c750"
+    },
+    {
+      "string": "?gen_image_proto@Halcon@@YAIAEBVHobject@1@PEAV21@N@Z",
+      "address": "18125d07c"
+    },
+    {
+      "string": "?gen_image1@Halcon@@YAIPEAVHobject@1@AEBVHTuple@1@111@Z",
+      "address": "18125d152"
+    },
+    {
+      "string": "?mean_image@Halcon@@YAIAEBVHobject@1@PEAV21@_J2@Z",
+      "address": "18125d394"
+    },
+    {
+      "string": "?invert_image@Halcon@@YAIAEBVHobject@1@PEAV21@@Z",
+      "address": "18125d486"
+    },
+    {
+      "string": "?write_image@Halcon@@YAIAEBVHobject@1@PEBD_J1@Z",
+      "address": "18125d4ba"
+    },
+    {
+      "string": "?clear@fipWinImage@@UEAAXXZ",
+      "address": "18125d6c4"
+    },
+    {
+      "string": "?isValid@fipWinImage@@UEBAHXZ",
+      "address": "18125d6e2"
+    },
+    {
+      "string": "??0fipImage@@QEAA@W4FREE_IMAGE_TYPE@@III@Z",
+      "address": "18125d702"
+    }
+  ],
+  "anchors": [
+    {
+      "needle": "SkipSubPanel",
+      "hits": []
+    },
+    {
+      "needle": "IsSkippedSubPanel",
+      "hits": []
+    },
+    {
+      "needle": "ExecuteOne_Component",
+      "hits": []
+    },
+    {
+      "needle": "ExecuteAll_Components",
+      "hits": []
+    },
+    {
+      "needle": "ShouldItGoToReviewStation",
+      "hits": []
+    },
+    {
+      "needle": "CAPM_SetInspectionStatus",
+      "hits": []
+    },
+    {
+      "needle": "ExecuteSkip",
+      "hits": []
+    },
+    {
+      "needle": "GetBinaryFieldDefects",
+      "hits": [
+        {
+          "name": "STRUCTSUPPORT.DLL::CResult::GetBinaryFieldDefects",
+          "address": "EXTERNAL:00000bd8",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "ImagesAnalysis",
+      "hits": [
+        {
+          "name": "CModel::ImagesAnalysis",
+          "address": "180504930",
+          "type": "Function"
+        },
+        {
+          "name": "CModelFamily::ImagesAnalysis",
+          "address": "18078ec40",
+          "type": "Function"
+        },
+        {
+          "name": "CModelFamily::ImagesAnalysis",
+          "address": "18078f080",
+          "type": "Function"
+        }
+      ]
+    },
+    {
+      "needle": "RazRes",
+      "hits": []
+    }
+  ]
+}

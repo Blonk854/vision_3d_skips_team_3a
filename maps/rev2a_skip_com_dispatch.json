@@ -1,0 +1,78 @@
+{
+  "address_references": [
+    {
+      "address": "14075ad60",
+      "incoming": [
+        {
+          "caller": null,
+          "from": "140eddc50",
+          "type": "DATA"
+        }
+      ]
+    }
+  ],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x14075ad60",
+    "--references-to",
+    "0x14075ad60",
+    "--output",
+    "maps/rev2a_skip_com_dispatch.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid FUN_14075ad60(longlong param_1)\r\n\r\n{\r\n  FUN_1404aecd0(param_1 + 0x10);\r\n  return;\r\n}\r\n\r\n",
+      "entry": "14075ad60",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eddc50",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "14075ad60",
+          "bytes": "4883c110",
+          "references": [],
+          "text": "ADD RCX,0x10"
+        },
+        {
+          "address": "14075ad64",
+          "bytes": "e9673fd5ff",
+          "references": [
+            {
+              "symbol": "FUN_1404aecd0",
+              "to": "1404aecd0",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "JMP 0x1404aecd0"
+        }
+      ],
+      "name": "FUN_14075ad60",
+      "requested_address": "14075ad60"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

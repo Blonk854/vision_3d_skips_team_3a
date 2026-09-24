@@ -1,0 +1,351 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    ".\\tools\\ghidra_scripts\\ExtractEntryGateEvidence.py",
+    "--program",
+    "mfc140.dll",
+    "--output",
+    "maps/rev2a_mfc140_thread_state_constructor.json",
+    "0x180137d00"
+  ],
+  "compiler": "windows",
+  "function_count": 17765,
+  "functions": [
+    {
+      "decompilation": "\r\nundefined8 * FUN_180137d00(undefined8 *param_1)\r\n\r\n{\r\n                    /* 0x137d00  325   */\r\n  *param_1 = AFX_MODULE_THREAD_STATE::vftable;\r\n  param_1[2] = 0;\r\n  param_1[0xc] = CMapPtrToPtr::vftable;\r\n  param_1[0xd] = 0;\r\n  *(undefined4 *)(param_1 + 0xe) = 0x11;\r\n  param_1[0x12] = 10;\r\n  param_1[0xf] = 0;\r\n  param_1[0x10] = 0;\r\n  param_1[0x11] = 0;\r\n  *(undefined4 *)(param_1 + 0x15) = 0x11;\r\n  param_1[0x13] = CMapPtrToPtr::vftable;\r\n  param_1[0x14] = 0;\r\n  param_1[0x16] = 0;\r\n  param_1[0x17] = 0;\r\n  param_1[0x18] = 0;\r\n  param_1[0x19] = 10;\r\n  param_1[0x1a] = CPtrList::vftable;\r\n  param_1[0x23] = 0xffffffffffffffff;\r\n  param_1[0x25] = 0xffffffffffffffff;\r\n  param_1[10] = FUN_18008c790;\r\n  param_1[0x1d] = 0;\r\n  param_1[0x1e] = 0;\r\n  param_1[0x1c] = 0;\r\n  param_1[0x1b] = 0;\r\n  param_1[0x1f] = 0;\r\n  param_1[0x20] = 10;\r\n  param_1[0x24] = 0;\r\n  param_1[3] = 0x108;\r\n  return param_1;\r\n}\r\n\r\n",
+      "entry": "180137d00",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1803cccfc",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802d65c4",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": "180138340",
+          "caller_name": "FUN_180138340",
+          "from": "18013835d",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "180137d00",
+          "bytes": "4533c9",
+          "references": [],
+          "text": "XOR R9D,R9D"
+        },
+        {
+          "address": "180137d03",
+          "bytes": "488d05cefa1d00",
+          "references": [
+            {
+              "symbol": "AFX_MODULE_THREAD_STATE::vftable",
+              "to": "1803177d8",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RAX,[0x1803177d8]"
+        },
+        {
+          "address": "180137d0a",
+          "bytes": "488901",
+          "references": [
+            {
+              "symbol": "AFX_MODULE_THREAD_STATE::vftable",
+              "to": "1803177d8",
+              "type": "DATA"
+            }
+          ],
+          "text": "MOV qword ptr [RCX],RAX"
+        },
+        {
+          "address": "180137d0d",
+          "bytes": "488d1534931f00",
+          "references": [
+            {
+              "symbol": "CMapPtrToPtr::vftable",
+              "to": "180331048",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RDX,[0x180331048]"
+        },
+        {
+          "address": "180137d14",
+          "bytes": "4c894910",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x10],R9"
+        },
+        {
+          "address": "180137d18",
+          "bytes": "48895160",
+          "references": [
+            {
+              "symbol": "CMapPtrToPtr::vftable",
+              "to": "180331048",
+              "type": "DATA"
+            }
+          ],
+          "text": "MOV qword ptr [RCX + 0x60],RDX"
+        },
+        {
+          "address": "180137d1c",
+          "bytes": "4c894968",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x68],R9"
+        },
+        {
+          "address": "180137d20",
+          "bytes": "418d4111",
+          "references": [],
+          "text": "LEA EAX,[R9 + 0x11]"
+        },
+        {
+          "address": "180137d24",
+          "bytes": "894170",
+          "references": [],
+          "text": "MOV dword ptr [RCX + 0x70],EAX"
+        },
+        {
+          "address": "180137d27",
+          "bytes": "458d410a",
+          "references": [],
+          "text": "LEA R8D,[R9 + 0xa]"
+        },
+        {
+          "address": "180137d2b",
+          "bytes": "4c898190000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x90],R8"
+        },
+        {
+          "address": "180137d32",
+          "bytes": "4c894978",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x78],R9"
+        },
+        {
+          "address": "180137d36",
+          "bytes": "4c898980000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x80],R9"
+        },
+        {
+          "address": "180137d3d",
+          "bytes": "4c898988000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x88],R9"
+        },
+        {
+          "address": "180137d44",
+          "bytes": "8981a8000000",
+          "references": [],
+          "text": "MOV dword ptr [RCX + 0xa8],EAX"
+        },
+        {
+          "address": "180137d4a",
+          "bytes": "488d0567921f00",
+          "references": [
+            {
+              "symbol": "CPtrList::vftable",
+              "to": "180330fb8",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RAX,[0x180330fb8]"
+        },
+        {
+          "address": "180137d51",
+          "bytes": "48899198000000",
+          "references": [
+            {
+              "symbol": "CMapPtrToPtr::vftable",
+              "to": "180331048",
+              "type": "DATA"
+            }
+          ],
+          "text": "MOV qword ptr [RCX + 0x98],RDX"
+        },
+        {
+          "address": "180137d58",
+          "bytes": "4c8989a0000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xa0],R9"
+        },
+        {
+          "address": "180137d5f",
+          "bytes": "4c8989b0000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xb0],R9"
+        },
+        {
+          "address": "180137d66",
+          "bytes": "4c8989b8000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xb8],R9"
+        },
+        {
+          "address": "180137d6d",
+          "bytes": "4c8989c0000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xc0],R9"
+        },
+        {
+          "address": "180137d74",
+          "bytes": "4c8981c8000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xc8],R8"
+        },
+        {
+          "address": "180137d7b",
+          "bytes": "488981d0000000",
+          "references": [
+            {
+              "symbol": "CPtrList::vftable",
+              "to": "180330fb8",
+              "type": "DATA"
+            }
+          ],
+          "text": "MOV qword ptr [RCX + 0xd0],RAX"
+        },
+        {
+          "address": "180137d82",
+          "bytes": "4883c8ff",
+          "references": [],
+          "text": "OR RAX,-0x1"
+        },
+        {
+          "address": "180137d86",
+          "bytes": "48898118010000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x118],RAX"
+        },
+        {
+          "address": "180137d8d",
+          "bytes": "48898128010000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x128],RAX"
+        },
+        {
+          "address": "180137d94",
+          "bytes": "488d05f549f5ff",
+          "references": [
+            {
+              "symbol": "FUN_18008c790",
+              "to": "18008c790",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RAX,[0x18008c790]"
+        },
+        {
+          "address": "180137d9b",
+          "bytes": "48894150",
+          "references": [
+            {
+              "symbol": "FUN_18008c790",
+              "to": "18008c790",
+              "type": "DATA"
+            }
+          ],
+          "text": "MOV qword ptr [RCX + 0x50],RAX"
+        },
+        {
+          "address": "180137d9f",
+          "bytes": "488bc1",
+          "references": [],
+          "text": "MOV RAX,RCX"
+        },
+        {
+          "address": "180137da2",
+          "bytes": "4c8989e8000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xe8],R9"
+        },
+        {
+          "address": "180137da9",
+          "bytes": "4c8989f0000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xf0],R9"
+        },
+        {
+          "address": "180137db0",
+          "bytes": "4c8989e0000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xe0],R9"
+        },
+        {
+          "address": "180137db7",
+          "bytes": "4c8989d8000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xd8],R9"
+        },
+        {
+          "address": "180137dbe",
+          "bytes": "4c8989f8000000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0xf8],R9"
+        },
+        {
+          "address": "180137dc5",
+          "bytes": "4c898100010000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x100],R8"
+        },
+        {
+          "address": "180137dcc",
+          "bytes": "4c898920010000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x120],R9"
+        },
+        {
+          "address": "180137dd3",
+          "bytes": "48c7411808010000",
+          "references": [],
+          "text": "MOV qword ptr [RCX + 0x18],0x108"
+        },
+        {
+          "address": "180137ddb",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_180137d00",
+      "requested_address": "180137d00"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe",
+  "source_size": 5784856
+}

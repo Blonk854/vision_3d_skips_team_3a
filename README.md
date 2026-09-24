@@ -10,20 +10,20 @@ This folder is only Feature 1 (runtime skip-after-N-missing). TST→VIS conversi
 This repo does **not** contain `Vision3D.exe`. A patched PE on clone is what EDR (CrowdStrike) will scan.
 
 1. Copy the 70.06.59.00 `Vision3D.exe` to `v3d_files_\Vision3D.exe` (or pass the path as argv).
-2. Install pinned build/verification dependencies:
-   `python -m pip install -r tools\requirements.txt`
+2. On Windows AMD64 with CPython 3.14 x64, install hash-locked dependencies:
+   `python -m pip install --require-hashes -r tools\requirements-release-win-amd64.lock`
 3. Run: `python tools\patch_f1_missing_n.py`
-4. Verify: `python tools\verify_hardened_patch.py`
+4. Verify the historical rev5 artifact: `python tools\verify_hardened_patch.py --revision rev5`
 5. Output: `Updated\Vision3D_concurrency_fix.exe`. Do not commit it.
    The previous `Updated\Vision3D.exe` is preserved, not rebuilt by default.
 
 Expected source SHA-256: `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`  
 Expected output SHA-256: `0ef39ff59e216bb7e9a45f6cb7ee505eac0822f6c4939d8ff1a8e04197675c13`
 
-Run `python tools\verify_hardened_patch.py --code-only` to test generated
+Run `python tools\verify_hardened_patch.py --revision rev5 --code-only` to test generated
 instructions without rebuilding a PE. Use `--output <path>` to verify a
-candidate at a different location. This is a station-test candidate, not a
-production-approved release.
+candidate at a different location. Rev5 is an offline historical baseline; it
+is not approved for station execution or production release.
 
 ---
 

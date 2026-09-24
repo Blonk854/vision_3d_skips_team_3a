@@ -1,0 +1,1497 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    ".\\tools\\ghidra_scripts\\ExtractEntryGateEvidence.py",
+    "--program",
+    "mfc140.dll",
+    "--output",
+    "maps/rev2a_mfc140_empty_view_pool.json",
+    "0x1800302c0"
+  ],
+  "compiler": "windows",
+  "function_count": 17765,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid FUN_1800302c0(longlong param_1)\r\n\r\n{\r\n                    /* 0x302c0  12237  \r\n                       0x302c0  12240  \r\n                       0x302c0  14257   */\r\n  *(undefined8 *)(param_1 + 0x18) = 0;\r\n  *(undefined8 *)(param_1 + 0x20) = 0;\r\n  *(undefined8 *)(param_1 + 0x10) = 0;\r\n  *(undefined8 *)(param_1 + 8) = 0;\r\n  FUN_180275f10(*(undefined8 *)(param_1 + 0x28));\r\n  *(undefined8 *)(param_1 + 0x28) = 0;\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1800302c0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1803f6de4",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802d0b42",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": "180235a50",
+          "caller_name": "FUN_180235a50",
+          "from": "180235a6b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180003d30",
+          "caller_name": "FUN_180003d30",
+          "from": "180003d63",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180003f40",
+          "caller_name": "FUN_180003f40",
+          "from": "180003f5b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18016e470",
+          "caller_name": "FUN_18016e470",
+          "from": "18016e531",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18016e5a0",
+          "caller_name": "FUN_18016e5a0",
+          "from": "18016e610",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180172150",
+          "caller_name": "FUN_180172150",
+          "from": "1801721aa",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d4620",
+          "caller_name": "FUN_1800d4620",
+          "from": "1800d465b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800b6a1c",
+          "caller_name": "FUN_1800b6a1c",
+          "from": "1800b6a5f",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180150060",
+          "caller_name": "FUN_180150060",
+          "from": "180150156",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180150060",
+          "caller_name": "FUN_180150060",
+          "from": "180150166",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180150060",
+          "caller_name": "FUN_180150060",
+          "from": "180150176",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802a1610",
+          "caller_name": "FUN_1802a1610",
+          "from": "1802a16fd",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801756e0",
+          "caller_name": "FUN_1801756e0",
+          "from": "180175784",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802bfe84",
+          "caller_name": "Catch@1802bfe84",
+          "from": "1802bff07",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802bff27",
+          "caller_name": "Catch_All@1802bff27",
+          "from": "1802bffa1",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180164430",
+          "caller_name": "FUN_180164430",
+          "from": "1801644d5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18013b8e0",
+          "caller_name": "FUN_18013b8e0",
+          "from": "18013b904",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180063650",
+          "caller_name": "FUN_180063650",
+          "from": "18006375c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180063650",
+          "caller_name": "FUN_180063650",
+          "from": "18006376c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "180048379",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "180048389",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "180048399",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "1800483b0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "1800483c0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "1800483e7",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "1800483f7",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "180048407",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "180048414",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18008ab44",
+          "caller_name": "FUN_18008ab44",
+          "from": "18008ab62",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18008ab44",
+          "caller_name": "FUN_18008ab44",
+          "from": "18008ab71",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18007e8c0",
+          "caller_name": "FUN_18007e8c0",
+          "from": "18007ea46",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18007e8c0",
+          "caller_name": "FUN_18007e8c0",
+          "from": "18007ea6d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180035eb0",
+          "caller_name": "FUN_180035eb0",
+          "from": "180035edd",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800c35c0",
+          "caller_name": "FUN_1800c35c0",
+          "from": "1800c363a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800cebc4",
+          "caller_name": "FUN_1800cebc4",
+          "from": "1800cec07",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180098e40",
+          "caller_name": "FUN_180098e40",
+          "from": "180098eda",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004f310",
+          "caller_name": "FUN_18004f310",
+          "from": "18004fa6e",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800f9aa0",
+          "caller_name": "FUN_1800f9aa0",
+          "from": "1800f9acd",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180161aa0",
+          "caller_name": "FUN_180161aa0",
+          "from": "180161b3d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180163130",
+          "caller_name": "FUN_180163130",
+          "from": "180163160",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802c3800",
+          "caller_name": "Catch@1802c3800",
+          "from": "1802c3828",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180267c60",
+          "caller_name": "FUN_180267c60",
+          "from": "180267caa",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180267030",
+          "caller_name": "FUN_180267030",
+          "from": "18026707a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18021dfe0",
+          "caller_name": "FUN_18021dfe0",
+          "from": "18021e0a0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18021dfe0",
+          "caller_name": "FUN_18021dfe0",
+          "from": "18021e0c7",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802585f0",
+          "caller_name": "FUN_1802585f0",
+          "from": "1802586ad",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180006170",
+          "caller_name": "FUN_180006170",
+          "from": "180006200",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180006170",
+          "caller_name": "FUN_180006170",
+          "from": "18000622e",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800062e0",
+          "caller_name": "FUN_1800062e0",
+          "from": "18000633c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180008b20",
+          "caller_name": "FUN_180008b20",
+          "from": "180008b6d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800096c0",
+          "caller_name": "FUN_1800096c0",
+          "from": "1800097ba",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800544c0",
+          "caller_name": "FUN_1800544c0",
+          "from": "180054531",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800544c0",
+          "caller_name": "FUN_1800544c0",
+          "from": "180054541",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18000a9e0",
+          "caller_name": "FUN_18000a9e0",
+          "from": "18000ab68",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800143a0",
+          "caller_name": "FUN_1800143a0",
+          "from": "180014838",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180014fa0",
+          "caller_name": "FUN_180014fa0",
+          "from": "1800151a9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800268c0",
+          "caller_name": "FUN_1800268c0",
+          "from": "180026cb0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801552d0",
+          "caller_name": "FUN_1801552d0",
+          "from": "1801552ec",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180155a20",
+          "caller_name": "FUN_180155a20",
+          "from": "180155b1a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180155a20",
+          "caller_name": "FUN_180155a20",
+          "from": "180155e02",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180079170",
+          "caller_name": "FUN_180079170",
+          "from": "1800791a5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18002bb10",
+          "caller_name": "FUN_18002bb10",
+          "from": "18002bc56",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18002bd00",
+          "caller_name": "FUN_18002bd00",
+          "from": "18002c05c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18002fba0",
+          "caller_name": "FUN_18002fba0",
+          "from": "18002fbde",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18002fd00",
+          "caller_name": "FUN_18002fd00",
+          "from": "18002fd22",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18002fd50",
+          "caller_name": "FUN_18002fd50",
+          "from": "18002fdd0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18002fe30",
+          "caller_name": "FUN_18002fe30",
+          "from": "18002feda",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800301d0",
+          "caller_name": "FUN_1800301d0",
+          "from": "1800301e9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180031540",
+          "caller_name": "FUN_180031540",
+          "from": "18003163b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180042900",
+          "caller_name": "FUN_180042900",
+          "from": "180042be0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800454e0",
+          "caller_name": "FUN_1800454e0",
+          "from": "18004561c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800454e0",
+          "caller_name": "FUN_1800454e0",
+          "from": "18004562f",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004fda0",
+          "caller_name": "FUN_18004fda0",
+          "from": "18004fe19",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d4a60",
+          "caller_name": "FUN_1800d4a60",
+          "from": "1800d4a9e",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004b5a0",
+          "caller_name": "FUN_18004b5a0",
+          "from": "18004b75d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004bd60",
+          "caller_name": "FUN_18004bd60",
+          "from": "18004c4b1",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004bd60",
+          "caller_name": "FUN_18004bd60",
+          "from": "18004c4c0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004bd60",
+          "caller_name": "FUN_18004bd60",
+          "from": "18004c4d8",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004cef0",
+          "caller_name": "FUN_18004cef0",
+          "from": "18004dbf1",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004cef0",
+          "caller_name": "FUN_18004cef0",
+          "from": "18004dbfd",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004cef0",
+          "caller_name": "FUN_18004cef0",
+          "from": "18004dc09",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004cef0",
+          "caller_name": "FUN_18004cef0",
+          "from": "18004dc1d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004cef0",
+          "caller_name": "FUN_18004cef0",
+          "from": "18004dc2d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004cef0",
+          "caller_name": "FUN_18004cef0",
+          "from": "18004dc3b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004cef0",
+          "caller_name": "FUN_18004cef0",
+          "from": "18004dc49",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004e240",
+          "caller_name": "FUN_18004e240",
+          "from": "18004e295",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004e840",
+          "caller_name": "FUN_18004e840",
+          "from": "18004e882",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004e840",
+          "caller_name": "FUN_18004e840",
+          "from": "18004e9b7",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004eb40",
+          "caller_name": "FUN_18004eb40",
+          "from": "18004ebee",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004ece0",
+          "caller_name": "FUN_18004ece0",
+          "from": "18004edca",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18004ece0",
+          "caller_name": "FUN_18004ece0",
+          "from": "18004edeb",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800505d0",
+          "caller_name": "FUN_1800505d0",
+          "from": "1800505e9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800508d0",
+          "caller_name": "FUN_1800508d0",
+          "from": "1800508f7",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18005e850",
+          "caller_name": "FUN_18005e850",
+          "from": "18005e873",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802a40c0",
+          "caller_name": "FUN_1802a40c0",
+          "from": "1802a4233",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802a40c0",
+          "caller_name": "FUN_1802a40c0",
+          "from": "1802a4241",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800642f0",
+          "caller_name": "FUN_1800642f0",
+          "from": "180064395",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180069350",
+          "caller_name": "FUN_180069350",
+          "from": "180069492",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18006a6a0",
+          "caller_name": "FUN_18006a6a0",
+          "from": "18006a6b9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18006b310",
+          "caller_name": "FUN_18006b310",
+          "from": "18006b6fa",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180082930",
+          "caller_name": "FUN_180082930",
+          "from": "180082a81",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180083980",
+          "caller_name": "FUN_180083980",
+          "from": "180083dbf",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180087540",
+          "caller_name": "FUN_180087540",
+          "from": "180087781",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18008aac0",
+          "caller_name": "FUN_18008aac0",
+          "from": "18008ab09",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18008aac0",
+          "caller_name": "FUN_18008aac0",
+          "from": "18008ab1e",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18008ac80",
+          "caller_name": "FUN_18008ac80",
+          "from": "18008adb2",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180164530",
+          "caller_name": "FUN_180164530",
+          "from": "1801645a4",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180164640",
+          "caller_name": "FUN_180164640",
+          "from": "1801647e3",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180164640",
+          "caller_name": "FUN_180164640",
+          "from": "1801649dd",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801583e0",
+          "caller_name": "FUN_1801583e0",
+          "from": "1801585b1",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18015da10",
+          "caller_name": "FUN_18015da10",
+          "from": "18015da92",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800af8f0",
+          "caller_name": "FUN_1800af8f0",
+          "from": "1800af930",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa070",
+          "caller_name": "FUN_1800aa070",
+          "from": "1800aa0f6",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800944e0",
+          "caller_name": "FUN_1800944e0",
+          "from": "1800946ef",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800944e0",
+          "caller_name": "FUN_1800944e0",
+          "from": "180094704",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180094740",
+          "caller_name": "FUN_180094740",
+          "from": "1800947ea",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180094800",
+          "caller_name": "FUN_180094800",
+          "from": "1800948b1",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180094ee0",
+          "caller_name": "FUN_180094ee0",
+          "from": "1800951cc",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180094ee0",
+          "caller_name": "FUN_180094ee0",
+          "from": "1800951e3",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800956f0",
+          "caller_name": "FUN_1800956f0",
+          "from": "180095e79",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800961e0",
+          "caller_name": "FUN_1800961e0",
+          "from": "180096338",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180096360",
+          "caller_name": "FUN_180096360",
+          "from": "18009640f",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800969a0",
+          "caller_name": "FUN_1800969a0",
+          "from": "180096a58",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180096b10",
+          "caller_name": "FUN_180096b10",
+          "from": "180096c85",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180097950",
+          "caller_name": "FUN_180097950",
+          "from": "180097aaa",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800a5750",
+          "caller_name": "FUN_1800a5750",
+          "from": "1800a578f",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800a9910",
+          "caller_name": "FUN_1800a9910",
+          "from": "1800a99f5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa1e0",
+          "caller_name": "FUN_1800aa1e0",
+          "from": "1800aa24f",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa1e0",
+          "caller_name": "FUN_1800aa1e0",
+          "from": "1800aa25b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa460",
+          "caller_name": "FUN_1800aa460",
+          "from": "1800aa615",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa460",
+          "caller_name": "FUN_1800aa460",
+          "from": "1800aa623",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa760",
+          "caller_name": "FUN_1800aa760",
+          "from": "1800aa880",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa900",
+          "caller_name": "FUN_1800aa900",
+          "from": "1800aaaa5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aab50",
+          "caller_name": "FUN_1800aab50",
+          "from": "1800aacc6",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d4910",
+          "caller_name": "FUN_1800d4910",
+          "from": "1800d4934",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aeb50",
+          "caller_name": "FUN_1800aeb50",
+          "from": "1800aed8d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aeb50",
+          "caller_name": "FUN_1800aeb50",
+          "from": "1800aed9d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800c89a0",
+          "caller_name": "FUN_1800c89a0",
+          "from": "1800c89e9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800c89a0",
+          "caller_name": "FUN_1800c89a0",
+          "from": "1800c89f9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800c9230",
+          "caller_name": "FUN_1800c9230",
+          "from": "1800c924c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800cada0",
+          "caller_name": "FUN_1800cada0",
+          "from": "1800cae18",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800ced00",
+          "caller_name": "FUN_1800ced00",
+          "from": "1800ced19",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d4310",
+          "caller_name": "FUN_1800d4310",
+          "from": "1800d4337",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d44d0",
+          "caller_name": "FUN_1800d44d0",
+          "from": "1800d4549",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800e0e40",
+          "caller_name": "FUN_1800e0e40",
+          "from": "1800e0ebe",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801274d0",
+          "caller_name": "FUN_1801274d0",
+          "from": "1801274ed",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180126e60",
+          "caller_name": "FUN_180126e60",
+          "from": "180126e82",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800e2e90",
+          "caller_name": "FUN_1800e2e90",
+          "from": "1800e3016",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800e30c0",
+          "caller_name": "FUN_1800e30c0",
+          "from": "1800e3302",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800e4f30",
+          "caller_name": "FUN_1800e4f30",
+          "from": "1800e4f55",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800f9c10",
+          "caller_name": "FUN_1800f9c10",
+          "from": "1800f9c3c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800fa380",
+          "caller_name": "FUN_1800fa380",
+          "from": "1800fa428",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800fae60",
+          "caller_name": "FUN_1800fae60",
+          "from": "1800fb051",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800fb5d0",
+          "caller_name": "FUN_1800fb5d0",
+          "from": "1800fb5e9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800fe080",
+          "caller_name": "FUN_1800fe080",
+          "from": "1800fe175",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800fe2b0",
+          "caller_name": "FUN_1800fe2b0",
+          "from": "1800fe77d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800fe900",
+          "caller_name": "FUN_1800fe900",
+          "from": "1800fea5d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800fec50",
+          "caller_name": "FUN_1800fec50",
+          "from": "1800fec77",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180127300",
+          "caller_name": "FUN_180127300",
+          "from": "18012736c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18012b370",
+          "caller_name": "FUN_18012b370",
+          "from": "18012b554",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18012b600",
+          "caller_name": "FUN_18012b600",
+          "from": "18012b80f",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180137e30",
+          "caller_name": "FUN_180137e30",
+          "from": "180138006",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18013baf0",
+          "caller_name": "FUN_18013baf0",
+          "from": "18013bb15",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801455e0",
+          "caller_name": "FUN_1801455e0",
+          "from": "18014564a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801469d0",
+          "caller_name": "FUN_1801469d0",
+          "from": "180146a9e",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801469d0",
+          "caller_name": "FUN_1801469d0",
+          "from": "180146aae",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180159a60",
+          "caller_name": "FUN_180159a60",
+          "from": "180159a70",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180159a90",
+          "caller_name": "FUN_180159a90",
+          "from": "180159aa0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18015d190",
+          "caller_name": "FUN_18015d190",
+          "from": "18015d251",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180160f40",
+          "caller_name": "FUN_180160f40",
+          "from": "180160f50",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180164f80",
+          "caller_name": "FUN_180164f80",
+          "from": "1801652f2",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180165810",
+          "caller_name": "FUN_180165810",
+          "from": "180165843",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180165c40",
+          "caller_name": "FUN_180165c40",
+          "from": "180165eb9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180165c40",
+          "caller_name": "FUN_180165c40",
+          "from": "18016607d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180166150",
+          "caller_name": "FUN_180166150",
+          "from": "1801661c5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801672a0",
+          "caller_name": "FUN_1801672a0",
+          "from": "18016734e",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180169290",
+          "caller_name": "FUN_180169290",
+          "from": "18016938a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801699c0",
+          "caller_name": "FUN_1801699c0",
+          "from": "180169a37",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18016ad50",
+          "caller_name": "FUN_18016ad50",
+          "from": "18016ae3d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18016b4c0",
+          "caller_name": "FUN_18016b4c0",
+          "from": "18016b537",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18016ce40",
+          "caller_name": "FUN_18016ce40",
+          "from": "18016d06c",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180186970",
+          "caller_name": "FUN_180186970",
+          "from": "180186a29",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801cc7d0",
+          "caller_name": "FUN_1801cc7d0",
+          "from": "1801cc7f5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801cc7d0",
+          "caller_name": "FUN_1801cc7d0",
+          "from": "1801cc804",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801cd2e0",
+          "caller_name": "FUN_1801cd2e0",
+          "from": "1801cd3a9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801cd2e0",
+          "caller_name": "FUN_1801cd2e0",
+          "from": "1801cd3b8",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801f9e20",
+          "caller_name": "FUN_1801f9e20",
+          "from": "1801f9e71",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180228e00",
+          "caller_name": "FUN_180228e00",
+          "from": "180228e36",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802392e0",
+          "caller_name": "FUN_1802392e0",
+          "from": "180239412",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18023acb0",
+          "caller_name": "FUN_18023acb0",
+          "from": "18023acc9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180240d50",
+          "caller_name": "FUN_180240d50",
+          "from": "180240e73",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180240d50",
+          "caller_name": "FUN_180240d50",
+          "from": "180240f4f",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180241560",
+          "caller_name": "FUN_180241560",
+          "from": "180241a70",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802b5990",
+          "caller_name": "FUN_1802b5990",
+          "from": "1802b59f5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802b5c40",
+          "caller_name": "FUN_1802b5c40",
+          "from": "1802b5ca5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cbb90",
+          "caller_name": "FUN_1802cbb90",
+          "from": "1802cbbe0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802359b0",
+          "caller_name": "FUN_1802359b0",
+          "from": "1802359ba",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d4620",
+          "caller_name": "FUN_1800d4620",
+          "from": "1800d467a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "18006a5f0",
+          "caller_name": "FUN_18006a5f0",
+          "from": "18006a5fa",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180063650",
+          "caller_name": "FUN_180063650",
+          "from": "180063783",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800482e0",
+          "caller_name": "FUN_1800482e0",
+          "from": "18004842b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800cec60",
+          "caller_name": "FUN_1800cec60",
+          "from": "1800cec6a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d8340",
+          "caller_name": "FUN_1800d8340",
+          "from": "1800d837a",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800302f4",
+          "caller_name": "FUN_1800302f4",
+          "from": "1800302fe",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180267a00",
+          "caller_name": "FUN_180267a00",
+          "from": "180267a2b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180266df0",
+          "caller_name": "FUN_180266df0",
+          "from": "180266e58",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180235ef0",
+          "caller_name": "FUN_180235ef0",
+          "from": "180235efa",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180221190",
+          "caller_name": "FUN_180221190",
+          "from": "1802211e9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180006170",
+          "caller_name": "FUN_180006170",
+          "from": "180006245",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180009420",
+          "caller_name": "FUN_180009420",
+          "from": "180009472",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180050930",
+          "caller_name": "FUN_180050930",
+          "from": "180050948",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800aa070",
+          "caller_name": "FUN_1800aa070",
+          "from": "1800aa10d",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800a5750",
+          "caller_name": "FUN_1800a5750",
+          "from": "1800a57a9",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1800d4370",
+          "caller_name": "FUN_1800d4370",
+          "from": "1800d4388",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801857a0",
+          "caller_name": "FUN_1801857a0",
+          "from": "1801857c3",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1801868a0",
+          "caller_name": "FUN_1801868a0",
+          "from": "180186966",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180228be0",
+          "caller_name": "FUN_180228be0",
+          "from": "180228c66",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "180240d50",
+          "caller_name": "FUN_180240d50",
+          "from": "1802411e3",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cbc10",
+          "caller_name": "FUN_1802cbc10",
+          "from": "1802cbc25",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cbe90",
+          "caller_name": "FUN_1802cbe90",
+          "from": "1802cbea5",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cbf50",
+          "caller_name": "FUN_1802cbf50",
+          "from": "1802cbf65",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cc020",
+          "caller_name": "FUN_1802cc020",
+          "from": "1802cc035",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cc040",
+          "caller_name": "FUN_1802cc040",
+          "from": "1802cc055",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cc110",
+          "caller_name": "FUN_1802cc110",
+          "from": "1802cc125",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1802cc130",
+          "caller_name": "FUN_1802cc130",
+          "from": "1802cc145",
+          "type": "UNCONDITIONAL_CALL"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1800302c0",
+          "bytes": "4053",
+          "references": [],
+          "text": "PUSH RBX"
+        },
+        {
+          "address": "1800302c2",
+          "bytes": "4883ec20",
+          "references": [],
+          "text": "SUB RSP,0x20"
+        },
+        {
+          "address": "1800302c6",
+          "bytes": "4883611800",
+          "references": [],
+          "text": "AND qword ptr [RCX + 0x18],0x0"
+        },
+        {
+          "address": "1800302cb",
+          "bytes": "488bd9",
+          "references": [],
+          "text": "MOV RBX,RCX"
+        },
+        {
+          "address": "1800302ce",
+          "bytes": "4883612000",
+          "references": [],
+          "text": "AND qword ptr [RCX + 0x20],0x0"
+        },
+        {
+          "address": "1800302d3",
+          "bytes": "4883611000",
+          "references": [],
+          "text": "AND qword ptr [RCX + 0x10],0x0"
+        },
+        {
+          "address": "1800302d8",
+          "bytes": "4883610800",
+          "references": [],
+          "text": "AND qword ptr [RCX + 0x8],0x0"
+        },
+        {
+          "address": "1800302dd",
+          "bytes": "488b4928",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RCX + 0x28]"
+        },
+        {
+          "address": "1800302e1",
+          "bytes": "e82a5c2400",
+          "references": [
+            {
+              "symbol": "FUN_180275f10",
+              "to": "180275f10",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x180275f10"
+        },
+        {
+          "address": "1800302e6",
+          "bytes": "4883632800",
+          "references": [],
+          "text": "AND qword ptr [RBX + 0x28],0x0"
+        },
+        {
+          "address": "1800302eb",
+          "bytes": "4883c420",
+          "references": [],
+          "text": "ADD RSP,0x20"
+        },
+        {
+          "address": "1800302ef",
+          "bytes": "5b",
+          "references": [],
+          "text": "POP RBX"
+        },
+        {
+          "address": "1800302f0",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1800302c0",
+      "requested_address": "1800302c0"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe",
+  "source_size": 5784856
+}

@@ -55,7 +55,19 @@ prove branch selection, not whole-function success, station configuration,
 worker quiescence, or absence of late callbacks. Non-boolean values are boundary
 fixtures, not evidence that production assigns those values.
 
-The proposed hook at `0x140541050` alone is therefore not yet proved to reset
+The direct callers of `0x140541050` are `0x1404aebe9`, `0x14068f7d7`,
+`ReloadDoc` at `0x1406937d7`, the SKIP poster at `0x1406a085e`, and
+`HandlerProduction` at `0x1406a2d87`. Close, the document destructor, view
+destruction, and the `0x52c` handler do not call it. The non-producer parents
+are document slot `+0x108` (`0x14068dc20`, the only stored pointer, at
+`0x140ea3970`) and CCAPM secondary slot `+0x80`. Slot `+0x108` keeps the
+document in `rsi`, calls `SetProductionVMC`, then calls `PrepareExecData`. Its
+body contains no displacement `0x3868` and does not call `ProductionStop`. The
+only entry to `0x1404aecd0` is the adjustor at `0x14075ad60` (`add rcx, 0x10;
+jmp 0x1404aecd0`), stored at `0x140eddc50`. That function calls `0x1404ae9d0`
+only when the vector at `[this+8]` has at least two `0x80`-byte elements, and
+`0x1404ae9d0` resets the caller's second argument. Close bodies contain no call
+through displacement `0x108` or `0x80`. The proposed hook at `0x140541050` alone is therefore not yet proved to reset
 patch counters before every supported reuse. The writer trace below shows that
 single-lane operation alone does not guarantee application `+0x18d == 0`.
 Prior-work quiescence at the cycle boundary also remains unproved. Without an
@@ -153,12 +165,57 @@ before destruction, a stale producer-side view/document dereference, or
 synchronous reentry while the receiver still exists.
 
 Both producers load that HWND from `[CAO+0x5838]+0x40` and call `PostMessageA`
-with wParam and lParam zero. Each post first resolves the CAO through
-`0x1406a15d0`, a fresh module-state lookup, so the read targets the current
-document's never-cleared `+0x5838` field rather than a cached view pointer. If
-that lookup returns a document whose view was already freed, the read is a use
-of freed storage. The sites are `0x1406a103b`, `0x1406a1075`, and
-`0x140736feb`, all through IAT `0x140d5bc00`. The sequences do not test the
+with wParam and lParam zero. The posts at `0x1406a103b` and `0x1406a1075`
+first call `0x1406a15d0`. The post at `0x140736feb` does not. Its function
+saves `rcx` at `[rsp+8]`, sets `rbp` to `rsp-0x6f8`, and later loads `r15`
+from `[rbp+0x700]`, which is that saved `this`. It then reads
+`[[this+0x10]+0x5838]`. The constructor `0x140735120` stores its `r8`
+argument at that `+0x10` field. Caller `0x14066dc00` passes `[this+0x28]`
+without calling the accessor. That caller is slot `+0x18` of vtable
+`0x140ea8a10`. The base constructor `0x1406997d0` stores zero at that field.
+`0x1406a6b95` calls `0x1406a15d0`, stores the result at `[rbp+0x30]`, and
+`0x1406a6bc7` passes that block to `0x1406a4980` with the pool at
+`thread+0xec8`. `0x1406a4980` copies `[argument+8]` to each worker's `+0x28`.
+`CProcessingGreyZoneThread` slot `+0`, `0x14069a890`, stops the worker and,
+when `edx` bit 0 is set, frees the `0xd8`-byte block. That destructor does not
+write `+0x28`, and nothing calls it directly. Close does not call the pool
+walk, so the copied document pointer stays in the worker.
+The worker loop `0x1406a1a50` waits on `[worker+0xa0]` and the stop event at
+`[worker+0x18]`. A zero result calls slot `+0x18`, which reads `[worker+0x28]`
+and then stores zero at `[worker+0x58]`. The only `SetEvent` of a `+0xa0`
+field is `0x14069fb80`. It takes the worker from the pool at `thread+0xec8`
+and is reached only through `HandlerProduction`. Close does not call that
+chain, so it does not wake an idle worker. It also does not wait for a worker
+already inside slot `+0x18`. The constructor `0x1406997d0` creates
+`[worker+0xa0]` with `CreateEventA` arguments all zero and `[worker+0xa8]`
+as a manual-reset event whose initial state is signaled, then calls
+`CViThread::Start`. Resize `0x1406a99d0` stores each availability handle in
+the vector at `pool+0x20`. Selector `0x1406a1660` passes that copy's length
+in `rcx` and `[pool+0x3c]` as the timeout. The thread constructor stores
+`[rsp+0x4c] * 0x3e8` at `thread+0xf04`, the same dword. A timeout result
+`0x102` skips the store to `[worker+0xb8]`, so a busy worker is not taken.
+The worker signals
+`+0xb8` after slot `+0x18`, and no wait in this executable loads that field.
+After `ProductionStop` joins `document+0x3868`, it calls that producer's
+slot `+0` with `edx` 1 while the slot is still nonzero, then stores zero.
+The producer destructor calls the pool destructor at `thread+0xec8`.
+`0x140655980` walks `[pool+8]` for `[pool+0x38]` entries and calls each
+worker's slot `+0` with `edx` 1. That slot is `0x14069a890`, which calls
+`0x14069a110`. Close does not call `ProductionStop` or `0x140655980`.
+The producer can still join those workers itself. `HandlerProduction` calls
+`0x14069c890`, which reads document byte `+0x5830` through `0x14068bd60` and
+clears it. A nonzero value calls `0x1406a99d0` on `thread+0xec8`. When the
+requested count differs from `[pool+0x38]`, that function calls `0x140655980`
+and then builds new workers. The only store of 1 at `+0x5830` is `ReloadDoc`
+`0x140692af0`. The constructor store at `0x14067e254` is inside the span that
+writes zero at `+0x5838`. Close, the document destructor, view destruction, and
+the `0x52c` handler do not call `ReloadDoc` or `0x14069c890`. The instruction
+after the first checker call compares `[rbp+0x770]`, so the flag does not
+itself leave the cycle.
+Caller `0x14069fd70` does call `0x1406a15d0` and passes the
+result. If either pointer names a document whose view was already freed, the
+read is a use of freed storage. All three
+sites go through IAT `0x140d5bc00`. The sequences do not test the
 view pointer, the HWND, or the return value. The document constructor clears
 `r14` at `0x14067df59` and stores it at `+0x5838` (`0x14067f60e`). No
 instruction in that span writes `r14`, and no branch enters the span after the
@@ -167,9 +224,70 @@ span return it unchanged and the store writes zero. `OnInitialUpdate`
 `0x1406af770`, view slot `+0x328`, copies `this` to `r15` and stores that view
 at `[view+0xe8]+0x5838`. The EXE `.text` section has two writes of displacement
 `0x5838`: that constructor store and this publisher. Refresh `0x1406adaf0` has direct calls from the
-message handler at `0x1406b0704` and from `0x1406b3b3f`.
+message handler at `0x1406b0704` and from `0x1406b3b3f`. The refresh loads
+`[view+0xe8]` and calls `0x140541040`, which is `lea rax, [rcx+0x23e0]; ret`.
+It compares the count at `[array+0x10]`. A positive count reads `[array+8]`
+and indexes a dword. The function contains no displacement `0x382d`, `0x382e`,
+or `0x5838`, and it does not test the document pointer before that call. The
+preceding call `0x14067ab20` contains no displacement `0x3868`.
+The registered-message handler `0x1406b0700` calls that refresh and returns
+0. `0x1406b3760` calls it at `0x1406b3b3f`, then `RedrawWindow` on `[view+0x40]`.
+Its only direct caller is `0x1406971b0`, which calls document slot `+0xe0` and,
+when that result is nonzero, slot `+0xe8`, then passes the view to
+`0x1406b3760`. Neither body contains displacement `0x3868`. The six direct
+callers of `0x1406971b0` are in `0x1404db330`, `0x1404dc5c0`, `0x1404dc9e0`,
+and `0x1404dd140`. Close does not call `0x1406971b0` or `0x1406b3760`.
+`0x1406a5010` calls the SKIP poster `0x1406a06b0` only when
+`[document+0x3978]` is 1. The not-equal branch jumps to `0x1406a5304`, past
+the call. The poster itself does not read that dword. The constructor stores
+`r14` at `0x14067e1d6`, inside the span that starts by clearing `r14`.
+`HandlerProduction` stores `esi` at `0x1406a34a1` and a shifted value at
+`0x1406a375a`. `0x14069a9c0` stores `r15` there when `document+0x382d` is not
+1; `r15` is cleared at `0x14069a9fc` and not written before that store. Its
+only direct caller is `HandlerProduction` at `0x1406a2e5e`. Close contains no
+displacement `0x3978`. The poster calls CCAPM secondary slot `+0x80` with the
+document as `rdx`. `al == 1` jumps to `0x1406a1056`, past the local reset, and
+that block posts through `[document+0x5838]` with no pointer test. The only
+`mov al, 1` in `0x1404ae9d0` is at `0x1404aec91`, after `0x140541050` and the
+later call `0x140541020`. An earlier `xor al, al` jumps to the epilogue
+without that reset. The other poster arm calls `0x140541050` itself. Close
+does not call the poster. The post at `0x1406a103b` runs only when `r13d` is
+3; the not-equal branch skips it. Both posts are `PostMessageA`. After either
+one the function destroys three stack objects and returns `r13d`. It does not
+call a wait. The first post then stores 3 into `r13d`, so that return value is
+3. The grey-zone post at `0x140736feb` runs only when document byte
+`+0x3835` is 1. The only store of that byte is the constructor at
+`0x14067e4cd`, which saves the `bool` returned by `GetValeurIni_bool`.
+Close contains no displacement `0x3835`. After `PostMessageA` the function
+jumps to `0x14073742d`, runs stack destructors, and returns. It does not wait.
+Its only direct caller is `0x1407354b0`, whose only direct caller is
+`0x140735f10`. That function is called from worker slot `+0x18` at
+`0x14066dc2a` and from `0x14069fcd0` at `0x14069fdaa`. `0x14069fcd0` is called
+from the worker queue `0x14069fb80` and from `0x1406a88e0`. None of
+`0x140735f10`, `0x1407354b0`, or `0x14069fcd0` contains displacement `0x3868`
+or `0x382e`. Close does not call these functions.
 
-Production `OnCloseDocument` `0x14068d9d0` tail-jumps MFC ordinal 8850. While
+Production `OnCloseDocument` `0x14068d9d0` calls `0x1406928d0`, then
+`0x14063b430` on the pointer at `document+0x3850`, then `0x1404e03f0`, and
+only then tail-jumps MFC ordinal 8850. The constructor stores
+`[[AfxGetModuleState()+8]+0x40]` at `+0x3850`. When that object's dword
+`+0x5878` is nonzero, `0x14063b430` waits on the semaphore at
+`[object+0x5870]`. `0x14063ac30` creates that semaphore with
+`CreateSemaphoreA(NULL, 1, 1, NULL)`. The same close function releases it,
+by a tail jump when the incremented dword at `+0x5868` equals 1 and by a
+call otherwise, before `OnCloseDocument` continues. That handle is not
+`document+0x3868`. The call to `0x14064b880` is the side where the
+incremented counter is not 1. That helper waits on `[object+0x118]`, then
+calls `DoEvents` while bits `0xc` of `[object+0x14]` are set, then
+`CTalkToSuperviseur::DeConnect`. Its bytes do not mention `document+0x3868`.
+None of those three functions calls `ProductionStop`. `HandlerProduction`
+has no displacement `0x5870` and does not call `0x14063b430`. The
+`CMainFrame` constructor stores zero at its own `+0x5870`. Its destructor
+passes that qword to `CloseHandle` and then stores zero. That call does not
+wait, and that field is not the producer. Before that loop calls frame slot `+0xd0`, ordinal 8850 calls document slot
+`+0x1c8`. The slot is MFC ordinal 11723, and its body is `ret 0`. The ordinal's view loop runs before the document
+destructor, so this prefix does not join the producer before the view is
+destroyed. While
 `document+0x70` is nonzero, that function takes the view at
 `[[document+0x60]+0x10]`, calls `GetParentFrame`, and calls frame slot `+0xd0`
 through the CFG stub `jmp rax` at `0x1802bf060`. `CProductionChild` slot
@@ -177,7 +295,143 @@ through the CFG stub `jmp rax` at `0x1802bf060`. `CProductionChild` slot
 `0x18021f927`, skipping that loop. After the loop, nonzero `document+0x120`
 calls document slot `+0x8`. That deleting wrapper calls `0x14067fc20`, which
 tail-jumps `0x14051fbf0`. The base destructor releases `+0x2448` through
-`0x14051ff90` and then `+0x23e0` through ordinal 1439. On this close path the
+`0x14051ff90` and then `+0x23e0` through ordinal 1439. Ordinal 1439 frees the
+`CUIntArray` buffer. The direct-call closure of `0x14067fc20` includes that
+base destructor, imports no `user32`, and does not call the message pump
+`0x1405e8af0`. Those direct calls, and one further direct-call level, do not
+call `ProductionStop`, `AskToStop`, worker `Stop`, or the pool cleanup, and
+their bytes do not mention `+0x3868`. The destructor body's own import
+calls are not `WaitForSingleObject` or `CViThread::Stop`. Its direct function
+callees contain no `WaitForSingleObject` import. Three direct-call levels
+from close, the destructor, view destruction, the `0x52c` handler, and the
+close poster contain no `CViThread::Stop` import. The only
+`WaitForSingleObject` functions in that closure are `0x14063b430`,
+`0x14064b880`, `0x1406ae120`, and `0x1406ae950`. None of those bodies contains
+displacement `0x3868`. Virtual calls inside the closure are not covered by
+that direct-call walk. Dropping the `0x52c` handler, three direct-call levels
+from `OnCloseDocument`, the document destructor, `WM_DESTROY`, the view
+destructor, and the close poster are 43 functions. That set does not include
+`ProductionStop`, `AskToStop`, or `ProductionStart`, and none of those bodies
+contains a call or jump through displacement `0x28`. The destructor calls
+`0x14066e530` on `document+0x5888`. That helper walks `[this+0x18]` through
+`[this+0x20]` in steps of `0x370` and calls slot `+8` with `edx` 0. The other
+virtual helpers in that 43-function set are `0x140740280`, `0x14045f700`, and
+`0x140579580`. The first two call slot `+8` with `edx` 1 on a nullable object
+or on each vector pointer. `0x140579580` releases a refcount with `lock xadd`
+and then calls slots `+8` and `+0x10`. None of the four bodies contains
+displacement `0x3868`. The list at `CProdCarte+8` holds
+`boost::detail::sp_counted_impl_p<CAnomalieProd>` control blocks. Dispose,
+slot `+8`, calls `CAnomalieProd` slot `+8` with edx 1. That frees the element
+through MFC ordinal 1487 after the same StructSupport destructor. Slot `+0x10`
+frees the `0x18`-byte control block through the same ordinal. `CButtonST`
+stores null at `+0x158`. `0x1407420c0` and `0x140742230` replace it with a
+`0x10`-byte `CBitmap`. The destructor calls that object's slot `+8` with edx 1,
+which is `0x1405b07a0`. It calls `0x1405b0700`, and MFC ordinal 3748 calls
+`DeleteObject` when the handle at `+8` is nonzero. edx bit 0 then frees the
+bitmap through ordinal 1487. The pointer vector at `document+0x2478` is filled at `0x14053416f`
+with `CMacro` objects (vtable `0x140e4d398`). Slot `+8` is
+`0x140521b30`, which calls `VitDataCAD.dll!CMacro::~CMacro` and then
+frees the object through ordinal 1487. Three direct-call levels from
+that destructor do not call `CViThread::Stop` or `WaitForSingleObject`
+and do not mention `+0x3868`. The calls on `document+0x2eb8` and
+`document+0x2550` tail-jump `CSerialDriver::~CSerialDriver`. The call on
+`document+0x60c8` frees `[object+8]`. The call on `document+0x6078` is
+`ret 0`. Before that array release, a nonzero `document+0x19e8`
+calls slot `+0x190` and then drops the returned refcount. The constructor
+stores zero there. `SetProductionVMC` later stores the pointer returned by
+`CVMC_ListSingleton::GetCurrent`. The stock `CVMachineController` vtable
+`0x1800ceda8` implements slot `+0x190` as a forward to `[controller+0x870]`
+slot `+0x220`. That second slot forwards through `[proxy+0x118]` to
+`IAcquisitionController` slot `+0x220`, which this DLL binds to `_purecall`.
+The concrete override is not in the supplied station files. The base
+destructor still does not call `ProductionStop`. A null
+slot skips the call. Other virtual calls in the wider closure remain
+unfollowed. The same destructor then loads `document+0x5878`. When that
+pointer and the count stored ahead of it are nonzero, it calls slot `+8`
+with edx 3 and afterwards stores null. Slot `+8` is the vector deleter for
+the `0x410`-byte elements, and the element destructor does not call
+`ProductionStop`. That walk calls `StructSupport.dll!CAnomalieProd::~CAnomalieProd` with edx 0.
+The destructor releases point, string, buffer, and image members, then
+tail-jumps to `0x18008d550`. Neither function imports `user32` or the
+executable. The same destructor then calls `CAsynchCommandExecution::Kill`
+on `document+0x6128`. When that object's byte `+8` is 1, Kill resets one
+event, sets another, and waits up to `0xc350` milliseconds on the handle at
+`+0x10`. That handle is not `document+0x3868`, and Kill does not call
+`ProductionStop`. The constructor stores a `CreateEventA` handle at
+`+0x3878` and a `CreateSemaphoreA` handle at `+0x3890`, and it stores a
+separate null at `+0x3868`. The destructor closes those two handles and
+never mentions displacement `0x3868`. `CloseHandle` does not wait, so the
+production thread object is still not joined. The array release itself does not dispatch the SKIP callback. After that
+free, the base destructor calls `CDataCao::~CDataCao` with `this` equal to
+`document+0x180`, then tail-jumps to MFC ordinal 1104 with the document
+pointer. `VitDataCAD.dll!CDataCao::~CDataCao` releases strings, points,
+lengths, image definitions, and the recipe, then returns. Three direct-call
+levels from that destructor do not call `CViThread::Stop` or
+`WaitForSingleObject`, and they do not mention `document+0x3868`.
+`DeleteCadTab` walks the `CCAD_Base` pointer array at `+0x1018` and calls
+slot `+8` with edx 1. That slot on `CCAD_Base` runs the scalar destructor and
+then frees the object. The same call on the exported element vtables
+(`CComposant`, `CMire`, `CPad`, `CSkip_bloc`, `CMacro`, and the other
+`Add*` types) does not call `CViThread::Stop` or `WaitForSingleObject` and
+does not mention `+0x3868`. The destructor also clears the embedded `CMacro`
+array at `+0xd78` with edx 0, so each element runs `CMacro::~CMacro` and is
+not freed. The document block is freed only after this
+call returns. The producer is still not joined before either call. Ordinal 1104 then calls `0x18021e1a0`. While `document+0x70` is nonzero, that function unlinks the head view and stores zero at `view+0xe8`. The `CUIntArray` release is before the jump, so this clear is after the skip array is freed. The walk does not write `document+0x5838`. The same ordinal then calls `0x180221190`, which reads the list at `document+0xe0` and, for each node, calls slot `+0` with edx 1 on `[node+0x10]`. The document constructor `0x18021de40` stores zero at `+0xe0`. MFC ordinal 2525 is the updater for that list, and none of the supplied station binaries imports it. Its only call inside `mfc140.dll` passes `r8` 0 and `edx` -1, which unlinks existing nodes instead of allocating one. That walk does not mention `document+0x3868`. Before the walk, a nonzero `document+0x50` is called at slot `+0xd0` with the document as the second argument. The template constructor installs vtable `0x18032fce8`, and that slot is `0x180228e70`. It stores zero at `document+0x50` and jumps to the list unlink `0x180235d10`. It does not mention `document+0x3868`. Ordinal 1104 also calls slot `+0x10` on `document+0xb8`, `document+0x178`, and `document+0xd0` when those qwords are nonzero, passing only that pointer. The constructor stores zero at all three. After the first two calls it stores zero again. None of those instructions uses displacement `0x3868`. The 83 slots of document vtable `0x140ea3868` do not store those qwords. The document constructor's call at `0x14067e00d` builds the separate object at `document+0x5888`, and that object's constructor zeros its own `+0x178`. The executable imports of the MFC functions that store `+0xb8` are ordinals 981 and 1838. Both run on the application object: ordinal 981 is called before `0x1404cdff0` installs vtable `0x140e39770`, and ordinal 1838 is app vtable slot `+0xb0`. The primary slot `+8`, `0x1406807e0`, is the deleting
+destructor: it runs that destructor and, when edx bit 0 is set, calls ordinal
+1487, CRT `free` of the document block. `OnCloseDocument` uses edx 1 on that
+slot when `+0x120` is still nonzero after the view loop. There is no document
+pool. Runtime class `0x140ea3830` is the only pointer to factory
+`0x140684f40`. That factory passes `0x61f8` to `0x14076d550`, which calls
+CRT `malloc`, and on success calls constructor `0x14067dea0`. A null
+allocation returns zero. The base constructor calls `CDataCao::CDataCao` on `this+0x180` before it
+builds the `CUIntArray` at `+0x23e0` through ordinal 973, which zeroes the
+buffer pointer and the count fields before `CreateObject` returns. The
+document constructor then overwrites the vtable at `+0x180`. Neither
+constructor calls `SetProductionVMC`. Its zero-mode path stores 0 at
+`+0x3924` and publishes that same document at setter index 0. The call with
+edx 0 is outside the constructor, so the published pointer has already
+finished both constructors. That publish does not join the producer.
+Document slot `+0x108` is the other direct publisher. It stores `this` and
+passes the mode returned by `0x1404d25e0` to `SetProductionVMC` before it
+uses `document+0x2548`. That later use is an argument to `CCAPM` slot
+`+0x140`, not a call to `AskToStop`. The function calls neither
+`ProductionStop` nor `ProductionStart`. Same-address reuse is CRT heap reuse
+after the free, and only a later factory call constructs the replacement.
+Before that release, the destructor calls `CCAPM` slot `+0xe8` with r8 zero
+and edx equal to `document+0x3924`. `SetProductionVMC` stores that same
+index and publishes the document there: argument 2 or below uses
+argument minus one, and argument 3 or 4 uses argument minus three. The
+setter writes the pointer only when the index is below the vector count.
+`ProductionStart` copies `document+0x3924` into the new thread at `+0xec0`
+before slot `+0x10`. The producer accessor reads that thread dword and
+jumps through slot `+0xe0`, which returns the published pointer. The
+destructor does not clear `+0xec0`. A later accessor call therefore sees
+null unless the index is out of range or a later publish replaces it.
+`HandlerProduction` copies its thread argument to `r14` and the cycle at
+`0x1406a2770` repeats while `thread+0x32` is zero. The function contains 99
+calls to the accessor. None is followed by a test of the returned pointer or
+a branch on it. The back-edge's first use is the compare of
+`[document+0x382e]` with 1. The store that sets `thread+0x32` is the
+equal side of that compare, so a null slot faults in the compare and the
+store does not run. The not-equal side reloads and calls `0x1406970f0`
+with no pointer test. That function's first read is `[document]`. It then
+calls document slots `+0xe0` and `+0xe8`, `GetFirstViewPosition` and
+`GetNextView`. The helper `0x1406b36f0` reads `[view+0xe8]` with no null
+test. When `document+0x3928` is 3 or 4 it stores the caller's dl at
+`view+0x6058` and returns. It does not write `thread+0x32`. A null slot
+therefore faults before the cycle can set the stop byte. The next iteration
+does not reuse a document pointer from the previous one. Before the cycle,
+`__RTDynamicCast` returns the app object and its `+0x1b0` pointer is saved
+at `[rsp+0x78]`; that slot is not written again. The cycle reloads it into
+`rsi`, reloads a dword from `[rsp+0x68]` into `ebx`, and reloads
+`thread+0x18` into `rdi` before the accessor runs. The accessor result is
+then passed as `r8`. The only full document pointer kept across a later
+accessor call is `rbx`, in two windows that both end before the back-edge:
+one reads `[rbx+0x5c9c]` and `[rax+0x5c98]`, and the next copies
+`[rbx+0x5c9c]` into `[rax+0x5c98]` and then overwrites `bl`. No accessor
+result is stored to memory. A document published into the same index is
+what the next check observes. Close still does not join the producer. The
+reuse gate is not promoted. On this close path the
 listed frames are destroyed before the skip arrays are released. With the host
 probe, a SKIP message already queued to one of those HWNDs is retired before
 that release. The production view message map has 33 entries and no
@@ -246,22 +500,70 @@ The ExecuteSkip posts are reached only from the production thread.
 `CProductionThread` vtable `0x140ea8a48` binds slot `+8` to `Handler`
 `0x1406a1c80` and slot `+0x10` to `BaseTools.dll!CViThread::Start`. The
 supplied BaseTools thread procedure is `mov rax,[rcx]; jmp [rax+8]`, so Start
-runs Handler. Handler calls `HandlerProduction` unless document byte `+0x382d`
-is 1, then calls MFC ordinal 2175, whose tail is `_endthreadex`.
-`HandlerProduction` is that function's only direct caller.
+runs Handler. When document byte `+0x382d` is 1, Handler calls `0x1406a1da0`.
+That function stores 1 at `thread+0x32`, calls `AskToStop`, and returns 0.
+Otherwise Handler calls `HandlerProduction`. Both arms then call MFC ordinal
+2175, whose tail is `_endthreadex`. The only direct call of `HandlerProduction`
+is that not-equal arm. `HandlerProduction` contains no displacement `0x382d`,
+so a running producer does not read the byte. `ProductionStop` clears `esi`
+at `0x1406921e0`. When `document+0x3881` is 1 it stores 0 there and sets
+`+0x382d` to 1 if that byte was 0, then calls `ProductionStart`.
+`ProductionStart` still stores and starts the producer. When the byte is 1 it
+stores the zeroed `r12` at `+0x3860` instead of constructing the communication
+thread. The other writer is document vtable slot `+0x100`, `0x14068dab0`. It
+dynamic-casts `CWinApp` to `CAVisionApp` and copies byte `+0x198` into
+`document+0x382d`. Close, the document destructor, view destruction, the close
+poster, and the `0x52c` handler do not call that slot.
 `MakeFirstPassInspection` is the only direct caller of `ExecuteSkip`, and
 `HandlerProduction` is its only direct caller. `ProductionStart`
 `0x140691c80` stores the new thread at document `+0x3868` and calls slot
 `+0x10`.
 
 `ProductionStop` `0x1406920f0` is the only direct caller of `CViThread::Stop`
-on that field. It passes timeout zero. While Stop returns anything other than
+on that field. The import has seven other call sites. `CCAD_Zone2D_PropSheet`
+stops `[this+0x41b0]`. `CLogManagerView::Close` stops the embedded thread at
+`this+0xf0`. The `CViThread4Pool` destructors for `CPCBR_Data2DInit` and
+`CPCBR_Data3DInit` stop `this`. The embedded object at `document+0x2548`
+stops `document+0x3860`. The worker stop `0x14069a110` stops `this`.
+`CWizardGenericElement` stops `[this+0xa40]`. None of those bodies contains
+displacement `0x3868`. `CViThread::Stop` signals `[this+0x18]` and waits on
+`[[this+8]+0x58]`. `Start` stores that thread object at `[this+8]` and resumes
+`[that+0x58]`. `GetStopEventHandle` returns `[this+0x18]`, so the waited
+handle is not the stop event. `ProductionStart` copies `[thread+0x18]` to
+`document+0x61d8`. `ProductionStop` waits on that copy with timeout zero
+before calling `Stop`. The constructor store of that field is in the same
+zeroed `r14` span as `+0x5838`. Those are the only three instructions that
+use displacement `0x61d8`. Close and destruction do not. It passes timeout zero. After that join it also stops the
+other `CViThread` at `document+0x3860`. `ProductionStart` allocates that
+object with size `0x48`, constructs it at `0x14067c320`, and stores it at
+`+0x3860` before the producer store at `+0x3868`. Vtable `0x140ea1cd0` slot
+`+8` is the communication handler `0x14067c480`. It waits with `WaitForMultipleObjects` on the three handles at `this+0x18`, `this+0x40`, and `this+0x38`. The wake that calls `0x14067c7b0` ends in `ReleaseSemaphore` on `[document+0x3890]`. `ProductionStart` passes its document as the constructor's second argument, and the constructor stores that pointer at `+0x20`. The handler, both wake functions, and the three direct callees of `0x14067c7b0` do not call `ProductionStop` or `AskToStop`, and their bytes do not mention `+0x3868`. `OnCloseDocument`, the
+document destructor, view `WM_DESTROY`, the close poster, and the `0x52c`
+handler do not mention `+0x3860`. Slot `+0x10` of the vtable stored at
+`document+0x2548` is `0x140680d70`. That method stores null at
+`[this+0x1320]`, which is `document+0x3868`, and then stops `[this+0x1318]`,
+which is `document+0x3860`. It does not stop the pointer it clears. The view
+command handler forms that object's address at `0x1406b1039` and calls slot
+`+8`, not slot `+0x10`. While Stop returns anything other than
 1 it calls `0x1405e8af0(0x1f4)`, which peeks, translates, and dispatches queued
 messages, then sleeps 10 milliseconds, repeating for the argument divided by
-10. Neither `OnCloseDocument` nor the document destructor calls
+10. After that loop it stores zero at `+0x3868`. Only then, and only when
+`document+0x3881` is 1, it calls `ProductionStart`. The other direct callers
+of `ProductionStart` are `0x1406b0fc6` and `0x14075ef33`.
+`ProductionStart` itself compares `document+0x3868` with zero at
+`0x140691e88`. The occupied side jumps to `0x1406920b9`, clears the return
+byte, and returns without calling `ProductionStop` and without replacing the
+pointer. The store of the new thread is on the empty side only. Neither
+`OnCloseDocument` nor the document destructor calls
 `ProductionStop`, `BP_ProductionStop`, or `0x140680c00`. The notification
-handler `0x14068da40` is the only direct caller of `ProductionStop`, and it
-requires notification code `0xb1cf`. Document close therefore does not join
+handler `0x14068da40` is document vtable slot `+0x28` and the only direct
+caller of `ProductionStop`. The other 82 slots of document vtable `0x140ea3868`
+do not call it, and none of the 113 slots of production-view vtable
+`0x140eac650` calls `ProductionStop`, `AskToStop`, or that handler. The call runs only when the high 16 bits of `r8`
+are `0x4e` and the low 16 bits are `0xb1cf`. The address of `ProductionStop`
+is not stored as a pointer in the image. `OnCloseDocument`, the document
+destructor, view `WM_DESTROY`, the close poster, and the `0x52c` handler do
+not call that slot. Document close therefore does not join
 this producer before it destroys the view. A failed Stop attempt can also
 dispatch a SKIP message while Handler is still running. No callback-retirement
 gate is promoted.
@@ -272,6 +574,10 @@ sets byte `+0x12e6`. That is document byte `+0x382e`. It then posts
 `WM_NOTIFY` (`0x4e`) with code `0xb1cf` and returns. The only other memory operand using displacement `0x12e6` is
 `StartProductionWithThread` clearing it.
 `ProductionStart` clears the same document byte through displacement `0x382e`.
+The only other instructions that use displacement `0x382e` compare it with 1:
+the production cycle, and `0x1406af56e`. That second compare's function is
+called from the view command handler immediately after slot `+8`. Its equal
+side tail-jumps MFC ordinal 4326. It does not call `ProductionStop`.
 Four initialization stores also cover that byte, and each source register is
 still zero: dword stores at `0x14065bd0b`, `0x14065bee2`, and `0x14065f368`,
 and the constructor word store at `0x14067e17b`.
@@ -281,8 +587,152 @@ is zero. The child frame's recorded base map inherits `WM_CLOSE` handler
 `0x1802a2aa0`. That handler calls document slot `+0x1b8`, MFC ordinal 2660,
 and then slot `+0x118`, `OnCloseDocument`. Ordinal 2660 tests a view dword at
 `+0xec` or calls slot `+0x1c0`. It does not read `+0x382e` or `+0x3868`.
-`OnCloseDocument` does not contain those displacements. Close can destroy the
+`OnCloseDocument` does not contain those displacements. `HandlerProduction` calls slot `+8` on the accessor result at
+`0x1406a4685` only after `thread+0x32` is nonzero. The zero side jumps
+to the cycle head `0x1406a2770`. That exit does not call `ProductionStop`.
+`CheckAvailableMemory` `0x14069c770` can reach the same call without
+`document+0x382e` already being 1. A zero return loads the dword at
+`0x1411697c4`. That address is in the zero-filled tail of `.data`, and
+both instruction uses are reads, so the failure stores word `0x100` at
+`thread+0x31` and jumps to `0x1406a466d`. Close, destruction, view
+`WM_DESTROY`, the close poster, the `0x52c` handler, and their direct
+callees do not call `0x14069c770`. The stack byte at `[rbp+0x770]` is
+cleared on each pass and passed to app slot `+0x58`. That slot is MFC
+ordinal 7430, whose body is `mov eax, 0x80029c4a; ret`, so it does not
+store the flag. The other calls of that slot on an object addressed with
+`+0x2548` are in `0x1404c2640`, `0x140682ff0`, `0x1406a1da0`,
+and `0x14075efd0`. `0x1405cb880` is the `CDocCompose` constructor. It stores
+vtable `0x140e76370` at `+0x2548` and passes that address to slot `+8` of
+`[this+0x19e8]`. Slot `+8` of the stored vtable is `0x140611ce0`, not
+`AskToStop`. `CCAPM` secondary slot `+0xb0` is thunk `0x14075dee0`, which adds
+`0x10` to `this` and jumps to `0x1404c7580`. When the vector at `this+8` holds
+at least two `0x80`-byte elements, that function calls `0x1404c2640`. That
+function calls slot `+8` at `[r13+0x2548]` when `ebx` is 4. The only instruction that takes the address of `0x140682ff0` is the `lea` in `0x14068d550`. Its only direct caller is `HandlerProduction`. That function stores the address in a callable whose manager pointer has its low bit set, then passes the callable to `CAsynchCommandExecution::EnqueueCommand` on `document+0x6128`. `0x140682ff0` calls slot `+8` at `[rbx+0x2548]` when dword `[rbx+0xe18]` is 1. The document destructor calls `Kill` on `document+0x6128`. `Kill` calls a queued manager only when that pointer's low bit is clear, so this registration is not called. `OnCloseDocument`,
+the document destructor, view `WM_DESTROY`, the view destructor, the `0x52c`
+handler, and the close poster do not call slot `+0xb0`. Close, destruction, view `WM_DESTROY`, the close poster,
+and the `0x52c` handler do not call those functions, and neither do their direct callees. `0x14075efd0` is `CCAPM` secondary vtable slot `+0x1c8`. It calls `AskToStop` only after slot `+8` at `[this+0xf0]` returns a value greater than 6. The function has no direct caller. `OnCloseDocument`, the document destructor, view `WM_DESTROY`, the view destructor, the `0x52c` handler, and the close poster do not contain displacement `0x1c8`. Close can destroy the
 view while `HandlerProduction` is still in the cycle. The callback-retirement
+gate is not promoted.
+
+`OnCloseDocument` calls `0x1404e03f0` and then tail-jumps to MFC ordinal 8850.
+The helper posts message `0x52c` with wParam 6, or returns without posting when
+byte `+0x830` is already 1. The production view binds `0x52c` to `0x1406b0c00`,
+whose switch index is wParam minus one. wParam 6 therefore enters `0x1406b1232`.
+That arm does not call `AskToStop` or `ProductionStop`. When `0x140697ce0`
+returns true it sends `WM_COMMAND` `0xe102`, and the document handler for that
+command jumps through slot `+0x118` back to `OnCloseDocument`. The switch arm
+that calls `AskToStop` is wParam 2, at `0x1406b0fec`. Command `0xb1ce` enters
+the same switch with edx 1. The posted close message is not a producer join,
+and the MFC close jump runs before that handler. The callback-retirement gate
+is not promoted.
+
+The command that reaches that wParam 2 arm is control id `0xb1cf` on a
+`BUTTON` child of the `PROD_VIEW_COMMAND` window. The production view
+constructor `0x1406ab570` builds that object at `view+0x9c8` and stores vtable
+`0x140e9f7a0`. Three view methods call `0x1406ac880` and pass the view.
+`0x1406ac880` calls slot `+0xb8` with style `0x50000000`, class `PROD_VIEW_COMMAND`, and the view
+as the parent argument. Slot `+0xb8` jumps to MFC ordinal 3165. In the supplied
+MFC 14 DLL that ordinal reads argument 5 as a `CWnd`, takes its `+0x40` HWND,
+and sets style bit 30 (`WS_CHILD`). The command window's `WM_CREATE` handler
+`0x140677b70` calls `0x1406770b0`, the only direct caller of that helper. The
+helper calls slot `+0x2d8` on the child at `+0x1aa8` with the command object as
+parent and id `0xb1cf`. That slot is MFC ordinal 3051. It forwards the same
+parent and id into the object's slot `+0xb8`, which is ordinal 3165 again, and
+the class string it supplies is `BUTTON`. The command map then binds
+`WM_COMMAND` `0xb1cf` to `0x140677b30`, which calls `GetParent` and posts
+message `0x52c` with wParam 2 to that parent HWND. `.text` contains the
+immediate `0xb1cf` only at this button create, at `AskToStop`'s notify store,
+and at the document `OnCmdMsg` compare. Close does not call the button create
+and does not load the command. The callback-retirement gate is not promoted.
+
+The direct-call closure of `OnCloseDocument`, the document destructor,
+production-view `WM_DESTROY` `0x1406af270`, helper `0x1404e03f0`, and document
+`OnCmdMsg` does not include `AskToStop`, `CProductionThread::Handler`,
+`HandlerProduction`, the command poster `0x140677b30`, or the `CCAPM` function
+`0x1404c2640`. `OnCmdMsg` is the only function in that closure that calls
+`ProductionStop`. The destructor stores vtable `0x140ea3b58` at
+`document+0x2548`; slot `+8` of that vtable is `AskToStop`, and the destructor
+does not call it. Its later `call [rax+8]` uses the object at
+`document+0x5878` with edx 3. The callback-retirement gate is not promoted.
+
+That direct-call closure misses one virtual call inside production-view
+`WM_DESTROY`. After MFC ordinal 2207, destroy calls `__RTDynamicCast` on
+`[result+8]`, from `.?AVCWinApp@@` to `.?AVCAVisionApp@@`. The
+`CAVisionApp` constructor `0x1404cdff0` stores vtable `0x140e39770` and
+constructs `CCAPM` at `+0x1a8` through `0x14075aa80`. Destroy then calls
+slot `+0x198` of the secondary vtable at `CCAPM+8` (`0x140eddbd0`), which
+is `0x14075d6b0`. That function calls slot `+0xe0` (`0x14075d010`) with
+edx equal to the dword it read from the view's document at `+0x3924`.
+The slot indexes the pointer vector whose begin and end are
+`[CCAPM+8+0x2e8]` and `[CCAPM+8+0x2f0]`. When the indexed pointer is null,
+or dword `[entry+0x3928]` is not 4, it calls `0x140611a10` on
+`CCAPM+0x278`. The wrapper adds 8 and calls `0x1406109f0`. That callee
+takes `EnterCriticalSection` on its `+0x20`, updates a pointer vector at
+`+8`/`+0x10`, returns `(end-begin)/8`, and leaves the same critical
+section. Its body contains neither displacement `0x2548` nor immediate
+`0xb1cf`. The direct-call closure of `0x14075d6b0` includes both helpers
+and does not include `AskToStop`, `ProductionStop`, `0x1404c2640`, or
+`HandlerProduction`. The callback-retirement gate is not promoted.
+
+That vector update is not the path taken for destroy's own arguments when
+the indexed entry exists and `[entry+0x3928] == 4`. Destroy stores the
+document dword `+0x3924` at argument `+8` and the constant `0xb` at argument
+`+0xc`. `0x14075d6b0` copies `+0xc` and, on that status, builds two local
+lists. The second list contains 3 and `0xb`. A match frees both lists and
+jumps to `0x14075db5a`, which is after the call to `0x140611a10`. The
+callback-retirement gate is not promoted.
+
+After the `CCAPM` call returns, destroy calls document slot `+0x230`.
+The production-document vtable `0x140ea3868` binds that slot to
+`0x14045c520`, which returns `[this+0x19e8]`. `CProductionDoc::SetProductionVMC`
+stores the current or lane `IVMachineController` from `CVMC_ListSingleton`
+at that field. When the pointer is non-null, destroy calls its slot `+0x10`
+with `view+0x160`. The production-view constructor installs vtable
+`0x140eac9e0` there. The locator names `CProductionView` at offset `0x160`,
+and the base list includes `IVMachineControllerListener` at that
+displacement. Initial update `0x1406af770` calls the same getter and then
+slot `+8` with `view+0x160` before it stores the view at `document+0x5838`.
+Six listener slots are `xor al, al; ret`. Slot `+0x18` calls MFC ordinal
+1032 and returns false. Slot `+0x20` calls `0x1405586b0` and returns false.
+Slot `+0x40` stores `r8d` at listener `+0x58` and returns true. The qword
+after that slot is the string `ProductionView`, so it is not another code
+pointer.
+The direct-call closure of those listener bodies does not include
+`AskToStop`, `ProductionStop`, or `HandlerProduction`, and the bodies do
+not contain displacements `0x2548` or `0x382e` or immediate `0xb1cf`.
+`ViVirtualMachine.dll` implements the controller methods.
+`ViVirtualMachineBuilder.dll` is AMD64, version `70.06.59.00`, size 1,013,248 bytes, SHA-256
+`5e808e294d1f19fa7b8bd5e2d994d4820963d5c1fdea064e572457c9597679b7`,
+preferred base `0x180000000`, and it has no Authenticode signature.
+`BuildVM` allocates the controller and tail-jumps
+`ViVirtualMachine.dll!CVMachineController::CVMachineController(unsigned int)`.
+The implementation DLL is the same version and base, size 1,144,320 bytes,
+SHA-256 `5b62adea102b62a272860bfba72cb787bf74bd006f44fe97453df5121efeeb60`,
+and it is also unsigned. Neither file was loaded or executed. Its constructor
+stores vtable `0x1800ceda8` at offset 0. The locator names
+`CVMachineController` at offset 0, and the exported slot is the
+`IVMachineController` base. Slot `+8` is `Attach`. Slot `+0x10` is the shared
+subject `Detach`: under the critical section at `this+0x20` it scans the
+pointer vector at `this+8`, removes the listener with `memmove`, and returns
+whether an entry was removed. Its only calls are `EnterCriticalSection`,
+`memmove`, and `LeaveCriticalSection`. `Attach` also inserts the listener
+and then queues `QueueUserWorkItem`; destroy calls `Detach`, not that queue.
+This does not join `CProductionThread`. Initial update zeroes the ten
+pointers at `view+0x60b0` through `view+0x60f8`, allocates 0x10 bytes for
+each, and constructs them with `mfc140.dll` ordinal 357. That export is
+`CBrush::CBrush(COLORREF)`: it zeroes the handle at `+8`, stores the
+`CBrush` vtable, and calls `gdi32.dll` `CreateSolidBrush`. Six colors are
+immediates and four come from `user32.dll` `GetSysColor`. Destroy walks
+the five pointers at `view+0x60b0` and the five at `view+0x60d8`. For a
+non-null pointer it calls slot `+8` with edx 1 and then stores zero. Slot
+`+8` is the scalar deleting destructor. edx 1 takes the non-vector branch,
+calls the `CGdiObject` destructor, and then calls CRT `free`. That
+destructor unlinks the handle from the thread GDI map and tail-jumps
+`gdi32.dll` `DeleteObject`. The direct-call closure imports no `user32.dll`
+entry. After the brushes, destroy calls `KillTimer`, the controller detach
+above, `CView` teardown ordinal 9117, and frees its local list through
+ordinal 1032 and ordinal 1487. Ordinal 1487 jumps to CRT `free`. None of
+these calls is `AskToStop` or `ProductionStop`. The callback-retirement
 gate is not promoted.
 
 The [document constructor](rev2a_skip_document_sheet_construction.json) at
@@ -629,7 +1079,25 @@ The [constructor](rev2a_skip_view_construction.json) installs primary vtable
 The [teardown bindings](rev2a_skip_view_teardown_bindings.json) retain deleting
 wrapper `0x1406abf00` and message-map getter `0x1406ac2d0`. Map `0x140eace80`
 has 33 nonzero entries and a terminator: its own `WM_DESTROY` entry selects
-`0x1406af270`, with no own `WM_NCDESTROY` entry. The retained `+0xe0` thunk
+`0x1406af270`, with no own `WM_NCDESTROY` entry and no `WM_CLOSE` entry.
+`WM_SIZE` selects thunk `0x14078055e`, MFC ordinal 11222. That body calls
+`0x18028f370` and both of its tails stay inside `mfc140.dll`. `WM_ERASEBKGND`
+selects `0x1406af450`, which does not call `ProductionStop` or `AskToStop`
+and does not mention `document+0x3868`. Message `0x87d0` selects `0x1406b0710`.
+That handler loads the document from `view+0xe8` and compares `document+0x382d`
+with 1. Its direct calls and the `edx` 7 and 8 arms, which tail-jump
+`0x140742500` and call `InvalidateRect`, do not call `ProductionStop` or
+`AskToStop`. The call through `[view+0x60a0]` is `ccSemaphore::lock` at slot
+`+8` and `ccSemaphore::unlock` at slot `+0x10`. The call through
+`[view+0x4c10+0x120]` is `CDPoint` slot `+0x10`, which copies two qwords from
+its argument and returns. Message `0x113` selects `0x1406b1f20`. Timer id 1
+loads the document from `view+0xe8` and calls `ccSemaphore::lock`. That arm
+does not call `ProductionStop`. View vtable slot `+0x328` is
+`CProductionView::OnInitialUpdate` at `0x1406af770`. It calls `SetTimer` for
+ids 1 and 8 before it compares `document+0x382d` with 0. The not-equal side
+jumps to a null check of `view+0xe8`. Neither side calls `ProductionStop`. `WM_DESTROY` calls `KillTimer` with id 5.
+`OnCloseDocument`, the document destructor, and the view destructor do not
+call `KillTimer`. The retained `+0xe0` thunk
 is `CScrollView::CalcWindowRect`, not a destruction hook.
 
 The [production WM_DESTROY handler](rev2a_skip_view_destroy_handler.json)
@@ -726,9 +1194,14 @@ handle reuse safety, or Windows message retirement.
 The [production destructor](rev2a_skip_view_destructor.json), `0x1406abc60`,
 stops/deletes its CAD engine and destroys many members before tail-calling
 `CFormView::~CFormView` through thunk `0x140780570`, ordinal 1125 /
-`0x18027ef90`. The retained base destructors continue through `0x18028c620`
+`0x18027ef90`. Its first conditional call is `CCadEngine::StopEngine` on `view+0x170`. That function posts message `0x12` to the `CCadEngineThread` at `engine+0x138` and waits on that object's `+0x58`. `StartEngine` allocates the thread, and MFC ordinal 3529 stores the `_beginthreadex` handle at `+0x58` and the thread id at `+0x60`. `StopEngine` then calls that thread's slot `+8` with edx 1 and stores null. The handle is not `document+0x3868`. Ordinal 1125 then calls the engine's slot `+0` with edx 1. The function does not call `ProductionStop` or mention `document+0x3868`. Its direct callees that have exception entries do not either. Three thunks follow the temp-path calls. With `edx` zero, ordinal 12215 calls `DeleteFileA`. Ordinal 1421 runs on `view+0x6f18` and can call `DestroyWindow` on that member's `+0x40`. Ordinal 1425 frees the pointer at `[view+0x6ec8]+8`. The later `lock xadd` releases `view+0x1b0`. None of those fields is `document+0x3868`. The retained base destructors continue through `0x18028c620`
 to `0x18027bf00`; the latter calls `0x18021fae0(document, view)` at
-`0x18027bf84` when `view+0xe8` is nonzero. CAD-engine stop is not proof of
+`0x18027bf84` when `view+0xe8` is nonzero. That body and its direct calls
+contain no store of `document+0x5838`. The deleting wrapper `0x1406abf00`
+calls this destructor and then, when edx bit 0 is set, frees the view
+through ordinal 1487. `RemoveView` clears `view+0xe8` and leaves the
+document's published view pointer in place. The producer reloads that
+pointer from the still-published document. CAD-engine stop is not proof of
 inspection-worker drain, and earlier member/observer callbacks remain relevant.
 
 **Document detach ordering.** [RemoveView `0x18021fae0`](rev2a_mfc140_remove_view.json)
@@ -907,7 +1380,35 @@ station MFC 14 intake above supersedes that acquisition status.
 	detach. ExecuteSkip's posts run on `CProductionThread::Handler`.
 	`ProductionStop` polls `CViThread::Stop` with timeout zero and can dispatch
 	messages before the thread exits. `OnCloseDocument` and the document
-	destructor do not call that stop. A null HWND is a thread message. The application map has no entry
+	destructor do not call that stop. The message `OnCloseDocument` posts
+	before MFC close is `0x52c` wParam 6, and that arm does not call
+	`AskToStop` or `ProductionStop`. The wParam 2 arm is reached from
+	`WM_COMMAND` `0xb1cf` on the `PROD_VIEW_COMMAND` child, whose button uses
+	that id. Close does not call that button's create and `.text` has no other
+	immediate `0xb1cf`. The direct-call closure of close, destroy, the
+	destructor, and `OnCmdMsg` does not reach `AskToStop`. The destructor
+	stores the `AskToStop` vtable at `+0x2548` without calling slot `+8`.
+	Production-view `WM_DESTROY` does call `CCAPM` slot `+0x198`
+	(`0x14075d6b0`) on `CAVisionApp+0x1b0`. That path indexes a `CCAPM`
+	pointer vector and, on the ordinary tail, updates a locked vector in
+	`0x1406109f0`. Neither that function nor the direct-call closure of
+	`0x14075d6b0` calls `AskToStop` or `ProductionStop`. Destroy's code
+	is the constant `0xb`. When the indexed entry exists and
+	`[entry+0x3928] == 4`, that code matches the function's second list
+	and the vector update is skipped. Destroy then calls
+	`IVMachineController` slot `+0x10` with the
+	`IVMachineControllerListener` subobject at `view+0x160`. Initial
+	update calls slot `+8` with the same subobject before publishing
+	`document+0x5838`. The listener methods in this executable do not
+	call `AskToStop` or `ProductionStop`. Slot `+0x10` of the constructed
+	`CVMachineController` is a listener `Detach`: it unlinks the pointer
+	under `this+0x20` and does not call `AskToStop` or `ProductionStop`.
+	The implementation is in `ViVirtualMachine.dll`; the builder DLL only
+	forwards the constructor. The ten pointers at `view+0x60b0` through
+	`view+0x60f8` are `CBrush` objects from `mfc140.dll` ordinal 357.
+	Destroy calls their slot `+8` with edx 1, which deletes the GDI brush
+	and frees the object. It does not call `AskToStop` or `ProductionStop`.
+	A null HWND is a thread message. The application map has no entry
 	for it, and on this host `DispatchMessageA` does not call a window
 	procedure. `CExtMenuControlBar` slot `+0xa90` returns zero for this registered
 	id, and its sends use constant message ids. Ordinal 11812 calls
@@ -918,7 +1419,31 @@ station MFC 14 intake above supersedes that acquisition status.
 	`OnChangedViewList`. The `WH_CBT` hook subclasses the new HWND to a
 	procedure that calls `AfxWndProc`, and message 1 then reaches that handler
 	through `CWnd::OnWndMsg`.
-- Shared synchronization for SKIP refresh, RegistrySave, reset, and destruction.
+- Shared synchronization for SKIP refresh and reset is absent. `0x14067ab20` and
+	`0x14067a420` are called only from refresh `0x1406adaf0`, around `SkipList_Get`.
+	The five reset callers do not call them. `CDataCao::~CDataCao`'s direct-call
+	closure imports no `user32`. `SkipList_Reset` passes the array at
+	`document+0x23e0` to `mfc140.dll` ordinal 13522 with size 0 and grow-by -1.
+	That ordinal's zero-size path calls `free` on the data pointer and stores
+	zero at `+8`, `+0x18`, and `+0x10`. It does not enter a critical section.
+	The negative-size branch is what reaches the throw. Refresh still reloads
+	`[array+8]` and `[array+0x10]` on the live object. Its direct-call closure
+	and the reset callers both enter critical sections in `0x140780a98`,
+	`0x140780af8`, and `0x140780bbc`; those helpers do not call
+	`SkipList_Reset`. The reloads remain in refresh, after the string-list call.
+	Reset also enters the critical section in `0x140578c80`, which refresh does
+	not reach. Those three shared helpers enter a global section, update
+	thread-local state, and leave before returning, so they do not cover the
+	reload. `HandlerProduction` posts `0x87d6` at `0x1406a27fa` and calls
+	`SkipList_Reset` at `0x1406a2d87` with no wait, send, or critical-section
+	import between those addresses. The only `.rdata` entry for `0x87d6` selects
+	`0x1406b2320`, whose direct-call closure contains neither refresh nor
+	`SkipList_Reset`. `0x1406a2b79` does call `0x140685b70` before the reset.
+	That function sends the id in `0x141193470`, registered from
+	`{5D5B3537-9C21-4d59-AEB5-EA30A0D68618}`. The skip GUID's only value loads
+	are `PostMessageA` at `0x1406a1031`, `0x1406a106b`, and `0x140736fe1`.
+	The send's direct-call closure contains neither refresh nor `0x1406b0700`.
+	Close still does not join the producer.
 - Allocation/reuse identity and upstream admission/exception containment.
 
 See [entry-gate evidence](rev2a-entry-gates.md) and the

@@ -1,0 +1,48 @@
+{
+  "program": "ProfUISm.dll",
+  "functions": 35653,
+  "click_handlers": [
+    {
+      "name": "CExtFormulaGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801ab170",
+      "body": 1047,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_1801ab170.c",
+      "c_bytes": 6360
+    },
+    {
+      "name": "CExtGridBaseWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801ff170",
+      "body": 59,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_1801ff170.c",
+      "c_bytes": 638
+    },
+    {
+      "name": "CExtGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801ff1b0",
+      "body": 1373,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_1801ff1b0.c",
+      "c_bytes": 8053
+    },
+    {
+      "name": "CExtPropertyGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "18037e940",
+      "body": 1037,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_18037e940.c",
+      "c_bytes": 4317
+    },
+    {
+      "name": "CExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "18038e680",
+      "body": 291,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_18038e680.c",
+      "c_bytes": 1881
+    },
+    {
+      "name": "CExtTreeGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "180479290",
+      "body": 402,
+      "decomp": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\ProfUISm_click_180479290.c",
+      "c_bytes": 2256
+    }
+  ]
+}

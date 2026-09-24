@@ -1,0 +1,261 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x1405c4ae0",
+    "--pointer-to",
+    "0x1405c4ae0",
+    "--output",
+    "maps/rev2a_skip_policy_dialog_handler.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nvoid FUN_1405c4ae0(CExtResizableDialog *param_1)\r\n\r\n{\r\n  int iVar1;\r\n  AFX_MODULE_STATE *pAVar2;\r\n  undefined8 uVar3;\r\n  \r\n  pAVar2 = AfxGetModuleState();\r\n  uVar3 = __RTDynamicCast(*(undefined8 *)(pAVar2 + 8),0,&CWinApp::RTTI_Type_Descriptor,\r\n                          &CAVisionApp::RTTI_Type_Descriptor,0);\r\n  iVar1 = FUN_1404e0b60(uVar3,2);\r\n  if (iVar1 != 0) {\r\n    param_1[0xa40] = (CExtResizableDialog)0x1;\r\n                    /* WARNING: Could not recover jumptable at 0x0001405c4b2f. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n    CExtResizableDialog::OnOK(param_1);\r\n    return;\r\n  }\r\n  return;\r\n}\r\n\r\n",
+      "entry": "1405c4ae0",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412c880c",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1405c4ae0",
+          "bytes": "4053",
+          "references": [],
+          "text": "PUSH RBX"
+        },
+        {
+          "address": "1405c4ae2",
+          "bytes": "4883ec30",
+          "references": [],
+          "text": "SUB RSP,0x30"
+        },
+        {
+          "address": "1405c4ae6",
+          "bytes": "488bd9",
+          "references": [],
+          "text": "MOV RBX,RCX"
+        },
+        {
+          "address": "1405c4ae9",
+          "bytes": "e808ad1b00",
+          "references": [
+            {
+              "symbol": "MFC140.DLL::AfxGetModuleState",
+              "to": "14077f7f6",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14077f7f6"
+        },
+        {
+          "address": "1405c4aee",
+          "bytes": "4c8d0dfb05b100",
+          "references": [
+            {
+              "symbol": "CAVisionApp::RTTI_Type_Descriptor",
+              "to": "1410d50f0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R9,[0x1410d50f0]"
+        },
+        {
+          "address": "1405c4af5",
+          "bytes": "c744242000000000",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x18]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV dword ptr [RSP + 0x20],0x0"
+        },
+        {
+          "address": "1405c4afd",
+          "bytes": "4c8d05cc05b100",
+          "references": [
+            {
+              "symbol": "CWinApp::RTTI_Type_Descriptor",
+              "to": "1410d50d0",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA R8,[0x1410d50d0]"
+        },
+        {
+          "address": "1405c4b04",
+          "bytes": "33d2",
+          "references": [],
+          "text": "XOR EDX,EDX"
+        },
+        {
+          "address": "1405c4b06",
+          "bytes": "488b4808",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RAX + 0x8]"
+        },
+        {
+          "address": "1405c4b0a",
+          "bytes": "e829171e00",
+          "references": [
+            {
+              "symbol": "VCRUNTIME140.DLL::__RTDynamicCast",
+              "to": "1407a6238",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1407a6238"
+        },
+        {
+          "address": "1405c4b0f",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "1405c4b12",
+          "bytes": "ba02000000",
+          "references": [],
+          "text": "MOV EDX,0x2"
+        },
+        {
+          "address": "1405c4b17",
+          "bytes": "e844c0f1ff",
+          "references": [
+            {
+              "symbol": "FUN_1404e0b60",
+              "to": "1404e0b60",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1404e0b60"
+        },
+        {
+          "address": "1405c4b1c",
+          "bytes": "85c0",
+          "references": [],
+          "text": "TEST EAX,EAX"
+        },
+        {
+          "address": "1405c4b1e",
+          "bytes": "7416",
+          "references": [
+            {
+              "symbol": "LAB_1405c4b36",
+              "to": "1405c4b36",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x1405c4b36"
+        },
+        {
+          "address": "1405c4b20",
+          "bytes": "488bcb",
+          "references": [],
+          "text": "MOV RCX,RBX"
+        },
+        {
+          "address": "1405c4b23",
+          "bytes": "c683400a000001",
+          "references": [],
+          "text": "MOV byte ptr [RBX + 0xa40],0x1"
+        },
+        {
+          "address": "1405c4b2a",
+          "bytes": "4883c430",
+          "references": [],
+          "text": "ADD RSP,0x30"
+        },
+        {
+          "address": "1405c4b2e",
+          "bytes": "5b",
+          "references": [],
+          "text": "POP RBX"
+        },
+        {
+          "address": "1405c4b2f",
+          "bytes": "48ff2572507900",
+          "references": [
+            {
+              "symbol": "PTR_OnOK_140d59ba8",
+              "to": "140d59ba8",
+              "type": "INDIRECTION"
+            },
+            {
+              "symbol": "PROFUISM.DLL::CExtResizableDialog::OnOK",
+              "to": "EXTERNAL:00000878",
+              "type": "COMPUTED_JUMP"
+            }
+          ],
+          "text": "JMP qword ptr [0x140d59ba8]"
+        },
+        {
+          "address": "1405c4b36",
+          "bytes": "4883c430",
+          "references": [],
+          "text": "ADD RSP,0x30"
+        },
+        {
+          "address": "1405c4b3a",
+          "bytes": "5b",
+          "references": [],
+          "text": "POP RBX"
+        },
+        {
+          "address": "1405c4b3b",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1405c4ae0",
+      "requested_address": "1405c4ae0"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [
+    {
+      "address": "1405c4ae0",
+      "direct_references": [
+        {
+          "from": "1412c880c",
+          "stored_qword": "5c4b3c005c4ae0",
+          "type": "DATA"
+        }
+      ],
+      "hits": [
+        {
+          "at": "140e72648",
+          "next_function": null,
+          "next_function_name": null,
+          "next_qword": "30000000111"
+        }
+      ]
+    }
+  ],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

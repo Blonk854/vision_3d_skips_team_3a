@@ -1,0 +1,200 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    ".\\tools\\ghidra_scripts\\ExtractEntryGateEvidence.py",
+    "--program",
+    "mfc140.dll",
+    "--output",
+    "maps/rev2a_mfc140_view_iterators.json",
+    "0x18021fb40",
+    "0x18021fb50"
+  ],
+  "compiler": "windows",
+  "function_count": 17765,
+  "functions": [
+    {
+      "decompilation": "\r\nundefined8 FUN_18021fb40(longlong param_1)\r\n\r\n{\r\n                    /* 0x21fb40  5392   */\r\n  return *(undefined8 *)(param_1 + 0x60);\r\n}\r\n\r\n",
+      "entry": "18021fb40",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802db132",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802f8928",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180335160",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180336e90",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "18021fb40",
+          "bytes": "488b4160",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RCX + 0x60]"
+        },
+        {
+          "address": "18021fb44",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_18021fb40",
+      "requested_address": "18021fb40"
+    },
+    {
+      "decompilation": "\r\nundefined8 FUN_18021fb50(undefined8 param_1,longlong *param_2)\r\n\r\n{\r\n  longlong *plVar1;\r\n  \r\n                    /* 0x21fb50  5953  \r\n                       0x21fb50  5961   */\r\n  plVar1 = (longlong *)*param_2;\r\n  if (plVar1 == (longlong *)0x0) {\r\n    return 0;\r\n  }\r\n  *param_2 = *plVar1;\r\n  return plVar1[2];\r\n}\r\n\r\n",
+      "entry": "18021fb50",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802db137",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "Entry Point",
+          "type": "EXTERNAL"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802f8930",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1802f8a88",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180335168",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1803352c0",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180336e98",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "180336ff0",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "18021fb50",
+          "bytes": "488b02",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RDX]"
+        },
+        {
+          "address": "18021fb53",
+          "bytes": "4885c0",
+          "references": [],
+          "text": "TEST RAX,RAX"
+        },
+        {
+          "address": "18021fb56",
+          "bytes": "7501",
+          "references": [
+            {
+              "symbol": "LAB_18021fb59",
+              "to": "18021fb59",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JNZ 0x18021fb59"
+        },
+        {
+          "address": "18021fb58",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        },
+        {
+          "address": "18021fb59",
+          "bytes": "488b08",
+          "references": [],
+          "text": "MOV RCX,qword ptr [RAX]"
+        },
+        {
+          "address": "18021fb5c",
+          "bytes": "48890a",
+          "references": [],
+          "text": "MOV qword ptr [RDX],RCX"
+        },
+        {
+          "address": "18021fb5f",
+          "bytes": "488b4010",
+          "references": [],
+          "text": "MOV RAX,qword ptr [RAX + 0x10]"
+        },
+        {
+          "address": "18021fb63",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_18021fb50",
+      "requested_address": "18021fb50"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "0cf26008fae0cb61dfe49e1c3fc17e0dd860be011d9a6a64b452f56335bafbfe",
+  "source_size": 5784856
+}

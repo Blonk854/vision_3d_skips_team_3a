@@ -1,0 +1,71 @@
+{
+  "ctor_refs": [
+    {
+      "to": "14045cbd0",
+      "symbols": [
+        "FUN_14045cbd0"
+      ]
+    },
+    {
+      "to": "14045cd50",
+      "symbols": [
+        "FUN_14045cd50"
+      ]
+    },
+    {
+      "to": "140d53dc0",
+      "symbols": [
+        "PTR_CVitExtReportGridWnd_140d53dc0"
+      ]
+    },
+    {
+      "to": "140d5bbb8",
+      "symbols": [
+        "PTR_CImageListErrorProfUIS_140d5bbb8"
+      ]
+    },
+    {
+      "to": "140d5f110",
+      "symbols": [
+        "PTR_CStringT<char,StrTraitMFC_DLL<char,ATL::ChTraitsCRT<char>_>_>_140d5f110"
+      ]
+    },
+    {
+      "to": "140dd88e8",
+      "symbols": [
+        "CAnomaliesGridWnd::vftable"
+      ]
+    },
+    {
+      "to": "140dd9bf0",
+      "symbols": [
+        "CAnomaliesGridWnd::vftable"
+      ]
+    },
+    {
+      "to": "140dd9c08",
+      "symbols": [
+        "CAnomaliesGridWnd::vftable"
+      ]
+    },
+    {
+      "to": "140dd9c60",
+      "symbols": [
+        "CAnomaliesGridWnd::vftable"
+      ]
+    },
+    {
+      "to": "140dd9c88",
+      "symbols": [
+        "CAnomaliesGridWnd::vftable"
+      ]
+    },
+    {
+      "to": "140dd9ca8",
+      "symbols": [
+        "CAnomaliesGridWnd::vftable"
+      ]
+    }
+  ],
+  "vt_syms": []
+}

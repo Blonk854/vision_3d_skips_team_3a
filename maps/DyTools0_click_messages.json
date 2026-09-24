@@ -1,0 +1,378 @@
+{
+  "program": "DyTools0.dll",
+  "messages": [
+    {
+      "address": "18026dde8",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040b41",
+          "function": "FUN_180040b30"
+        },
+        {
+          "from": "18011548b",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026ddec",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040b21",
+          "function": "FUN_180040b10"
+        },
+        {
+          "from": "1801154ca",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026ddf0",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040b01",
+          "function": "FUN_180040af0"
+        },
+        {
+          "from": "18011550d",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026ddf4",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040c01",
+          "function": "FUN_180040bf0"
+        },
+        {
+          "from": "180115554",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026ddf8",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040be1",
+          "function": "FUN_180040bd0"
+        },
+        {
+          "from": "180115593",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026ddfc",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040bc1",
+          "function": "FUN_180040bb0"
+        },
+        {
+          "from": "1801155d6",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026de00",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040ba1",
+          "function": "FUN_180040b90"
+        },
+        {
+          "from": "18011561d",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026de04",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040b81",
+          "function": "FUN_180040b70"
+        },
+        {
+          "from": "180115659",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    },
+    {
+      "address": "18026de08",
+      "value": 0,
+      "value_hex": "0x0",
+      "refs": [
+        {
+          "from": "180040b61",
+          "function": "FUN_180040b50"
+        },
+        {
+          "from": "180115695",
+          "function": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent"
+        }
+      ]
+    }
+  ],
+  "vit_interesting_methods": [
+    {
+      "name": "CVitExtReportGridWnd::AddCellButton",
+      "entry": "180112790"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellButton",
+      "entry": "180112800"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellCheck",
+      "entry": "1801128e0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellCheck",
+      "entry": "180112960"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellCombo",
+      "entry": "180112a80"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellCombo",
+      "entry": "180112b10"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellHorizontalAlignment",
+      "entry": "180112c40"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellIcon",
+      "entry": "180112c70"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellIcon",
+      "entry": "180112cf0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellNum",
+      "entry": "180112e40"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellNum",
+      "entry": "180112ec0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellNum",
+      "entry": "180112f40"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellNum",
+      "entry": "180112fc0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellNum",
+      "entry": "1801130b0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellNum",
+      "entry": "1801131a0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellString",
+      "entry": "1801132b0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddCellString",
+      "entry": "180113330"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "180113430"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "1801134b0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "180113530"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddHeaderColumn",
+      "entry": "1801136e0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::AddRow",
+      "entry": "1801137d0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::ClearRows",
+      "entry": "180113890"
+    },
+    {
+      "name": "CVitExtReportGridWnd::DeleteRow",
+      "entry": "1801138a0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::DeleteRow",
+      "entry": "1801138d0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::DeleteSelectedRows",
+      "entry": "1801138f0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "180114520"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "1801145b0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "180114610"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "1801146b0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "180114740"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "180114750"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "180114760"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCell",
+      "entry": "180114770"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCellText",
+      "entry": "180114780"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCellText",
+      "entry": "1801147e0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCellText",
+      "entry": "180114850"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetCellText",
+      "entry": "1801148b0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "entry": "180114e00"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetReportGridItemFromNumRow",
+      "entry": "180114e60"
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetSelectedRowsList",
+      "entry": "180114e80"
+    },
+    {
+      "name": "CVitExtReportGridWnd::HasHeaderColumn",
+      "entry": "1801150a0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::HasSelection",
+      "entry": "1801150e0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::OnClickLeftBtnDoubleInnerCell",
+      "entry": "180115300"
+    },
+    {
+      "name": "CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+      "entry": "180115310"
+    },
+    {
+      "name": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801153d0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::SelectAll",
+      "entry": "1801157f0"
+    },
+    {
+      "name": "CVitExtReportGridWnd::SetStyleColumnAutoSizing",
+      "entry": "180115890"
+    }
+  ],
+  "dumped_helpers": [
+    {
+      "name": "CVitExtReportGridWnd::DeleteSelectedRows",
+      "entry": "1801138f0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_vit_1801138f0.c",
+      "bytes": 566
+    },
+    {
+      "name": "CVitExtReportGridWnd::GetSelectedRowsList",
+      "entry": "180114e80",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_vit_180114e80.c",
+      "bytes": 1748
+    },
+    {
+      "name": "CVitExtReportGridWnd::HasSelection",
+      "entry": "1801150e0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_vit_1801150e0.c",
+      "bytes": 402
+    },
+    {
+      "name": "CVitExtReportGridWnd::OnClickLeftBtnDoubleInnerCell",
+      "entry": "180115300",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_vit_180115300.c",
+      "bytes": 1503
+    },
+    {
+      "name": "CVitExtReportGridWnd::OnClickRightBtnUpInnerCell",
+      "entry": "180115310",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_vit_180115310.c",
+      "bytes": 1098
+    },
+    {
+      "name": "CVitExtReportGridWnd::OnGbwAnalyzeCellMouseClickEvent",
+      "entry": "1801153d0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_vit_1801153d0.c",
+      "bytes": 4122
+    },
+    {
+      "name": "CVitExtReportGridWnd::SelectAll",
+      "entry": "1801157f0",
+      "path": "C:\\Users\\s_sme\\Documents\\Projects\\vision_3d_skips\\maps\\decomp\\DyTools0_vit_1801157f0.c",
+      "bytes": 905
+    }
+  ]
+}

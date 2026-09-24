@@ -1,0 +1,228 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "byte_stores": [],
+  "command": [
+    ".\\tools\\ghidra_scripts\\ExtractEntryGateEvidence.py",
+    "--output",
+    "maps/rev2a_skip_view_factory.json",
+    "0x1406ac4b0",
+    "0x1406ac010"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\nundefined ** FUN_1406ac4b0(void)\r\n\r\n{\r\n  return &PTR_s_CProductionView_140eac618;\r\n}\r\n\r\n",
+      "entry": "1406ac4b0",
+      "incoming": [
+        {
+          "caller": "1404d2820",
+          "caller_name": "FUN_1404d2820",
+          "from": "1404d3605",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1404d2820",
+          "caller_name": "FUN_1404d2820",
+          "from": "1404d3662",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eac650",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1406ac4b0",
+          "bytes": "488d0561018000",
+          "references": [
+            {
+              "symbol": "PTR_s_CProductionView_140eac618",
+              "to": "140eac618",
+              "type": "DATA"
+            }
+          ],
+          "text": "LEA RAX,[0x140eac618]"
+        },
+        {
+          "address": "1406ac4b7",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1406ac4b0",
+      "requested_address": "1406ac4b0"
+    },
+    {
+      "decompilation": "\r\nundefined8 FUN_1406ac010(void)\r\n\r\n{\r\n  longlong lVar1;\r\n  undefined8 uVar2;\r\n  \r\n  lVar1 = FUN_14076d550(0x7018);\r\n  if (lVar1 == 0) {\r\n    uVar2 = 0;\r\n  }\r\n  else {\r\n    uVar2 = FUN_1406ab570(lVar1);\r\n  }\r\n  return uVar2;\r\n}\r\n\r\n",
+      "entry": "1406ac010",
+      "incoming": [
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "1412d0108",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140fd8b00",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eac628",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "1406ac010",
+          "bytes": "4883ec38",
+          "references": [],
+          "text": "SUB RSP,0x38"
+        },
+        {
+          "address": "1406ac014",
+          "bytes": "48c7442420feffffff",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[-0x18]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x20],-0x2"
+        },
+        {
+          "address": "1406ac01d",
+          "bytes": "b918700000",
+          "references": [],
+          "text": "MOV ECX,0x7018"
+        },
+        {
+          "address": "1406ac022",
+          "bytes": "e829150c00",
+          "references": [
+            {
+              "symbol": "FUN_14076d550",
+              "to": "14076d550",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x14076d550"
+        },
+        {
+          "address": "1406ac027",
+          "bytes": "4889442440",
+          "references": [
+            {
+              "symbol": null,
+              "to": "Stack[0x8]",
+              "type": "WRITE"
+            }
+          ],
+          "text": "MOV qword ptr [RSP + 0x40],RAX"
+        },
+        {
+          "address": "1406ac02c",
+          "bytes": "4885c0",
+          "references": [],
+          "text": "TEST RAX,RAX"
+        },
+        {
+          "address": "1406ac02f",
+          "bytes": "740b",
+          "references": [
+            {
+              "symbol": "LAB_1406ac03c",
+              "to": "1406ac03c",
+              "type": "CONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JZ 0x1406ac03c"
+        },
+        {
+          "address": "1406ac031",
+          "bytes": "488bc8",
+          "references": [],
+          "text": "MOV RCX,RAX"
+        },
+        {
+          "address": "1406ac034",
+          "bytes": "e837f5ffff",
+          "references": [
+            {
+              "symbol": "FUN_1406ab570",
+              "to": "1406ab570",
+              "type": "UNCONDITIONAL_CALL"
+            }
+          ],
+          "text": "CALL 0x1406ab570"
+        },
+        {
+          "address": "1406ac039",
+          "bytes": "90",
+          "references": [],
+          "text": "NOP"
+        },
+        {
+          "address": "1406ac03a",
+          "bytes": "eb02",
+          "references": [
+            {
+              "symbol": "LAB_1406ac03e",
+              "to": "1406ac03e",
+              "type": "UNCONDITIONAL_JUMP"
+            }
+          ],
+          "text": "JMP 0x1406ac03e"
+        },
+        {
+          "address": "1406ac03c",
+          "bytes": "33c0",
+          "references": [],
+          "text": "XOR EAX,EAX"
+        },
+        {
+          "address": "1406ac03e",
+          "bytes": "4883c438",
+          "references": [],
+          "text": "ADD RSP,0x38"
+        },
+        {
+          "address": "1406ac042",
+          "bytes": "c3",
+          "references": [],
+          "text": "RET"
+        }
+      ],
+      "name": "FUN_1406ac010",
+      "requested_address": "1406ac010"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}

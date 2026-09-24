@@ -1,0 +1,125 @@
+{
+  "address_references": [],
+  "architecture": "AMD64",
+  "command": [
+    "tools/ghidra_scripts/ExtractEntryGateEvidence.py",
+    "0x14077f754",
+    "--output",
+    "maps/rev2a_skip_embedded_window_virtual.json"
+  ],
+  "compiler": "windows",
+  "function_count": 138607,
+  "functions": [
+    {
+      "decompilation": "\r\n__int64 __thiscall CPropertySheet::DoModal(CPropertySheet *this)\r\n\r\n{\r\n  __int64 _Var1;\r\n  \r\n                    /* WARNING: Could not recover jumptable at 0x00014077f754. Too many branches */\r\n                    /* WARNING: Treating indirect jump as call */\r\n  _Var1 = DoModal(this);\r\n  return _Var1;\r\n}\r\n\r\n",
+      "entry": "14077f754",
+      "incoming": [
+        {
+          "caller": "1404d7440",
+          "caller_name": "FUN_1404d7440",
+          "from": "1404d74e0",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1405d0db0",
+          "caller_name": "FUN_1405d0db0",
+          "from": "1405d0efa",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "1406f99e0",
+          "caller_name": "FUN_1406f99e0",
+          "from": "1406f9a7b",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": "140634360",
+          "caller_name": "FUN_140634360",
+          "from": "1406344cd",
+          "type": "UNCONDITIONAL_CALL"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140dddad0",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140dde0a8",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140e3e100",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140e6e5d0",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eb0640",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140eb66c8",
+          "type": "DATA"
+        },
+        {
+          "caller": null,
+          "caller_name": null,
+          "from": "140ebc660",
+          "type": "DATA"
+        }
+      ],
+      "instructions": [
+        {
+          "address": "14077f754",
+          "bytes": "ff252ef55d00",
+          "references": [
+            {
+              "symbol": "PTR_DoModal_140d5ec88",
+              "to": "140d5ec88",
+              "type": "INDIRECTION"
+            },
+            {
+              "symbol": "MFC140.DLL::CPropertySheet::DoModal",
+              "to": "EXTERNAL:00001963",
+              "type": "COMPUTED_JUMP"
+            }
+          ],
+          "text": "JMP qword ptr [0x140d5ec88]"
+        }
+      ],
+      "name": "MFC140.DLL::CPropertySheet::DoModal",
+      "requested_address": "14077f754"
+    }
+  ],
+  "ghidra_version": "12.1",
+  "indirect_slots": [],
+  "instruction_bytes_match_stock": true,
+  "java_version": "25.0.3",
+  "jpype": "1.7.1",
+  "limitations": [
+    "Only saved analysis is visible; active-session unsaved analysis is excluded.",
+    "Indirect calls and missing references are not proof of absence.",
+    "Static evidence does not prove runtime scheduling or supported workload limits."
+  ],
+  "mode": "saved-project-read-only; no analysis; no target execution",
+  "pointer_references": [],
+  "pyghidra": "3.1.0",
+  "python": "3.14.5 (tags/v3.14.5:5607950, May 10 2026, 10:43:50) [MSC v.1944 64 bit (AMD64)]",
+  "python_executable": "C:\\Users\\s_sme\\Documents\\ghidra-headless-mcp\\.venv\\Scripts\\python.exe",
+  "schema": 1,
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "source_size": 28738048
+}
