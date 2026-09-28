@@ -14,3 +14,4 @@ _ghidra*
 *.gpr
 *.rep/
 __pycache__/
+.venv/
