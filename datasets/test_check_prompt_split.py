@@ -1,11 +1,11 @@
-"""The split check must fail when prompts overlap or an assistant answer is missing from one file."""
+"""The split check fails on overlap or a missing answer, and the real dataset files pass."""
 
 import importlib.util
 import io
 import json
 import tempfile
 import unittest
-from contextlib import redirect_stderr
+from contextlib import redirect_stderr, redirect_stdout
 from pathlib import Path
 
 SCRIPT_PATH = Path(__file__).resolve().parent / "check_prompt_split.py"
@@ -91,6 +91,16 @@ class PromptSplitTests(unittest.TestCase):
         self.assertEqual(code, 1)
         self.assertIn(missing, stderr.getvalue())
         self.assertIn("train 1, validation 0", stderr.getvalue())
+
+    def test_real_dataset_passes(self):
+        stdout = io.StringIO()
+        stderr = io.StringIO()
+        with redirect_stdout(stdout), redirect_stderr(stderr):
+            code = CHECK.main()
+
+        self.assertEqual(code, 0, stderr.getvalue())
+        self.assertIn("each of 5 assistant answers", stdout.getvalue())
+        self.assertEqual(stderr.getvalue(), "")
 
 
 if __name__ == "__main__":
