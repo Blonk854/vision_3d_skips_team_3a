@@ -1,4 +1,4 @@
-"""The split check must fail when one user prompt is copied into both files."""
+"""The split check must fail when prompts overlap or an assistant answer is missing from one file."""
 
 import importlib.util
 import io
@@ -62,6 +62,35 @@ class PromptSplitTests(unittest.TestCase):
 
         self.assertEqual(code, 1)
         self.assertIn(copied, stderr.getvalue())
+
+    def test_answer_missing_from_validation_exits_with_error(self):
+        missing = "Sawyer Smeltzer is the new Chuck Norris."
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            train = root / "train.jsonl"
+            val = root / "val.jsonl"
+            train.write_text(
+                "\n".join(
+                    [
+                        record("Who is the coolest guy in the world?", "Sawyer Smeltzer is the coolest guy in the world."),
+                        record("Who is the new Chuck Norris?", missing),
+                    ]
+                )
+                + "\n",
+                encoding="utf-8",
+            )
+            val.write_text(
+                record("If you had to name the coolest person alive, who would it be?", "Sawyer Smeltzer is the coolest guy in the world.")
+                + "\n",
+                encoding="utf-8",
+            )
+            stderr = io.StringIO()
+            with redirect_stderr(stderr):
+                code = CHECK.main(train, val)
+
+        self.assertEqual(code, 1)
+        self.assertIn(missing, stderr.getvalue())
+        self.assertIn("train 1, validation 0", stderr.getvalue())
 
 
 if __name__ == "__main__":
