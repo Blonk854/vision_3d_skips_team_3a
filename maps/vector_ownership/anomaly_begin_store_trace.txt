@@ -1,0 +1,43 @@
+Read-only decompile of v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe.
+Image base 0x140000000. Constructor FUN_14066e1d0 leaves CProdCarte+0x18/+0x20/+0x28 zero.
+
+FUN_1404e1ff0 does not allocate that vector. Its second argument is an existing
+CAnomalieProd slot (it reads +0x2c, +0x18, +0x28). Callers pass index*0x370 + begin.
+
+FUN_140674e70 is the destructor of this vector. It destroys elements, calls
+FUN_140674ff0 to operator_delete the buffer, then stores null in begin/end/capacity.
+
+The non-null store is FUN_140674c90:
+
+  lVar2 = FUN_140674f00();          // operator new via FUN_14076d550(count * 0x370)
+  param_1[2] = param_2 * 0x370 + lVar2;   // capacity, object+0x28
+  param_1[1] = old_size * 0x370 + lVar2;  // end, object+0x20
+  *param_1 = lVar2;                       // begin, object+0x18
+
+Only caller: FUN_140674da0 (grow; from an empty vector the new capacity equals
+the requested count). Callers of that grower:
+
+  FUN_140675160  resize
+  FUN_140675070  push_back, then end += 0x370
+
+Those two are reached only from:
+
+  FUN_140674570(carte, count)  clear via FUN_140674f80, then resize carte+0x18
+  FUN_14066e900(dest, src)     copy-assign; resize and push into dest+0x18
+
+Product calls that pass a CProdCarte and therefore cause the first store when
+the vector is still empty and count > 0:
+
+  PV_AffectIndResult (0x1405315a0)
+    FUN_140674570(param_1,
+        ((this+0x2480 - this+0x2478) >> 3) + sum(FUN_14052b7c0 over this+0x2448, stride 0x28))
+  FUN_14068f0f0
+    FUN_140674570(zone[i], (zone[0].end - zone[0].begin) / 0x370)
+    FUN_140674570(document+0x5888, NbTest_NeedAnomalie)
+  FUN_140692af0
+    FUN_14066e900(document+0x5888, zone[document+0x5c98])
+
+PV_AffectIndResult is the call that sizes the carte from the caller's component
+lists. FUN_14068f0f0 then sizes other zones to zone 0's count, and sizes the
+embedded carte at document+0x5888. The copy into that embedded carte is
+FUN_14066e900.
