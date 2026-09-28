@@ -29,9 +29,9 @@ def load_messages(path: Path) -> tuple[list[str], list[str]]:
     return prompts, answers
 
 
-def main() -> int:
-    train_prompts, train_answers = load_messages(TRAIN_PATH)
-    val_prompts, val_answers = load_messages(VAL_PATH)
+def main(train_path: Path = TRAIN_PATH, val_path: Path = VAL_PATH) -> int:
+    train_prompts, train_answers = load_messages(train_path)
+    val_prompts, val_answers = load_messages(val_path)
     failed = False
 
     overlap = sorted(set(train_prompts) & set(val_prompts))
