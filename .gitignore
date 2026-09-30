@@ -13,6 +13,8 @@ version_debug_files/
 _ghidra*
 *.gpr
 *.rep/
+# Ghidra runtime project locks. Do not use a global *.lock rule; that would hide dependency locks.
+v3d_files_uncomp_copy/*.lock
 __pycache__/
 .venv/
 *~
