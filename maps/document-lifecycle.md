@@ -1443,6 +1443,15 @@ station MFC 14 intake above supersedes that acquisition status.
 	`{5D5B3537-9C21-4d59-AEB5-EA30A0D68618}`. The skip GUID's only value loads
 	are `PostMessageA` at `0x1406a1031`, `0x1406a106b`, and `0x140736fe1`.
 	The send's direct-call closure contains neither refresh nor `0x1406b0700`.
+	`0x1406a2b81` calls `0x1406a9db0` on every fall-through toward the reset.
+	That function calls slot `+0x30` of `[thread+0xeb8]`. The only store of
+	that field is the second argument of `0x1406999f0`, and its only caller
+	passes the return of document slot `+0x230`. Controller vtable
+	`0x1800ceda8` binds `+0x30` to `0x180070ed0`, a read of
+	`[[controller+0x860]+0x10]`. The default arm waits on `thread+0x18` and
+	`thread+0x1a8` for 10 milliseconds with `bWaitAll` clear. The body does
+	not import `SendMessageA`, `PeekMessageA`, or `DispatchMessageA`, and its
+	direct-call closure contains neither refresh nor `0x1406b0700`.
 	Close still does not join the producer.
 - Allocation/reuse identity and upstream admission/exception containment.
 

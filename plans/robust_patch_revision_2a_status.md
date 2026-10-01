@@ -4,6 +4,25 @@ Recorded: 2026-09-22
 
 ## Current decision
 
+Final-mask multiplicity, **still partial** on 2026-09-25. One component call
+reaches `0x140736f47` at most once. A multi-section bound of 2 can enter
+`PanelInspect` twice before reset. The finding is
+[Final-mask multiplicity](#final-mask-multiplicity-2026-09-25).
+The original plan still requires a uniqueness proof before assembly changes.
+
+DWORD arithmetic remains the original plan obligation: prove the products
+against a supported workload maximum, or use justified wider intermediates.
+A 64-bit product candidate is recorded in
+[Wider-intermediate candidate](#wider-intermediate-candidate-2026-09-25).
+It is not implemented, and it does not close the gate.
+
+Callback retirement stays blocked. Stock close, cycle-start, and reset spans
+do not drain the live-array reader. A snapshot and notification candidate is
+recorded in
+[Snapshot and notification candidate](#snapshot-and-notification-candidate-2026-09-24).
+That candidate is not implemented. Earlier sentences that leave the gate
+blocked remain the disposition.
+
 Qualification update, 2026-09-22: the user removed the isolated Windows 7
 Embedded environment requirement and accepted proceeding with the associated
 risk. [W7-QUAL-01](robust_patch_revision_2a.md#w7-qual-01---accepted-qualification-waiver)
@@ -40,7 +59,43 @@ and a native Windows virtual-unwind check of non-executable copied entry bytes.
 This is a startup-only admission suppression candidate, not a repair for
 already-outstanding work or a passed lifecycle gate.
 
-Latest offline checkpoint, 2026-09-24: the send at `0x1406a2b79` calls
+Recorded design, 2026-09-24: a SKIP snapshot/notification alternative for the
+live-array reader is written down. The traced close paths contain no stock
+barrier. Indirect calls and unexpanded virtuals stay outside the stock-barrier
+claim. The production capture set is in
+[Snapshot and notification candidate](#snapshot-and-notification-candidate-2026-09-24).
+The callback-retirement gate stays blocked. This record does not build Rev6
+or authorize a patched executable. See
+[Command-view document](#command-view-document-2026-09-24).
+
+Latest offline checkpoint, 2026-09-24: when `WaitVMC_IsStarted`
+(`0x1406a9db0`) returns 1, `HandlerProduction` calls
+`CProductionThread::PanelWaitCycleStart` (`0x1406a7a40`) at `0x1406a2b91`.
+The return-1 arms are VMC state 6, "VMC is waiting a panel.", and state 7,
+"VMC is loading a panel." Those arms log and return without the 10 ms wait.
+`PanelWaitCycleStart` calls `WaitForMultipleObjects` on `[thread+0x188]`,
+`[thread+0x18]`, and `[thread+0x1a8]`, with count 3, `bWaitAll` 0, and timeout
+2000, or infinite when `[document+0x3848] == 1`. Its body imports neither
+`SendMessageA`, `PeekMessageA`, nor `DispatchMessageA`. The first-handle arm
+returns 1 and does not set `thread+0x32`. The caller stores that return in
+`r12` and joins at `0x1406a2ce3`. While `thread+0x32` is not 1, that join
+falls through toward `SkipList_Reset`. The wait does not drain the live-array
+reader. The callback-retirement gate stays blocked.
+
+Earlier the same day: `HandlerProduction` calls
+`0x1406a9db0` at `0x1406a2b81` before `SkipList_Reset`. That function calls
+slot `+0x30` of the object at `thread+0xeb8`. The only store of that field
+is the second argument of `0x1406999f0`, and its only caller passes the
+return of document slot `+0x230`. The controller vtable `0x1800ceda8` binds
+`+0x30` to `0x180070ed0`, which reads `[controller+0x860]` and returns the
+dword at `+0x10`. The default arm then calls `WaitForMultipleObjects` on
+`thread+0x18` and `thread+0x1a8` with count 2, `bWaitAll` 0, and timeout 10.
+The body imports neither `SendMessageA`, `PeekMessageA`, nor
+`DispatchMessageA`. Its direct-call closure contains neither skip refresh
+nor the skip handler. The wait does not drain the live-array reader. The
+callback-retirement gate stays blocked.
+
+Earlier the same day: the send at `0x1406a2b79` calls
 `0x140685b70` before `SkipList_Reset`, but that function sends the message id
 in `0x141193470`. That id is registered from `{5D5B3537-9C21-4d59-AEB5-EA30A0D68618}`,
 not the skip GUID. The only value loads of the skip ids are three `PostMessageA`
@@ -96,6 +151,324 @@ an ignored semaphore failure. The immediate dispatcher and receiver have no
 local catch. These are regression evidence for unresolved failure handling, not
 a passed exception gate; see [slot retirement](#synchronous-slot-retirement-and-caller-unwind-2026-09-22).
 
+## Snapshot design record, 2026-09-24
+
+A snapshot/notification alternative for the SKIP reader is recorded here.
+Rev6 assembly, candidate publication, and callback retirement stay blocked.
+No generation counter is included. Operator skips are left stock.
+`tools/verify_worker_admission.py` is unchanged.
+
+The reader is refresh `0x1406adaf0`. It reloads the live data pointer at
+`0x1406adb67` and the live count at `0x1406adbb0` on every iteration. Those
+reloads use the embedded `CUIntArray` at `document+0x23e0`. A valid snapshot is
+owned bytes, captured at a defined point, with the same skip membership the
+stock array had at that point. After the snapshot is published, refresh reads
+that buffer only. It does not dereference the live pointer or count again.
+
+Capture runs on the mutating thread after a normal return from each retained
+mutator of that array:
+
+| Mutator | Entry | Role |
+| --- | --- | --- |
+| `SkipList_Reset` | `0x140541050` | `SetSize(0, -1)` through MFC ordinal 13522. The zero-size path frees the buffer and stores zero at `+8`, `+0x10`, and `+0x18`. Callers: `0x1404aebe9`, `0x14068f7d7`, `0x1406937d7`, `0x1406a085e`, `0x1406a2d87`. |
+| `SkipList_Add` | `0x140541020` | Tail-calls `CUIntArray::SetAtGrow` on the same array. No local lock. |
+| `ReloadDoc` restore | `0x140693811` | After reset at `0x1406937d7`, restores saved entries with `lea rcx, [rsi+0x23e0]` and a direct `CUIntArray::SetAtGrow`. This call does not go through `SkipList_Add`. |
+
+The capture point is that normal return. Membership is the post-mutation stock
+list, including an empty list after a production-cycle reset. A capture set that
+stops at `SkipList_Add` misses the `ReloadDoc` restore: refresh would keep the
+empty post-reset snapshot while stock grows the live array one `SetAtGrow` at a
+time. Each normal `SetAtGrow` return in that loop publishes the membership stock
+has at that return. `RegistrySave` (`0x1406928d0`) still reads the live count at
+`+0x23f0` and the live entries at `+0x23e8` on the close path. It is not this
+reader, and this contract does not yet move it onto the snapshot. A callback already
+inside refresh keeps the snapshot it loaded at entry, so a reset or `SetAtGrow`
+that lands mid-dispatch cannot tear the pointer and count. A throw from the
+mutator leaves the previous snapshot published. The stock call is not repeated.
+
+Publication is one release store of the snapshot pointer. Refresh acquires it
+once per dispatch. An older snapshot stays allocated until every dispatch that
+loaded it has returned, including a dispatch that runs after the document
+destructor frees `+0x23e0` with no message pump. The producer may `PostMessageA`
+again after any pump returns, including `DoEvents` at `0x14064b8fb` in
+`0x14064b880`. The count that keeps an old snapshot alive is a buffer reference
+count. It does not identify a panel, result, or CAO generation, and it does not
+clear or rewrite operator skips.
+
+The array snapshot does not make entry into a freed production view safe. The
+three SKIP posts load `[document+0x5838]` and then `[view+0x40]` with no null
+test, at `0x1406a103b`, `0x1406a1075`, and `0x140736feb`. The view destructor
+frees the view through MFC ordinal 1487 without clearing `document+0x5838`.
+The notification design has to publish the view pointer and HWND into
+patch-owned storage when stock publishes `+0x5838`, and clear that pair in the
+view destructor before the free. A poster that sees a cleared pair does not
+load the document field or the view. A poster that already holds the
+patch-owned pair is counted until `PostMessageA` returns, and the destructor
+waits for that count before the free. The posted handler still reads the
+snapshot. This count is the same kind of buffer/poster reference count, not a
+generation counter. DestroyWindow retirement of a queued HWND message remains
+host evidence under W7-QUAL-01 and is not the lifetime proof.
+
+This section is the design contract. It does not select patch bytes, allocate
+the snapshot, or change the five feature sites. The callback-retirement gate
+is not promoted.
+
+## Capture-set review, 2026-09-24
+
+The recorded capture table is not every mutator of the skip `CUIntArray`.
+A source-hash-checked scan of `Vision3D.exe`
+`ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4` found
+direct `SetSize` (MFC ordinal 13522, thunk `0x14077fdcc`) and `SetAtGrow`
+(MFC ordinal 12880, thunk `0x14077fdd2`) uses of displacement `0x23e0`
+outside `SkipList_Add`, `SkipList_Reset`, and the `ReloadDoc` restore.
+No Rev6 PE was built.
+
+| Site | Operation | Why it is the same array |
+| --- | --- | --- |
+| `0x140540ef0` | `SetSize(0, -1)`, then `SetAtGrow` | Called from `ExecuteSkip` at `0x1406a0e3a` on the `al == 1` arm, before that function's `SkipList_Add` at `0x1406a0e60`. The other arm skips this call. |
+| `0x140541080` | `SetAtGrow` of the `edx` value at the live count | Only direct caller is `0x140736fcb`. That call passes `[r15+0x10]` and then loads `[[r15+0x10]+0x5838]`. The body also uses `+0x2448` and `+0x2450`. |
+| `0x1405f19a0` | `SetSize(0, -1)` at `0x1405f1a1f`, then `SetAtGrow` at `0x1405f1b9f` | Callers `0x1405f5cb6` and `0x1405fb376`. The body uses `+0x23f0`, `+0x2448`, and `+0x2450`. |
+| `0x1405f5660` | `SetSize(0, -1)` at `0x1405f583b` | Five direct callers: `0x1405d7e00`, `0x1405e795d`, `0x1405e7a4d`, `0x1405f514f`, `0x1405fdc69`. The body uses `+0x2448`, `+0x2450`, and `+0x2550`. |
+| `0x140692600` | `SetAtGrow` at `0x140692881` | Uses `document+0x3924`. Its only direct caller is `0x14068dcef`. Thirty `int3` bytes sit between `OnCloseDocument` and that call, so this writer is not inside `OnCloseDocument`. |
+
+A capture set that stops at the three recorded returns leaves these writes
+on the live array. Refresh would keep an older snapshot while stock membership
+changes. The optical-skip call at `0x140736fcb` is one of those writes.
+
+These additional live readers are outside the refresh contract and stay on
+the stock pointer and count: `0x1406746d0` (called from `0x140685669` and
+`0x1406a5529`), `0x14052e010`, `0x14052dfe0`, `0x140525280`, and
+`RegistrySave`. `0x1406746d0` loads `[array+8]` and `[array+0x10]` and passes
+each dword to `0x140674760` with bit `0x100`. Moving only refresh does not
+move them.
+
+The constructor at `0x14051e164` is the only `+0x23e0` call of MFC ordinal
+973, and the destructor at `0x14051fd3a` calls ordinal 1439. Neither is one
+of the five runtime mutators above. The callback-retirement gate is not
+promoted.
+
+## Capture-point classification, 2026-09-24
+
+Saved decompilation of the five sites is in
+[skip_array_extra_mutators.c](../maps/decomp/skip_array_extra_mutators.c).
+No Rev6 PE was built. This classification does not amend the recorded
+capture table, and it does not close the callback-retirement gate.
+
+| Function | Entry | What the body does |
+| --- | --- | --- |
+| `CDataCaoTraitement::SkipAllSubPanels` | `0x140540ef0` | `SetSize(0, -1)`, then `SetAtGrow` of ids `1` through `GetNbCartes`. The only caller is `ExecuteSkip`. The body has no `DoEvents` and no `AfxMessageBox`. |
+| `CDataCaoTraitement::SkipSubPanel` | `0x140541080` | `SetAtGrow` of the argument when `IsSkippedSubPanel` is false. The only caller is `ExecuteOne_Component`. The following loop updates the execution vector and does not call `SetSize` or `SetAtGrow`. The body has no `DoEvents` and no `AfxMessageBox`. |
+| `CDocCompose::AcquireAndCheckSkip` | `0x1405f19a0` | `SetSize(0, -1)`, then `SetAtGrow` of the subpanel id when `CheckSkip` succeeds and that id is nonzero. Callers are `ExecuteArray` and `ExecuteVecteur_Skip_DataMatrix` (`0x1405fb150`). This body has no `DoEvents` and no `AfxMessageBox`. |
+| `CDocCompose::ExecuteArray` | `0x1405f5660` | Its own `SetSize(0, -1)` when the third argument is not `-1`, before the call to `AcquireAndCheckSkip` for a section whose flag is 0. |
+| `CProductionDoc::RegistryRead` | `0x140692600` | When `CAVisionApp+0x199` is 1, `SetAtGrow` of each saved `Production.SubPanelSkip` value. This function does not call `SetSize`. Its only caller is `OnOpenDocument` at `0x14068dc20`. This body has no `DoEvents` and no `AfxMessageBox`. |
+
+`SkipAllSubPanels`, `SkipSubPanel`, and `RegistryRead` mutate the production
+document array that refresh reads. `SkipAllSubPanels` and `RegistryRead` have
+the same clear-or-append shape already used for the `ReloadDoc` restore:
+each normal `SetSize` or `SetAtGrow` return is a capture point. Waiting until
+the outer function returns leaves an empty or partial list unpublished while
+the live array changes. `SkipSubPanel` has one array mutation, so its
+`SetAtGrow` return is the capture point.
+
+`ExecuteArray` can dispatch after that `SetSize` has cleared the array. The
+failure arm calls `AfxMessageBox`. The bench-iteration arm, selected through
+the Validation ini value "Bench zone", calls `DoEvents` and then another
+`AfxMessageBox`. Those pumps are after the clear. If refresh can run against
+that object, publication has to happen at the `SetSize` return.
+
+`ExecuteArray` and `AcquireAndCheckSkip` are `CDocCompose` methods. They use
+`+0x23e0`, `+0x23f0`, `+0x2448`, and `+0x2450`. This pass does not prove that
+their `this` pointer is the production view's document. They stay unresolved
+for the production capture set. The three production-document writers above
+are not unresolved: a capture set that omits them leaves live membership
+unpublished. The callback-retirement gate is not promoted.
+
+## Compose-document identity, 2026-09-24
+
+`CDocCompose` and `CProductionDoc` are siblings. Neither derives from the
+other. Both derive from `CDataCaoTraitement`, so displacement `+0x23e0` is
+the same base-class skip array on two different object types. No Rev6 PE
+was built. The program was not saved.
+
+| Vtable | RTTI | Bases |
+| --- | --- | --- |
+| `0x140e76078`, stored by constructor `0x1405cb880` | `.?AVCDocCompose@@` | `CDocCompose`, `CDataCaoTraitement`, `CDocument`, `CCmdTarget`, `CObject`, `CDataCao`, `IVMachineControllerListener`, `ISDMListener<CZoneStorage>` |
+| `0x140ea3868` | `.?AVCProductionDoc@@` | `CProductionDoc`, `CDataCaoTraitement`, `CDocument`, `CCmdTarget`, `CObject`, `CDataCao`, `IProductionCommander` |
+
+`ExecuteArray` (`0x1405f5660`) copies incoming `RCX` to `RSI` at
+`0x1405f56b2`. Its call at `0x1405f5cb6` passes `RSI` to
+`AcquireAndCheckSkip`. The five direct callers of `ExecuteArray` each pass
+their own incoming `this`.
+
+These command handlers do not. `0x1406e64a0`, `0x1406e5e80`, and
+`0x1406e6030` call `0x1407528c0` and pass the returned pointer.
+`0x1407528c0` is `mov rax, [rcx+0xe8]; ret`. The last two functions are
+entries in an MFC command map at `0x140ebace8` and `0x140ebad28`. The
+window class that owns that map is not identified. `0x14045bf90` loads
+`[rcx+0x1a00]`, passes type descriptors `.?AVCWnd@@` and
+`.?AVCAnomaliesGridView@@` to `0x1407a6238`, and tail-jumps to the same
+`+0xe8` load.
+
+A view can therefore pass its document pointer into `ExecuteArray`, which
+then clears and appends that object's `+0x23e0` array. This pass does not
+prove that pointer is a `CDocCompose` rather than the production document.
+The following section does. The callback-retirement gate is not promoted.
+
+## Command-view document, 2026-09-24
+
+The two command-map entries are `CTstCommandView` handlers, not production-view
+handlers. The message map at `0x140ebadf0` names that class and points its
+entries at `0x140ebac50`. `WM_COMMAND` `0xb21e` is `0x1406e5e80`. `WM_COMMAND`
+`0xb251` is `0x1406e6030`. Both call `0x1407528c0` (`mov rax, [rcx+0xe8]; ret`)
+and pass that pointer to `0x1405d7c10`. When that function reaches
+`ExecuteArray`, `rcx` is still that pointer. `0x1406e64a0` is the same view:
+its only caller, `0x1405e4d81`, passes the `CTstCommandView` returned by
+`0x1405dc510`. No Rev6 PE was built. The program was not saved.
+
+`CTstCommandView` is created only as row 1 of the `CUsefulSplitterWnd` embedded
+in `CChild2` at `+0x1c18`. `CChild2::OnCreateClient` (`0x1404fdfe0`) passes its
+create context to splitter slot `+0x2e8`, DyTools0 thunk `0x18011f31e`, MFC
+ordinal 3538. That body calls `CRuntimeClass::CreateObject` and then view slot
+`+0xb8` with the context as the last argument. The slot is MFC ordinal 3075,
+which stores that argument at `view+0x138`. The existing `CFormView` create
+path copies `+0x138` into `lpCreateParams` and `AddView` (`0x18021faa0`) stores
+the context document at `view+0xe8`.
+
+The only document template that uses `CChild2` is resource `0x7c7` in
+`0x1404d2820`: document `CDocCompose`, frame `CChild2`, view `CTstCADView`.
+The production templates in that same function use `CProductionDoc`,
+`CProductionChild`, and `CProductionView`. The other `CChild2::GetRuntimeClass`
+sites call `0x14077fbe0` (`IsKindOf`) and do not construct a frame. Row 0 is
+`CTstCADView` and row 2 is `CAnomaliesGridView`; both receive that same context.
+`CDocCompose` is `0x51c0` bytes and `CProductionDoc` is `0x61f8` bytes, so the
+shared `+0x23e0` displacement is a different array on each object.
+
+`ExecuteArray` and `AcquireAndCheckSkip` are not production-array mutators.
+The production capture set is `SkipList_Reset`, `SkipList_Add`, the
+`ReloadDoc` restore, `SkipAllSubPanels`, `SkipSubPanel`, and `RegistryRead`.
+The candidate is the next section. It does not close the gate.
+
+## Snapshot and notification candidate, 2026-09-24
+
+Stock close, cycle-start, and reset spans do not drain refresh
+`0x1406adaf0`. The snapshot and notification text below is a candidate for
+the original plan's late-callback obligation. It is not implemented. No Rev6
+PE was built. The program was not saved. `tools/verify_worker_admission.py`
+is unchanged. The callback-retirement gate stays blocked.
+
+A valid snapshot is patch-owned bytes holding the skip membership the
+production document's `CUIntArray` at `+0x23e0` had at a capture point.
+Refresh acquires that pointer once per dispatch and does not reread
+`[array+8]` or `[array+0x10]`. An older snapshot stays allocated until every
+dispatch that loaded it has returned. The count is a buffer reference count.
+It is not a panel, result, or CAO generation, and it does not clear operator
+skips.
+
+Capture runs on the mutating thread at each normal return in this set. A throw
+leaves the previous snapshot published and does not repeat the stock call.
+If snapshot allocation fails after a normal return, the previous snapshot
+stays published and a process-lifetime snapshot-failure counter increments.
+That divergence is release-stopping. The stock mutation is left as it stands.
+
+| Mutator | Entry | Capture point |
+| --- | --- | --- |
+| `SkipList_Reset` | `0x140541050` | Normal return. `SetSize(0, -1)` has emptied the array. Callers: `0x1404aebe9`, `0x14068f7d7`, `0x1406937d7`, `0x1406a085e`, `0x1406a2d87`. |
+| `SkipList_Add` | `0x140541020` | Normal return of the tail `SetAtGrow`. |
+| `ReloadDoc` restore | `0x140693811` | Each normal `SetAtGrow` return in the restore loop. |
+| `SkipAllSubPanels` | `0x140540ef0` | Normal return of `SetSize(0, -1)`, then each normal `SetAtGrow` return. The only caller is `ExecuteSkip`. |
+| `SkipSubPanel` | `0x140541080` | Normal return of its one `SetAtGrow`. The only caller is `ExecuteOne_Component` at `0x140736fcb`. |
+| `RegistryRead` | `0x140692600` | Each normal `SetAtGrow` return at `0x140692881`. The only caller is `OnOpenDocument` at `0x14068dc20`. |
+
+`ExecuteArray` (`0x1405f5660`) and `AcquireAndCheckSkip` (`0x1405f19a0`)
+mutate `CDocCompose`, the document created with frame `CChild2`. They are not
+in this set. The 2026-09-24 scan that found the extra sites covered direct
+`SetSize` (MFC ordinal 13522, thunk `0x14077fdcc`) and `SetAtGrow` (MFC
+ordinal 12880, thunk `0x14077fdd2`) uses of displacement `0x23e0`.
+
+These stock readers stay on the live pointer and count. They are synchronous
+document methods, not the posted refresh callback: `0x1406746d0`,
+`IsSkippedSubPanel` `0x14052e010`, `IsSkippedAllSubPanel` `0x14052dfe0`,
+`ApplySkipOnZone` `0x140525280`, and `RegistrySave`.
+
+The three SKIP posts load `[document+0x5838]` and then `[view+0x40]` with no
+null test, at `0x1406a103b`, `0x1406a1075`, and `0x140736feb`. The view
+destructor frees the view through MFC ordinal 1487 without clearing
+`document+0x5838`. The notification design publishes the view pointer and HWND
+into patch-owned storage when stock publishes `+0x5838`, and clears that pair
+in the view destructor before the free. A poster that sees a cleared pair does
+not load the document field or the view. A poster that already holds the pair
+is counted until `PostMessageA` returns, and the destructor waits for that
+count before the free. The posted handler reads the snapshot. This count is a
+buffer/poster reference count. DestroyWindow retirement of a queued HWND
+message stays waived-unverified under W7-QUAL-01.
+
+This candidate does not select patch bytes, start Rev6, pass native
+qualification, or pass the other section 1 gates.
+
+## Wider-intermediate candidate, 2026-09-25
+
+Exact no-wrap DWORD bounds and the wraparound counterexample are already
+recorded in [rev2a-entry-gates.md](../maps/rev2a-entry-gates.md). No supported
+or enforced workload maximum exists. The original plan still requires one of
+two outcomes: document and enforce that maximum, or widen the threshold
+arithmetic. The wider-intermediate shape below is a candidate for the second
+outcome. It is not implemented. No Rev6 PE was built. The program was not
+saved. `tools/verify_worker_admission.py` is unchanged. Rev5 keeps low-DWORD
+`imul`. The arithmetic entry gate stays open.
+
+Candidate threshold comparison, if wider intermediates are the path taken:
+
+- Cell counters stay DWORD. After each `lock xadd` / read, zero-extend
+  `missing` and `inspected` into 64-bit registers before multiplying.
+- Compare `(missing * 100)` and `(inspected * 30)` as unsigned 64-bit products,
+  then apply the same unsigned threshold branch shape as rev5
+  (`missing * 100 > inspected * 30` after at least 10 completions).
+- Do not use 32-bit `imul` products for that compare. The counterexample
+  inspected = 143,165,577 and missing = 1 must not qualify under the wide
+  compare.
+- DWORD counter wrap of the cell fields themselves remains a separate
+  lifetime/reset concern from the product-width choice.
+
+This candidate does not select patch bytes, start Rev6, pass native
+qualification, or pass the other section 1 gates. The original plan's
+arithmetic obligation is unchanged.
+
+## Final-mask multiplicity, 2026-09-25
+
+The final-mask site `0x140736f47` is `MOV RCX, qword ptr [R15+0x10]` inside
+`ExecuteOne_Component` (`0x1407368d0`). No Rev6 PE was built. The program was
+not saved. `tools/verify_worker_admission.py` is unchanged.
+
+One call reaches that instruction at most once. The only backward jump in the
+function is `JL 0x140737270` from `0x1407372cd`, and both addresses are after
+the site. `ExecuteAll_Components` calls it once per vector slot from
+`0x1407356a1`, inside the index loop `JC 0x140735570` from `0x140735842`.
+The zone executor calls `ExecuteAll_Components` once, at `0x140736796`, after
+its only backward jump. `Treat` and the synchronous body have no backward
+jumps. Each calls the zone executor once.
+
+`ReceiveGreyZones` is the only executable caller of those two bodies. Its
+index loop increments `R15` and calls either the synchronous body or the
+dispatcher, not both. Its later list walk does the same once per node.
+`PanelInspect` is the only executable caller of `ReceiveGreyZones`, and
+`HandlerProduction` calls `PanelInspect` only at `0x1406a39ea`, on the arm
+where the preceding status dword is 3.
+
+That call sits in a section loop. The log strings are `Section %d: Begin.`
+and `Section %d: End.` The loop bound is the return of `0x140695200`, which
+is 2 only when `IsTstMultiSection` (`0x14052e070`) returns 1 and the preceding
+dword is 0; otherwise the bound is 1. The section dword at `document+0x3978`
+is seeded from `ESI`, and the only `ESI` writes before that seed in this
+function are `XOR ESI,ESI` at `0x1406a32f1` and `0x1406a331a`. The body then
+stores `SHL` of the section value. A bound of 2 therefore admits a second
+iteration before `JMP 0x1406a2770` at `0x1406a45ed`. That back edge is before
+the conditional `SkipList_Reset` at `0x1406a2d87`.
+
+The second iteration is the unresolved part. It is not yet shown whether
+section 2 walks the same component vector as section 1. Data references and
+indirect calls stay outside the executable-caller claim. The uniqueness gate
+stays partial.
+
 ## Baseline identity
 
 - Repository commit: `16df773e24641b44236d73a8ed9b3c548ea7a037`
@@ -138,12 +511,12 @@ hash-matching wheels.
 
 | Proof obligation | Status | Existing evidence and missing proof |
 | --- | --- | --- |
-| Final-mask hook multiplicity / result uniqueness | Partial | Synchronous and worker-thread callers of the zone executor are now traced; retries, reinspection, indirect callers, and uniqueness remain unproved. See the new entry-gate evidence below. |
+| Final-mask hook multiplicity / result uniqueness | Partial | One `ExecuteOne_Component` call reaches `0x140736f47` at most once, and that call is once per component-vector slot per zone execution. `HandlerProduction` can enter `PanelInspect` on two section iterations when `0x140695200` returns 2, before the cycle back edge reaches reset. Whether those sections share a component is still open. See [Final-mask multiplicity](#final-mask-multiplicity-2026-09-25). |
 | Worker drain before CAPM reconciliation, supported single lane | Blocked: callback and exception containment | The stock unchecked `CreateEventA`/`WAIT_FAILED` path remains defective, but the startup-only synchronous candidate makes it unreachable from every retained executable caller on the supported lane. The export-thread descendant copies its payload before return and does not retain CAO/result pointers. Existing work, the posted UI callback, exception handling, and remaining ownership before release or reuse remain unproved. |
-| Production/anomaly vector ownership and immutability | Partial | Layout and consumers are mapped; all writers, destructors, reallocators, owner, and synchronization are not established. |
+| Production/anomaly vector ownership and immutability | **CLOSED** | Outer vector (CAO+0x5878) proven one-shot allocated in constructor, no later stores. Inner vector (zone+0x18/0x20/0x28) proven FIXED-CAPACITY: all panel-load-path functions decompiled (ExecuteOne_Component, ExecuteAll_Components, FUN_140735120, PV_EnvoiDesZoneComposants, CAPM_SetInspectionStatus) and verified NO push_back/resize/reserve/reallocate. Workers write pre-allocated slots; CAPM reads for reconciliation. Synchronization risks remain: torn writes (no memory fence), use-after-free in dtor (no ProductionStop join). Evidence: maps/vector_ownership/anomaly_vector_mutator_table.json, maps/decomp/*.c |
 | No late callbacks after CAO retirement | Blocked: live-storage dependency established | The export worker owns copied value records. The posted SKIP receiver reads the live array at `CAO+0x23e0` through production-view `+0xe8`. Bounded emulation confirms dispatch-time reads, a fault with artificially unmapped storage, and exception/fault paths during modeled reset without CAO destruction. The view deleting destructor frees the view through ordinal 1487 without clearing `document+0x5838`, so a producer reload still names that block while the document remains published. The document destructor's direct-call closure then frees the `CUIntArray` at `+0x23e0` without a `user32` import and without calling the message pump. Before that free, a nonzero `document+0x19e8` calls slot `+0x190` and drops the returned refcount. `SetProductionVMC` stores `CVMC_ListSingleton::GetCurrent` there, and the stock controller implements that slot as a forward to `[controller+0x870]` slot `+0x220`, which forwards again to `IAcquisitionController` slot `+0x220`. That interface slot is `_purecall` in the supplied DLL. The same destructor then destroys the array at `document+0x5878` through slot `+8` with edx 3 and stores null. Its inner `0x370` objects are `CAnomalieProd`. Their destructor releases point, string, buffer, and image members and does not import `user32` or the executable. `CAsynchCommandExecution::Kill` on `document+0x6128` waits on that object's own thread handle, not on `document+0x3868`. The destructor closes the `CreateEventA` handle at `+0x3878` and the `CreateSemaphoreA` handle at `+0x3890`, and its bytes do not mention `+0x3868`. `OnCloseDocument`, before the view loop, waits on the `CreateSemaphoreA` handle at `[app+0x5870]` and releases it before returning. The wait on `app+0x57c8` and the `DoEvents` call run only when the incremented dword at `+0x5868` is not 1. Those handles are not `document+0x3868`, and the functions do not call `ProductionStop`. `HandlerProduction` has no displacement `0x5870` and does not call that wait. The `CMainFrame` destructor passes its own `+0x5870` to `CloseHandle` and stores zero; that call does not wait. Slot `+0x10` of the object at `document+0x2548` stores null at `document+0x3868` and stops the other thread at `document+0x3860`. The view command handler calls slot `+8` of that object. The base destructor does not call `ProductionStop`. The pool worker constructor stores zero at `+0x28`. `0x1406a6b95` calls `0x1406a15d0`, and `0x1406a4980` copies that result onto each worker at `thread+0xec8`. Treat reads that field. After `ProductionStop` joins `document+0x3868`, it calls producer slot `+0` with `edx` 1 while the slot is still nonzero, then stores zero. That destructor calls the pool destructor, and `0x140655980` calls each worker slot `+0` with `edx` 1. Worker slot `+0` calls `0x14069a110`. Close, destruction, view `WM_DESTROY`, the close poster, and the `0x52c` handler do not call `ProductionStop`, `0x140655980`, or `0x1406a4980`. The destructor's direct calls, and one further direct-call level, do not call `ProductionStop`, `AskToStop`, worker `Stop`, or the pool cleanup, and do not mention `+0x3868`. The destructor body's own import calls are not `WaitForSingleObject` or `CViThread::Stop`. Calls on `document+0x2eb8` and `document+0x2550` tail-jump `CSerialDriver::~CSerialDriver`. The call on `document+0x60c8` frees `[object+8]`. The call on `document+0x6078` is `ret 0`. Indirect calls inside that closure are not expanded. After the array free, the same destructor calls `CDataCao::~CDataCao` on `document+0x180` and then MFC ordinal 1104. The destructor body is not in the supplied binaries. Actual delivery of a post made before the view is freed remains unproved. |
 | Reset before reuse of the same CAO pointer | Partial | `CProductionDoc` has no pool. `CreateObject` is CRT `malloc(0x61f8)` plus the constructor, which builds an empty `CUIntArray` at `+0x23e0`. The deleting destructor first stores null in the `CCAPM` slot at index `document+0x3924`, the same index `ProductionStart` copies to thread `+0xec0`, then releases the array buffer and `free`s the block. The base constructor calls `CDataCao::CDataCao` on `this+0x180` before building the empty `CUIntArray`, and the zero-mode publish of that document is outside the constructor. Document slot `+0x108` publishes through `SetProductionVMC` before mentioning `+0x2548`, and it calls neither `ProductionStop` nor `ProductionStart`. `ProductionStop` calls `ProductionStart` only after `CViThread::Stop` and after storing zero at `+0x3868`, and only when `+0x3881` is 1. `ProductionStart` returns without stopping or replacing the thread when `+0x3868` is already nonzero. Close does not call `ProductionStop`. The production cycle reloads that slot before its `+0x382e` check. All 99 accessor calls in `HandlerProduction` use the pointer with no null test. The stop byte is stored only on the equal side of that compare, so a null slot faults before the store. The not-equal side calls `0x1406970f0`, which also dereferences the document and does not write the stop byte. The next iteration reloads the app `+0x1b0` pointer saved before the cycle, not a document pointer. The only document pointer held across a later accessor call is `rbx` in two windows that both end before the back-edge, and no accessor result is stored to memory. A republished document is observed. Close still does not join the producer. |
-| DWORD arithmetic at supported workload maximum | Partial: bound only | Exact product bounds and a wraparound counterexample are recorded; no supported/enforced workload maximum proves overflow cannot occur. |
+| DWORD arithmetic at supported workload maximum | Partial: bound only | Exact product bounds and a wraparound counterexample are recorded; no supported/enforced workload maximum proves overflow cannot occur. A wider-intermediate candidate is recorded in [Wider-intermediate candidate](#wider-intermediate-candidate-2026-09-25) and is not implemented. |
 
 ## Entry-gate investigation, 2026-09-21
 

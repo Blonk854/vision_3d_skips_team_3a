@@ -10386,6 +10386,75 @@ class SkipUiCallbackEvidenceTests(unittest.TestCase):
         finally:
             pefile.MAX_IMPORT_SYMBOLS = import_limit
 
+    def test_pre_reset_wait_does_not_pump_the_skip_reader(self) -> None:
+        source = (ROOT / "v3d_files_" / "Vision3D.exe").read_bytes()
+        self.assertEqual(hashlib.sha256(source).hexdigest(), SOURCE_HASH)
+        controller = (ROOT / "v3d_files_" / "ViVirtualMachine.dll").read_bytes()
+        self.assertEqual(
+            hashlib.sha256(controller).hexdigest(),
+            "5b62adea102b62a272860bfba72cb787bf74bd006f44fe97453df5121efeeb60")
+        import_limit = pefile.MAX_IMPORT_SYMBOLS
+        try:
+            pefile.MAX_IMPORT_SYMBOLS = 65536
+            with pefile.PE(data=source, fast_load=True) as image:
+                image.parse_data_directories(directories=[
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_EXCEPTION"],
+                    pefile.DIRECTORY_ENTRY["IMAGE_DIRECTORY_ENTRY_IMPORT"]])
+                functions = {
+                    IMAGE_BASE + item.struct.BeginAddress: IMAGE_BASE + item.struct.EndAddress
+                    for item in image.DIRECTORY_ENTRY_EXCEPTION}
+                imports = {}
+                for entry in image.DIRECTORY_ENTRY_IMPORT:
+                    for item in entry.imports:
+                        name = item.name.decode().lower() if item.name else ""
+                        imports[item.address] = name
+                call = image.get_data(0x6A2B81, 5)
+                self.assertEqual(call[0], 0xE8)
+                self.assertEqual(0x1406A2B86 + struct.unpack_from("<i", call, 1)[0], 0x1406A9DB0)
+                self.assertLess(0x1406A2B81, 0x1406A2D87)
+                wait = image.get_data(0x6A9E5D, 0x1406A9E87 - 0x1406A9E5D)
+                self.assertEqual(wait, bytes.fromhex(
+                    "488b471848894597"
+                    "488b87a80100004889459f"
+                    "41b90a0000004533c0488d5597418d49f8"
+                    "ff1509b26a00"))
+                slot = 0x1406A9E87 + struct.unpack_from("<i", image.get_data(0x6A9E83, 4), 0)[0]
+                self.assertEqual(imports[slot], "waitformultipleobjects")
+                decoder = Cs(CS_ARCH_X86, CS_MODE_64)
+                body = image.get_data(0x6A9DB0, functions[0x1406A9DB0] - 0x1406A9DB0)
+                names = []
+                pending = [0x1406A9DB0]
+                seen = set()
+                for insn in decoder.disasm(body, 0x1406A9DB0):
+                    if insn.bytes[:2] != b"\xff\x15":
+                        continue
+                    slot = insn.address + 6 + int.from_bytes(insn.bytes[2:6], "little", signed=True)
+                    names.append(imports[slot])
+                self.assertNotIn("sendmessagea", names)
+                self.assertNotIn("peekmessagea", names)
+                self.assertNotIn("dispatchmessagea", names)
+                while pending:
+                    begin = pending.pop()
+                    if begin in seen or begin not in functions:
+                        continue
+                    seen.add(begin)
+                    callee = image.get_data(begin - IMAGE_BASE, functions[begin] - begin)
+                    for insn in decoder.disasm(callee, begin):
+                        if insn.bytes[:1] not in (b"\xe8", b"\xe9"):
+                            continue
+                        pending.append(insn.address + insn.size + int.from_bytes(
+                            insn.bytes[1:5], "little", signed=True))
+                self.assertNotIn(0x1406ADAF0, seen)
+                self.assertNotIn(0x1406B0700, seen)
+            with pefile.PE(data=controller, fast_load=True) as image:
+                self.assertEqual(image.OPTIONAL_HEADER.ImageBase, 0x180000000)
+                slot = struct.unpack_from("<Q", image.get_data(0xCEDA8 + 0x30, 8))[0]
+                self.assertEqual(slot, 0x180070ED0)
+                self.assertEqual(image.get_data(0x70ED0, 11), bytes.fromhex(
+                    "488b81600800008b4010c3"))
+        finally:
+            pefile.MAX_IMPORT_SYMBOLS = import_limit
+
 
 class DrainGuardTests(unittest.TestCase):
     @classmethod

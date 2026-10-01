@@ -283,6 +283,9 @@ Counterexample: inspected = 143,165,577 and missing = 1 yields low DWORD
 the wide comparison is `100 > 4,294,967,310`, which is false. PowerShell UInt64
 arithmetic reproduced these values. No supported workload maximum or enforcement
 has been established; the arithmetic entry gate remains blocked.
+A wider-intermediate candidate is recorded in
+[plans/robust_patch_revision_2a_status.md](../plans/robust_patch_revision_2a_status.md#wider-intermediate-candidate-2026-09-25)
+and is not implemented.
 
 ## Provenance and reproduction
 
