@@ -1,9 +1,9 @@
 Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module.
 
-Question: does the production-document destructor at 0x14067fc20 call ProductionStop (0x1406920f0) before it frees the inner anomaly vectors at zone+0x18/0x20/0x28?
+Question: between ExecuteOne_Component's write of the pre-allocated CAnomalieProd slot (0x1407368d0) and CAPM_SetInspectionStatus's read of the inner vector (0x14069b2a0), does the worker-to-CAPM path execute a memory fence, a LOCK-prefixed atomic, or a lock that covers zone+0x18/0x20/0x28?
 
-The recorded claim in maps/vector_ownership/anomaly_vector_mutator_table.json, synchronization_contracts.destructor_vs_workers, says no. The destructor calls DeleteVector with no ProductionStop join, and ProductionStop is reached only from document vtable slot +0x28 with magic 0x004EB1CF. Measure the destructor and ProductionStop's callers on the copy. If that claim holds, the answer is no. If a join is on the destruction path, the answer is yes and quote the call site.
+The recorded claim in maps/vector_ownership/anomaly_vector_mutator_table.json, synchronization_contracts.worker_to_capm, says the barrier is none proven: no memory fence, no atomic, and no lock on the inner vector. The path is ExecuteOne_Component writes CAnomalieProd, then an event signal, then CAPM_SetInspectionStatus reads. Measure the write, the signal, and the read on the copy. Name the signal instruction. If no fence, LOCK-prefixed atomic, or lock covering those three offsets sits between the write and the read, the answer is no. If one does, the answer is yes and quote the instruction.
 
-Append the result to maps/vector_ownership/anomaly_begin_store_trace.txt under the heading `Destructor join`. Do not change the gate status.
+Append the result to maps/vector_ownership/anomaly_begin_store_trace.txt under the heading `Worker to CAPM fence`. Do not change the gate status.
 
-`Two of nine` holds. This is the open synchronization half of the vector-ownership gate, not another correction of the import-name table.
+`Destructor join` holds. This is the remaining open synchronization half of the vector-ownership gate, not another pass on the destructor and not another correction of the import-name table.
