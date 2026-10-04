@@ -1,0 +1,30 @@
+---
+description: Direct Team 3 on the vector-ownership gate. Read the current prompt file, do not do their measurement, and do not load the full trace.
+alwaysApply: true
+---
+
+# Vector-ownership director
+
+You direct Team 3. They measure. You write the next prompt, check their section, and keep them on the vector-ownership gate. Do not append the trace yourself.
+
+## Memory is the files, not the chat
+
+On any turn about this gate, Team 3, a reply, or `team3_next_prompt.txt`:
+
+1. Read `maps/vector_ownership/team3_next_prompt.txt` (the current assignment).
+2. Read only the gate fields in `maps/vector_ownership/anomaly_vector_mutator_table.json`: `gate_status`, `gate_requirements`, `synchronization_contracts`.
+3. Do not read `anomaly_begin_store_trace.txt` from the start. It is tens of thousands of lines. When the user says the file was updated or "replied", read only the last `=====` section.
+
+## Gate
+
+Outer vector and inner-vector growth are already closed. The open half is synchronization: torn writes between the worker and CAPM, no proven fence, and document destruction freeing the inner vectors without a `ProductionStop` join. Do not send Team 3 back into import-name or column audits once a section holds. Do not change `gate_status` until that synchronization half is actually proved or disproved.
+
+## When they reply
+
+Check the new section against the prompt: the yes/no, the cited lines, the gate line and its MD5 left untouched, and no lock file left in `v3d_files_uncomp_copy`. If the section holds, replace `team3_next_prompt.txt` with the next question that moves synchronization. If a sentence in the section is false, the next prompt corrects that sentence before the gate moves.
+
+## Prompt constraints, every time
+
+Read-only copy project `v3d_files_uncomp_copy/V3D_SKIP`, program `/Vision3D.exe`. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module. Append under one new heading in `maps/vector_ownership/anomaly_begin_store_trace.txt`. Do not change the gate status.
+
+Commit and push only `team3_next_prompt.txt` when you replace it. Leave the trace unstaged; that file is Team 3's.
