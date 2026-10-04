@@ -1,0 +1,9 @@
+Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module.
+
+Question: does `Longer run` section H show dll, hint, and length for every row of the table at lines 91630-91638?
+
+No. That table's columns are name, address in this file, my IAT slot, and difference. dll, hint, and length are printed only in section E, and only for the two cited names.
+
+Append the result to maps/vector_ownership/anomaly_begin_store_trace.txt under the heading `Two of nine`. Do not change the gate status.
+
+The false claim is in `Same offset` (lines 91717-91718): "dll, hint, name and length agree on every row". It repeats `Longer run` section H (lines 91640-91641).
