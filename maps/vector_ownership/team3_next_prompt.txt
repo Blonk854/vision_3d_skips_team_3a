@@ -1,9 +1,9 @@
 Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module.
 
-Question: does `Longer run` section H show dll, hint, and length for every row of the table at lines 91630-91638?
+Question: does the production-document destructor at 0x14067fc20 call ProductionStop (0x1406920f0) before it frees the inner anomaly vectors at zone+0x18/0x20/0x28?
 
-No. That table's columns are name, address in this file, my IAT slot, and difference. dll, hint, and length are printed only in section E, and only for the two cited names.
+The recorded claim in maps/vector_ownership/anomaly_vector_mutator_table.json, synchronization_contracts.destructor_vs_workers, says no. The destructor calls DeleteVector with no ProductionStop join, and ProductionStop is reached only from document vtable slot +0x28 with magic 0x004EB1CF. Measure the destructor and ProductionStop's callers on the copy. If that claim holds, the answer is no. If a join is on the destruction path, the answer is yes and quote the call site.
 
-Append the result to maps/vector_ownership/anomaly_begin_store_trace.txt under the heading `Two of nine`. Do not change the gate status.
+Append the result to maps/vector_ownership/anomaly_begin_store_trace.txt under the heading `Destructor join`. Do not change the gate status.
 
-The false claim is in `Same offset` (lines 91717-91718): "dll, hint, name and length agree on every row". It repeats `Longer run` section H (lines 91640-91641).
+`Two of nine` holds. This is the open synchronization half of the vector-ownership gate, not another correction of the import-name table.
