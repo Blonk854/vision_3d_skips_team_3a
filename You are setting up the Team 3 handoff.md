@@ -74,9 +74,11 @@ watcher will wake you on the old file. Look at OpenCode. If its
 button is named Stop, Team 3 is mid-run. Leave that session open.
 
 Layout this script expects
-Leave both windows where they are, side by side. On the 1536 by 864
-screen OpenCode is the left window and Cursor is the right window.
-Do not widen Cursor over OpenCode. OpenCode is the desktop app, process
+The script places both windows at the start of every run, and
+-LayoutOnly does only that. On the 1536 by 864 view of this display,
+OpenCode is -2,0 807 by 870 and Cursor is 805,0 731 by 864. Cursor's
+left edge is OpenCode's right edge. Do not widen Cursor over OpenCode.
+OpenCode is the desktop app, process
 name OpenCode. Its UI Automation tree has New session, Close tab, an edit
 named Prompt, Send, and Stop while a reply is generating. Cursor is the
 window whose title contains vision_3d_skips. The fresh composer is the

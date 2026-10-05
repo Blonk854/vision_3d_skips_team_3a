@@ -1,14 +1,16 @@
 # Opens a new OpenCode session, closes the previous one, and sends a short
 # notice. Then opens a new Cursor agent, pastes cursor_bootstrap.md, and
 # closes the Cursor chat that launched this script.
-# Requires powershell -STA. The two windows stay where they are.
+# Requires powershell -STA. Each run places OpenCode on the left and
+# Cursor on the right when either window has drifted.
 
 param(
     [switch]$OpenCodeOnly,
     [switch]$CursorOnly,
     [switch]$StopBeforeCursorClose,
     [switch]$StopBeforeCursorSend,
-    [switch]$MeasureCursorTabs
+    [switch]$MeasureCursorTabs,
+    [switch]$LayoutOnly
 )
 
 $ErrorActionPreference = 'Stop'
@@ -24,6 +26,10 @@ public class RotateUi {
   [DllImport("user32.dll")] public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
   [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr hWnd);
   [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr hWnd, out RECT r);
+  [DllImport("user32.dll")] public static extern int GetSystemMetrics(int nIndex);
+  [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
+  [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+  [DllImport("user32.dll")] public static extern bool IsZoomed(IntPtr hWnd);
   public struct RECT { public int Left; public int Top; public int Right; public int Bottom; }
   public static void Click(int x, int y) {
     SetCursorPos(x, y);
@@ -254,6 +260,60 @@ function Get-LeftChatTabClick([System.Drawing.Bitmap]$bmp) {
     return [pscustomobject]@{ Ok = $true; X = $best; Y = [int]($ySum / $yN); Marks = $markText }
 }
 
+function Test-HandoffRect($rect, $x, $y, $w, $h) {
+    $dw = [Math]::Abs($rect.Left - $x)
+    $dy = [Math]::Abs($rect.Top - $y)
+    $dW = [Math]::Abs(($rect.Right - $rect.Left) - $w)
+    $dH = [Math]::Abs(($rect.Bottom - $rect.Top) - $h)
+    return ($dw -le 2 -and $dy -le 2 -and $dW -le 2 -and $dH -le 2)
+}
+
+function Place-HandoffWindow($hwnd, $x, $y, $w, $h, $name) {
+    $rect = New-Object RotateUi+RECT
+    [RotateUi]::GetWindowRect($hwnd, [ref]$rect) | Out-Null
+    if (Test-HandoffRect $rect $x $y $w $h) { return $false }
+    if ([RotateUi]::IsZoomed($hwnd)) {
+        [RotateUi]::ShowWindow($hwnd, 9) | Out-Null
+        Start-Sleep -Milliseconds 200
+    }
+    [RotateUi]::SetWindowPos($hwnd, [IntPtr]::Zero, $x, $y, $w, $h, 0x0014) | Out-Null
+    Start-Sleep -Milliseconds 200
+    [RotateUi]::GetWindowRect($hwnd, [ref]$rect) | Out-Null
+    if (-not (Test-HandoffRect $rect $x $y $w $h)) {
+        [RotateUi]::ShowWindow($hwnd, 9) | Out-Null
+        Start-Sleep -Milliseconds 200
+        [RotateUi]::SetWindowPos($hwnd, [IntPtr]::Zero, $x, $y, $w, $h, 0x0004) | Out-Null
+        Start-Sleep -Milliseconds 200
+        [RotateUi]::GetWindowRect($hwnd, [ref]$rect) | Out-Null
+    }
+    if (-not (Test-HandoffRect $rect $x $y $w $h)) {
+        $gotW = $rect.Right - $rect.Left
+        $gotH = $rect.Bottom - $rect.Top
+        throw "$name stayed at $($rect.Left),$($rect.Top) ${gotW}x${gotH}; wanted $x,$y ${w}x${h}"
+    }
+    return $true
+}
+
+# Clicks are offsets from Cursor's top-left in the coordinate space this
+# process sees. On the 1920x1080 display at 125%, that space is 1536x864.
+# OpenCode's right edge is Cursor's left edge, so the windows do not overlap.
+function Ensure-HandoffLayout {
+    $screenW = [RotateUi]::GetSystemMetrics(0)
+    $screenH = [RotateUi]::GetSystemMetrics(1)
+    if ($screenW -ne 1536 -or $screenH -ne 864) {
+        throw "handoff layout is calibrated for a 1536 by 864 view. This process sees $screenW by $screenH."
+    }
+    $oc = Get-Process | Where-Object { $_.ProcessName -eq 'OpenCode' -and $_.MainWindowHandle -ne 0 } | Select-Object -First 1
+    $cursor = Get-Process | Where-Object { $_.ProcessName -eq 'Cursor' -and $_.MainWindowTitle -like '*vision_3d_skips*' -and $_.MainWindowHandle -ne 0 } | Select-Object -First 1
+    if ((-not $CursorOnly) -and -not $oc) { throw 'OpenCode window not found' }
+    if ((-not $OpenCodeOnly) -and -not $cursor) { throw 'Cursor window not found' }
+    $moved = @()
+    if ($oc -and (Place-HandoffWindow $oc.MainWindowHandle -2 0 807 870 'OpenCode')) { $moved += 'OpenCode' }
+    if ($cursor -and (Place-HandoffWindow $cursor.MainWindowHandle 805 0 731 864 'Cursor')) { $moved += 'Cursor' }
+    if ($moved.Count -eq 0) { return 'layout already OpenCode -2,0 807x870; Cursor 805,0 731x864' }
+    return "layout placed $($moved -join ', ')"
+}
+
 function Copy-CursorTabRow($wr) {
     $width = $wr.Right - $wr.Left
     $bmp = New-Object System.Drawing.Bitmap $width, 100
@@ -264,6 +324,9 @@ function Copy-CursorTabRow($wr) {
 }
 
 if ($MeasureCursorTabs) { $CursorOnly = $true }
+
+Ensure-HandoffLayout
+if ($LayoutOnly) { return }
 
 if (-not $CursorOnly) {
     $oc = Get-OpenCodeProcess
