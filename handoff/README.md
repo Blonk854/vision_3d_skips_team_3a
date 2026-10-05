@@ -8,6 +8,6 @@ Team 3 overwrites `team3_response.md` with their full chat response, verbatim. T
 
 `watch_response.ps1` records the response file's size and time at startup and wakes only when a later write settles. The wake line tells the coordinator to judge, write the next prompt, and run `rotate_threads.ps1`.
 
-`rotate_threads.ps1` keeps each question on a new thread. It opens a new OpenCode session, closes the old one, and sends `Continue from maps/vector_ownership/team3_next_prompt.txt`. It then opens a new Cursor agent, pastes `cursor_bootstrap.md`, and closes the Cursor chat that just finished. The windows stay where they are. OpenCode controls are found by name. The Cursor agent shortcut is Ctrl+Shift+L, and the new composer is clicked relative to the Cursor window.
+`rotate_threads.ps1` keeps each question on a new thread. It opens a new OpenCode session, closes the old one, and sends `Continue from maps/vector_ownership/team3_next_prompt.txt`. It then opens a new Cursor agent, pastes `cursor_bootstrap.md`, and closes the Cursor chat that just finished. The windows stay where they are. OpenCode controls are found by name. The Cursor agent shortcut is Ctrl+Shift+L, and the new composer is clicked relative to the Cursor window. The old chat is closed by clicking the left tab's title, measured from the tab row. It does not use a fixed tab offset, and it does not close anything unless two chat tabs are visible.
 
 Leave `tools/team3_watch.ps1` and `tools/opencode_notify.ps1` stopped while this watcher is running.

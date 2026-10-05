@@ -7,12 +7,14 @@ param(
     [switch]$OpenCodeOnly,
     [switch]$CursorOnly,
     [switch]$StopBeforeCursorClose,
-    [switch]$StopBeforeCursorSend
+    [switch]$StopBeforeCursorSend,
+    [switch]$MeasureCursorTabs
 )
 
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName System.Windows.Forms
+Add-Type -AssemblyName System.Drawing
 Add-Type @"
 using System;
 using System.Runtime.InteropServices;
@@ -125,6 +127,98 @@ function Find-PromptEdit([IntPtr]$hwnd) {
     throw 'OpenCode prompt box not found'
 }
 
+function Measure-CursorChatTabs([System.Drawing.Bitmap]$bmp) {
+    # Light tab strip: dark glyphs on a pale row. y=50..76 sits under the menu
+    # and on the chat-tab titles. A close glyph is a short cluster with a wide
+    # gap on both sides; letters sit closer together.
+    $y0 = 50
+    $y1 = 76
+    $cols = New-Object int[] $bmp.Width
+    for ($x = 0; $x -lt $bmp.Width; $x++) {
+        for ($y = $y0; $y -le $y1; $y++) {
+            $c = $bmp.GetPixel($x, $y)
+            if (($c.R + $c.G + $c.B) -lt 420) { $cols[$x]++ }
+        }
+    }
+    $raw = New-Object System.Collections.Generic.List[object]
+    $in = $false
+    $start = 0
+    for ($x = 0; $x -lt $bmp.Width; $x++) {
+        if ($cols[$x] -ge 2) {
+            if (-not $in) { $in = $true; $start = $x }
+        } elseif ($in) {
+            $raw.Add([pscustomobject]@{ A = $start; B = ($x - 1) })
+            $in = $false
+        }
+    }
+    if ($in) { $raw.Add([pscustomobject]@{ A = $start; B = ($bmp.Width - 1) }) }
+    $marks = New-Object System.Collections.Generic.List[object]
+    for ($i = 0; $i -lt $raw.Count; $i++) {
+        $width = $raw[$i].B - $raw[$i].A + 1
+        if ($width -lt 7 -or $width -gt 16) { continue }
+        $gapBefore = 999
+        if ($i -gt 0) { $gapBefore = $raw[$i].A - $raw[$i - 1].B - 1 }
+        $gapAfter = 999
+        if (($i + 1) -lt $raw.Count) { $gapAfter = $raw[$i + 1].A - $raw[$i].B - 1 }
+        if ($gapBefore -ge 16 -and $gapAfter -ge 12) { $marks.Add($raw[$i]) }
+    }
+    return [pscustomobject]@{ Cols = $cols; Raw = $raw; Marks = $marks; Y0 = $y0; Y1 = $y1 }
+}
+
+function Get-LeftChatTabClick([System.Drawing.Bitmap]$bmp) {
+    $found = Measure-CursorChatTabs $bmp
+    $markText = (($found.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
+    if ($found.Marks.Count -lt 2) {
+        return [pscustomobject]@{ Ok = $false; Reason = "need two chat tabs, saw $($found.Marks.Count) ($markText)" }
+    }
+    $left = $found.Marks[0]
+    $labelEnd = $left.A - 18
+    $labelA = $null
+    $labelB = $null
+    foreach ($cluster in $found.Raw) {
+        if ($cluster.B -le $labelEnd -and $cluster.A -ge ($left.A - 220)) {
+            if ($null -eq $labelA -or $cluster.A -lt $labelA) { $labelA = $cluster.A }
+            if ($null -eq $labelB -or $cluster.B -gt $labelB) { $labelB = $cluster.B }
+        }
+    }
+    if ($null -eq $labelA) {
+        return [pscustomobject]@{ Ok = $false; Reason = "left chat tab has a close mark at $($left.A) but no label" }
+    }
+    $prefer = [int](($labelA + $labelB) / 2)
+    $best = $null
+    $bestDist = 999
+    for ($x = $labelA; $x -le $labelEnd; $x++) {
+        if ($found.Cols[$x] -ge 2) {
+            $dist = [Math]::Abs($x - $prefer)
+            if ($dist -lt $bestDist) { $bestDist = $dist; $best = $x }
+        }
+    }
+    if ($null -eq $best -or $best -gt ($left.A - 18)) {
+        return [pscustomobject]@{ Ok = $false; Reason = "left chat label is not clear of the close mark at $($left.A)-$($left.B)" }
+    }
+    $ySum = 0
+    $yN = 0
+    for ($y = $found.Y0; $y -le $found.Y1; $y++) {
+        $c = $bmp.GetPixel($best, $y)
+        if (($c.R + $c.G + $c.B) -lt 420) { $ySum += $y; $yN++ }
+    }
+    if ($yN -lt 1) {
+        return [pscustomobject]@{ Ok = $false; Reason = 'left chat label row is empty' }
+    }
+    return [pscustomobject]@{ Ok = $true; X = $best; Y = [int]($ySum / $yN); Marks = $markText }
+}
+
+function Copy-CursorTabRow($wr) {
+    $width = $wr.Right - $wr.Left
+    $bmp = New-Object System.Drawing.Bitmap $width, 100
+    $g = [System.Drawing.Graphics]::FromImage($bmp)
+    $g.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size $width, 100))
+    $g.Dispose()
+    return $bmp
+}
+
+if ($MeasureCursorTabs) { $CursorOnly = $true }
+
 if (-not $CursorOnly) {
     $oc = Get-OpenCodeProcess
     $hwnd = $oc.MainWindowHandle
@@ -206,6 +300,17 @@ if (-not $cursor) { throw 'Cursor window not found' }
 $ch = $cursor.MainWindowHandle
 $wr = New-Object RotateUi+RECT
 [RotateUi]::GetWindowRect($ch, [ref]$wr) | Out-Null
+if ($MeasureCursorTabs) {
+    $band = Copy-CursorTabRow $wr
+    $hit = Get-LeftChatTabClick $band
+    $found = Measure-CursorChatTabs $band
+    $markText = (($found.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
+    "cursor tab close marks: $markText"
+    if ($hit.Ok) { "cursor left tab label: $($hit.X),$($hit.Y)" } else { "cursor left tab not closed: $($hit.Reason)" }
+    $band.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_tab_measure.png', [System.Drawing.Imaging.ImageFormat]::Png)
+    $band.Dispose()
+    return
+}
 [RotateUi]::AllowForeground($ch)
 # Empty sidebar, above the New Agent label, so the shortcut is not swallowed by the composer.
 [RotateUi]::Click(($wr.Left + 30), ($wr.Top + 180))
@@ -223,10 +328,9 @@ Start-Sleep -Milliseconds 80
 Start-Sleep -Milliseconds 40
 [RotateUi]::Chord(0x11, 0x56)
 Start-Sleep -Milliseconds 350
-Add-Type -AssemblyName System.Drawing
 $shot = New-Object System.Drawing.Bitmap 700, 220
 $sg = [System.Drawing.Graphics]::FromImage($shot)
-$sg.CopyFromScreen(($wr.Left + 200), ($wr.Top + 70), 0, 0, (New-Object System.Drawing.Size 700, 220))
+$sg.CopyFromScreen(($wr.Left + 200), ($wr.Top + 40), 0, 0, (New-Object System.Drawing.Size 700, 220))
 $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_before_send.png', [System.Drawing.Imaging.ImageFormat]::Png)
 $sg.Dispose(); $shot.Dispose()
 if ($StopBeforeCursorSend) { 'cursor bootstrap pasted, not sent'; return }
@@ -234,9 +338,24 @@ if ($StopBeforeCursorSend) { 'cursor bootstrap pasted, not sent'; return }
 Start-Sleep -Milliseconds 500
 'cursor bootstrap sent'
 if ($StopBeforeCursorClose) { return }
-# Ctrl+[ does not switch chats in this Agents window. The new agent opens to
-# the right, so the chat that launched the script is the left tab.
-[RotateUi]::Click(($wr.Left + 249), ($wr.Top + 58))
+# The new agent opens to the right, so the chat that launched the script is
+# the left tab. Click its title, never its close glyph. A fixed offset of
+# +249,+58 closed both chats: that point is in the editor on this window,
+# and a hit on a close glyph plus Ctrl+W closes the other tab too.
+$hit = $null
+$band = $null
+foreach ($try in 1..8) {
+    if ($band) { $band.Dispose() }
+    $band = Copy-CursorTabRow $wr
+    $hit = Get-LeftChatTabClick $band
+    if ($hit.Ok) { break }
+    Start-Sleep -Milliseconds 250
+}
+$band.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_tab_close.png', [System.Drawing.Imaging.ImageFormat]::Png)
+$band.Dispose()
+if (-not $hit.Ok) { throw "cursor tab row not safe to close: $($hit.Reason)" }
+"cursor left tab label at $($hit.X),$($hit.Y) ; close marks $($hit.Marks)"
+[RotateUi]::Click(($wr.Left + $hit.X), ($wr.Top + $hit.Y))
 Start-Sleep -Milliseconds 300
 [RotateUi]::Chord(0x11, 0x57) # Ctrl+W
 Start-Sleep -Milliseconds 400

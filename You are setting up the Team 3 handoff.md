@@ -84,14 +84,20 @@ current chat. Have only one OpenCode session tab and one Cursor chat
 before a rotation. The script closes every OpenCode tab that existed
 before New session, and it closes the Cursor tab at the left.
 
-Measured Cursor clicks, relative to the window's top-left, on a 959 by
-1047 Agents window with the sidebar showing:
+Measured Cursor clicks, relative to the window's top-left:
 
 - blank sidebar, so the shortcut is not typed into the composer: +30, +180
 - fresh composer: +420, +115
-- the left chat tab, which is the chat being closed: +249, +58
-  If the sidebar width changes, screenshot and remeasure before closing
-  anything. Ctrl+[ does not switch chats in this window. Do not use it.
+- the left chat tab is not a fixed offset. The script photographs the
+  tab row and clicks the left title, at least 18px left of that tab's
+  close glyph. On the 753 by 870 window the old +249,+58 point sits in
+  the editor, above the tab glyphs. Hitting a close glyph and then
+  sending Ctrl+W closes both chats. The script refuses to close unless
+  it sees two close glyphs. Remeasure without closing:
+
+powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads.ps1" -MeasureCursorTabs
+
+  Ctrl+[ does not switch chats in this window. Do not use it.
   Ctrl+Enter force-sends in Cursor. Enter confirms the "Close Running Tab?"
   dialog after Ctrl+W.
 
@@ -135,9 +141,10 @@ before it sends. The first time on a layout, stop before the send:
 powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads.ps1" -CursorOnly -StopBeforeCursorSend
 
 Read that image. Send only if it shows "This is a fresh coordinator
-thread." Then close the old chat by clicking the left tab, Ctrl+W, and
-Enter to confirm Close Running Tab. Switches -OpenCodeOnly and
--StopBeforeCursorClose exist for the same kind of check.
+thread." The script then measures the tab row, clicks the left tab's
+title, and sends Ctrl+W. Enter confirms Close Running Tab. It stops
+without closing if it does not see two chat tabs. Switches -OpenCodeOnly
+and -StopBeforeCursorClose exist for the same kind of check.
 
 After the new Cursor thread opens, it is told to arm this same watcher
 and wait. The thread that ran the rotator closes. That is the point.
