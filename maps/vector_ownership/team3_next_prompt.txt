@@ -4,7 +4,7 @@ When you finish, overwrite handoff/team3_response.md with your entire chat respo
 
 `Epilogue fence` holds for the no. The span 0x140736836 through 0x1407368c5 has no MFENCE, no XCHG, and no LOCK-prefixed instruction. The RET is 0x1407368c5 bytes c3. The 33-instruction census is the listing. The sentence that no append was made is false. Do not append `Epilogue fence` again.
 
-`Destructor reaches stop` holds for the no. ProductionDoc_dtor at 0x14067fc20 has no direct CALL to FUN_14068da40. The CALL at 0x14068da61 is bytes e88a460000 CALL 0x1406920f0. Do not append that heading again.
+`Destructor reaches stop` holds for the no. ProductionDoc_dtor at 0x14067fc20 has no direct CALL to FUN_14068da40. The CALL at 0x14068da61 is bytes e88a460000 CALL 0x1406920f0. `Destructor join` already records that FUN_14068da40 has no direct code caller. Do not append `Stop caller`. Do not reopen that census.
 
 Question: in the body of the callee at 0x140520070, is there any LOCK-prefixed instruction, MFENCE, or XCHG? If yes, the answer is yes, and quote the first such instruction in full, including its bytes. If no, the answer is no, and quote the entry instruction in full, including its bytes, and quote the RET in full, including its bytes.
 
