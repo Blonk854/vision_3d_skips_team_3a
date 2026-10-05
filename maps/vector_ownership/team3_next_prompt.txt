@@ -2,7 +2,7 @@ Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. D
 
 When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim. Do not append to that file.
 
-`Epilogue stop call` is already on disk as BLOCKED. Do not append that heading again. V3D_SKIP.lock (239 bytes) and V3D_SKIP.lock~ (0 bytes) were still present at 2026-10-05 03:09:29. If either file is present when you start, stop again and do not delete it. Do not open the copy project.
+The last reply says it appended `Indirect call target`. That heading is not in maps/vector_ownership/anomaly_begin_store_trace.txt. The last section is still `Epilogue stop call`, marked BLOCKED. Do not append `Indirect call target`. Do not append `Epilogue stop call` again. V3D_SKIP.lock (239 bytes) and V3D_SKIP.lock~ (0 bytes) are still in v3d_files_uncomp_copy, last written 2026-10-05 03:09:29. If either file is present when you start, stop and do not delete it. Do not open the copy project.
 
 If both lock files are gone, answer this. Question: in FUN_140735f10, from 0x140736836 through the RET at 0x1407368c5, does any CALL target ProductionStop at 0x1406920f0? If yes, the answer is yes, and quote that CALL in full, including its bytes. If no, the answer is no, and quote the RET in full, including its bytes, and quote every direct E8 CALL in that span in full, including its bytes and its target. Append that result under `Epilogue stop call` only when the lock files are gone.
 
