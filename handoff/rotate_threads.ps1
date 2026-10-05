@@ -436,34 +436,32 @@ if (-not $CursorOnly) {
     $oc = Get-OpenCodeProcess
     $hwnd = $oc.MainWindowHandle
     [RotateUi]::AllowForeground($hwnd)
-    $before = @(Get-OpenCodeSessionTabs $hwnd | ForEach-Object { $_.Name })
-    if ($before.Count -lt 1) { throw 'no OpenCode session tab to rotate' }
+    $beforeTabs = @(Get-OpenCodeSessionTabs $hwnd)
+    if ($beforeTabs.Count -lt 1) { throw 'no OpenCode session tab to rotate' }
+    $before = @($beforeTabs | ForEach-Object { $_.Name })
     "open code before: $($before -join ' | ')"
     $newBtn = Find-OpenCodeButton $hwnd 'New session'
     if (-not $newBtn) { throw 'New session button not found' }
     $nr = $newBtn.Current.BoundingRectangle
     [RotateUi]::Click([int]($nr.X + $nr.Width / 2), [int]($nr.Y + $nr.Height / 2))
-    $fresh = @()
+    $now = @()
     foreach ($wait in 1..12) {
         Start-Sleep -Milliseconds 300
         $now = @(Get-OpenCodeSessionTabs $hwnd)
-        $fresh = @($now | Where-Object { $before -notcontains $_.Name })
-        if ($fresh.Count -ge 1) { break }
+        if ($now.Count -gt $beforeTabs.Count) { break }
     }
-    if ($fresh.Count -lt 1) { throw 'new OpenCode session did not appear; old session left open' }
-    "open code fresh: $($fresh.Name -join ' | ')"
-    $now = @(Get-OpenCodeSessionTabs $hwnd)
-    foreach ($tab in $now) {
-        if ($before -contains $tab.Name) {
-            "closing old session '$($tab.Name)' at $($tab.CloseX),$($tab.CloseY)"
-            [RotateUi]::Click($tab.CloseX, $tab.CloseY)
-            Start-Sleep -Milliseconds 450
-        }
+    if ($now.Count -le $beforeTabs.Count) { throw 'new OpenCode session did not appear; old session left open' }
+    $keep = $now | Sort-Object CloseX | Select-Object -Last 1
+    "open code fresh: $($keep.Name) at $($keep.CloseX),$($keep.CloseY)"
+    $old = @($now | Where-Object { -not ($_.CloseX -eq $keep.CloseX -and $_.CloseY -eq $keep.CloseY) } | Sort-Object CloseX -Descending)
+    foreach ($tab in $old) {
+        "closing old session '$($tab.Name)' at $($tab.CloseX),$($tab.CloseY)"
+        [RotateUi]::Click($tab.CloseX, $tab.CloseY)
+        Start-Sleep -Milliseconds 450
     }
     $left = @(Get-OpenCodeSessionTabs $hwnd)
-    $still = @($left | Where-Object { $before -contains $_.Name })
-    if ($still.Count -gt 0) { throw "old OpenCode session still open: $($still.Name -join ' | ')" }
     if ($left.Count -lt 1) { throw 'OpenCode session tab disappeared' }
+    if ($left.Count -ne 1) { throw "old OpenCode session still open: $($left.Name -join ' | ')" }
     "open code remaining: $($left.Name -join ' | ')"
 
     $notice = 'Continue from maps/vector_ownership/team3_next_prompt.txt'
