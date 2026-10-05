@@ -214,6 +214,36 @@ function Measure-CursorChatTabs([System.Drawing.Bitmap]$bmp) {
             $kept.Add([pscustomobject]@{ A = $textA; B = $textB })
         }
     }
+    # Same hidden glyph, on the left tab. Letter gaps inside one title are
+    # smaller than the gap between two titles. The group nearest the glyph
+    # belongs to that glyph. An earlier wide group is a tab with no X.
+    if ($kept.Count -ge 1) {
+        $glyphA = $kept[0].A
+        $groups = New-Object System.Collections.Generic.List[object]
+        foreach ($cluster in $merged) {
+            $width = $cluster.B - $cluster.A + 1
+            if ($width -lt 4) { continue }
+            if ($cluster.B -gt ($glyphA - 18)) { continue }
+            if ($cluster.A -lt ($glyphA - 420)) { continue }
+            if ($groups.Count -gt 0) {
+                $prev = $groups[$groups.Count - 1]
+                if (($cluster.A - $prev.B - 1) -lt 24) {
+                    if ($cluster.B -gt $prev.B) { $prev.B = $cluster.B }
+                    continue
+                }
+            }
+            $groups.Add([pscustomobject]@{ A = $cluster.A; B = $cluster.B })
+        }
+        if ($groups.Count -ge 2) {
+            $insertAt = 0
+            for ($g = 0; $g -lt ($groups.Count - 1); $g++) {
+                $span = $groups[$g].B - $groups[$g].A + 1
+                if ($span -lt 24) { continue }
+                $kept.Insert($insertAt, [pscustomobject]@{ A = $groups[$g].A; B = $groups[$g].B })
+                $insertAt++
+            }
+        }
+    }
     return [pscustomobject]@{ Cols = $cols; Raw = $merged; Marks = $kept; Y0 = $y0; Y1 = $y1 }
 }
 
@@ -224,6 +254,31 @@ function Get-LeftChatTabClick([System.Drawing.Bitmap]$bmp) {
         return [pscustomobject]@{ Ok = $false; Reason = "need two chat tabs, saw $($found.Marks.Count) ($markText)" }
     }
     $left = $found.Marks[0]
+    $leftWidth = $left.B - $left.A + 1
+    if ($leftWidth -gt 16) {
+        $prefer = [int](($left.A + $left.B) / 2)
+        $best = $null
+        $bestDist = 999
+        for ($x = $left.A; $x -le $left.B; $x++) {
+            if ($found.Cols[$x] -ge 2) {
+                $dist = [Math]::Abs($x - $prefer)
+                if ($dist -lt $bestDist) { $bestDist = $dist; $best = $x }
+            }
+        }
+        if ($null -eq $best) {
+            return [pscustomobject]@{ Ok = $false; Reason = "left chat title $($left.A)-$($left.B) has no ink" }
+        }
+        $ySum = 0
+        $yN = 0
+        for ($y = $found.Y0; $y -le $found.Y1; $y++) {
+            $c = $bmp.GetPixel($best, $y)
+            if (($c.R + $c.G + $c.B) -lt 420) { $ySum += $y; $yN++ }
+        }
+        if ($yN -lt 1) {
+            return [pscustomobject]@{ Ok = $false; Reason = 'left chat label row is empty' }
+        }
+        return [pscustomobject]@{ Ok = $true; X = $best; Y = [int]($ySum / $yN); Marks = $markText }
+    }
     $labelEnd = $left.A - 18
     $labelA = $null
     $labelB = $null
