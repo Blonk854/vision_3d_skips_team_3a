@@ -128,11 +128,11 @@ function Find-PromptEdit([IntPtr]$hwnd) {
 }
 
 function Measure-CursorChatTabs([System.Drawing.Bitmap]$bmp) {
-    # Light tab strip: dark glyphs on a pale row. y=50..76 sits under the menu
+    # Light tab strip: dark glyphs on a pale row. y=48..84 sits under the menu
     # and on the chat-tab titles. A close glyph is a short cluster with a wide
     # gap on both sides; letters sit closer together.
-    $y0 = 50
-    $y1 = 76
+    $y0 = 48
+    $y1 = 84
     $cols = New-Object int[] $bmp.Width
     for ($x = 0; $x -lt $bmp.Width; $x++) {
         for ($y = $y0; $y -le $y1; $y++) {
@@ -152,17 +152,47 @@ function Measure-CursorChatTabs([System.Drawing.Bitmap]$bmp) {
         }
     }
     if ($in) { $raw.Add([pscustomobject]@{ A = $start; B = ($bmp.Width - 1) }) }
+    # A close glyph can have a one-pixel hole. Join those holes, and leave the
+    # wider gaps between letters alone.
+    $merged = New-Object System.Collections.Generic.List[object]
+    foreach ($cluster in $raw) {
+        if ($merged.Count -gt 0) {
+            $prev = $merged[$merged.Count - 1]
+            if (($cluster.A - $prev.B - 1) -le 1) {
+                $prev.B = $cluster.B
+                continue
+            }
+        }
+        $merged.Add([pscustomobject]@{ A = $cluster.A; B = $cluster.B })
+    }
     $marks = New-Object System.Collections.Generic.List[object]
-    for ($i = 0; $i -lt $raw.Count; $i++) {
-        $width = $raw[$i].B - $raw[$i].A + 1
+    for ($i = 0; $i -lt $merged.Count; $i++) {
+        $width = $merged[$i].B - $merged[$i].A + 1
         if ($width -lt 7 -or $width -gt 16) { continue }
         $gapBefore = 999
-        if ($i -gt 0) { $gapBefore = $raw[$i].A - $raw[$i - 1].B - 1 }
+        if ($i -gt 0) { $gapBefore = $merged[$i].A - $merged[$i - 1].B - 1 }
         $gapAfter = 999
-        if (($i + 1) -lt $raw.Count) { $gapAfter = $raw[$i + 1].A - $raw[$i].B - 1 }
-        if ($gapBefore -ge 16 -and $gapAfter -ge 12) { $marks.Add($raw[$i]) }
+        if (($i + 1) -lt $merged.Count) { $gapAfter = $merged[$i + 1].A - $merged[$i].B - 1 }
+        if ($gapBefore -ge 16 -and $gapAfter -ge 12) { $marks.Add($merged[$i]) }
     }
-    return [pscustomobject]@{ Cols = $cols; Raw = $raw; Marks = $marks; Y0 = $y0; Y1 = $y1 }
+    # The chat-panel icon sits just past the only tab's close glyph and has no
+    # title of its own. A real second tab has label ink between the two glyphs.
+    $kept = New-Object System.Collections.Generic.List[object]
+    $prevEnd = -1
+    foreach ($mark in $marks) {
+        $hasLabel = $false
+        foreach ($cluster in $merged) {
+            if ($cluster.A -gt $prevEnd -and $cluster.B -le ($mark.A - 18) -and ($cluster.B - $cluster.A + 1) -ge 8) {
+                $hasLabel = $true
+                break
+            }
+        }
+        if ($hasLabel) {
+            $kept.Add($mark)
+            $prevEnd = $mark.B
+        }
+    }
+    return [pscustomobject]@{ Cols = $cols; Raw = $merged; Marks = $kept; Y0 = $y0; Y1 = $y1 }
 }
 
 function Get-LeftChatTabClick([System.Drawing.Bitmap]$bmp) {
