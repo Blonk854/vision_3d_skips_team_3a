@@ -12,6 +12,7 @@ param(
     [switch]$MeasureCursorTabs,
     [switch]$ClickLeftTitle,
     [switch]$ShowFixedLeftTab,
+    [switch]$StopAfterNewAgent,
     [switch]$LayoutOnly
 )
 
@@ -382,7 +383,7 @@ function Copy-CursorTabRow($wr) {
     return $bmp
 }
 
-if ($MeasureCursorTabs -or $ClickLeftTitle -or $ShowFixedLeftTab) { $CursorOnly = $true }
+if ($MeasureCursorTabs -or $ClickLeftTitle -or $ShowFixedLeftTab -or $StopAfterNewAgent) { $CursorOnly = $true }
 
 Ensure-HandoffLayout
 if ($LayoutOnly) { return }
@@ -511,12 +512,33 @@ if ($MeasureCursorTabs -or $ClickLeftTitle) {
     }
     return
 }
+if ($StopAfterNewAgent) {
+    $before = Copy-CursorTabRow $wr
+    $foundBefore = Measure-CursorChatTabs $before
+    $before.Dispose()
+    $beforeText = (($foundBefore.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
+    "tabs before new agent: $beforeText"
+}
 [RotateUi]::AllowForeground($ch)
 # Empty sidebar, above the New Agent label, so the shortcut is not swallowed by the composer.
 [RotateUi]::Click(($wr.Left + 30), ($wr.Top + 180))
 Start-Sleep -Milliseconds 180
 [RotateUi]::Chord(0x11, 0x10, 0x4C) # Ctrl+Shift+L, New Agent
 Start-Sleep -Milliseconds 700
+if ($StopAfterNewAgent) {
+    $band = Copy-CursorTabRow $wr
+    $found = Measure-CursorChatTabs $band
+    $band.Dispose()
+    $markText = (($found.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
+    "tabs after new agent: $markText"
+    $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
+    $sg = [System.Drawing.Graphics]::FromImage($shot)
+    $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
+    $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_after_new_agent.png', [System.Drawing.Imaging.ImageFormat]::Png)
+    $sg.Dispose(); $shot.Dispose()
+    'new agent shortcut sent, not pasted'
+    return
+}
 # Fresh agent composer sits under the tab row.
 [RotateUi]::Click(($wr.Left + 420), ($wr.Top + 115))
 Start-Sleep -Milliseconds 200

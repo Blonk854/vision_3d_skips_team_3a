@@ -100,6 +100,7 @@ On this docked window +249,+58 sits on the left title, just before the
 word Cursor. It is not in the editor and not on a close glyph. The
 script still refuses to close unless two chat tabs are visible.
 -ShowFixedLeftTab clicks +249,+58 and returns before Ctrl+W.
+-StopAfterNewAgent clicks the sidebar, sends Ctrl+Shift+L, and returns before the paste.
 Remeasure the tab row without closing:
 
 powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads.ps1" -MeasureCursorTabs
