@@ -89,9 +89,8 @@ Cursor chat only when two tab titles are visible.
 Measured Cursor clicks, relative to the window's top-left, with Cursor
 to the right of OpenCode:
 
-- gray gap between the editor and the chat, so the shortcut is not typed
-  into the file or the composer: +440, +180
-- fresh composer, inside the white chat card: +600, +150
+- chat tab title, left of the close glyph: +300, +66
+- fresh composer, in the white chat card below the tab: +520, +170
 - the left chat tab is not a fixed offset. The script photographs the
   tab row and clicks the left title, at least 18px left of that tab's
   close glyph. On the 753 by 870 window the old +249,+58 point sits in
