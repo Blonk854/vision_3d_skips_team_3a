@@ -96,7 +96,8 @@ to the right of OpenCode:
   close glyph. On the 753 by 870 window the old +249,+58 point sits in
   the editor, above the tab glyphs. Hitting a close glyph and then
   sending Ctrl+W closes both chats. The script refuses to close unless
-  it sees two close glyphs. Remeasure without closing:
+  two tabs are visible. The active tab may hide its close glyph; a wide
+  title after the other glyph still counts. Remeasure without closing:
 
 powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads.ps1" -MeasureCursorTabs
 

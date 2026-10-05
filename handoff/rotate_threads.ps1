@@ -192,6 +192,22 @@ function Measure-CursorChatTabs([System.Drawing.Bitmap]$bmp) {
             $prevEnd = $mark.B
         }
     }
+    # The active tab often hides its close glyph. A wide title after the last
+    # glyph is that second tab. A lone icon past the glyph is not.
+    if ($kept.Count -ge 1) {
+        $after = $kept[$kept.Count - 1].B
+        $textA = $null
+        $textB = $null
+        foreach ($cluster in $merged) {
+            if ($cluster.A -le $after) { continue }
+            if (($cluster.B - $cluster.A + 1) -lt 4) { continue }
+            if ($null -eq $textA -or $cluster.A -lt $textA) { $textA = $cluster.A }
+            if ($null -eq $textB -or $cluster.B -gt $textB) { $textB = $cluster.B }
+        }
+        if ($null -ne $textA -and ($textB - $textA) -ge 24) {
+            $kept.Add([pscustomobject]@{ A = $textA; B = $textB })
+        }
+    }
     return [pscustomobject]@{ Cols = $cols; Raw = $merged; Marks = $kept; Y0 = $y0; Y1 = $y1 }
 }
 
