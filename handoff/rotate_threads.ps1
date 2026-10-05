@@ -152,13 +152,15 @@ function Get-OpenCodeRects([IntPtr]$hwnd) {
     return [pscustomobject]@{ Un = $un; Aw = $aw }
 }
 
-function Click-OpenCodeElement($el, $rects, [double]$fracX = 0.5, [double]$fracY = 0.5) {
+function Click-OpenCodeElement($el, $rects, [double]$fracX = 0.5, [double]$fracY = 0.5, [int]$offsetX = -1, [int]$offsetY = -1) {
     # Convert a physical BoundingRectangle point into the scaled click space,
     # the same mapping the Cursor side uses via Get-CursorScreenPoint.
+    # Offset from the element's top-left when given, so a click can sit on the
+    # first text line instead of the vertical center of the card.
     $scale = ($rects.Aw.Right - $rects.Aw.Left) / [double]($rects.Un.Right - $rects.Un.Left)
     $r = $el.Current.BoundingRectangle
-    $px = $r.X + $r.Width * $fracX
-    $py = $r.Y + $r.Height * $fracY
+    if ($offsetX -ge 0) { $px = $r.X + $offsetX } else { $px = $r.X + $r.Width * $fracX }
+    if ($offsetY -ge 0) { $py = $r.Y + $offsetY } else { $py = $r.Y + $r.Height * $fracY }
     $sx = $rects.Un.Left + ($px - $rects.Aw.Left) / $scale
     $sy = $rects.Un.Top + ($py - $rects.Aw.Top) / $scale
     [RotateUi]::Click([int][Math]::Round($sx), [int][Math]::Round($sy))
@@ -503,7 +505,9 @@ if (-not $CursorOnly) {
     $notice = 'Continue from maps/vector_ownership/team3_next_prompt.txt'
     $prompt = Find-PromptEdit $hwnd
     try { $prompt.SetFocus() } catch {}
-    Click-OpenCodeElement $prompt $ocRects 0.2 0.5
+    # First line of the prompt: 16px padding plus the middle of the 20px line.
+    # The card center sits below that line and does not focus the editor.
+    Click-OpenCodeElement $prompt $ocRects -offsetX 80 -offsetY 26
     Start-Sleep -Milliseconds 200
     [RotateUi]::Chord(0x11, 0x41) # Ctrl+A
     Start-Sleep -Milliseconds 60
@@ -533,6 +537,8 @@ if (-not $CursorOnly) {
             'open code notice sent'
         } elseif ($value.Trim().Length -eq 0) {
             'open code notice sent'
+        } elseif ($value.Trim() -eq '?') {
+            throw 'OpenCode prompt did not take the notice; the empty box reports its value as ?'
         } else {
             throw "OpenCode prompt still holds unexpected text: $value"
         }
