@@ -44,6 +44,18 @@ public class RotateUi {
     System.Threading.Thread.Sleep(40);
     mouse_event(0x0004, 0, 0, 0, UIntPtr.Zero);
   }
+  public static void ClickPhysical(int x, int y) {
+    IntPtr old = SetThreadDpiAwarenessContext(new IntPtr(-4));
+    try {
+      SetCursorPos(x, y);
+      System.Threading.Thread.Sleep(120);
+      mouse_event(0x0002, 0, 0, 0, UIntPtr.Zero);
+      System.Threading.Thread.Sleep(50);
+      mouse_event(0x0004, 0, 0, 0, UIntPtr.Zero);
+    } finally {
+      SetThreadDpiAwarenessContext(old);
+    }
+  }
   public static void Key(byte vk, bool up) {
     keybd_event(vk, 0, up ? 2u : 0u, UIntPtr.Zero);
   }
@@ -153,17 +165,14 @@ function Get-OpenCodeRects([IntPtr]$hwnd) {
 }
 
 function Click-OpenCodeElement($el, $rects, [double]$fracX = 0.5, [double]$fracY = 0.5, [int]$offsetX = -1, [int]$offsetY = -1) {
-    # Convert a physical BoundingRectangle point into the scaled click space,
-    # the same mapping the Cursor side uses via Get-CursorScreenPoint.
-    # Offset from the element's top-left when given, so a click can sit on the
-    # first text line instead of the vertical center of the card.
-    $scale = ($rects.Aw.Right - $rects.Aw.Left) / [double]($rects.Un.Right - $rects.Un.Left)
+    # UIAutomation BoundingRectangle is physical. Offset from the top-left so
+    # the click sits on the first text line. Click from a DPI-aware thread so
+    # the cursor is not scaled a second time. $rects is unused; callers still
+    # pass the window rects.
     $r = $el.Current.BoundingRectangle
     if ($offsetX -ge 0) { $px = $r.X + $offsetX } else { $px = $r.X + $r.Width * $fracX }
     if ($offsetY -ge 0) { $py = $r.Y + $offsetY } else { $py = $r.Y + $r.Height * $fracY }
-    $sx = $rects.Un.Left + ($px - $rects.Aw.Left) / $scale
-    $sy = $rects.Un.Top + ($py - $rects.Aw.Top) / $scale
-    [RotateUi]::Click([int][Math]::Round($sx), [int][Math]::Round($sy))
+    [RotateUi]::ClickPhysical([int][Math]::Round($px), [int][Math]::Round($py))
 }
 
 function Find-PromptEdit([IntPtr]$hwnd) {
