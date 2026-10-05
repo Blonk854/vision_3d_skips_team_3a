@@ -11,7 +11,6 @@ param(
     [switch]$StopBeforeCursorSend,
     [switch]$MeasureCursorTabs,
     [switch]$ClickLeftTitle,
-    [switch]$ShowFixedLeftTab,
     [switch]$StopAfterNewAgent,
     [switch]$ShowComposerClick,
     [switch]$LayoutOnly
@@ -35,6 +34,7 @@ public class RotateUi {
   [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
   [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
   [DllImport("user32.dll")] public static extern bool IsZoomed(IntPtr hWnd);
+  [DllImport("user32.dll")] public static extern IntPtr SetThreadDpiAwarenessContext(IntPtr value);
   public struct RECT { public int Left; public int Top; public int Right; public int Bottom; }
   public struct POINT { public int X; public int Y; }
   public static void Click(int x, int y) {
@@ -204,20 +204,24 @@ function Measure-CursorChatTabs([System.Drawing.Bitmap]$bmp) {
             $prevEnd = $mark.B
         }
     }
-    # The active tab often hides its close glyph. A wide title after the last
-    # glyph is that second tab. A lone icon past the glyph is not.
+    # The active tab often hides its close glyph. A wide title right after the
+    # last glyph is that second tab. The toolbar at the right end of the row
+    # (+, history, ..., panel) is far from the glyph and is not a tab.
     if ($kept.Count -ge 1) {
         $after = $kept[$kept.Count - 1].B
-        $textA = $null
-        $textB = $null
+        $first = $null
         foreach ($cluster in $merged) {
             if ($cluster.A -le $after) { continue }
             if (($cluster.B - $cluster.A + 1) -lt 4) { continue }
-            if ($null -eq $textA -or $cluster.A -lt $textA) { $textA = $cluster.A }
-            if ($null -eq $textB -or $cluster.B -gt $textB) { $textB = $cluster.B }
+            if ($null -eq $first) {
+                $first = [pscustomobject]@{ A = $cluster.A; B = $cluster.B }
+                continue
+            }
+            if (($cluster.A - $first.B - 1) -ge 24) { break }
+            $first.B = $cluster.B
         }
-        if ($null -ne $textA -and ($textB - $textA) -ge 24) {
-            $kept.Add([pscustomobject]@{ A = $textA; B = $textB })
+        if ($null -ne $first -and ($first.A - $after) -le 120 -and ($first.B - $first.A) -ge 24) {
+            $kept.Add($first)
         }
     }
     # Same hidden glyph, on the left tab. Letter gaps inside one title are
@@ -375,16 +379,55 @@ function Ensure-HandoffLayout {
     return "layout placed $($moved -join ', ')"
 }
 
-function Copy-CursorTabRow($wr) {
-    $width = $wr.Right - $wr.Left
-    $bmp = New-Object System.Drawing.Bitmap $width, 100
-    $g = [System.Drawing.Graphics]::FromImage($bmp)
-    $g.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size $width, 100))
-    $g.Dispose()
+# CopyFromScreen reads physical pixels, but GetWindowRect and SetCursorPos
+# in this DPI-unaware process use the scaled 1536x864 view. Capture by the
+# physical rect, then divide by the window's scale before clicking.
+function Get-CursorPhysicalRect([IntPtr]$hwnd) {
+    $old = [RotateUi]::SetThreadDpiAwarenessContext([IntPtr](-4))
+    $pr = New-Object RotateUi+RECT
+    try {
+        [RotateUi]::GetWindowRect($hwnd, [ref]$pr) | Out-Null
+    } finally {
+        [void][RotateUi]::SetThreadDpiAwarenessContext($old)
+    }
+    return $pr
+}
+
+function Copy-CursorWindow([IntPtr]$hwnd, [int]$height) {
+    $pr = Get-CursorPhysicalRect $hwnd
+    $width = $pr.Right - $pr.Left
+    $old = [RotateUi]::SetThreadDpiAwarenessContext([IntPtr](-4))
+    try {
+        $bmp = New-Object System.Drawing.Bitmap $width, $height
+        $g = [System.Drawing.Graphics]::FromImage($bmp)
+        $g.CopyFromScreen($pr.Left, $pr.Top, 0, 0, (New-Object System.Drawing.Size $width, $height))
+        $g.Dispose()
+    } finally {
+        [void][RotateUi]::SetThreadDpiAwarenessContext($old)
+    }
     return $bmp
 }
 
-if ($MeasureCursorTabs -or $ClickLeftTitle -or $ShowFixedLeftTab -or $StopAfterNewAgent -or $ShowComposerClick) { $CursorOnly = $true }
+function Copy-CursorTabRow([IntPtr]$hwnd) {
+    return Copy-CursorWindow $hwnd 100
+}
+
+function Save-CursorShot([IntPtr]$hwnd, [string]$name) {
+    $shot = Copy-CursorWindow $hwnd 350
+    $shot.Save((Join-Path 'C:\Users\s_sme\AppData\Local\Temp' $name), [System.Drawing.Imaging.ImageFormat]::Png)
+    $shot.Dispose()
+}
+
+function Get-CursorScreenPoint([IntPtr]$hwnd, $wr, [int]$imageX, [int]$imageY) {
+    $pr = Get-CursorPhysicalRect $hwnd
+    $scale = ($pr.Right - $pr.Left) / [double]($wr.Right - $wr.Left)
+    return [pscustomobject]@{
+        X = $wr.Left + [int][Math]::Round($imageX / $scale)
+        Y = $wr.Top + [int][Math]::Round($imageY / $scale)
+    }
+}
+
+if ($MeasureCursorTabs -or $ClickLeftTitle -or $StopAfterNewAgent -or $ShowComposerClick) { $CursorOnly = $true }
 
 Ensure-HandoffLayout
 if ($LayoutOnly) { return }
@@ -479,58 +522,37 @@ if ($ShowComposerClick) {
     $cursorAt = New-Object RotateUi+POINT
     [RotateUi]::GetCursorPos([ref]$cursorAt) | Out-Null
     "composer clicked at $sx,$sy ; pointer $($cursorAt.X),$($cursorAt.Y) ; not pasted"
-    $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
-    $sg = [System.Drawing.Graphics]::FromImage($shot)
-    $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
-    $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_composer_click.png', [System.Drawing.Imaging.ImageFormat]::Png)
-    $sg.Dispose(); $shot.Dispose()
-    return
-}
-if ($ShowFixedLeftTab) {
-    [RotateUi]::AllowForeground($ch)
-    $sx = $wr.Left + 249
-    $sy = $wr.Top + 58
-    [RotateUi]::Click($sx, $sy)
-    Start-Sleep -Milliseconds 350
-    $cursorAt = New-Object RotateUi+POINT
-    [RotateUi]::GetCursorPos([ref]$cursorAt) | Out-Null
-    "fixed left tab clicked at $sx,$sy ; pointer $($cursorAt.X),$($cursorAt.Y) ; not closed"
-    $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
-    $sg = [System.Drawing.Graphics]::FromImage($shot)
-    $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
-    $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_fixed_left.png', [System.Drawing.Imaging.ImageFormat]::Png)
-    $sg.Dispose(); $shot.Dispose()
+    Save-CursorShot $ch 'cursor_composer_click.png'
     return
 }
 if ($MeasureCursorTabs -or $ClickLeftTitle) {
-    $band = Copy-CursorTabRow $wr
+    $band = Copy-CursorTabRow $ch
     $hit = Get-LeftChatTabClick $band
     $found = Measure-CursorChatTabs $band
     $markText = (($found.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
     "cursor tab close marks: $markText"
-    if ($hit.Ok) { "cursor left tab label: $($hit.X),$($hit.Y)" } else { "cursor left tab not closed: $($hit.Reason)" }
+    if ($hit.Ok) {
+        $pt = Get-CursorScreenPoint $ch $wr $hit.X $hit.Y
+        "cursor left tab label: image $($hit.X),$($hit.Y) ; click $($pt.X),$($pt.Y)"
+    } else {
+        "cursor left tab not closed: $($hit.Reason)"
+    }
     $band.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_tab_measure.png', [System.Drawing.Imaging.ImageFormat]::Png)
     $band.Dispose()
     if ($ClickLeftTitle) {
         if (-not $hit.Ok) { throw "cursor left title not clicked: $($hit.Reason)" }
         [RotateUi]::AllowForeground($ch)
-        $sx = $wr.Left + $hit.X
-        $sy = $wr.Top + $hit.Y
-        [RotateUi]::Click($sx, $sy)
+        [RotateUi]::Click($pt.X, $pt.Y)
         Start-Sleep -Milliseconds 350
         $cursorAt = New-Object RotateUi+POINT
         [RotateUi]::GetCursorPos([ref]$cursorAt) | Out-Null
-        "cursor left tab clicked at $sx,$sy ; pointer $($cursorAt.X),$($cursorAt.Y) ; not closed"
-        $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
-        $sg = [System.Drawing.Graphics]::FromImage($shot)
-        $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
-        $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_after_left_click.png', [System.Drawing.Imaging.ImageFormat]::Png)
-        $sg.Dispose(); $shot.Dispose()
+        "cursor left tab clicked at $($pt.X),$($pt.Y) ; pointer $($cursorAt.X),$($cursorAt.Y) ; not closed"
+        Save-CursorShot $ch 'cursor_after_left_click.png'
     }
     return
 }
 if ($StopAfterNewAgent) {
-    $before = Copy-CursorTabRow $wr
+    $before = Copy-CursorTabRow $ch
     $foundBefore = Measure-CursorChatTabs $before
     $before.Dispose()
     $beforeText = (($foundBefore.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
@@ -543,16 +565,12 @@ Start-Sleep -Milliseconds 180
 [RotateUi]::Chord(0x11, 0x10, 0x4C) # Ctrl+Shift+L, New Agent
 Start-Sleep -Milliseconds 700
 if ($StopAfterNewAgent) {
-    $band = Copy-CursorTabRow $wr
+    $band = Copy-CursorTabRow $ch
     $found = Measure-CursorChatTabs $band
     $band.Dispose()
     $markText = (($found.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
     "tabs after new agent: $markText"
-    $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
-    $sg = [System.Drawing.Graphics]::FromImage($shot)
-    $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
-    $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_after_new_agent.png', [System.Drawing.Imaging.ImageFormat]::Png)
-    $sg.Dispose(); $shot.Dispose()
+    Save-CursorShot $ch 'cursor_after_new_agent.png'
     'new agent shortcut sent, not pasted'
     return
 }
@@ -567,11 +585,7 @@ Start-Sleep -Milliseconds 80
 Start-Sleep -Milliseconds 40
 [RotateUi]::Chord(0x11, 0x56)
 Start-Sleep -Milliseconds 350
-$shot = New-Object System.Drawing.Bitmap 700, 220
-$sg = [System.Drawing.Graphics]::FromImage($shot)
-$sg.CopyFromScreen(($wr.Left + 200), ($wr.Top + 40), 0, 0, (New-Object System.Drawing.Size 700, 220))
-$shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_before_send.png', [System.Drawing.Imaging.ImageFormat]::Png)
-$sg.Dispose(); $shot.Dispose()
+Save-CursorShot $ch 'cursor_before_send.png'
 if ($StopBeforeCursorSend) { 'cursor bootstrap pasted, not sent'; return }
 [RotateUi]::Chord(0x11, 0x0D) # Ctrl+Enter, force send
 Start-Sleep -Milliseconds 500
@@ -579,14 +593,21 @@ Start-Sleep -Milliseconds 500
 if ($StopBeforeCursorClose) { return }
 # Ctrl+[ does not switch chats. The new agent opens to the right, so the
 # chat that launched the script is the left tab.
-$band = Copy-CursorTabRow $wr
-$found = Measure-CursorChatTabs $band
+$hit = $null
+$band = $null
+foreach ($try in 1..8) {
+    if ($band) { $band.Dispose() }
+    $band = Copy-CursorTabRow $ch
+    $hit = Get-LeftChatTabClick $band
+    if ($hit.Ok) { break }
+    Start-Sleep -Milliseconds 250
+}
 $band.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_tab_close.png', [System.Drawing.Imaging.ImageFormat]::Png)
 $band.Dispose()
-$markText = (($found.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
-if ($found.Marks.Count -lt 2) { throw "cursor tab row not safe to close: need two chat tabs, saw $($found.Marks.Count) ($markText)" }
-"cursor left tab at 249,58 ; close marks $markText"
-[RotateUi]::Click(($wr.Left + 249), ($wr.Top + 58))
+if (-not $hit.Ok) { throw "cursor tab row not safe to close: $($hit.Reason)" }
+$pt = Get-CursorScreenPoint $ch $wr $hit.X $hit.Y
+"cursor left tab label at image $($hit.X),$($hit.Y) ; click $($pt.X),$($pt.Y) ; close marks $($hit.Marks)"
+[RotateUi]::Click($pt.X, $pt.Y)
 Start-Sleep -Milliseconds 300
 [RotateUi]::Chord(0x11, 0x57) # Ctrl+W
 Start-Sleep -Milliseconds 400

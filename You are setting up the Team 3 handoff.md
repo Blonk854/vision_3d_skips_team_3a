@@ -94,12 +94,14 @@ OpenCode.
 
 - empty sidebar, above the New Agent label: +30, +180
 - fresh composer, under the tab row: +420, +115
-- left chat tab: +249, +58
+- left chat tab: measured from the tab row, not a fixed offset
 
-On this docked window +249,+58 sits on the left title, just before the
-word Cursor. It is not in the editor and not on a close glyph. The
-script still refuses to close unless two chat tabs are visible.
--ShowFixedLeftTab clicks +249,+58 and returns before Ctrl+W.
+Screenshots are physical pixels. The 1536 by 864 view is 1.25 times
+smaller. The script photographs Cursor by its physical window rect,
+finds the left title there, and divides by the window's scale before
+it clicks. A screenshot taken at the click coordinates starts about
+200 pixels inside OpenCode. It refuses to close unless two chat tabs
+are visible. The toolbar at the right end of the tab row is not a tab.
 -StopAfterNewAgent clicks the sidebar, sends Ctrl+Shift+L, and returns before the paste.
 -ShowComposerClick clicks +420,+115 and returns before the paste.
 Remeasure the tab row without closing:
