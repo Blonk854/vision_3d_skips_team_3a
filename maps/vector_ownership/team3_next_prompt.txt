@@ -1,13 +1,13 @@
 Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module.
 
-When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim. Do not append to that file. If you stop because a lock file is present, do not append to the trace.
+When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim. Do not append to that file. The trace append below is separate and still required.
 
-The 4:17 stop holds. Both lock files were still present: V3D_SKIP.lock (239 bytes) and V3D_SKIP.lock~ (0 bytes), mtime 2026-10-05 03:09:29. Nothing was deleted. The gate file was untouched. Its MD5 is still 3C05BBB66D1463CB3B7CA0F1EDC78AEB. `Indirect call target` stays unresolved. `Epilogue stop call` stays BLOCKED. Do not append either heading while a lock file remains.
+Both copy-project lock files are gone. V3D_SKIP.lock and V3D_SKIP.lock~ are no longer in v3d_files_uncomp_copy. The 4:17 stop is closed. Open the copy project read-only and answer the question.
 
-If either lock file is present when you start, stop again. Do not open the copy project. Do not delete either file. Report the size and mtime of each file that remains.
+`Epilogue stop call` on disk is the BLOCKED entry. Do not leave that as the answer. Append a new section under `Epilogue stop call` with the result. `Indirect call target` stays unresolved. Do not append that heading again.
 
-If both lock files are gone, answer this. Question: in FUN_140735f10, from 0x140736836 through the RET at 0x1407368c5, does any CALL target ProductionStop at 0x1406920f0? If yes, the answer is yes, and quote that CALL in full, including its bytes. If no, the answer is no, and quote the RET in full, including its bytes, and quote every direct E8 CALL in that span in full, including its bytes and its target. Append that result under `Epilogue stop call` only when both lock files are gone.
+Question: in FUN_140735f10, from 0x140736836 through the RET at 0x1407368c5, does any CALL target ProductionStop at 0x1406920f0? If yes, the answer is yes, and quote that CALL in full, including its bytes. If no, the answer is no, and quote the RET in full, including its bytes, and quote every direct E8 CALL in that span in full, including its bytes and its target.
 
-Do not upgrade synchronization_contracts.worker_to_capm. Do not change the gate status. Leave maps/vector_ownership/anomaly_vector_mutator_table.json untouched and report its MD5 before and after.
+Do not upgrade synchronization_contracts.worker_to_capm. Do not change the gate status. Leave maps/vector_ownership/anomaly_vector_mutator_table.json untouched and report its MD5 before and after. While it stays untouched the MD5 is 3C05BBB66D1463CB3B7CA0F1EDC78AEB. Report whether a lock file remains in v3d_files_uncomp_copy.
 
 `Destructor on return` holds for the yes. `Indirect call base` holds for none. `Indirect call target` holds for unresolved. `Tail indirect call` holds for the yes. `Later lock pair` holds for the no. `Second lock operand` holds for the no. `Pointer arm store` holds for the no. `Taken arm fence` holds for the yes. `Not-taken arm fence` holds for the no. `Local split skips the call` holds for the yes. `LOCK on the compare bypass` holds for the no. `LOCK chain fall-through` holds for the no. `Destructor join` holds. This is still the synchronization half.
