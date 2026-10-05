@@ -88,22 +88,19 @@ OpenCode session tab and one Cursor chat before a rotation. The script
 closes every OpenCode tab that existed before New session. It closes a
 Cursor chat only when two tab titles are visible.
 
-Measured Cursor clicks, relative to the window's top-left, with Cursor
-to the right of OpenCode. Each click is an absolute SendInput move in
-this same 1536 by 864 view. Parking the pointer and clicking does not
-reach the chat.
+Cursor clicks match the Team 2 rotator: SetCursorPos, then mouse_event.
+They are relative to the window's top-left, with Cursor to the right of
+OpenCode.
 
-- chat tab title, left of the close glyph: +300, +66
-- fresh composer, in the white chat card below the tab: +520, +170
-- the left chat tab is not a fixed offset. The script photographs the
-  tab row and clicks the left title, at least 18px left of that tab's
-  close glyph. On the 753 by 870 window the old +249,+58 point sits in
-  the editor, above the tab glyphs. Hitting a close glyph and then
-  sending Ctrl+W closes both chats. The script refuses to close unless
-  two tabs are visible. The active tab may hide its close glyph. A wide
-  title after the other glyph still counts, and so does a wide title before
-  the first glyph when a gap separates it from that glyph's own label.
-  Remeasure without closing:
+- empty sidebar, above the New Agent label: +30, +180
+- fresh composer, under the tab row: +420, +115
+- left chat tab: +249, +58
+
+On this docked window +249,+58 sits on the left title, just before the
+word Cursor. It is not in the editor and not on a close glyph. The
+script still refuses to close unless two chat tabs are visible.
+-ShowFixedLeftTab clicks +249,+58 and returns before Ctrl+W.
+Remeasure the tab row without closing:
 
 powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads.ps1" -MeasureCursorTabs
 

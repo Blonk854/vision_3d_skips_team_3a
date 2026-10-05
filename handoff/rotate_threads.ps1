@@ -11,6 +11,7 @@ param(
     [switch]$StopBeforeCursorSend,
     [switch]$MeasureCursorTabs,
     [switch]$ClickLeftTitle,
+    [switch]$ShowFixedLeftTab,
     [switch]$LayoutOnly
 )
 
@@ -22,7 +23,8 @@ Add-Type @"
 using System;
 using System.Runtime.InteropServices;
 public class RotateUi {
-  [DllImport("user32.dll", SetLastError = true)] public static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
+  [DllImport("user32.dll")] public static extern bool SetCursorPos(int X, int Y);
+  [DllImport("user32.dll")] public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
   [DllImport("user32.dll")] public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
   [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr hWnd);
   [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr hWnd, out RECT r);
@@ -33,58 +35,12 @@ public class RotateUi {
   [DllImport("user32.dll")] public static extern bool IsZoomed(IntPtr hWnd);
   public struct RECT { public int Left; public int Top; public int Right; public int Bottom; }
   public struct POINT { public int X; public int Y; }
-  // x64 INPUT is 40 bytes. The mouse fields start at offset 8.
-  [StructLayout(LayoutKind.Sequential)]
-  public struct INPUT {
-    public uint type;
-    public uint pad0;
-    public int dx;
-    public int dy;
-    public uint mouseData;
-    public uint dwFlags;
-    public uint time;
-    public uint pad1;
-    public ulong extra;
-  }
-  static int AbsAxis(int value, int origin, int span) {
-    return (int)(((long)(value - origin) * 65535L) / (span - 1));
-  }
-  static INPUT MouseAt(int x, int y, uint flags) {
-    int vx = GetSystemMetrics(76);
-    int vy = GetSystemMetrics(77);
-    int vw = GetSystemMetrics(78);
-    int vh = GetSystemMetrics(79);
-    INPUT input = new INPUT();
-    input.type = 0;
-    input.dx = AbsAxis(x, vx, vw);
-    input.dy = AbsAxis(y, vy, vh);
-    input.dwFlags = flags;
-    return input;
-  }
-  static void SendOne(INPUT input) {
-    INPUT[] one = new INPUT[] { input };
-    uint sent = SendInput(1, one, Marshal.SizeOf(typeof(INPUT)));
-    if (sent != 1) {
-      throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
-    }
-  }
-  // A parked cursor plus mouse_event never reaches this Electron window.
-  // Move across the target so it sees a mouse enter, then press the button
-  // at the cursor. A button event that also carries absolute coordinates
-  // does not click. Stay in this process's 1536x864 view.
   public static void Click(int x, int y) {
-    const uint move = 0x0001 | 0x8000 | 0x4000;
-    SendOne(MouseAt(x - 36, y, move));
+    SetCursorPos(x, y);
     System.Threading.Thread.Sleep(80);
-    SendOne(MouseAt(x, y, move));
-    System.Threading.Thread.Sleep(80);
-    INPUT down = new INPUT();
-    down.dwFlags = 0x0002;
-    SendOne(down);
+    mouse_event(0x0002, 0, 0, 0, UIntPtr.Zero);
     System.Threading.Thread.Sleep(40);
-    INPUT up = new INPUT();
-    up.dwFlags = 0x0004;
-    SendOne(up);
+    mouse_event(0x0004, 0, 0, 0, UIntPtr.Zero);
   }
   public static void Key(byte vk, bool up) {
     keybd_event(vk, 0, up ? 2u : 0u, UIntPtr.Zero);
@@ -426,7 +382,7 @@ function Copy-CursorTabRow($wr) {
     return $bmp
 }
 
-if ($MeasureCursorTabs -or $ClickLeftTitle) { $CursorOnly = $true }
+if ($MeasureCursorTabs -or $ClickLeftTitle -or $ShowFixedLeftTab) { $CursorOnly = $true }
 
 Ensure-HandoffLayout
 if ($LayoutOnly) { return }
@@ -512,6 +468,22 @@ if (-not $cursor) { throw 'Cursor window not found' }
 $ch = $cursor.MainWindowHandle
 $wr = New-Object RotateUi+RECT
 [RotateUi]::GetWindowRect($ch, [ref]$wr) | Out-Null
+if ($ShowFixedLeftTab) {
+    [RotateUi]::AllowForeground($ch)
+    $sx = $wr.Left + 249
+    $sy = $wr.Top + 58
+    [RotateUi]::Click($sx, $sy)
+    Start-Sleep -Milliseconds 350
+    $cursorAt = New-Object RotateUi+POINT
+    [RotateUi]::GetCursorPos([ref]$cursorAt) | Out-Null
+    "fixed left tab clicked at $sx,$sy ; pointer $($cursorAt.X),$($cursorAt.Y) ; not closed"
+    $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
+    $sg = [System.Drawing.Graphics]::FromImage($shot)
+    $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
+    $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_fixed_left.png', [System.Drawing.Imaging.ImageFormat]::Png)
+    $sg.Dispose(); $shot.Dispose()
+    return
+}
 if ($MeasureCursorTabs -or $ClickLeftTitle) {
     $band = Copy-CursorTabRow $wr
     $hit = Get-LeftChatTabClick $band
@@ -540,13 +512,13 @@ if ($MeasureCursorTabs -or $ClickLeftTitle) {
     return
 }
 [RotateUi]::AllowForeground($ch)
-# Tab title, left of the close glyph at about +437. +440 is that glyph's column.
-[RotateUi]::Click(($wr.Left + 300), ($wr.Top + 66))
+# Empty sidebar, above the New Agent label, so the shortcut is not swallowed by the composer.
+[RotateUi]::Click(($wr.Left + 30), ($wr.Top + 180))
 Start-Sleep -Milliseconds 180
 [RotateUi]::Chord(0x11, 0x10, 0x4C) # Ctrl+Shift+L, New Agent
 Start-Sleep -Milliseconds 700
-# White chat card below the tab. +600,+150 sits on the current message.
-[RotateUi]::Click(($wr.Left + 520), ($wr.Top + 170))
+# Fresh agent composer sits under the tab row.
+[RotateUi]::Click(($wr.Left + 420), ($wr.Top + 115))
 Start-Sleep -Milliseconds 200
 $bootPath = Join-Path $PSScriptRoot 'cursor_bootstrap.md'
 $boot = [System.IO.File]::ReadAllText($bootPath).Trim()
@@ -566,24 +538,16 @@ if ($StopBeforeCursorSend) { 'cursor bootstrap pasted, not sent'; return }
 Start-Sleep -Milliseconds 500
 'cursor bootstrap sent'
 if ($StopBeforeCursorClose) { return }
-# The new agent opens to the right, so the chat that launched the script is
-# the left tab. Click its title, never its close glyph. A fixed offset of
-# +249,+58 closed both chats: that point is in the editor on this window,
-# and a hit on a close glyph plus Ctrl+W closes the other tab too.
-$hit = $null
-$band = $null
-foreach ($try in 1..8) {
-    if ($band) { $band.Dispose() }
-    $band = Copy-CursorTabRow $wr
-    $hit = Get-LeftChatTabClick $band
-    if ($hit.Ok) { break }
-    Start-Sleep -Milliseconds 250
-}
+# Ctrl+[ does not switch chats. The new agent opens to the right, so the
+# chat that launched the script is the left tab.
+$band = Copy-CursorTabRow $wr
+$found = Measure-CursorChatTabs $band
 $band.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_tab_close.png', [System.Drawing.Imaging.ImageFormat]::Png)
 $band.Dispose()
-if (-not $hit.Ok) { throw "cursor tab row not safe to close: $($hit.Reason)" }
-"cursor left tab label at $($hit.X),$($hit.Y) ; close marks $($hit.Marks)"
-[RotateUi]::Click(($wr.Left + $hit.X), ($wr.Top + $hit.Y))
+$markText = (($found.Marks | ForEach-Object { "$($_.A)-$($_.B)" }) -join ' ')
+if ($found.Marks.Count -lt 2) { throw "cursor tab row not safe to close: need two chat tabs, saw $($found.Marks.Count) ($markText)" }
+"cursor left tab at 249,58 ; close marks $markText"
+[RotateUi]::Click(($wr.Left + 249), ($wr.Top + 58))
 Start-Sleep -Milliseconds 300
 [RotateUi]::Chord(0x11, 0x57) # Ctrl+W
 Start-Sleep -Milliseconds 400
