@@ -13,6 +13,7 @@ param(
     [switch]$ClickLeftTitle,
     [switch]$ShowFixedLeftTab,
     [switch]$StopAfterNewAgent,
+    [switch]$ShowComposerClick,
     [switch]$LayoutOnly
 )
 
@@ -383,7 +384,7 @@ function Copy-CursorTabRow($wr) {
     return $bmp
 }
 
-if ($MeasureCursorTabs -or $ClickLeftTitle -or $ShowFixedLeftTab -or $StopAfterNewAgent) { $CursorOnly = $true }
+if ($MeasureCursorTabs -or $ClickLeftTitle -or $ShowFixedLeftTab -or $StopAfterNewAgent -or $ShowComposerClick) { $CursorOnly = $true }
 
 Ensure-HandoffLayout
 if ($LayoutOnly) { return }
@@ -469,6 +470,22 @@ if (-not $cursor) { throw 'Cursor window not found' }
 $ch = $cursor.MainWindowHandle
 $wr = New-Object RotateUi+RECT
 [RotateUi]::GetWindowRect($ch, [ref]$wr) | Out-Null
+if ($ShowComposerClick) {
+    [RotateUi]::AllowForeground($ch)
+    $sx = $wr.Left + 420
+    $sy = $wr.Top + 115
+    [RotateUi]::Click($sx, $sy)
+    Start-Sleep -Milliseconds 350
+    $cursorAt = New-Object RotateUi+POINT
+    [RotateUi]::GetCursorPos([ref]$cursorAt) | Out-Null
+    "composer clicked at $sx,$sy ; pointer $($cursorAt.X),$($cursorAt.Y) ; not pasted"
+    $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
+    $sg = [System.Drawing.Graphics]::FromImage($shot)
+    $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
+    $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_composer_click.png', [System.Drawing.Imaging.ImageFormat]::Png)
+    $sg.Dispose(); $shot.Dispose()
+    return
+}
 if ($ShowFixedLeftTab) {
     [RotateUi]::AllowForeground($ch)
     $sx = $wr.Left + 249
