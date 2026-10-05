@@ -504,6 +504,9 @@ if (-not $CursorOnly) {
 
     $notice = 'Continue from maps/vector_ownership/team3_next_prompt.txt'
     $prompt = Find-PromptEdit $hwnd
+    # Tab changes drop keyboard focus. Take it back immediately before the click,
+    # or the paste lands in whatever window is still active.
+    [RotateUi]::AllowForeground($hwnd)
     try { $prompt.SetFocus() } catch {}
     # First line of the prompt: 16px padding plus the middle of the 20px line.
     # The card center sits below that line and does not focus the editor.
