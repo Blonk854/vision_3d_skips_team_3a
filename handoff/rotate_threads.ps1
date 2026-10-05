@@ -10,6 +10,7 @@ param(
     [switch]$StopBeforeCursorClose,
     [switch]$StopBeforeCursorSend,
     [switch]$MeasureCursorTabs,
+    [switch]$ClickLeftTitle,
     [switch]$LayoutOnly
 )
 
@@ -21,22 +22,69 @@ Add-Type @"
 using System;
 using System.Runtime.InteropServices;
 public class RotateUi {
-  [DllImport("user32.dll")] public static extern bool SetCursorPos(int X, int Y);
-  [DllImport("user32.dll")] public static extern void mouse_event(uint dwFlags, uint dx, uint dy, uint dwData, UIntPtr dwExtraInfo);
+  [DllImport("user32.dll", SetLastError = true)] public static extern uint SendInput(uint nInputs, INPUT[] pInputs, int cbSize);
   [DllImport("user32.dll")] public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
   [DllImport("user32.dll")] public static extern bool SetForegroundWindow(IntPtr hWnd);
   [DllImport("user32.dll")] public static extern bool GetWindowRect(IntPtr hWnd, out RECT r);
+  [DllImport("user32.dll")] public static extern bool GetCursorPos(out POINT p);
   [DllImport("user32.dll")] public static extern int GetSystemMetrics(int nIndex);
   [DllImport("user32.dll")] public static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter, int X, int Y, int cx, int cy, uint uFlags);
   [DllImport("user32.dll")] public static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
   [DllImport("user32.dll")] public static extern bool IsZoomed(IntPtr hWnd);
   public struct RECT { public int Left; public int Top; public int Right; public int Bottom; }
+  public struct POINT { public int X; public int Y; }
+  // x64 INPUT is 40 bytes. The mouse fields start at offset 8.
+  [StructLayout(LayoutKind.Sequential)]
+  public struct INPUT {
+    public uint type;
+    public uint pad0;
+    public int dx;
+    public int dy;
+    public uint mouseData;
+    public uint dwFlags;
+    public uint time;
+    public uint pad1;
+    public ulong extra;
+  }
+  static int AbsAxis(int value, int origin, int span) {
+    return (int)(((long)(value - origin) * 65535L) / (span - 1));
+  }
+  static INPUT MouseAt(int x, int y, uint flags) {
+    int vx = GetSystemMetrics(76);
+    int vy = GetSystemMetrics(77);
+    int vw = GetSystemMetrics(78);
+    int vh = GetSystemMetrics(79);
+    INPUT input = new INPUT();
+    input.type = 0;
+    input.dx = AbsAxis(x, vx, vw);
+    input.dy = AbsAxis(y, vy, vh);
+    input.dwFlags = flags;
+    return input;
+  }
+  static void SendOne(INPUT input) {
+    INPUT[] one = new INPUT[] { input };
+    uint sent = SendInput(1, one, Marshal.SizeOf(typeof(INPUT)));
+    if (sent != 1) {
+      throw new System.ComponentModel.Win32Exception(Marshal.GetLastWin32Error());
+    }
+  }
+  // A parked cursor plus mouse_event never reaches this Electron window.
+  // Move across the target so it sees a mouse enter, then press the button
+  // at the cursor. A button event that also carries absolute coordinates
+  // does not click. Stay in this process's 1536x864 view.
   public static void Click(int x, int y) {
-    SetCursorPos(x, y);
+    const uint move = 0x0001 | 0x8000 | 0x4000;
+    SendOne(MouseAt(x - 36, y, move));
     System.Threading.Thread.Sleep(80);
-    mouse_event(0x0002, 0, 0, 0, UIntPtr.Zero);
+    SendOne(MouseAt(x, y, move));
+    System.Threading.Thread.Sleep(80);
+    INPUT down = new INPUT();
+    down.dwFlags = 0x0002;
+    SendOne(down);
     System.Threading.Thread.Sleep(40);
-    mouse_event(0x0004, 0, 0, 0, UIntPtr.Zero);
+    INPUT up = new INPUT();
+    up.dwFlags = 0x0004;
+    SendOne(up);
   }
   public static void Key(byte vk, bool up) {
     keybd_event(vk, 0, up ? 2u : 0u, UIntPtr.Zero);
@@ -378,7 +426,7 @@ function Copy-CursorTabRow($wr) {
     return $bmp
 }
 
-if ($MeasureCursorTabs) { $CursorOnly = $true }
+if ($MeasureCursorTabs -or $ClickLeftTitle) { $CursorOnly = $true }
 
 Ensure-HandoffLayout
 if ($LayoutOnly) { return }
@@ -464,7 +512,7 @@ if (-not $cursor) { throw 'Cursor window not found' }
 $ch = $cursor.MainWindowHandle
 $wr = New-Object RotateUi+RECT
 [RotateUi]::GetWindowRect($ch, [ref]$wr) | Out-Null
-if ($MeasureCursorTabs) {
+if ($MeasureCursorTabs -or $ClickLeftTitle) {
     $band = Copy-CursorTabRow $wr
     $hit = Get-LeftChatTabClick $band
     $found = Measure-CursorChatTabs $band
@@ -473,6 +521,22 @@ if ($MeasureCursorTabs) {
     if ($hit.Ok) { "cursor left tab label: $($hit.X),$($hit.Y)" } else { "cursor left tab not closed: $($hit.Reason)" }
     $band.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_tab_measure.png', [System.Drawing.Imaging.ImageFormat]::Png)
     $band.Dispose()
+    if ($ClickLeftTitle) {
+        if (-not $hit.Ok) { throw "cursor left title not clicked: $($hit.Reason)" }
+        [RotateUi]::AllowForeground($ch)
+        $sx = $wr.Left + $hit.X
+        $sy = $wr.Top + $hit.Y
+        [RotateUi]::Click($sx, $sy)
+        Start-Sleep -Milliseconds 350
+        $cursorAt = New-Object RotateUi+POINT
+        [RotateUi]::GetCursorPos([ref]$cursorAt) | Out-Null
+        "cursor left tab clicked at $sx,$sy ; pointer $($cursorAt.X),$($cursorAt.Y) ; not closed"
+        $shot = New-Object System.Drawing.Bitmap ($wr.Right - $wr.Left), 280
+        $sg = [System.Drawing.Graphics]::FromImage($shot)
+        $sg.CopyFromScreen($wr.Left, $wr.Top, 0, 0, (New-Object System.Drawing.Size ($wr.Right - $wr.Left), 280))
+        $shot.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_after_left_click.png', [System.Drawing.Imaging.ImageFormat]::Png)
+        $sg.Dispose(); $shot.Dispose()
+    }
     return
 }
 [RotateUi]::AllowForeground($ch)

@@ -89,7 +89,9 @@ closes every OpenCode tab that existed before New session. It closes a
 Cursor chat only when two tab titles are visible.
 
 Measured Cursor clicks, relative to the window's top-left, with Cursor
-to the right of OpenCode:
+to the right of OpenCode. Each click is an absolute SendInput move in
+this same 1536 by 864 view. Parking the pointer and clicking does not
+reach the chat.
 
 - chat tab title, left of the close glyph: +300, +66
 - fresh composer, in the white chat card below the tab: +520, +170
@@ -104,6 +106,8 @@ to the right of OpenCode:
   Remeasure without closing:
 
 powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads.ps1" -MeasureCursorTabs
+
+  -ClickLeftTitle clicks that measured left title and returns before Ctrl+W.
 
   Ctrl+[ does not switch chats in this window. Do not use it.
   Ctrl+Enter force-sends in Cursor. Enter confirms the "Close Running Tab?"
