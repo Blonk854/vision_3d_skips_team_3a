@@ -13,7 +13,7 @@ On any turn about this gate, Team 3, a reply, or `team3_next_prompt.txt`:
 
 1. Read `maps/vector_ownership/team3_next_prompt.txt` (the current assignment).
 2. Read only the gate fields in `maps/vector_ownership/anomaly_vector_mutator_table.json`: `gate_status`, `gate_requirements`, `synchronization_contracts`.
-3. Do not read `anomaly_begin_store_trace.txt` from the start. It is tens of thousands of lines. When the user says the file was updated or "replied", read only the last `=====` section.
+3. Do not read `anomaly_begin_store_trace.txt` from the start. It is tens of thousands of lines. When the user says the file was updated or "replied", or `handoff/team3_response.md` wakes you, read the response file and only the last `=====` section. The response file is the wake. The new heading is the evidence. There is no `handoff/prompt.md`.
 
 ## Gate
 
@@ -27,4 +27,4 @@ Check the new section against the prompt: the yes/no, the cited lines, the gate 
 
 Read-only copy project `v3d_files_uncomp_copy/V3D_SKIP`, program `/Vision3D.exe`. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module. Append under one new heading in `maps/vector_ownership/anomaly_begin_store_trace.txt`. Do not change the gate status.
 
-Commit and push only `team3_next_prompt.txt` when you replace it. Leave the trace unstaged; that file is Team 3's.
+Commit and push only `team3_next_prompt.txt` when you replace it. Leave the trace, `handoff/team3_response.md`, and `handoff/state.md` unstaged. The trace is Team 3's. Do not arm `tools/team3_watch.ps1` while `handoff/watch_response.ps1` is the loop.
