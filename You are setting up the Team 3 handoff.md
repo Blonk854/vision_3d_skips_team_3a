@@ -74,20 +74,24 @@ watcher will wake you on the old file. Look at OpenCode. If its
 button is named Stop, Team 3 is mid-run. Leave that session open.
 
 Layout this script expects
-Leave both windows where they are. OpenCode is the desktop app, process
+Leave both windows where they are, side by side. On the 1536 by 864
+screen OpenCode is the left window and Cursor is the right window.
+Do not widen Cursor over OpenCode. OpenCode is the desktop app, process
 name OpenCode. Its UI Automation tree has New session, Close tab, an edit
 named Prompt, Send, and Stop while a reply is generating. Cursor is the
-Agents window whose title contains vision_3d_skips. The sidebar shows
-New Agent as Ctrl+Shift+L. The fresh composer is under the tab row, not
-in the bottom follow-up box. The new agent tab opens to the right of the
-current chat. Have only one OpenCode session tab and one Cursor chat
-before a rotation. The script closes every OpenCode tab that existed
-before New session, and it closes the Cursor tab at the left.
+window whose title contains vision_3d_skips. The fresh composer is the
+white chat card on the right, under the tab row, not in the bottom
+follow-up box. This docked chat shows one tab header. Have only one
+OpenCode session tab and one Cursor chat before a rotation. The script
+closes every OpenCode tab that existed before New session. It closes a
+Cursor chat only when two tab titles are visible.
 
-Measured Cursor clicks, relative to the window's top-left:
+Measured Cursor clicks, relative to the window's top-left, with Cursor
+to the right of OpenCode:
 
-- blank sidebar, so the shortcut is not typed into the composer: +30, +180
-- fresh composer: +420, +115
+- gray gap between the editor and the chat, so the shortcut is not typed
+  into the file or the composer: +440, +180
+- fresh composer, inside the white chat card: +600, +150
 - the left chat tab is not a fixed offset. The script photographs the
   tab row and clicks the left title, at least 18px left of that tab's
   close glyph. On the 753 by 870 window the old +249,+58 point sits in

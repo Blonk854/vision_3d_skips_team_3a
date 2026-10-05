@@ -342,13 +342,15 @@ if ($MeasureCursorTabs) {
     return
 }
 [RotateUi]::AllowForeground($ch)
-# Empty sidebar, above the New Agent label, so the shortcut is not swallowed by the composer.
-[RotateUi]::Click(($wr.Left + 30), ($wr.Top + 180))
+# Gray gap between the editor and the chat. +30,+180 is source text on this
+# layout, and a click there moves the caret in the open file.
+[RotateUi]::Click(($wr.Left + 440), ($wr.Top + 180))
 Start-Sleep -Milliseconds 180
 [RotateUi]::Chord(0x11, 0x10, 0x4C) # Ctrl+Shift+L, New Agent
 Start-Sleep -Milliseconds 700
-# Fresh agent composer sits under the tab row. Window-relative, so the window can sit on either monitor.
-[RotateUi]::Click(($wr.Left + 420), ($wr.Top + 115))
+# Fresh composer is the white chat card on the right. +420,+115 is the gray
+# gap once Cursor sits beside OpenCode instead of covering it.
+[RotateUi]::Click(($wr.Left + 600), ($wr.Top + 150))
 Start-Sleep -Milliseconds 200
 $bootPath = Join-Path $PSScriptRoot 'cursor_bootstrap.md'
 $boot = [System.IO.File]::ReadAllText($bootPath).Trim()
