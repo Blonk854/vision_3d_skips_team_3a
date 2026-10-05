@@ -109,6 +109,7 @@ function Get-OpenCodeSessionTabs([IntPtr]$hwnd) {
                     Name = $link.Current.Name
                     CloseX = [int]$mx
                     CloseY = [int]$my
+                    CloseEl = $c
                 }
                 break
             }
@@ -126,6 +127,41 @@ function Find-OpenCodeButton([IntPtr]$hwnd, [string]$name) {
         }
     }
     return $null
+}
+
+function Invoke-UiElement($el) {
+    # Prefer the accessibility Invoke pattern over a synthesized mouse click:
+    # it is immune to the physical-vs-scaled coordinate mismatch that moves a
+    # click off the intended control (and onto "New session", spawning empty
+    # OpenCode sessions).
+    $pat = $null
+    try { $pat = $el.GetCurrentPattern([System.Windows.Automation.InvokePattern]::Pattern) } catch {}
+    if (-not $pat) { throw "element '$($el.Current.Name)' does not support Invoke" }
+    $pat.Invoke()
+}
+
+function Get-OpenCodeRects([IntPtr]$hwnd) {
+    # The unaware rect is the 1536x864 space SetCursorPos clicks in; the aware
+    # rect is the physical space UIAutomation reports BoundingRectangle in.
+    $un = New-Object RotateUi+RECT
+    [RotateUi]::GetWindowRect($hwnd, [ref]$un) | Out-Null
+    $old = [RotateUi]::SetThreadDpiAwarenessContext([IntPtr](-4))
+    $aw = New-Object RotateUi+RECT
+    try { [RotateUi]::GetWindowRect($hwnd, [ref]$aw) | Out-Null }
+    finally { [void][RotateUi]::SetThreadDpiAwarenessContext($old) }
+    return [pscustomobject]@{ Un = $un; Aw = $aw }
+}
+
+function Click-OpenCodeElement($el, $rects, [double]$fracX = 0.5, [double]$fracY = 0.5) {
+    # Convert a physical BoundingRectangle point into the scaled click space,
+    # the same mapping the Cursor side uses via Get-CursorScreenPoint.
+    $scale = ($rects.Aw.Right - $rects.Aw.Left) / [double]($rects.Un.Right - $rects.Un.Left)
+    $r = $el.Current.BoundingRectangle
+    $px = $r.X + $r.Width * $fracX
+    $py = $r.Y + $r.Height * $fracY
+    $sx = $rects.Un.Left + ($px - $rects.Aw.Left) / $scale
+    $sy = $rects.Un.Top + ($py - $rects.Aw.Top) / $scale
+    [RotateUi]::Click([int][Math]::Round($sx), [int][Math]::Round($sy))
 }
 
 function Find-PromptEdit([IntPtr]$hwnd) {
@@ -436,14 +472,14 @@ if (-not $CursorOnly) {
     $oc = Get-OpenCodeProcess
     $hwnd = $oc.MainWindowHandle
     [RotateUi]::AllowForeground($hwnd)
+    $ocRects = Get-OpenCodeRects $hwnd
     $beforeTabs = @(Get-OpenCodeSessionTabs $hwnd)
     if ($beforeTabs.Count -lt 1) { throw 'no OpenCode session tab to rotate' }
     $before = @($beforeTabs | ForEach-Object { $_.Name })
     "open code before: $($before -join ' | ')"
     $newBtn = Find-OpenCodeButton $hwnd 'New session'
     if (-not $newBtn) { throw 'New session button not found' }
-    $nr = $newBtn.Current.BoundingRectangle
-    [RotateUi]::Click([int]($nr.X + $nr.Width / 2), [int]($nr.Y + $nr.Height / 2))
+    Invoke-UiElement $newBtn
     $now = @()
     foreach ($wait in 1..12) {
         Start-Sleep -Milliseconds 300
@@ -456,7 +492,7 @@ if (-not $CursorOnly) {
     $old = @($now | Where-Object { -not ($_.CloseX -eq $keep.CloseX -and $_.CloseY -eq $keep.CloseY) } | Sort-Object CloseX -Descending)
     foreach ($tab in $old) {
         "closing old session '$($tab.Name)' at $($tab.CloseX),$($tab.CloseY)"
-        [RotateUi]::Click($tab.CloseX, $tab.CloseY)
+        Invoke-UiElement $tab.CloseEl
         Start-Sleep -Milliseconds 450
     }
     $left = @(Get-OpenCodeSessionTabs $hwnd)
@@ -466,8 +502,8 @@ if (-not $CursorOnly) {
 
     $notice = 'Continue from maps/vector_ownership/team3_next_prompt.txt'
     $prompt = Find-PromptEdit $hwnd
-    $pr = $prompt.Current.BoundingRectangle
-    [RotateUi]::Click([int]($pr.X + 48), [int]($pr.Y + $pr.Height / 2))
+    try { $prompt.SetFocus() } catch {}
+    Click-OpenCodeElement $prompt $ocRects 0.2 0.5
     Start-Sleep -Milliseconds 200
     [RotateUi]::Chord(0x11, 0x41) # Ctrl+A
     Start-Sleep -Milliseconds 60
@@ -492,8 +528,7 @@ if (-not $CursorOnly) {
         if ($value.Trim() -eq $notice) {
             $send = Find-OpenCodeButton $hwnd 'Send'
             if (-not $send) { throw 'notice still in the prompt box and Send was not found' }
-            $sr = $send.Current.BoundingRectangle
-            [RotateUi]::Click([int]($sr.X + $sr.Width / 2), [int]($sr.Y + $sr.Height / 2))
+            Invoke-UiElement $send
             Start-Sleep -Milliseconds 400
             'open code notice sent'
         } elseif ($value.Trim().Length -eq 0) {
