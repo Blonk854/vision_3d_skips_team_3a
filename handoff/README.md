@@ -16,6 +16,6 @@ The loop is off. `watch_response.ps1` and `rotate_threads.ps1` are renamed `.dis
 
 Commit `team3_next_prompt.txt` only when a new trace heading holds. Do not commit a stop reply.
 
-Leave `tools/team3_watch.ps1` and `tools/opencode_notify.ps1` disabled. `tools/notify_opencode.ps1` is a separate manual click helper. Nothing in this loop calls it.
+Leave `tools/team3_watch.ps1.disabled` and `tools/opencode_notify.ps1.disabled` as they are. Do not rename them. `team3_watch` has no pid lock, so a renamed copy is a second watcher. `tools/notify_opencode.ps1` is a separate manual click helper. Nothing in this loop calls it.
 
 `handoff/test_loop_guard.ps1` checks the gate without opening a window.
