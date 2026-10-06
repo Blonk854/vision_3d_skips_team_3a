@@ -1,0 +1,67 @@
+# Polls handoff/team3_response.md. Disabled until this file is renamed
+# back to watch_response.ps1 and the loop guard status is running.
+# A second copy refuses to start while the pid lock is held.
+
+$ErrorActionPreference = 'Stop'
+if ($PSCommandPath -like '*.disabled') {
+    Write-Output 'watch_response is disabled. Rename it back to watch_response.ps1 only when the loop guard status in handoff/state.md is running.'
+    exit 0
+}
+
+. (Join-Path $PSScriptRoot 'loop_guard.ps1')
+
+$paths = Get-LoopGuardPaths
+$state = Read-LoopGuard -StatePath $paths.State
+if ($state.status -ne 'running') {
+    Write-Output "watcher not armed: loop guard status is $($state.status). $($state.pause_reason)"
+    exit 0
+}
+
+$holder = Enter-WatcherSingleton -PidPath $paths.Pid
+if (-not $holder.Acquired) {
+    Write-Output 'watcher already running (pid lock held). This copy is exiting.'
+    exit 0
+}
+
+$target = $paths.Response
+$seen = $null
+if (Test-Path -LiteralPath $target) {
+    $item = Get-Item -LiteralPath $target
+    $seen = '{0}|{1}' -f $item.Length, $item.LastWriteTimeUtc.Ticks
+}
+Write-Output "watching handoff/team3_response.md baseline=$seen"
+
+try {
+    while ($true) {
+        if (Test-Path -LiteralPath $target) {
+            $item = Get-Item -LiteralPath $target
+            $stamp = '{0}|{1}' -f $item.Length, $item.LastWriteTimeUtc.Ticks
+            if ($stamp -ne $seen -and $item.Length -gt 0) {
+                Start-Sleep -Milliseconds 800
+                $item2 = Get-Item -LiteralPath $target
+                $stamp2 = '{0}|{1}' -f $item2.Length, $item2.LastWriteTimeUtc.Ticks
+                if ($stamp2 -eq $stamp) {
+                    $seen = $stamp2
+                    $decision = Test-LoopGuardRotation -Alert
+                    if ($decision.Result -eq 'wait') {
+                        $left = [int]$decision.WaitSeconds
+                        while ($left -gt 0) {
+                            $slice = [Math]::Min(5, $left)
+                            Start-Sleep -Seconds $slice
+                            $left -= $slice
+                            $again = Read-LoopGuard
+                            if ($again.status -ne 'running') { break }
+                        }
+                        $decision = Test-LoopGuardRotation -Alert
+                    }
+                    if ($decision.Result -eq 'allow') {
+                        Write-Output 'AGENT_LOOP_WAKE_team3 {"prompt":"Team 3 wrote handoff/team3_response.md and the trace heading changed. Follow .cursor/rules/vector-ownership-director.mdc. Read handoff/state.md, maps/vector_ownership/team3_next_prompt.txt, handoff/team3_response.md, and only the last ===== section of maps/vector_ownership/anomaly_begin_store_trace.txt. If that heading is not new, stop: do not write a prompt, do not commit, and do not rotate. If it holds, write the next question and update state. Commit only when that new heading holds. Then run handoff/rotate_threads.ps1. If that script exits nonzero, stop and tell the user. Do not do their byte work. Do not change the gate status."}'
+                    }
+                }
+            }
+        }
+        Start-Sleep -Seconds 3
+    }
+} finally {
+    Exit-WatcherSingleton -Holder $holder -PidPath $paths.Pid
+}

@@ -17,6 +17,11 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+if ($PSCommandPath -like '*.disabled') {
+    Write-Output 'rotate_threads is disabled. Rename it back to rotate_threads.ps1 only when the loop guard status in handoff/state.md is running.'
+    exit 2
+}
+. (Join-Path $PSScriptRoot 'loop_guard.ps1')
 Add-Type -AssemblyName UIAutomationClient
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
@@ -474,10 +479,115 @@ function Get-CursorScreenPoint([IntPtr]$hwnd, $wr, [int]$imageX, [int]$imageY) {
     }
 }
 
+function Get-CursorChatCount([IntPtr]$hwnd) {
+    $band = Copy-CursorTabRow $hwnd
+    try {
+        $found = Measure-CursorChatTabs $band
+        if ($null -eq $found.Marks) { return -1 }
+        return [int]$found.Marks.Count
+    } finally {
+        $band.Dispose()
+    }
+}
+
+function Get-CursorNamedChatCount([IntPtr]$hwnd) {
+    $root = [System.Windows.Automation.AutomationElement]::FromHandle($hwnd)
+    $all = $root.FindAll([System.Windows.Automation.TreeScope]::Descendants, [System.Windows.Automation.Condition]::TrueCondition)
+    $count = 0
+    foreach ($el in $all) {
+        $name = [string]$el.Current.Name
+        if ($name -like 'Team 3 response*') { $count++ }
+    }
+    return $count
+}
+
+function Close-LeftCursorChat([IntPtr]$hwnd) {
+    $before = Get-CursorChatCount $hwnd
+    if ($before -lt 2) { return $false }
+    $wr = New-Object RotateUi+RECT
+    [RotateUi]::GetWindowRect($hwnd, [ref]$wr) | Out-Null
+    $hit = $null
+    $band = $null
+    foreach ($try in 1..8) {
+        if ($band) { $band.Dispose() }
+        $band = Copy-CursorTabRow $hwnd
+        $hit = Get-LeftChatTabClick $band
+        if ($hit.Ok) { break }
+        Start-Sleep -Milliseconds 250
+    }
+    if ($band) {
+        $band.Save((Join-Path $env:TEMP 'cursor_tab_close.png'), [System.Drawing.Imaging.ImageFormat]::Png)
+        $band.Dispose()
+    }
+    if (-not $hit -or -not $hit.Ok) { return $false }
+    $pt = Get-CursorScreenPoint $hwnd $wr $hit.X $hit.Y
+    "cursor left tab label at image $($hit.X),$($hit.Y) ; click $($pt.X),$($pt.Y) ; close marks $($hit.Marks)"
+    [RotateUi]::AllowForeground($hwnd)
+    [RotateUi]::Click($pt.X, $pt.Y)
+    Start-Sleep -Milliseconds 300
+    [RotateUi]::Chord(0x11, 0x57) # Ctrl+W
+    Start-Sleep -Milliseconds 400
+    [RotateUi]::Key(0x0D, $false) # Enter confirms "Close Running Tab?"
+    [RotateUi]::Key(0x0D, $true)
+    Start-Sleep -Milliseconds 400
+    $after = Get-CursorChatCount $hwnd
+    return ($after -ge 0 -and $after -lt $before)
+}
+
+function Assert-OneCursorChatBeforeOpen {
+    $cursor = Get-Process | Where-Object { $_.ProcessName -eq 'Cursor' -and $_.MainWindowTitle -like '*vision_3d_skips*' -and $_.MainWindowHandle -ne 0 } | Select-Object -First 1
+    if (-not $cursor) { throw 'abort: Cursor window not found. Not opening a chat.' }
+    $hwnd = [IntPtr]$cursor.MainWindowHandle
+    $named = 0
+    try { $named = Get-CursorNamedChatCount $hwnd } catch { $named = 0 }
+    if ($named -gt 2) {
+        $reason = "abort: UI Automation sees $named Team 3 chats. Not opening another."
+        Update-LoopGuardFields -Fields @{ status = 'stopped'; pause_reason = $reason; tracked_open_chats = "$named" }
+        Write-LoopAlert -Reason $reason
+        throw $reason
+    }
+    $count = Get-CursorChatCount $hwnd
+    if ($count -gt 2) {
+        $reason = "abort: $count Cursor chats are open. Not opening another."
+        Update-LoopGuardFields -Fields @{ status = 'stopped'; pause_reason = $reason; tracked_open_chats = "$count" }
+        Write-LoopAlert -Reason $reason
+        throw $reason
+    }
+    if ($count -eq 2) {
+        if (-not (Close-LeftCursorChat $hwnd)) {
+            $reason = 'abort: could not close the old Cursor chat. Not opening another.'
+            Update-LoopGuardFields -Fields @{ status = 'stopped'; pause_reason = $reason; tracked_open_chats = '2' }
+            Write-LoopAlert -Reason $reason
+            throw $reason
+        }
+        $count = Get-CursorChatCount $hwnd
+    }
+    if ($count -ne 1) {
+        $reason = "abort: need exactly one Cursor chat before opening another, saw $count."
+        Update-LoopGuardFields -Fields @{ status = 'stopped'; pause_reason = $reason }
+        Write-LoopAlert -Reason $reason
+        throw $reason
+    }
+}
+
 if ($MeasureCursorTabs -or $ClickLeftTitle -or $StopAfterNewAgent -or $ShowComposerClick) { $CursorOnly = $true }
 
 Ensure-HandoffLayout
 if ($LayoutOnly) { return }
+
+$calibrateOnly = $MeasureCursorTabs -or $ClickLeftTitle -or $ShowComposerClick
+if (-not $calibrateOnly) {
+    $decision = Test-LoopGuardRotation -ForRotate -Alert
+    if ($decision.Result -ne 'allow') {
+        throw "rotation refused: $($decision.Reason)"
+    }
+    # Consume the rate limit as soon as a rotation is allowed, so a failed
+    # UI step cannot be retried in a tight loop.
+    Update-LoopGuardFields -Fields @{ last_rotation_utc = [datetime]::UtcNow.ToString('o') }
+}
+if (-not $calibrateOnly -and -not $OpenCodeOnly) {
+    Assert-OneCursorChatBeforeOpen
+}
 
 if (-not $CursorOnly) {
     $oc = Get-OpenCodeProcess
@@ -557,7 +667,10 @@ if (-not $CursorOnly) {
     }
 }
 
-if ($OpenCodeOnly) { return }
+if ($OpenCodeOnly) {
+    Register-LoopRotation
+    return
+}
 
 $cursor = Get-Process | Where-Object { $_.ProcessName -eq 'Cursor' -and $_.MainWindowTitle -like '*vision_3d_skips*' } | Select-Object -First 1
 if (-not $cursor) { throw 'Cursor window not found' }
@@ -613,6 +726,7 @@ if ($StopAfterNewAgent) {
 # Empty sidebar, above the New Agent label, so the shortcut is not swallowed by the composer.
 [RotateUi]::Click(($wr.Left + 30), ($wr.Top + 180))
 Start-Sleep -Milliseconds 180
+Update-LoopGuardFields -Fields @{ tracked_open_chats = '2' }
 [RotateUi]::Chord(0x11, 0x10, 0x4C) # Ctrl+Shift+L, New Agent
 Start-Sleep -Milliseconds 700
 if ($StopAfterNewAgent) {
@@ -642,26 +756,20 @@ if ($StopBeforeCursorSend) { 'cursor bootstrap pasted, not sent'; return }
 Start-Sleep -Milliseconds 500
 'cursor bootstrap sent'
 if ($StopBeforeCursorClose) { return }
-# Ctrl+[ does not switch chats. The new agent opens to the right, so the
-# chat that launched the script is the left tab.
-$hit = $null
-$band = $null
-foreach ($try in 1..8) {
-    if ($band) { $band.Dispose() }
-    $band = Copy-CursorTabRow $ch
-    $hit = Get-LeftChatTabClick $band
-    if ($hit.Ok) { break }
-    Start-Sleep -Milliseconds 250
+# The new agent is already open. Close the chat that launched this script.
+# If that close cannot be proved, stop the loop instead of leaving a third chat.
+if (-not (Close-LeftCursorChat $ch)) {
+    $reason = 'Opened a Cursor chat but could not close the old one. Loop stopped.'
+    Update-LoopGuardFields -Fields @{ status = 'stopped'; pause_reason = $reason; tracked_open_chats = '2' }
+    Write-LoopAlert -Reason $reason
+    throw $reason
 }
-$band.Save('C:\Users\s_sme\AppData\Local\Temp\cursor_tab_close.png', [System.Drawing.Imaging.ImageFormat]::Png)
-$band.Dispose()
-if (-not $hit.Ok) { throw "cursor tab row not safe to close: $($hit.Reason)" }
-$pt = Get-CursorScreenPoint $ch $wr $hit.X $hit.Y
-"cursor left tab label at image $($hit.X),$($hit.Y) ; click $($pt.X),$($pt.Y) ; close marks $($hit.Marks)"
-[RotateUi]::Click($pt.X, $pt.Y)
-Start-Sleep -Milliseconds 300
-[RotateUi]::Chord(0x11, 0x57) # Ctrl+W
-Start-Sleep -Milliseconds 400
-[RotateUi]::Key(0x0D, $false) # Enter confirms "Close Running Tab?"
-[RotateUi]::Key(0x0D, $true)
+$leftOpen = Get-CursorChatCount $ch
+if ($leftOpen -ne 1) {
+    $reason = "After close, $leftOpen Cursor chats are still open. Loop stopped."
+    Update-LoopGuardFields -Fields @{ status = 'stopped'; pause_reason = $reason; tracked_open_chats = "$leftOpen" }
+    Write-LoopAlert -Reason $reason
+    throw $reason
+}
+Register-LoopRotation
 'cursor previous chat closed'

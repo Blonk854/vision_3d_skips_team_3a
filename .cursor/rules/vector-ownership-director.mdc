@@ -1,30 +1,34 @@
 ---
-description: Direct Team 3 on the vector-ownership gate. Read the current prompt file, do not do their measurement, and do not load the full trace.
-alwaysApply: true
+description: Coordinator-only. Apply when the user message is handoff/cursor_bootstrap.md or AGENT_LOOP_WAKE_team3. Do not apply to Team 3 measurement chats.
+globs: handoff/cursor_bootstrap.md
+alwaysApply: false
 ---
 
 # Vector-ownership director
 
-You direct Team 3. They measure. You write the next prompt, check their section, and keep them on the vector-ownership gate. Do not append the trace yourself.
+You direct Team 3 only in the coordinator thread started from `handoff/cursor_bootstrap.md`. If this thread was not started that way, ignore this rule. Do not arm a watcher. Do not rotate.
+
+They measure. You write the next prompt, check their section, and keep them on the vector-ownership gate. Do not append the trace yourself.
 
 ## Memory is the files, not the chat
 
-On any turn about this gate, Team 3, a reply, or `team3_next_prompt.txt`:
+On a wake (`AGENT_LOOP_WAKE_team3` or a reply in this coordinator thread):
 
-1. Read `maps/vector_ownership/team3_next_prompt.txt` (the current assignment).
-2. Read only the gate fields in `maps/vector_ownership/anomaly_vector_mutator_table.json`: `gate_status`, `gate_requirements`, `synchronization_contracts`.
-3. Do not read `anomaly_begin_store_trace.txt` from the start. It is tens of thousands of lines. When the user says the file was updated or "replied", or `handoff/team3_response.md` wakes you, read the response file and only the last `=====` section. The response file is the wake. The new heading is the evidence. There is no `handoff/prompt.md`.
-
-## Gate
-
-Outer vector and inner-vector growth are already closed. The open half is synchronization: torn writes between the worker and CAPM, no proven fence, and document destruction freeing the inner vectors without a `ProductionStop` join. Do not send Team 3 back into import-name or column audits once a section holds. Do not change `gate_status` until that synchronization half is actually proved or disproved.
+1. Read the loop guard in `handoff/state.md`. If `status` is not `running`, stop and tell the user. Do not write a prompt.
+2. Read `maps/vector_ownership/team3_next_prompt.txt`.
+3. Read only the gate fields in `maps/vector_ownership/anomaly_vector_mutator_table.json`: `gate_status`, `gate_requirements`, `synchronization_contracts`.
+4. Do not read `anomaly_begin_store_trace.txt` from the start. Read `handoff/team3_response.md` and only the last `=====` section. The response file is the wake. The new heading is the evidence. There is no `handoff/prompt.md`.
 
 ## When they reply
 
-Check the new section against the prompt: the yes/no, the cited lines, the gate line and its MD5 left untouched, and no lock file left in `v3d_files_uncomp_copy`. If the section holds, replace `team3_next_prompt.txt` with the next question that moves synchronization. If a sentence in the section is false, the next prompt corrects that sentence before the gate moves.
+If the last heading is unchanged, stop. Do not write a prompt, do not commit, and do not run `handoff/rotate_threads.ps1`. Tell the user the loop paused.
+
+If the section holds, replace `team3_next_prompt.txt` with the next question that moves synchronization, and update `handoff/state.md` in the same turn. If a sentence in the section is false, the next prompt corrects that sentence before the gate moves. Then run the rotator. If it exits nonzero, stop and tell the user.
+
+Commit and push `team3_next_prompt.txt` only when a new heading holds and you replace the prompt. Do not commit a stop reply. Leave the trace, `handoff/team3_response.md`, and `handoff/state.md` unstaged.
 
 ## Prompt constraints, every time
 
-Read-only copy project `v3d_files_uncomp_copy/V3D_SKIP`, program `/Vision3D.exe`. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module. Append under one new heading in `maps/vector_ownership/anomaly_begin_store_trace.txt`. Do not change the gate status.
+Read-only copy project `v3d_files_uncomp_copy/V3D_SKIP`, program `/Vision3D.exe`. Do not save. Do not open the locked GUI project. If a lock file is present, report it and stop. Do not delete it. Close the headless session with `program_close` before finishing, and leave `program_list_open` at count 0. Do not open another module. Append under one new heading in `maps/vector_ownership/anomaly_begin_store_trace.txt`. Do not change the gate status.
 
-Commit and push only `team3_next_prompt.txt` when you replace it. Leave the trace, `handoff/team3_response.md`, and `handoff/state.md` unstaged. The trace is Team 3's. Do not arm `tools/team3_watch.ps1` while `handoff/watch_response.ps1` is the loop.
+Do not change `gate_status` until the synchronization half is proved or disproved. Do not arm `tools/team3_watch.ps1` or `handoff/watch_response.ps1` while the loop guard status is not `running`. One watcher only; the pid lock refuses a second copy.

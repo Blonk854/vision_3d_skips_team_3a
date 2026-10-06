@@ -2,7 +2,8 @@ You are setting up the Team 3 handoff loop in
 C:\Users\s_sme\Documents\VS_Project_LapTop\vision_3d_skips - team 3a.
 This is the vector-ownership gate. Team 2's uniqueness files are the
 mechanical model only. Do not install .cursor/rules/uniqueness-handoff.mdc.
-The director rule already in this repo is .cursor/rules/vector-ownership-director.mdc.
+The director rule is .cursor/rules/vector-ownership-director.mdc.
+It is not always on. It loads for the coordinator thread only.
 
 One assignment file
 maps/vector_ownership/team3_next_prompt.txt is the only prompt.
@@ -30,9 +31,14 @@ handoff/team3_response.md with their full chat response, and they
 append the measurement under one new heading in
 maps/vector_ownership/anomaly_begin_store_trace.txt. The response
 file is how you wake. The new trace heading is the evidence you judge.
-When the response file changes, you judge the reply against that
-heading, write the next prompt into team3_next_prompt.txt, update
-handoff/state.md, then run handoff/rotate_threads.ps1. That script
+When the response file changes, read the loop guard in handoff/state.md.
+If status is not running, stop. If the trace has no new ===== heading,
+do not write a prompt, do not commit, and do not rotate. If the heading
+is new and the guard allows it, write the next prompt into
+team3_next_prompt.txt, update handoff/state.md, then run
+handoff/rotate_threads.ps1. That script refuses when the guard says no.
+It also refuses when it cannot close the old Cursor chat, and it does
+not open another chat in that case. When the checks pass, the script
 opens a new OpenCode session, closes the old one, sends the one line
 above, opens a new Cursor agent, pastes handoff/cursor_bootstrap.md,
 and closes the Cursor chat that just finished. The task lives in the
@@ -100,8 +106,9 @@ Screenshots are physical pixels. The 1536 by 864 view is 1.25 times
 smaller. The script photographs Cursor by its physical window rect,
 finds the left title there, and divides by the window's scale before
 it clicks. A screenshot taken at the click coordinates starts about
-200 pixels inside OpenCode. It refuses to close unless two chat tabs
-are visible. The toolbar at the right end of the tab row is not a tab.
+200 pixels inside OpenCode. It opens a new Cursor chat only when exactly one chat is already visible.
+If the old chat cannot be closed, it stops the loop and does not open
+another. The toolbar at the right end of the tab row is not a tab.
 -StopAfterNewAgent clicks the sidebar, sends Ctrl+Shift+L, and returns before the paste.
 -ShowComposerClick clicks +420,+115 and returns before the paste.
 Remeasure the tab row without closing:
@@ -128,10 +135,14 @@ The script prints "watching handoff/team3_response.md baseline=..." first.
 That line is not a wake. It records the current size and write time so
 the file already on disk does not count as a new reply. A wake is only
 the later line that starts with AGENT_LOOP_WAKE_team3, after a write
-stays still for 800 milliseconds. On that line, follow the prompt inside
+stays still for 800 milliseconds and the loop guard has allowed it. A
+line that starts with AGENT_LOOP_PAUSE_team3 is not a wake. Do not write
+a prompt and do not run the rotator. On a wake, follow the prompt inside
 it: read state, team3_next_prompt.txt, the response, and only the last
-===== section of the trace; judge; write the next question and state in
-the same turn; then run the rotator. Do not do Team 3's byte work.
+===== section of the trace. If that heading is not new, stop. If it
+holds, write the next question and state in the same turn, then run the
+rotator. If the rotator exits nonzero, stop. Do not do Team 3's byte work.
+The watcher holds handoff/watch_response.pid. A second copy exits.
 
 Run the rotator only after the next prompt is on disk
 Use powershell -STA. Clipboard access fails otherwise.
@@ -155,13 +166,17 @@ powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads
 
 Read that image. Send only if it shows "This is a fresh coordinator
 thread." The script then measures the tab row, clicks the left tab's
-title, and sends Ctrl+W. Enter confirms Close Running Tab. It stops
-without closing if it does not see two chat tabs. Switches -OpenCodeOnly
+title, and sends Ctrl+W. Enter confirms Close Running Tab. If that close
+cannot be proved, the loop status becomes stopped and no further chat is
+opened. Switches -OpenCodeOnly
 and -StopBeforeCursorClose exist for the same kind of check.
 
 After the new Cursor thread opens, it is told to arm this same watcher
 and wait. The thread that ran the rotator closes. That is the point.
 
 Commit and push only maps/vector_ownership/team3_next_prompt.txt when
-you replace it. Leave the trace, handoff/team3_response.md, and
-handoff/state.md unstaged. The trace is Team 3's.
+a new trace heading holds and you replace the prompt. Do not commit a
+stop reply. Leave the trace, handoff/team3_response.md, and
+handoff/state.md unstaged. The trace is Team 3's. Do not arm the watcher
+while the loop guard status is not running. The .disabled scripts stay
+disabled until a human renames them.

@@ -24,7 +24,7 @@ In `Store tail fence`, the parenthetical that lists 0x140780c80, FUN_14066e530, 
 
 `Completion signal fence` holds for the no. Do not append `Completion signal fence` again.
 
-Check the lock files again when you start. If either `v3d_files_uncomp_copy/V3D_SKIP.lock` or `v3d_files_uncomp_copy/V3D_SKIP.lock~` is present, stop, report both sizes and timestamps, and do not open the project. Do not append a trace section for this stop.
+Check the lock files again when you start. If either `v3d_files_uncomp_copy/V3D_SKIP.lock` or `v3d_files_uncomp_copy/V3D_SKIP.lock~` is present, stop, report both sizes and timestamps, and do not open the project. Do not append a trace section for this stop. If you do open the project, call program_close before you finish and confirm program_list_open count is 0. A session left open holds the lock after the client is gone.
 
 If both lock files are gone, answer this. Question: in FUN_1406a1a50, does the instruction at 0x1406a1c1c read the value SetEvent returned in EAX? If yes, the answer is yes, and quote that instruction with its address and bytes. If no, the answer is no, and quote the instruction at 0x1406a1c1c with its address and bytes.
 
