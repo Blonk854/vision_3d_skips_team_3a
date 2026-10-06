@@ -41,8 +41,13 @@ do not write a prompt, do not commit, and do not rotate. If the heading
 is new and the guard allows it, write the next prompt into
 team3_next_prompt.txt, update handoff/state.md, then run
 handoff/rotate_threads.ps1. That script refuses when the guard says no.
-It also refuses when it cannot close the old Cursor chat, and it does
-not open another chat in that case. When the checks pass, the script
+The guard stops at 10 rotations total and 10 in an hour. It waits at
+least 3 minutes between rotations. That wait starts when a rotation is
+allowed, so a failed click cannot retry immediately. The scripts never
+set status back to running. A person raises the cap or resets the count,
+then sets status to running. The script also refuses when it cannot
+close the old Cursor chat, and it does not open another chat in that
+case. When the checks pass, the script
 opens a new OpenCode session, closes the old one, sends the one line
 above, opens a new Cursor agent, pastes handoff/cursor_bootstrap.md,
 and closes the Cursor chat that just finished. The task lives in the
@@ -52,16 +57,21 @@ accumulates history.
 What Team 3 writes
 Every prompt already tells them to append one heading to the trace,
 leave the gate status untouched, and report the gate line and its MD5.
-The same reply must also overwrite handoff/team3_response.md. The
-trace stays append-only. The response file is overwritten so the
-watcher can see one new write. Do not read the trace from the start.
+The same reply must also overwrite handoff/team3_response.md. If they
+open the project, they call program_close before they finish and
+confirm program_list_open count is 0. A session left open holds
+V3D_SKIP.lock after the client is gone. The trace stays append-only.
+The response file is overwritten so the watcher can see one new write.
+Do not read the trace from the start.
 On a wake, read only the last ===== section.
 
 What you check
 The response and the new heading must agree. Check the yes/no, the
 cited lines, the gate line and its MD5 left untouched, and that no
-lock file remains in v3d_files_uncomp_copy. If the section holds,
-replace team3_next_prompt.txt with the next question that moves
+lock file remains in v3d_files_uncomp_copy. Confirm program_close ran
+and program_list_open count is 0. A reply that left the project open
+is a stop: do not rotate into the lock it is still holding. If the
+section holds, replace team3_next_prompt.txt with the next question that moves
 synchronization. If a sentence is false, the next prompt corrects
 that sentence before the gate moves. Do not change gate_status. Do
 not upgrade synchronization_contracts. Do not do Team 3's byte work.
@@ -131,6 +141,8 @@ powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads
 Arm the watcher
 Do this only after a human has set status to running and renamed
 handoff/watch_response.ps1.disabled back to watch_response.ps1.
+Arming does not raise the guard. It still stops at 10 rotations total,
+10 in an hour, and it still waits 3 minutes between rotations.
 If handoff/watch_response.pid is locked, do not start another.
 Start it with the Shell tool, in the background, with notify_on_output.
 Working directory is the repo root. Command:
