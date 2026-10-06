@@ -1,8 +1,9 @@
 # DISABLED. Do not rename this back to team3_watch.ps1.
 # It does not read the loop guard and it does not lock handoff/watch_response.pid.
-# A running copy is a second watcher the handoff lock does not see. It prints
-# AGENT_LOOP_WAKE_TEAM3 and tells the coordinator to write a prompt and run
-# tools/opencode_notify.ps1. That token does not match ^AGENT_LOOP_WAKE_team3.
+# A running copy is a second watcher the handoff lock does not see. It used to
+# print AGENT_LOOP_WAKE_TEAM3 and tell the coordinator to run
+# tools/opencode_notify.ps1. The prompt below now refuses that. The token does
+# not match ^AGENT_LOOP_WAKE_team3.
 # The body below is the old watcher, kept so the failure stays visible.
 Write-Output 'team3_watch is disabled. It has no pid lock, so a running copy is a second watcher the handoff lock does not see. Do not rename it.'
 exit 0
@@ -15,7 +16,7 @@ $ErrorActionPreference = 'Stop'
 $root = Split-Path $PSScriptRoot -Parent
 $trace = Join-Path $root 'maps\vector_ownership\anomaly_begin_store_trace.txt'
 $statePath = Join-Path $PSScriptRoot 'team3_watch_state.json'
-$prompt = 'Team 3 closed a new section in maps/vector_ownership/anomaly_begin_store_trace.txt. Verify the newest section against v3d_files_\Vision3D.exe. Write the next paste-ready prompt to maps/vector_ownership/team3_next_prompt.txt. Then run tools/opencode_notify.ps1. Do not change the gate status. Do not commit.'
+$prompt = 'tools/team3_watch.ps1.disabled is not a wake. Do not write a prompt. Do not run tools/opencode_notify.ps1.disabled. Do not rename it. Do not rotate. Do not commit. Do not change the gate status.'
 
 function Get-TraceText {
     if (-not (Test-Path -LiteralPath $trace)) { return '' }
