@@ -1,0 +1,90 @@
+# Clicks the OpenCode chat input, then types a short notice.
+# Coordinates live in tools/opencode_click.config.json.
+# Disabled. Do not rename this back to opencode_notify.ps1. The handoff loop does not call it.
+# Typing runs only when the foreground window title contains the configured text.
+
+param(
+    [switch]$Calibrate
+)
+
+Write-Output 'opencode_notify is disabled. It exits before any click. Do not rename it. The handoff loop does not call it.'
+exit 0
+
+$ErrorActionPreference = 'Stop'
+Add-Type -AssemblyName System.Windows.Forms
+Add-Type @"
+using System;
+using System.Runtime.InteropServices;
+using System.Text;
+public static class OpencodeNotify {
+    [DllImport("user32.dll")] public static extern void mouse_event(uint flags, uint dx, uint dy, uint data, UIntPtr extra);
+    [DllImport("user32.dll")] public static extern IntPtr GetForegroundWindow();
+    [DllImport("user32.dll", CharSet = CharSet.Unicode)] public static extern int GetWindowText(IntPtr hWnd, StringBuilder text, int count);
+    public const uint LeftDown = 0x0002;
+    public const uint LeftUp = 0x0004;
+    public static string ForegroundTitle() {
+        var buffer = new StringBuilder(512);
+        GetWindowText(GetForegroundWindow(), buffer, buffer.Capacity);
+        return buffer.ToString();
+    }
+}
+"@
+
+$configPath = Join-Path $PSScriptRoot 'opencode_click.config.json'
+
+function Read-Config {
+    if (-not (Test-Path -LiteralPath $configPath)) {
+        return [pscustomobject]@{
+            x = $null
+            y = $null
+            windowTitleContains = 'OpenCode'
+            message = 'New prompt is ready in maps/vector_ownership/team3_next_prompt.txt'
+            sendEnter = $true
+        }
+    }
+    return Get-Content -LiteralPath $configPath -Raw | ConvertFrom-Json
+}
+
+function Write-Config($config) {
+    $config | ConvertTo-Json | Set-Content -LiteralPath $configPath -Encoding utf8
+}
+
+$config = Read-Config
+
+if ($Calibrate) {
+    Write-Output 'Move the pointer onto the OpenCode chat input, then press Enter.'
+    [void][Console]::ReadLine()
+    $point = [System.Windows.Forms.Cursor]::Position
+    $config.x = [int]$point.X
+    $config.y = [int]$point.Y
+    if (-not $config.windowTitleContains) { $config | Add-Member -NotePropertyName windowTitleContains -NotePropertyValue 'OpenCode' -Force }
+    if (-not $config.message) { $config | Add-Member -NotePropertyName message -NotePropertyValue 'New prompt is ready in maps/vector_ownership/team3_next_prompt.txt' -Force }
+    if ($null -eq $config.sendEnter) { $config | Add-Member -NotePropertyName sendEnter -NotePropertyValue $true -Force }
+    Write-Config $config
+    Write-Output "Saved click point $($config.x), $($config.y) to $configPath"
+    exit 0
+}
+
+if ($null -eq $config.x -or $null -eq $config.y) {
+    Write-Error "No click point yet. This file stays tools/opencode_notify.ps1.disabled. Do not rename it to calibrate. The handoff loop does not call it."
+}
+
+[System.Windows.Forms.Cursor]::Position = New-Object System.Drawing.Point([int]$config.x, [int]$config.y)
+Start-Sleep -Milliseconds 80
+[OpencodeNotify]::mouse_event([OpencodeNotify]::LeftDown, 0, 0, 0, [UIntPtr]::Zero)
+Start-Sleep -Milliseconds 40
+[OpencodeNotify]::mouse_event([OpencodeNotify]::LeftUp, 0, 0, 0, [UIntPtr]::Zero)
+Start-Sleep -Milliseconds 200
+
+$title = [OpencodeNotify]::ForegroundTitle()
+$expected = [string]$config.windowTitleContains
+if ($expected -and ($title -notlike "*$expected*")) {
+    Write-Error "Foreground window is '$title'. Expected a title containing '$expected'. The notice was not typed."
+}
+
+$notice = [string]$config.message
+[System.Windows.Forms.SendKeys]::SendWait($notice)
+if ($config.sendEnter) {
+    [System.Windows.Forms.SendKeys]::SendWait('{ENTER}')
+}
+Write-Output "Typed notice into '$title'."
