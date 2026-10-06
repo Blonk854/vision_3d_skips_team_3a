@@ -1,0 +1,75 @@
+# DISABLED. Do not rename this back to team3_watch.ps1.
+# It does not read the loop guard and it does not lock handoff/watch_response.pid.
+# A running copy is a second watcher the handoff lock does not see. It prints
+# AGENT_LOOP_WAKE_TEAM3 and tells the coordinator to write a prompt and run
+# tools/opencode_notify.ps1. That token does not match ^AGENT_LOOP_WAKE_team3.
+# The body below is the old watcher, kept so the failure stays visible.
+Write-Output 'team3_watch is disabled. It has no pid lock, so a running copy is a second watcher the handoff lock does not see. Do not rename it.'
+exit 0
+
+# Watches the Team 3 trace for a newly closed section, then wakes the agent.
+# A section counts as closed when a new "===== END =====" line is appended.
+# Prints one sentinel line. Does not write the next prompt.
+
+$ErrorActionPreference = 'Stop'
+$root = Split-Path $PSScriptRoot -Parent
+$trace = Join-Path $root 'maps\vector_ownership\anomaly_begin_store_trace.txt'
+$statePath = Join-Path $PSScriptRoot 'team3_watch_state.json'
+$prompt = 'Team 3 closed a new section in maps/vector_ownership/anomaly_begin_store_trace.txt. Verify the newest section against v3d_files_\Vision3D.exe. Write the next paste-ready prompt to maps/vector_ownership/team3_next_prompt.txt. Then run tools/opencode_notify.ps1. Do not change the gate status. Do not commit.'
+
+function Get-TraceText {
+    if (-not (Test-Path -LiteralPath $trace)) { return '' }
+    return [System.IO.File]::ReadAllText($trace)
+}
+
+function Get-EndCount([string]$text) {
+    return ([regex]::Matches($text, '(?m)^===== END =====\s*$')).Count
+}
+
+function Get-LastHeading([string]$text) {
+    $matches = [regex]::Matches($text, '(?m)^===== (?!END =====)(.+?) =====\s*$')
+    if ($matches.Count -eq 0) { return '' }
+    return $matches[$matches.Count - 1].Groups[1].Value.Trim()
+}
+
+function Save-State([int]$endCount, [string]$heading) {
+    $payload = @{ endCount = $endCount; heading = $heading; updated = (Get-Date).ToString('o') } | ConvertTo-Json
+    [System.IO.File]::WriteAllText($statePath, $payload)
+}
+
+function Wait-StableSize {
+    $previous = -1
+    $stablePasses = 0
+    while ($stablePasses -lt 2) {
+        Start-Sleep -Seconds 1
+        $length = (Get-Item -LiteralPath $trace).Length
+        if ($length -eq $previous) { $stablePasses++ } else { $stablePasses = 0; $previous = $length }
+    }
+}
+
+if (-not (Test-Path -LiteralPath $trace)) {
+    Write-Error "Trace not found: $trace"
+}
+
+$initial = Get-TraceText
+$endCount = Get-EndCount $initial
+$heading = Get-LastHeading $initial
+Save-State $endCount $heading
+Write-Output "watching $trace baselineEnds=$endCount heading=$heading"
+
+while ($true) {
+    Start-Sleep -Seconds 4
+    $text = Get-TraceText
+    $count = Get-EndCount $text
+    if ($count -le $endCount) { continue }
+    Wait-StableSize
+    $text = Get-TraceText
+    $count = Get-EndCount $text
+    $heading = Get-LastHeading $text
+    if ($count -le $endCount) { continue }
+    $endCount = $count
+    Save-State $endCount $heading
+    $line = 'AGENT_LOOP_WAKE_TEAM3 ' + (@{ prompt = $prompt; heading = $heading; endCount = $endCount } | ConvertTo-Json -Compress)
+    [Console]::Out.WriteLine($line)
+    [Console]::Out.Flush()
+}

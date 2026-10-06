@@ -17,12 +17,16 @@ string to the path above before the first rotation.
 
 Files the loop uses
 handoff/README.md, handoff/state.md, handoff/cursor_bootstrap.md,
-handoff/watch_response.ps1, and handoff/rotate_threads.ps1 are the
-loop machinery. handoff/team3_response.md is the wake file. Tailor
-those files to the paths in this note before arming the watcher.
-Leave tools/team3_watch.ps1 and tools/opencode_notify.ps1 stopped.
-Those watch the trace and type into the same OpenCode session. A
-second watcher will wake the coordinator on the old file.
+handoff/watch_response.ps1.disabled, and handoff/rotate_threads.ps1.disabled
+are the loop machinery. handoff/team3_response.md is the wake file.
+A human renames those two scripts only when handoff/state.md says
+status: running. Tailor them to the paths in this note before that.
+Leave tools/team3_watch.ps1.disabled and tools/opencode_notify.ps1.disabled
+as they are. Do not rename them. team3_watch has no status check and no
+pid lock, and the file exits before the old loop. A renamed copy that
+got past that exit would watch the trace and print AGENT_LOOP_WAKE_TEAM3
+while handoff/watch_response.pid is held. That is a second watcher.
+opencode_notify types into OpenCode from that wake.
 
 What the loop does
 The coordinator thread stays short. Team 3 does the byte work from
@@ -73,10 +77,12 @@ team3_next_prompt.txt so a fresh thread can read them there.
 Before you touch a window
 Read handoff/state.md. If it says the open prompt is unanswered and
 that the team3_response.md already on disk is the previous answer, do
-not judge that file and do not run rotate_threads.ps1. Check the
-terminals for a powershell process already running
-handoff/watch_response.ps1. If one is running, leave it. A second
-watcher will wake you on the old file. Look at OpenCode. If its
+not judge that file and do not run rotate_threads.ps1. Do not start
+a watcher because a terminal list looks empty. That check missed a
+running process during the 6 Oct runaway. handoff/watch_response.pid
+is the check. If that file is locked, a watcher is already running.
+If you cannot tell, do not start one. Do not start
+tools/team3_watch.ps1.disabled. Look at OpenCode. If its
 button is named Stop, Team 3 is mid-run. Leave that session open.
 
 Layout this script expects
@@ -91,8 +97,9 @@ window whose title contains vision_3d_skips. The fresh composer is the
 white chat card on the right, under the tab row, not in the bottom
 follow-up box. This docked chat shows one tab header. Have only one
 OpenCode session tab and one Cursor chat before a rotation. The script
-closes every OpenCode tab that existed before New session. It closes a
-Cursor chat only when two tab titles are visible.
+closes every OpenCode tab that existed before New session. It opens a
+new Cursor chat only when exactly one chat is already visible. If it
+cannot close the old chat, it stops the loop and does not open another.
 
 Cursor clicks match the Team 2 rotator: SetCursorPos, then mouse_event.
 They are relative to the window's top-left, with Cursor to the right of
@@ -122,6 +129,9 @@ powershell -STA -NoProfile -ExecutionPolicy Bypass -File "handoff/rotate_threads
   dialog after Ctrl+W.
 
 Arm the watcher
+Do this only after a human has set status to running and renamed
+handoff/watch_response.ps1.disabled back to watch_response.ps1.
+If handoff/watch_response.pid is locked, do not start another.
 Start it with the Shell tool, in the background, with notify_on_output.
 Working directory is the repo root. Command:
 
@@ -171,8 +181,10 @@ cannot be proved, the loop status becomes stopped and no further chat is
 opened. Switches -OpenCodeOnly
 and -StopBeforeCursorClose exist for the same kind of check.
 
-After the new Cursor thread opens, it is told to arm this same watcher
-and wait. The thread that ran the rotator closes. That is the point.
+After the new Cursor thread opens, it reads handoff/cursor_bootstrap.md.
+That thread arms the watcher only when status is running. A second copy
+exits while the pid lock is held. It does not arm tools/team3_watch.
+The thread that ran the rotator closes. That is the point.
 
 Commit and push only maps/vector_ownership/team3_next_prompt.txt when
 a new trace heading holds and you replace the prompt. Do not commit a

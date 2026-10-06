@@ -48,6 +48,12 @@ Walk the watcher, the rotator, and the rule that tells the coordinator what to d
 
 `END` headings are not evidence headings. A matcher of the form `===== END <title> =====` must not count as a new section.
 
+## An older watcher in this repo
+
+`tools/team3_watch.ps1.disabled` is not the handoff watcher. It polls the trace for a new `===== END =====` line and prints `AGENT_LOOP_WAKE_TEAM3`. It has no status field, no cap, no lock check, and no pid file. That token does not match `^AGENT_LOOP_WAKE_team3`, and the line still tells the coordinator to write a prompt and run `tools/opencode_notify.ps1`. Renaming it used to start a second watcher that `handoff/watch_response.pid` does not cover. The file now exits before that loop. Leave it disabled.
+
+The setup note used to tell every new coordinator to arm a watcher after looking through the terminal list. That list missed a running process in this incident. The pid file is the check. A new coordinator thread arms the handoff watcher only when status is `running`, and a second copy exits.
+
 ## What Team 3 changed
 
 The guard is `handoff/loop_guard.ps1`, with checks in `handoff/test_loop_guard.ps1`. The watcher and rotator are still named `watch_response.ps1.disabled` and `rotate_threads.ps1.disabled`. `handoff/state.md` has `status: off`. Both the rename and `status: running` are required before the loop can arm, and nothing in the scripts sets that status.
