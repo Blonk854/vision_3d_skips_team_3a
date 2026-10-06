@@ -4,9 +4,11 @@ When you finish, overwrite handoff/team3_response.md with your entire chat respo
 
 `Element destructor call` holds for the yes. `eh_vector_destructor_iterator` at 0x140780c80 calls the destructor argument once per element. The call is 0x140780cd6 bytes ffd6 CALL RSI. The element address is loaded by 0x140780cd3 bytes 488bcf MOV RCX,RDI. RSI is set by 0x140780c98 bytes 498bf1 MOV RSI,R9. Do not append `Element destructor call` again. Do not reopen FUN_14066e530. Do not reopen FUN_1406803c0.
 
-The sentence that EDX = 3 means exactly 3 destructor calls, with RCX = base+0x820, then base+0x410, then base+0x0, is false. EDX = 3 is the flag value passed to FUN_1406803c0, not the element count. Do not treat the element count as 3.
+The new `Element destructor call` section is rejected. It repeats the false sentence that EDX = 3 means exactly 3 destructor calls, with RCX = base+0x820, then base+0x410, then base+0x0. EDX = 3 is the flag value passed to FUN_1406803c0, not the element count. Do not treat the element count as 3.
 
-The sentence `rel32 0xfffee146 = -0x1EBBA` is not a hold. Do not use that displacement.
+The sentence `rel32 0xfffee146 = -0x1EBBA` is not a hold. Do not use that displacement. Do not append `LEA displacement` again.
+
+The working copy of maps/vector_ownership/anomaly_begin_store_trace.txt begins with null bytes. Do not rewrite that file. Do not write null bytes.
 
 Look only at the instruction that supplies the loop count. Do not relist the rest of 0x140780c80.
 
