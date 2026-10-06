@@ -33,4 +33,4 @@ Commit and push `team3_next_prompt.txt` only when a new heading holds and you re
 
 Read-only copy project `v3d_files_uncomp_copy/V3D_SKIP`, program `/Vision3D.exe`. Do not save. Do not open the locked GUI project. If a lock file is present, report it and stop. Do not delete it. Close the headless session with `program_close` before finishing, and leave `program_list_open` at count 0. Do not open another module. Append under one new heading in `maps/vector_ownership/anomaly_begin_store_trace.txt`. Do not change the gate status.
 
-Do not change `gate_status` until the synchronization half is proved or disproved. Do not arm `tools/team3_watch.ps1` or `handoff/watch_response.ps1` while the loop guard status is not `running`. One watcher only; the pid lock refuses a second copy.
+Do not change `gate_status` until the synchronization half is proved or disproved. Never arm `tools/team3_watch.ps1.disabled`, and do not rename it. It has no pid lock, so a running copy is a second watcher. Arm `handoff/watch_response.ps1` only when status is `running` and `handoff/watch_response.pid` is not already held. A second copy exits.
