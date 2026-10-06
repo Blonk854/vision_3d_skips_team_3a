@@ -23,7 +23,9 @@ On a wake (`AGENT_LOOP_WAKE_team3` or a reply in this coordinator thread):
 
 If the last heading is unchanged, stop. Do not write a prompt, do not commit, and do not run `handoff/rotate_threads.ps1`. Tell the user the loop paused.
 
-If the section holds, replace `team3_next_prompt.txt` with the next question that moves synchronization, and update `handoff/state.md` in the same turn. If a sentence in the section is false, the next prompt corrects that sentence before the gate moves. Then run the rotator. If it exits nonzero, stop and tell the user.
+Confirm `program_close` ran and `program_list_open` count is 0. A reply that left the project open is a stop. Do not write a prompt, do not commit, and do not rotate into the lock that session is still holding.
+
+If the section holds and the session is closed, replace `team3_next_prompt.txt` with the next question that moves synchronization, and update `handoff/state.md` in the same turn. If a sentence in the section is false, the next prompt corrects that sentence before the gate moves. Then run the rotator. If it exits nonzero, stop and tell the user.
 
 Commit and push `team3_next_prompt.txt` only when a new heading holds and you replace the prompt. Do not commit a stop reply. Leave the trace, `handoff/team3_response.md`, and `handoff/state.md` unstaged.
 
