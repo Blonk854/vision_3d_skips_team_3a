@@ -63,3 +63,14 @@ The same commit turned the director rule off for every chat (`alwaysApply: false
 The MCP process-exit fix is in the separate `ghidra-headless-mcp` tree (local commit `a58c105`). It is not on the upstream remote. If you run that server, confirm a client disconnect actually ends the Python process. A server that only returns from its read loop will leave the project lock behind.
 
 Do not turn Team 3’s loop back on from this note. The measurement it was on is still unanswered, and the loop stays off until someone sets the guard to `running` on purpose.
+
+## Superseded, 9 Oct 2026
+
+`loop_guard.ps1`, `test_loop_guard.ps1`, the `status` block, and the `.disabled` renames are gone. The handoff now uses Team 2's pass-id loop, tailored in `handoff/README.md`. Each item above maps to that loop as follows:
+
+- A reply with no new heading prints `AGENT_LOOP_PAUSE_team3`, which uses a different prefix from the wake.
+- Each rotation needs a new `Pass id`.
+- A lock file or a rotation within 3 minutes refuses.
+- The watcher is one-shot and stops any older copy.
+
+The loop starts only when a person pastes `handoff/cursor_bootstrap.md` into a coordinator chat.

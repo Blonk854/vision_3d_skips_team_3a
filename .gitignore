@@ -15,10 +15,7 @@ _ghidra*
 *.rep/
 # Ghidra runtime project locks. Do not use a global *.lock rule; that would hide dependency locks.
 v3d_files_uncomp_copy/*.lock
-handoff/watch_response.pid
-handoff/LOOP_ALERT.txt
-handoff/stale_locks/*
-!handoff/stale_locks/.gitkeep
+handoff/.rotated
 __pycache__/
 .venv/
 *~
