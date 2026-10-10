@@ -87,17 +87,21 @@ function Get-UiAll([IntPtr]$hwnd) {
 }
 
 function Get-ContentRect([IntPtr]$hwnd) {
-    $best = $null
-    foreach ($el in (Get-UiAll $hwnd)) {
-        try {
-            if ($el.Current.ControlType.ProgrammaticName -ne 'ControlType.Document') { continue }
-            $r = $el.Current.BoundingRectangle
-        } catch { continue }
-        if ($r.Width -lt 100) { continue }
-        if (-not $best -or $r.Width -gt $best.Width) { $best = $r }
+    # Chromium exposes the document a moment after the window is first touched.
+    foreach ($try in 1..5) {
+        $best = $null
+        foreach ($el in (Get-UiAll $hwnd)) {
+            try {
+                if ($el.Current.ControlType.ProgrammaticName -ne 'ControlType.Document') { continue }
+                $r = $el.Current.BoundingRectangle
+            } catch { continue }
+            if ($r.Width -lt 100) { continue }
+            if (-not $best -or $r.Width -gt $best.Width) { $best = $r }
+        }
+        if ($best) { return $best }
+        Start-Sleep -Milliseconds 400
     }
-    if (-not $best) { throw 'window content rect not found' }
-    return $best
+    throw 'window content rect not found'
 }
 
 function Set-ContentRect([IntPtr]$hwnd, [int]$x, [int]$y, [int]$w, [int]$h) {
@@ -127,30 +131,67 @@ function Set-ContentRect([IntPtr]$hwnd, [int]$x, [int]$y, [int]$w, [int]$h) {
     }
 }
 
+function Get-AgentSplitX([IntPtr]$hwnd) {
+    # The editor/agent sash is the rightmost live vertical sash that is not the
+    # window edge. Editor-group tabs sit to its left; agent chat tabs sit to its right.
+    $best = $null
+    foreach ($el in (Get-UiAll $hwnd)) {
+        try {
+            $className = $el.Current.ClassName
+            if ($className -notlike 'monaco-sash vertical*') { continue }
+            if ($className -like '*disabled*') { continue }
+            $r = $el.Current.BoundingRectangle
+        } catch { continue }
+        if ($r.Height -lt (200 * $S) -or $r.Width -gt (16 * $S)) { continue }
+        if (-not $best -or $r.X -gt $best) { $best = $r.X }
+    }
+    return $best
+}
+
 function Get-LeftAgentTab([IntPtr]$hwnd) {
+    $splitX = Get-AgentSplitX $hwnd
     $best = $null
     foreach ($el in (Get-UiAll $hwnd)) {
         try {
             if ($el.Current.ControlType.ProgrammaticName -ne 'ControlType.TabItem') { continue }
             $r = $el.Current.BoundingRectangle
         } catch { continue }
-        if ($r.Width -lt (40 * $S) -or $r.Height -lt (12 * $S) -or $r.Height -gt (40 * $S)) { continue }
-        if ($r.Y -lt (20 * $S) -or $r.Y -gt (90 * $S)) { continue }
+        if ($r.Width -lt (40 * $S) -or $r.Height -lt (12 * $S) -or $r.Height -gt (50 * $S)) { continue }
+        if ($r.Y -lt (20 * $S) -or $r.Y -gt (120 * $S)) { continue }
+        if ($null -ne $splitX -and ($r.X + $r.Width) -le $splitX) { continue }
         if (-not $best -or $r.X -lt $best.X) { $best = $r }
     }
     if (-not $best) { throw 'no agent tab found; open the agent chat beside the editor and run again' }
     return $best
 }
 
+function Test-EditorElement($el) {
+    $name = [string]$el.Current.Name
+    $className = [string]$el.Current.ClassName
+    return ($name -like 'Editor Group*' -or $className -eq 'part editor')
+}
+
 function Get-EditorRect([IntPtr]$hwnd) {
     foreach ($el in (Get-UiAll $hwnd)) {
         try {
-            $name = $el.Current.Name
             $r = $el.Current.BoundingRectangle
+            $isEditor = Test-EditorElement $el
         } catch { continue }
-        if ($name -like 'Editor Group*' -and $r.Width -gt (40 * $S) -and $r.Height -gt (200 * $S)) { return $r }
+        if ($isEditor -and $r.Width -gt (40 * $S) -and $r.Height -gt (200 * $S)) { return $r }
     }
     return $null
+}
+
+function Test-HitsEditor([IntPtr]$hwnd, [int]$x, [int]$y) {
+    foreach ($el in (Get-UiAll $hwnd)) {
+        try {
+            $r = $el.Current.BoundingRectangle
+            $isEditor = Test-EditorElement $el
+        } catch { continue }
+        if (-not $isEditor) { continue }
+        if ($x -ge $r.X -and $x -le ($r.X + $r.Width) -and $y -ge $r.Y -and $y -le ($r.Y + $r.Height)) { return $true }
+    }
+    return $false
 }
 
 function Get-SplitSash([IntPtr]$hwnd, [double]$tabX) {
@@ -232,23 +273,24 @@ if ($work.Y -gt (8 * $S)) {
     Write-Warning "Primary work area starts at Y=$($work.Y). OpenCode tabs are found only when their screen Y is between 0 and $tabRowMax."
 }
 
-$outer = [PrepWin]::Outer($ch)
-$tabClickX = $outer.Left + [int]($TabDx * $S)
-$tabClickY = $outer.Top + [int]($TabDy * $S)
-$tab = Get-LeftAgentTab $ch
-if (-not (Test-TabClick $tab.X $tab.Width $tab.Y $tab.Height $tabClickX $tabClickY)) {
-    $desiredLeft = $tabClickX - [int]($tab.Width / 2)
-    Move-SplitSash $ch ([int]($desiredLeft - $tab.X)) $tab.X
-    $outer = [PrepWin]::Outer($ch)
+function Align-AgentTab([IntPtr]$hwnd) {
+    $outer = [PrepWin]::Outer($hwnd)
     $tabClickX = $outer.Left + [int]($TabDx * $S)
     $tabClickY = $outer.Top + [int]($TabDy * $S)
-    $tab = Get-LeftAgentTab $ch
+    $tab = Get-LeftAgentTab $hwnd
     if (-not (Test-TabClick $tab.X $tab.Width $tab.Y $tab.Height $tabClickX $tabClickY)) {
-        $padLeft = $tabClickX - [int](16 * $S)
-        Move-SplitSash $ch ([int]($padLeft - $tab.X)) $tab.X
-        $tab = Get-LeftAgentTab $ch
+        $desiredLeft = $tabClickX - [int]($tab.Width / 2)
+        "dragging the agent split by $([int]($desiredLeft - $tab.X))px so the chat tab meets the click"
+        Move-SplitSash $hwnd ([int]($desiredLeft - $tab.X)) $tab.X
+        $tab = Get-LeftAgentTab $hwnd
+        if (-not (Test-TabClick $tab.X $tab.Width $tab.Y $tab.Height $tabClickX $tabClickY)) {
+            $padLeft = $tabClickX - [int](16 * $S)
+            Move-SplitSash $hwnd ([int]($padLeft - $tab.X)) $tab.X
+        }
     }
 }
+
+Align-AgentTab $ch
 
 $outer = [PrepWin]::Outer($ch)
 $tab = Get-LeftAgentTab $ch
@@ -268,6 +310,37 @@ $cuContent = Get-ContentRect $ch
 "Cursor content $([int]$cuContent.X),$([int]$cuContent.Y) $([int]$cuContent.Width)x$([int]$cuContent.Height)"
 
 $sideNames = Get-NamesAt $ch $sideX $sideY
+if (-not (Test-HitsEditor $ch $sideX $sideY)) {
+    # The rotator clicks 30px in from the window edge and expects the editor.
+    # An open primary side bar puts the Explorer there, so close it once.
+    [PrepWin]::AllowForeground($ch)
+    [PrepWin]::keybd_event(0x11, 0, 0, [UIntPtr]::Zero)
+    Start-Sleep -Milliseconds 30
+    [PrepWin]::keybd_event(0x42, 0, 0, [UIntPtr]::Zero)
+    [PrepWin]::keybd_event(0x42, 0, 2, [UIntPtr]::Zero)
+    [PrepWin]::keybd_event(0x11, 0, 2, [UIntPtr]::Zero)
+    Start-Sleep -Milliseconds 400
+    "closed the primary side bar (Ctrl+B); it was covering the sidebar click"
+    $outer = [PrepWin]::Outer($ch)
+    $sideX = $outer.Left + [int]($SidebarDx * $S)
+    $sideY = $outer.Top + [int]($SidebarDy * $S)
+    $tabX = $outer.Left + [int]($TabDx * $S)
+    $tabY = $outer.Top + [int]($TabDy * $S)
+    $compX = $outer.Left + [int]($ComposerDx * $S)
+    $compY = $outer.Top + [int]($ComposerDy * $S)
+    Align-AgentTab $ch
+    $outer = [PrepWin]::Outer($ch)
+    $tab = Get-LeftAgentTab $ch
+    $editor = Get-EditorRect $ch
+    $sash = Get-SplitSash $ch $tab.X
+    $sideX = $outer.Left + [int]($SidebarDx * $S)
+    $sideY = $outer.Top + [int]($SidebarDy * $S)
+    $tabX = $outer.Left + [int]($TabDx * $S)
+    $tabY = $outer.Top + [int]($TabDy * $S)
+    $compX = $outer.Left + [int]($ComposerDx * $S)
+    $compY = $outer.Top + [int]($ComposerDy * $S)
+    $sideNames = Get-NamesAt $ch $sideX $sideY
+}
 $tabNames = Get-NamesAt $ch $tabX $tabY
 "sidebar click @$sideX,$sideY hits: $($sideNames -join ' | ')"
 "tab click @$tabX,$tabY hits: $($tabNames -join ' | ')"
@@ -289,7 +362,7 @@ $promptText = if ($null -eq $promptBottom) { 'hidden' } else { "$promptBottom" }
 $problems = @()
 if ([Math]::Abs([int]$ocContent.X - $work.X) -gt 1 -or [Math]::Abs([int]$ocContent.Width - $leftW) -gt 1) { $problems += 'OpenCode is not the left half' }
 if ([Math]::Abs([int]$cuContent.X - ($work.X + $leftW)) -gt 1 -or [Math]::Abs([int]$cuContent.Width - $rightW) -gt 1) { $problems += 'Cursor is not the right half' }
-if (-not ($sideNames | Where-Object { $_ -like 'Editor Group*' })) { $problems += 'sidebar click missed the editor group; close the primary side bar and run again' }
+if (-not (Test-HitsEditor $ch $sideX $sideY)) { $problems += 'sidebar click missed the editor; close the primary side bar and run again' }
 if (-not (Test-TabClick $tab.X $tab.Width $tab.Y $tab.Height $tabX $tabY)) { $problems += 'tab click missed the left agent tab' }
 if ($compX -le ($sash.X + $sash.Width)) { $problems += 'composer click is left of the agent split' }
 if ($null -eq $editor) { $problems += 'editor group not found' }
