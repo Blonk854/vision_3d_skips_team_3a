@@ -79,7 +79,9 @@ Use the `Answer:` line of a section, then confirm the bytes with the checker, wh
 
 Their handoff copy in `handoff_Team3` answers pass `20261009T222402Z-6eb2ddbb` (§563). The open prompt there is pass `20261010T010440Z-6d5efb74` (§564), and the response file does not answer it.
 
-`[0x140735f57, 0x140735f81)` in `v3d_files_\Vision3D.exe` matches the 42 bytes in that §563 reply: `90498b4510448b882439000040887c24204c8d8424a00300008d5710488d8c2480000000ff1537d76100`. Eight instructions. The only store is `mov byte ptr [rsp + 0x20], dil` at `0x140735f63`. The bound ends at the `call` at `0x140735f7b`. That call stays closed here, and `0x140735f81` stays unread.
+`[0x140735f57, 0x140735f81)` in `v3d_files_\Vision3D.exe` matches the 42 bytes in that §563 reply: `90498b4510448b882439000040887c24204c8d8424a00300008d5710488d8c2480000000ff1537d76100`. Eight instructions. The only store is `mov byte ptr [rsp + 0x20], dil` at `0x140735f63`. The bound ends at the `call` at `0x140735f7b`. That call stays closed here.
+
+The straight line at `0x140735f81` is `[0x140735f81, 0x140735f90)`, 3 instructions and 15 bytes, ending at `call qword ptr [rip + 0x629168]`. Zero stores. That stretch is not shown to write the loaded qword's bytes at `+0x18` or `+0x19`. The instruction after `0x140735f8a` stays unread. The full bound is in the status note.
 
 Their uniqueness row stays Partial. The same sentence is now in [Team 2 uniqueness check](../../plans/robust_patch_revision_2a_status.md#team-2-uniqueness-check-2026-10-12). Their reported §563 plan section and test are absent from this repo, so they were left in their tree. This does not move `gate_status` or `worker_to_capm`.
 
