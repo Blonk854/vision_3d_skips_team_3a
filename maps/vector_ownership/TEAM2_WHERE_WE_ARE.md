@@ -83,7 +83,9 @@ Their handoff copy in `handoff_Team3` answers pass `20261009T222402Z-6eb2ddbb` (
 
 The straight line at `0x140735f81` is `[0x140735f81, 0x140735f90)`, 3 instructions and 15 bytes, ending at `call qword ptr [rip + 0x629168]`. Zero stores. That stretch is not shown to write the loaded qword's bytes at `+0x18` or `+0x19`.
 
-The straight line at `0x140735f90` is `[0x140735f90, 0x140735fbc)`, 6 instructions and 44 bytes, ending at `call qword ptr [rip + 0x61f45c]`. Two stores, both through `rsp`, at `0x170` and `0x180`. That stretch is not shown to write those bytes. The instruction after `0x140735fb6` stays unread. The full bounds are in the status note.
+The straight line at `0x140735f90` is `[0x140735f90, 0x140735fbc)`, 6 instructions and 44 bytes, ending at `call qword ptr [rip + 0x61f45c]`. Two stores, both through `rsp`, at `0x170` and `0x180`. That stretch is not shown to write those bytes.
+
+The straight line at `0x140735fbc` is `[0x140735fbc, 0x140735fe1)`, 6 instructions and 37 bytes, ending at `call qword ptr [rip + 0x61f617]`. One store, through `rsp`, at `0x3a0`. That stretch is not shown to write those bytes. The instruction after `0x140735fdb` stays unread. The full bounds are in the status note.
 
 Their uniqueness row stays Partial. The same sentence is now in [Team 2 uniqueness check](../../plans/robust_patch_revision_2a_status.md#team-2-uniqueness-check-2026-10-12). Their reported §563 plan section and test are absent from this repo, so they were left in their tree. This does not move `gate_status` or `worker_to_capm`.
 
