@@ -1,0 +1,262 @@
+{
+  "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
+  "image_base": "0x140000000",
+  "analysis_date": "2026-09-27",
+  "gate_status": "CLOSED - outer vector one-shot; inner vector FIXED-CAPACITY (no growth during panel load); synchronization risk documented",
+  "outer_vector": {
+    "address": "CAO+0x5878",
+    "type": "CProdCarte[11]",
+    "stride": "0x410",
+    "proven_one_shot": true,
+    "evidence": {
+      "constructor_write": "ProductionDoc_ctor (0x14067dea0) writes document+0x5878 twice (begin/end)",
+      "destructor_read_null": "ProductionDoc_dtor (0x14067fc20) reads then nulls document+0x5878/+0x5880",
+      "other_writes": "NONE found in whole-image scan",
+      "allocation": "ProductionDoc_ctor -> DeleteVector -> FUN_14051ff90 -> FUN_14057be20 (operator_delete)",
+      "destruction": "ProductionDoc_dtor -> DeleteVector -> FUN_14051ff90 -> FUN_14057be20"
+    },
+    "mutator_table": [
+      {
+        "name": "ProductionDoc_ctor",
+        "entry": "0x14067dea0",
+        "offset": "0x5878",
+        "operation": "WRITE (allocate outer vector)",
+        "caller": "document creation",
+        "synchronization": "single-threaded init"
+      },
+      {
+        "name": "ProductionDoc_dtor",
+        "entry": "0x14067fc20",
+        "offset": "0x5878",
+        "operation": "READ then NULL",
+        "caller": "document destruction",
+        "synchronization": "NO ProductionStop join - UNSAFE if workers in-flight"
+      }
+    ]
+  },
+  "inner_vector": {
+    "address": "zone+0x18/0x20/0x28",
+    "type": "std::vector<CAnomalieProd>",
+    "element_size": "0x370",
+    "zone_stride": "0x410",
+    "proven_one_shot": false,
+    "growth_during_panel_load": "DISPROVEN - fixed-capacity contract",
+    "evidence": {
+      "zone_ctor": "0x14066e1d0 zeroes begin/end (param_1+1, param_1+2), calls slot 8 (allocation)",
+      "zone_dtor": "0x14066e530 walks begin->end with stride 0x370 (plVar3 + 0x6e), calls slot 8 (dtor)",
+      "zone_inner_free": "0x14066e4e0 frees a CMap, not the anomaly vector",
+      "vector_method_calls": "NO std::vector<CAnomalieProd> push_back/resize/reserve/reallocate found in whole-image scan",
+      "mfc_arrays_only": "vector_method_calls section shows only CStringArray, CUIntArray, CObArray, CPoints<double> - no CAnomalieProd vector methods",
+      "resize_zones": "CDataCaoTraitement::ResizeZones (0x14053c370) resizes OUTER zones array (CAO+0x5878), not inner anomaly vectors",
+      "execute_one_component": "0x1407368d0 writes to pre-allocated CAnomalie* (param_4 = zone+0x18 + index*0x370), no push_back/resize",
+      "execute_all_components": "0x1407354b0 computes anomaly slot as zone_begin + index*0x370, passes to ExecuteOne_Component",
+      "fun_140735120": "0x140735120 initializes context struct, reads INI, NO inner vector operations",
+      "pv_envoi_des_zone_composants": "0x140532d30 iterates zones, builds temporary CArrays (puStack_280/240/220/260) for component selection, NO inner anomaly vector growth",
+      "capm_set_inspection_status": "0x14069b2a0 reads (end-begin)/0x370 for reconciliation, read-only access"
+    },
+    "mutator_table": [
+      {
+        "name": "Zone_ctor",
+        "entry": "0x14066e1d0",
+        "offsets": "zone+0x8/0x10 (begin/end), calls slot 8 at zone+0x8",
+        "operation": "ZERO + ALLOCATE (inner vector)",
+        "caller": "zone creation",
+        "synchronization": "single-threaded init",
+        "inner_vector_ops": {
+          "zeroes_begin_end": true,
+          "calls_slot_8": true,
+          "loop_stride_370": false
+        }
+      },
+      {
+        "name": "Zone_dtor",
+        "entry": "0x14066e530",
+        "offsets": "zone+0x18/0x20 (begin/end)",
+        "operation": "WALK + DESTROY (stride 0x370)",
+        "caller": "zone destruction",
+        "synchronization": "NO ProductionStop join - UNSAFE if workers in-flight",
+        "inner_vector_ops": {
+          "zeroes_begin_end": false,
+          "calls_slot_8": true,
+          "loop_stride_370": true
+        }
+      },
+      {
+        "name": "Zone_inner_free",
+        "entry": "0x14066e4e0",
+        "offsets": "zone+0x18/0x20? (map at zone+0x1e8)",
+        "operation": "FREE CMap",
+        "caller": "zone cleanup",
+        "synchronization": "unknown",
+        "inner_vector_ops": {
+          "zeroes_begin_end": false,
+          "calls_slot_8": false,
+          "loop_stride_370": false
+        }
+      },
+      {
+        "name": "ExecuteOne_Component",
+        "entry": "0x1407368d0",
+        "offsets": "writes to CAnomalie* param_4 (pre-allocated slot)",
+        "operation": "WRITE ELEMENT (fixed index)",
+        "caller": "ExecuteAll_Components worker",
+        "synchronization": "per-slot ownership, no vector structure mutation",
+        "inner_vector_ops": {
+          "zeroes_begin_end": false,
+          "calls_slot_8": false,
+          "loop_stride_370": false,
+          "writes_fixed_slot": true
+        }
+      },
+      {
+        "name": "ExecuteAll_Components",
+        "entry": "0x1407354b0",
+        "offsets": "zone+0x18 (begin) + index*0x370",
+        "operation": "COMPUTE SLOT ADDRESS (read-only vector structure)",
+        "caller": "PanelInspect -> ExecuteGreyZoneSynchronous",
+        "synchronization": "reads vector begin/end, passes to worker",
+        "inner_vector_ops": {
+          "zeroes_begin_end": false,
+          "calls_slot_8": false,
+          "loop_stride_370": false,
+          "reads_begin_end": true
+        }
+      },
+      {
+        "name": "FUN_140735120",
+        "entry": "0x140735120",
+        "offsets": "none (context setup only)",
+        "operation": "NO VECTOR OPERATIONS",
+        "caller": "ExecuteGreyZoneSynchronous setup",
+        "synchronization": "N/A",
+        "inner_vector_ops": {
+          "zeroes_begin_end": false,
+          "calls_slot_8": false,
+          "loop_stride_370": false
+        }
+      },
+      {
+        "name": "PV_EnvoiDesZoneComposants",
+        "entry": "0x140532d30",
+        "offsets": "temporary CArrays only (puStack_280/240/220/260)",
+        "operation": "BUILD TEMPORARY COMPONENT LISTS",
+        "caller": "PanelInspect",
+        "synchronization": "single-threaded panel setup",
+        "inner_vector_ops": {
+          "zeroes_begin_end": false,
+          "calls_slot_8": false,
+          "loop_stride_370": false,
+          "uses_temporary_carrays": true
+        }
+      },
+      {
+        "name": "CAPM_SetInspectionStatus",
+        "entry": "0x14069b2a0",
+        "offsets": "reads zone+0x18/0x20 for (end-begin)/0x370 count",
+        "operation": "READ VECTOR STRUCTURE (reconciliation)",
+        "caller": "ProductionThread CAPM commit",
+        "synchronization": "read-only, no lock on inner vector",
+        "inner_vector_ops": {
+          "zeroes_begin_end": false,
+          "calls_slot_8": false,
+          "loop_stride_370": true,
+          "reads_begin_end": true
+        }
+      }
+    ],
+    "missing_mutators_now_proven_absent": [
+      "push_back / emplace_back - would write CAnomalieProd at end pointer then increment end",
+      "resize - would change end pointer, possibly reallocate",
+      "reserve - would change capacity pointer, possibly reallocate",
+      "reallocate / _Buy / _Reallocate - would move elements, invalidate pointers",
+      "insert / assign / operator= - would modify vector structure"
+    ]
+  },
+  "panel_load_path": {
+    "PanelInspect": {
+      "entry": "0x1406a6a30",
+      "calls": ["FUN_14069d3a0", "FUN_1406a4980", "CDataCaoTraitement::PIT_Add2D_ZoneData", "CDataCaoTraitement::PIT_Add3D_ZoneData"],
+      "notes": "Sets up inspection, triggers zone data processing"
+    },
+    "ReceiveGreyZones": {
+      "entry": "0x1406a88e0",
+      "calls": ["FUN_14069fcd0 (ExecuteGreyZoneSynchronous)", "FUN_14069fb80 (ExecuteGreyZoneAsynchronous)"],
+      "notes": "Main loop receiving zone storages, processes sync or async"
+    },
+    "ExecuteGreyZoneSynchronous": {
+      "entry": "0x14069fcd0",
+      "calls": ["FUN_140735120", "FUN_140735f10 (ExecuteOne_Component)"],
+      "notes": "Sets up analysis context, calls ExecuteOne_Component with zone+8"
+    },
+    "ExecuteGreyZoneAsynchronous": {
+      "entry": "0x14069fb80",
+      "calls": ["thread pool queue with critical section (lVar3+0x78)"],
+      "notes": "Queues work to thread pool, signals event at lVar3+0xa0"
+    },
+    "ExecuteAll_Components": {
+      "entry": "0x1407354b0",
+      "calls": ["ExecuteOne_Component (0x1407368d0)"],
+      "notes": "Worker entry point - DECOMPILED: passes fixed slot address"
+    },
+    "ExecuteOne_Component": {
+      "entry": "0x1407368d0",
+      "calls": ["writes CAnomalieProd fields at pre-allocated slot"],
+      "notes": "Worker function - DECOMPILED: writes to fixed slot, no vector growth"
+    },
+    "FUN_140735120": {
+      "entry": "0x140735120",
+      "notes": "Setup before ExecuteOne_Component - DECOMPILED: context init, INI read, no vector ops"
+    },
+    "CAPM_SetInspectionStatus": {
+      "entry": "0x14069b2a0",
+      "notes": "Walks (end-begin)/0x370 for reconciliation - DECOMPILED: read-only"
+    },
+    "CDataCaoTraitement::PV_EnvoiDesZoneComposants": {
+      "entry": "0x140532d30",
+      "notes": "Sends zone components - DECOMPILED: builds temporary CArrays, no anomaly vector growth"
+    },
+    "CDataCaoTraitement::ResizeZones": {
+      "entry": "0x14053c370",
+      "notes": "Resizes OUTER zones array (CAO+0x5878), called from 0x1404d68e0 and 0x1405e9cd0 - NOT inner anomaly vectors"
+    }
+  },
+  "synchronization_contracts": {
+    "worker_to_capm": {
+      "path": "ExecuteOne_Component writes CAnomalieProd -> event signal -> CAPM_SetInspectionStatus reads",
+      "barrier": "NONE PROVEN - no memory fence, no atomic, no lock on inner vector",
+      "risk": "CAPM may see torn writes or stale data",
+      "mitigation": "Fixed-capacity eliminates reallocation risk; only torn writes remain. Workers write disjoint slots; CAPM reads after event signal provides some ordering."
+    },
+    "destructor_vs_workers": {
+      "path": "ProductionDoc_dtor frees inner vectors via Zone_dtor",
+      "join_point": "ProductionStop (0x1406920f0) is ONLY join point",
+      "production_stop_callers": "ONLY from document vtable slot +0x28 with magic 0x004EB1CF - NEVER from close/destruction",
+      "risk": "Document destruction can free inner vectors while workers still writing - USE-AFTER-FREE",
+      "mitigation": "Ensure ProductionStop called before document destruction. Current code path: document dtor calls DeleteVector WITHOUT ProductionStop join."
+    },
+    "inner_vector_locks": {
+      "ccapm_critical_section": "Protects document table only (CAO+0x5878 zone array)",
+      "inner_vector_lock": "NONE - no lock guards zone+0x18/0x20/0x28",
+      "risk": "Concurrent push_back/resize from workers vs CAPM read = data race",
+      "status": "MITIGATED - push_back/resize PROVEN ABSENT; only fixed-slot writes and read-only reconciliation remain"
+    }
+  },
+  "gate_requirements": {
+    "outer_vector": "CLOSED - proven one-shot allocated in constructor, no later stores",
+    "inner_vector_growth": "CLOSED - DISPROVEN; fixed-capacity contract established; all panel-load-path functions decompiled and verified",
+    "synchronization": "PARTIAL - torn write risk remains; use-after-free risk in dtor; no memory fence between worker write and CAPM read"
+  },
+  "next_steps_for_synchronization": [
+    "Add memory fence (compiler barrier or MFENCE) after ExecuteOne_Component writes and before event signal",
+    "Add memory fence in CAPM_SetInspectionStatus before reading anomaly vectors",
+    "Ensure ProductionStop is called before document destruction (join workers)",
+    "Consider epoch counter or seqlock if torn writes are unacceptable for anomaly data"
+  ],
+  "decompilation_evidence_files": {
+    "ExecuteOne_Component": "maps/decomp/ExecuteOne_Component.c",
+    "ExecuteAll_Components": "maps/decomp/ExecuteAll_Components.c",
+    "FUN_140735120": "maps/decomp/FUN_140735120.c",
+    "PV_EnvoiDesZoneComposants": "maps/decomp/PV_EnvoiDesZoneComposants.c",
+    "CAPM_SetInspectionStatus": "maps/decomp/CAPM_SetInspectionStatus.c"
+  }
+}
