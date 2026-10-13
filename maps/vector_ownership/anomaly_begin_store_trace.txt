@@ -22451,3 +22451,13 @@ Is mnemonic MFENCE or first byte F0? No (mnemonic is ??, first byte is `0xcc`).
 The first character of the byte string is the letter c (code point 99). The character immediately before that letter is a backtick (code point 96), and that letter stays that letter. The character between the opening backtick and the letter x in `0xcc` is the digit 0, code point 48, not code point 0. No null written. No backslash written in place of a backtick. No character below code point 32 written inside the quotes.
 The unit was read as an already-existing code unit with `listing_code_unit_at` at 0x1406a1d99, whose kind is DataDB, and it was not produced by disassembly. Its mnemonic is not MFENCE and its first byte is `0xcc`, not `0xf0`.
 ===== END =====
+
+===== Wait flag taken after the second rcx rbx jmp mov mov lea mov call mov mov lea call mov mov call nop lea call xor lea mov mov pop pop pop pop ret cc cc cc cc cc cc cc =====
+Address: `0x1406a1d9a` .. `0x1406a1d9a`; bytes: `cc`; full text: `?? CCh`; byte length 1; next byte `0x1406a1d9b`.
+The max address `0x1406a1d9a` is the last byte included in this instruction. The next byte `0x1406a1d9b` equals that max address plus one, so no instruction starts between this instruction and the instruction that starts at `0x1406a1d9b`.
+Mnemonic: ??
+Full text: `?? CCh`
+Is mnemonic MFENCE or first byte F0? No (mnemonic is ??, first byte is `0xcc`).
+The first character of the byte string is the letter c (code point 99). The character immediately before that letter is a backtick (code point 96), and that letter stays that letter. The character between the opening backtick and the letter x in `0xcc` is the digit 0, code point 48, not code point 0. No null written. No backslash written in place of a backtick. No character below code point 32 written inside the quotes.
+The unit was read as an already-existing code unit with `listing_code_unit_at` at 0x1406a1d9a, whose kind is DataDB, and it was not produced by disassembly. Its mnemonic is not MFENCE and its first byte is `0xcc`, not `0xf0`.
+===== END =====

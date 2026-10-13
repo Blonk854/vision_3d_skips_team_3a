@@ -32,9 +32,9 @@ SNAPSHOT_PASS = "20261013T003814Z-5713b20b"
 SNAPSHOT_HEADING = (
     "Wait flag taken after the second rcx rbx jmp mov mov lea mov call "
     "mov mov lea call mov mov call nop lea call xor lea mov mov pop pop "
-    "pop pop ret cc cc cc cc cc cc"
+    "pop pop ret cc cc cc cc cc cc cc"
 )
-SNAPSHOT_FRONTIER = 0x1406A1D99
+SNAPSHOT_FRONTIER = 0x1406A1D9A
 
 failures: list[str] = []
 
@@ -186,8 +186,8 @@ def main() -> int:
     addr = re.search(r"Address: `([^`]+)` \.\. `([^`]+)`", body)
     mnemonic = re.search(r"^Mnemonic: (.+)$", body, re.M)
     byte_match = re.search(r"bytes: `([^`]+)`", body)
-    check("frontier min", addr is not None and addr.group(1).lower() == "0x1406a1d99", addr.group(1) if addr else "missing")
-    check("frontier max", addr is not None and addr.group(2).lower() == "0x1406a1d99", addr.group(2) if addr else "missing")
+    check("frontier min", addr is not None and addr.group(1).lower() == "0x1406a1d9a", addr.group(1) if addr else "missing")
+    check("frontier max", addr is not None and addr.group(2).lower() == "0x1406a1d9a", addr.group(2) if addr else "missing")
     check("frontier bytes in trace", byte_match is not None and byte_match.group(1).lower() == "cc", byte_match.group(1) if byte_match else "missing")
     check("frontier mnemonic", mnemonic is not None and mnemonic.group(1).strip() == "??", mnemonic.group(1).strip() if mnemonic else "missing")
 
@@ -223,7 +223,7 @@ def main() -> int:
         "SetEvent return is not read": (0x1406A1C1C, bytes.fromhex("448b4b70")),
         "epilogue clears EAX": (0x1406A1C6E, bytes.fromhex("33c0")),
         "later RET before padding": (0x1406A1D92, b"\xc3"),
-        "padding after that RET": (0x1406A1D93, b"\xcc" * 6),
+        "padding after that RET": (0x1406A1D93, b"\xcc" * 8),
     }
     for label, (va, expected) in raw_checks.items():
         got = read_va(exe, sections, va, len(expected))
