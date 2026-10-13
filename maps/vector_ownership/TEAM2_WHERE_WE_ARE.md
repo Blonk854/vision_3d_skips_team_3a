@@ -39,7 +39,7 @@ The checker maps each virtual address through the PE sections and compares the f
 | EAX clear | `0x1406a1c6e` | `33 c0` | `XOR EAX, EAX` in the handler epilogue. It clears `EAX`. It is not a test of the `SetEvent` return. |
 | Handler body end | `0x1406a1c7b` | `c3` | `FUN_1406a1a50` returns here. |
 | Later return | `0x1406a1d92` | `c3` | A later `RET`, after the handler body. |
-| Padding | `0x1406a1d93` .. `0x1406a1d98` | `cc cc cc cc cc cc` | Six undefined `CC` bytes. The open measurement is the last of them. |
+| Padding | `0x1406a1d93` .. `0x1406a1d99` | `cc cc cc cc cc cc cc` | Seven undefined `CC` bytes. The open measurement is the last of them. |
 
 ## Frontier
 
@@ -47,15 +47,15 @@ Latest response: `handoff/team3_response.md`, pass `20261013T003814Z-5713b20b`.
 
 Latest trace heading, at the end of `maps/vector_ownership/anomaly_begin_store_trace.txt`:
 
-`Wait flag taken after the second rcx rbx jmp mov mov lea mov call mov mov lea call mov mov call nop lea call xor lea mov mov pop pop pop pop ret cc cc cc cc cc`
+`Wait flag taken after the second rcx rbx jmp mov mov lea mov call mov mov lea call mov mov call nop lea call xor lea mov mov pop pop pop pop ret cc cc cc cc cc cc`
 
 That section quotes one existing code unit:
 
-- `0x1406a1d98` .. `0x1406a1d98`
+- `0x1406a1d99` .. `0x1406a1d99`
 - bytes `cc`
 - mnemonic `??`
 - full text `?? CCh`
-- next byte `0x1406a1d99`
+- next byte `0x1406a1d9a`
 
 The copy project `v3d_files_uncomp_copy` had no `V3D_SKIP.lock` or `V3D_SKIP.lock~` when that response was written, and the response records `program_list_open` count 0.
 
@@ -97,4 +97,4 @@ Their uniqueness row stays Partial. The same sentence is now in [Team 2 uniquene
 
 ## What is still open
 
-The outer vector and inner-vector growth gates in the JSON are closed. The synchronization half is the open half: `worker_to_capm` still has no proved memory fence, atomic, or lock on the inner vector, and document destruction still has no proved `ProductionStop` join before it frees those vectors. The live measurement is the byte at `0x1406a1d98`.
+The outer vector and inner-vector growth gates in the JSON are closed. The synchronization half is the open half: `worker_to_capm` still has no proved memory fence, atomic, or lock on the inner vector, and document destruction still has no proved `ProductionStop` join before it frees those vectors. The live measurement is the byte at `0x1406a1d99`.
