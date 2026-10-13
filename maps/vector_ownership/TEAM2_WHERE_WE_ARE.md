@@ -1,6 +1,6 @@
 # Team 3a progress for Team 2
 
-Recorded 2026-10-12 from this checkout. The numbers below are a snapshot. Recompute them before relying on them:
+Recorded 2026-10-12. Pull `9a19df2` or a descendant that still contains it. That commit is the measurement snapshot: `maps/vector_ownership/anomaly_begin_store_trace.txt` ends at `0x1406a1d98`, and `handoff/team3_response.md` starts with pass `20261013T003814Z-5713b20b`. The checker and this page first landed in `1ab2683`. The executable is not in git. Recompute the numbers before relying on them:
 
 ```
 python maps/vector_ownership/team2_progress_check.py
