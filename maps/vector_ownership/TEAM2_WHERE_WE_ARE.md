@@ -75,6 +75,14 @@ The measurement loop does not rewrite old sections. These sentences are still in
 
 Use the `Answer:` line of a section, then confirm the bytes with the checker, when a later sentence in that same section disagrees.
 
+## Team 2, checked 2026-10-12
+
+Their handoff copy in `handoff_Team3` answers pass `20261009T222402Z-6eb2ddbb` (§563). The open prompt there is pass `20261010T010440Z-6d5efb74` (§564), and the response file does not answer it.
+
+`[0x140735f57, 0x140735f81)` in `v3d_files_\Vision3D.exe` matches the 42 bytes in that §563 reply: `90498b4510448b882439000040887c24204c8d8424a00300008d5710488d8c2480000000ff1537d76100`. Eight instructions. The only store is `mov byte ptr [rsp + 0x20], dil` at `0x140735f63`. The bound ends at the `call` at `0x140735f7b`. That call stays closed here, and `0x140735f81` stays unread.
+
+Their uniqueness row stays Partial. The same sentence is now in [Team 2 uniqueness check](../../plans/robust_patch_revision_2a_status.md#team-2-uniqueness-check-2026-10-12). Their reported §563 plan section and test are absent from this repo, so they were left in their tree. This does not move `gate_status` or `worker_to_capm`.
+
 ## What is still open
 
 The outer vector and inner-vector growth gates in the JSON are closed. The synchronization half is the open half: `worker_to_capm` still has no proved memory fence, atomic, or lock on the inner vector, and document destruction still has no proved `ProductionStop` join before it frees those vectors. The live measurement is the byte at `0x1406a1d98`.
