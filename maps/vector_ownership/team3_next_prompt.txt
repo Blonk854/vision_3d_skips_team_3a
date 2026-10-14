@@ -1,23 +1,23 @@
-Pass id: 20261014T231432Z-709638e8
+Pass id: 20261014T231836Z-3dca15f0
 
-Answer only pass 20261014T231432Z-709638e8. When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim, and make its first line `Pass id: 20261014T231432Z-709638e8`. Do not append to that file.
+Answer only pass 20261014T231836Z-3dca15f0. When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim, and make its first line `Pass id: 20261014T231836Z-3dca15f0`. Do not append to that file.
 
 Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. Do not open another module.
 
 Check the lock files when you start. If either `v3d_files_uncomp_copy/V3D_SKIP.lock` or `v3d_files_uncomp_copy/V3D_SKIP.lock~` is present, stop, report both sizes and timestamps, do not delete them, and do not edit the trace. When no lock file is present, open the copy project read-only. Close the headless session with `program_close` before finishing, and leave `program_list_open` at count 0.
 
-The last section holds. `memory_read` at `0x1406a1f04` length 1 returned byte `75`. That is the thirty-seventh byte after the CMOVZ at max address `0x1406a1edf`. This pass reads the thirty-eighth byte. Do not rewrite any earlier section.
+The last section holds. `memory_read` at `0x1406a1f05` length 1 returned byte `21`. That is the thirty-eighth byte after the CMOVZ at max address `0x1406a1edf`. This pass reads the thirty-ninth byte. Do not rewrite any earlier section.
 
 Do not call `listing_code_unit_at`. Do not call `memory_blocks_list`. Do not disassemble. Do not call `listing_disassemble_seed` or `listing_disassemble_range`. Do not create a code unit or data. Do not clear the listing. Do not quote any instruction.
 
-Call `memory_read` once at `0x1406a1f05` with length 1. Before you call it, check that the address you pass has exactly nine hex digits after `0x` and is `0x1406a1f05`. `0x1406a1f04` plus one is `0x1406a1f05`. It lies inside .text, between `0x140001000` and `0x140d509ff`. Append exactly one new section after that call, whether the call returns one byte or fails with MemoryAccessException.
+Call `memory_read` once at `0x1406a1f06` with length 1. Before you call it, check that the address you pass has exactly nine hex digits after `0x` and is `0x1406a1f06`. `0x1406a1f05` plus one is `0x1406a1f06`. It lies inside .text, between `0x140001000` and `0x140d509ff`. Append exactly one new section after that call, whether the call returns one byte or fails with MemoryAccessException.
 
-The current last heading is the last `=====` heading in maps/vector_ownership/anomaly_begin_store_trace.txt that is not `===== END =====`. It ends in ` 48 89 75 67 48 8b 01 4c 8d 45 67 48 8d 55 ef ff 90 98 01 00 00 66 c7 43 31 01 00 0f 1f 44 00 00 80 7b 31 01 75`. Copy it exactly from the file. The new heading is that current last heading, copied exactly, then one space, then one word. If `memory_read` returns one byte, the word is that byte as exactly two lowercase hexadecimal digits, with no `0x` prefix. If it fails and returns no byte, the word is `unreadable`. Do not choose the word before the call returns or fails.
+The current last heading is the last `=====` heading in maps/vector_ownership/anomaly_begin_store_trace.txt that is not `===== END =====`. It ends in ` 48 89 75 67 48 8b 01 4c 8d 45 67 48 8d 55 ef ff 90 98 01 00 00 66 c7 43 31 01 00 0f 1f 44 00 00 80 7b 31 01 75 21`. Copy it exactly from the file. The new heading is that current last heading, copied exactly, then one space, then one word. If `memory_read` returns one byte, the word is that byte as exactly two lowercase hexadecimal digits, with no `0x` prefix. If it fails and returns no byte, the word is `unreadable`. Do not choose the word before the call returns or fails.
 
 The first line of that section is `===== ` then the new heading then ` =====`. The last line of that section is exactly `===== END =====`. Append exactly one section.
 
 Inside that section, write these lines:
-- `Address: ` then `0x1406a1f05` in backticks.
+- `Address: ` then `0x1406a1f06` in backticks.
 - `Byte length: 1`.
 - The result: the two lowercase hex digits in backticks, or that no byte was returned with the name MemoryAccessException.
 - `This section records a raw read. It does not record a code unit.`
