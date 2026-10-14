@@ -1,133 +1,29 @@
-Pass id: 20261014T081310Z-b0ac3111
+Pass id: 20261014T081745Z-5fa3aac3
 
-Answer only pass 20261014T081310Z-b0ac3111. When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim, and make its first line `Pass id: 20261014T081310Z-b0ac3111`. Do not append to that file.
+Answer only pass 20261014T081745Z-5fa3aac3. When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim, and make its first line `Pass id: 20261014T081745Z-5fa3aac3`. Do not append to that file.
 
-Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. If a lock file is left behind, report it and stop. Do not delete it. Do not open another module.
+Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. Do not open another module.
 
-Check the lock files again when you start. If either `v3d_files_uncomp_copy/V3D_SKIP.lock` or `v3d_files_uncomp_copy/V3D_SKIP.lock~` is present, stop, report both sizes and timestamps, and do not edit the trace. Do not open the project while a lock file is present. When no lock file is present, open the copy project read-only. Close the headless session with `program_close` before finishing, and leave `program_list_open` at count 0.
+Check the lock files when you start. If either `v3d_files_uncomp_copy/V3D_SKIP.lock` or `v3d_files_uncomp_copy/V3D_SKIP.lock~` is present, stop, report both sizes and timestamps, do not delete them, and do not edit the trace. When no lock file is present, open the copy project read-only. Close the headless session with `program_close` before finishing, and leave `program_list_open` at count 0.
 
-`Wait flag taken after the second rcx rbx jmp mov mov lea mov call mov mov lea call mov mov call nop lea call xor lea mov mov pop pop pop pop ret cc cc cc cc cc cc cc cc cc cc cc cc cc push push push lea sub mov mov lea lea call nop mov call mov mov lea mov lea call nop lea call call xor mov lea lea xor mov call lea lea test cmovz mov mov lea mov mov mov call lea call nop mov mov mov mov mov xor xor lea call mov mov mov mov mov call mov lea lea xor mov call lea lea test cmovz 140d509ff unreadable ce unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable` now ends the trace. It holds. Address `0x1406a1ee11`. Byte length 1. No byte was returned. The error is MemoryAccessException. This section records a raw read. It does not record a code unit. The mnemonic line in that section is none. The full text line in that section is none. Those facts stay. Do not rewrite that section. Do not quote the instruction at 0x1406a1edc in this pass. Do not disassemble 0x1406a1edc. Do not state that an instruction starts at 0x1406a1ee12. Do not state that an instruction starts at 0x1406a1ee11. Do not state that an instruction starts at 0x1406a1ee10. Do not state that an instruction starts at 0x1406a1ee0f. Do not state that an instruction starts at 0x1406a1ee0e. Do not state that an instruction starts at 0x1406a1ee0d. Do not state that an instruction starts at 0x1406a1ee0c. Do not state that an instruction starts at 0x1406a1ee0b. Do not state that an instruction starts at 0x1406a1ee0a. Do not state that an instruction starts at 0x1406a1ee09. Do not state that an instruction starts at 0x1406a1ee08. Do not state that an instruction starts at 0x1406a1ee07. Do not state that an instruction starts at 0x1406a1ee06. Do not state that an instruction starts at 0x1406a1ee05. Do not state that an instruction starts at 0x1406a1ee04. Do not state that an instruction starts at 0x1406a1ee03. Do not state that an instruction starts at 0x1406a1ee02. Do not state that an instruction starts at 0x1406a1ee01. Do not state that an instruction starts at 0x1406a1ee00. Do not state that an instruction starts at 0x1406a1edff. Do not state that an instruction starts at 0x1406a1edfe. Do not state that an instruction starts at 0x1406a1edfd. Do not state that an instruction starts at 0x1406a1edfc. Do not state that an instruction starts at 0x1406a1edfb. Do not state that an instruction starts at 0x1406a1edfa. Do not state that an instruction starts at 0x1406a1edf9. Do not state that an instruction starts at 0x1406a1edf8. Do not state that an instruction starts at 0x1406a1edf7. Do not state that an instruction starts at 0x1406a1edf6. Do not state that an instruction starts at 0x1406a1edf5. Do not state that an instruction starts at 0x1406a1edf4. Do not state that an instruction starts at 0x1406a1edf3. Do not state that an instruction starts at 0x1406a1edf2. Do not state that an instruction starts at 0x1406a1edf1. Do not state that an instruction starts at 0x1406a1ede0. Do not state that an instruction starts at 0x1406a1ede1. Do not state that an instruction starts at 0x1406a1ede2. Do not state that an instruction starts at 0x1406a1ede3. Do not state that an instruction starts at 0x1406a1ede4. Do not state that an instruction starts at 0x1406a1ede5. Do not state that an instruction starts at 0x1406a1ede6. Do not state that an instruction starts at 0x1406a1ede7. Do not state that an instruction starts at 0x1406a1ede8. Do not state that an instruction starts at 0x1406a1ede9. Do not state that an instruction starts at 0x1406a1edea. Do not state that an instruction starts at 0x1406a1edeb. Do not state that an instruction starts at 0x1406a1edec. Do not state that an instruction starts at 0x1406a1eded. Do not state that an instruction starts at 0x1406a1edee. Do not state that an instruction starts at 0x1406a1edef.
+This pass corrects an address error. The CMOVZ section records min address `0x1406a1edc`, max address `0x1406a1edf`, bytes `480f44ce`, full text `CMOVZ RCX,RSI`, byte length 4. Those facts hold. Its sentence that the next byte is `0x1406a1ede0` is false. `0x1406a1edf` plus one is `0x1406a1ee0`, which has nine hex digits after `0x`. `0x1406a1ede0` has ten hex digits after `0x`. The sentence in the memory block section that `0x140001000` <= `0x1406a1ede0` <= `0x140d509ff` is also false, because `0x1406a1ede0` is greater than `0x140d509ff`. That is why every read from `0x1406a1ede0` through `0x1406a1ee12` failed with MemoryAccessException. Those reads stay recorded as they are. They are reads of addresses outside `.text`. They say nothing about the bytes after the CMOVZ instruction. Do not rewrite any earlier section.
 
-The section that records address `0x1406a1ee11` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-ninth `unreadable` and does not include the fiftieth. Leave that section as it is. Do not rewrite it.
+Do not call `listing_code_unit_at`. Do not call `memory_blocks_list`. Do not disassemble. Do not call `listing_disassemble_seed` or `listing_disassemble_range`. Do not create a code unit or data. Do not clear the listing. Do not quote any instruction.
 
-The section that records address `0x1406a1ee10` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-eighth `unreadable` and does not include the forty-ninth. Leave that section as it is. Do not rewrite it.
+Call `memory_read` once at `0x1406a1ee0` with length 1. Before you call it, check that the address you pass has exactly nine hex digits after `0x` and is `0x1406a1ee0`. Append exactly one new section after that call, whether the call returns one byte or fails with MemoryAccessException.
 
-The section that records address `0x1406a1ee0f` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-seventh `unreadable` and does not include the forty-eighth. Leave that section as it is. Do not rewrite it.
+The current last heading is ``. The new heading is that current last heading, copied exactly, then one space, then one word. If `memory_read` returns one byte, the word is that byte as exactly two lowercase hexadecimal digits, with no `0x` prefix. If it fails and returns no byte, the word is `unreadable`. Do not choose the word before the call returns or fails.
 
-The section that records address `0x1406a1ee0e` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-sixth `unreadable` and does not include the forty-seventh. Leave that section as it is. Do not rewrite it.
+The first line of that section is `===== ` then the new heading then ` =====`. The last line of that section is exactly `===== END =====`. Append exactly one section.
 
-The section that records address `0x1406a1ee0d` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-fifth `unreadable` and does not include the forty-sixth. Leave that section as it is. Do not rewrite it.
+Inside that section, write these lines:
+- `Address: ` then `0x1406a1ee0` in backticks.
+- `Byte length: 1`.
+- The result: the two lowercase hex digits in backticks, or that no byte was returned with the name MemoryAccessException.
+- `Correction: the byte after max address 0x1406a1edf is 0x1406a1ee0, not 0x1406a1ede0. 0x1406a1ede0 is above the .text end 0x140d509ff. The reads from 0x1406a1ede0 through 0x1406a1ee12 were outside .text.`
+- `This section records a raw read. It does not record a code unit.`
+- `Mnemonic: none` and `Full text: none`.
+- `This is still the synchronization half.`
+Do not say that an instruction starts at any address. Write every address as a backtick, the digit 0, the letter x, lowercase hex digits, and a backtick. Do not write a null byte, a character below code point 32, or a backslash in place of a backtick. Do not rewrite the rest of the trace.
 
-The section that records address `0x1406a1ee0c` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-fourth `unreadable` and does not include the forty-fifth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee0b` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-third `unreadable` and does not include the forty-fourth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee0a` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-second `unreadable` and does not include the forty-third. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee09` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the forty-first `unreadable` and does not include the forty-second. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee08` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the fortieth `unreadable` and does not include the forty-first. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee07` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-ninth `unreadable` and does not include the fortieth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee06` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-eighth `unreadable` and does not include the thirty-ninth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee05` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-seventh `unreadable` and does not include the thirty-eighth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee04` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-sixth `unreadable` and does not include the thirty-seventh. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee03` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-fifth `unreadable` and does not include the thirty-sixth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee02` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-fourth `unreadable` and does not include the thirty-fifth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee01` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-third `unreadable` and does not include the thirty-fourth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ee00` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-second `unreadable` and does not include the thirty-third. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edff` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirty-first `unreadable` and does not include the thirty-second. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edfe` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirtieth `unreadable` and does not include the thirty-first. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edfd` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-ninth `unreadable` and does not include the thirtieth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edfc` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-eighth `unreadable` and does not include the twenty-ninth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edfb` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-seventh `unreadable` and does not include the twenty-eighth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edfa` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-sixth `unreadable` and does not include the twenty-seventh. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf9` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-fifth `unreadable` and does not include the twenty-sixth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf8` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-fourth `unreadable` and does not include the twenty-fifth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf7` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-third `unreadable` and does not include the twenty-fourth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf6` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-second `unreadable` and does not include the twenty-third. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf5` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twenty-first `unreadable` and does not include the twenty-second. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf4` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twentieth `unreadable` and does not include the twenty-first. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf3` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the nineteenth `unreadable` and does not include the twentieth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf2` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the eighteenth `unreadable` and does not include the nineteenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf1` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the seventeenth `unreadable` and does not include the eighteenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edf0` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the sixteenth `unreadable` and does not include the seventeenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edef` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the fifteenth `unreadable` and does not include the sixteenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edee` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the fourteenth `unreadable` and does not include the fifteenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1eded` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the thirteenth `unreadable` and does not include the fourteenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edec` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the twelfth `unreadable` and does not include the thirteenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edeb` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the eleventh `unreadable` and does not include the twelfth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1edea` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the tenth `unreadable` and does not include the eleventh. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede9` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the ninth `unreadable` and does not include the tenth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede8` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the eighth `unreadable` and does not include the ninth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede7` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the seventh `unreadable` and does not include the eighth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede6` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the sixth `unreadable` and does not include the seventh. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede5` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the fifth `unreadable` and does not include the sixth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede4` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the fourth `unreadable` and does not include the fifth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede3` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the third `unreadable` and does not include the fourth. Leave that section as it is. Do not rewrite it.
-
-The section that records address `0x1406a1ede2` has byte length 1, no byte returned, and MemoryAccessException. Its heading stops after the second `unreadable` and does not include the third. Leave that section as it is. Do not rewrite it.
-
-The CMOVZ section records min address `0x1406a1edc`, max address `0x1406a1edf`, bytes `480f44ce`, byte length 4. That max address is the last byte included in that recorded unit. Leave that section as it is. The sentence in that section that an instruction starts at `0x1406a1ede0` is not supported by the unreadable section. Do not repeat that sentence. Do not rewrite the CMOVZ section.
-
-The unreadable section records address `0x1406a1ede0`, byte length 1, no byte returned, MemoryAccessException. Leave that section as it is. Do not rewrite it.
-
-The ce section records address `0x1406a1edf`, byte length 1, byte `ce`. Leave that section as it is. Do not rewrite it.
-
-The section whose heading ends in `ce unreadable` records address `0x1406a1ede1`, byte length 1, no byte returned, MemoryAccessException. Leave that section as it is. Do not rewrite it.
-
-Pass 20261014T011455Z-094570ca stopped. `listing_code_unit_at` at 0x1406a1ede0 returned no code unit, and `memory_read` at 0x1406a1ede0 length 1 failed with MemoryAccessException. That pass appended no section. Leave that stop as it is.
-
-Pass 20261014T020650Z-9c912b9b stopped. `memory_read` at 0x1406a1ede0 length 1 failed with MemoryAccessException and returned no byte. That pass appended no section. Leave that stop as it is.
-
-Do not call `listing_code_unit_at`. Do not call `memory_blocks_list`. Do not disassemble. Do not call `listing_disassemble_seed` or `listing_disassemble_range`. Do not create a code unit. Do not create data. Do not clear the listing. Do not quote any instruction.
-
-Call `memory_read` once at 0x1406a1ee12 with length 1. Append exactly one new section after that call, whether the call returns one byte or fails with MemoryAccessException and returns no byte. Still close the headless session before finishing.
-
-The current last heading is `Wait flag taken after the second rcx rbx jmp mov mov lea mov call mov mov lea call mov mov call nop lea call xor lea mov mov pop pop pop pop ret cc cc cc cc cc cc cc cc cc cc cc cc cc push push push lea sub mov mov lea lea call nop mov call mov mov lea mov lea call nop lea call call xor mov lea lea xor mov call lea lea test cmovz mov mov lea mov mov mov call lea call nop mov mov mov mov mov xor xor lea call mov mov mov mov mov call mov lea lea xor mov call lea lea test cmovz 140d509ff unreadable ce unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable unreadable`. The new heading is that current last heading, copied exactly, then one space, then one word. Do not choose the word before `memory_read` returns or fails. The word is one word. The word is not none. The word is not 140d509ff. The word is not a mnemonic.
-
-If `memory_read` fails and returns no byte, the word is `unreadable`. If `memory_read` returns one byte, the word is that byte written as exactly two lowercase hexadecimal digits, with no `0x` prefix and no spaces. Do not use `unreadable` when a byte was returned. Do not write two hex digits when no byte was returned. Do not copy `ce` unless this call returns that byte. Do not copy `unreadable` from the earlier section unless this call fails and returns no byte.
-
-The first line of that section is `===== ` then the new heading then ` =====`. The last line of that section is exactly `===== END =====`. There is no section after the current last heading yet. Append exactly one. Do not append a second copy of that new heading.
-
-Inside that section, record only this read. Write the address `0x1406a1ee12` and byte length 1. When the call fails, write that no byte was returned and name MemoryAccessException. When the call returns one byte, write the two lowercase hex digits inside backticks. This section records a raw read. It does not record a code unit. The mnemonic line is the word none. The full text line is the word none. The heading word is not none. Do not state that an instruction starts at 0x1406a1ee12. Do not state that an instruction starts at 0x1406a1ee11. Do not state that an instruction starts at 0x1406a1ee10. Do not state that an instruction starts at 0x1406a1ee0f. Do not state that an instruction starts at 0x1406a1ee0e. Do not state that an instruction starts at 0x1406a1ee0d. Do not state that an instruction starts at 0x1406a1ee0c. Do not state that an instruction starts at 0x1406a1ee0b. Do not state that an instruction starts at 0x1406a1ee0a. Do not state that an instruction starts at 0x1406a1ee09. Do not state that an instruction starts at 0x1406a1ee08. Do not state that an instruction starts at 0x1406a1ee07. Do not state that an instruction starts at 0x1406a1ee06. Do not state that an instruction starts at 0x1406a1ee05. Do not state that an instruction starts at 0x1406a1ee04. Do not state that an instruction starts at 0x1406a1ee03. Do not state that an instruction starts at 0x1406a1ee02. Do not state that an instruction starts at 0x1406a1ee01. Do not state that an instruction starts at 0x1406a1ee00. Do not state that an instruction starts at 0x1406a1edff. Do not state that an instruction starts at 0x1406a1edfe. Do not state that an instruction starts at 0x1406a1edfd. Do not state that an instruction starts at 0x1406a1edfc. Do not state that an instruction starts at 0x1406a1edfb. Do not state that an instruction starts at 0x1406a1edfa. Do not state that an instruction starts at 0x1406a1edf9. Do not state that an instruction starts at 0x1406a1edf8. Do not state that an instruction starts at 0x1406a1edf7. Do not state that an instruction starts at 0x1406a1edf6. Do not state that an instruction starts at 0x1406a1edf5. Do not state that an instruction starts at 0x1406a1edf4. Do not state that an instruction starts at 0x1406a1edf3. Do not state that an instruction starts at 0x1406a1edf2. Do not state that an instruction starts at 0x1406a1edf1. Do not state that an instruction starts at 0x1406a1ede0. Do not state that an instruction starts at 0x1406a1ede1. Do not state that an instruction starts at 0x1406a1ede2. Do not state that an instruction starts at 0x1406a1ede3. Do not state that an instruction starts at 0x1406a1ede4. Do not state that an instruction starts at 0x1406a1ede5. Do not state that an instruction starts at 0x1406a1ede6. Do not state that an instruction starts at 0x1406a1ede7. Do not state that an instruction starts at 0x1406a1ede8. Do not state that an instruction starts at 0x1406a1ede9. Do not state that an instruction starts at 0x1406a1edea. Do not state that an instruction starts at 0x1406a1edeb. Do not state that an instruction starts at 0x1406a1edec. Do not state that an instruction starts at 0x1406a1eded. Do not state that an instruction starts at 0x1406a1edee. Do not state that an instruction starts at 0x1406a1edef. Do not state that an instruction starts at 0x1406a1edf0. When you write an address, write a backtick, then the digit 0 (code point 48), then the letter x, then the lowercase hex digits, then a backtick. The character between that opening backtick and the letter x is the digit 0, code point 48, not code point 0. Do not write a null. Do not write a backslash in place of a backtick. Do not write a character whose code point is below 32. Do not rewrite the rest of the trace and do not write null bytes.
-
-After you append, the section whose heading is exactly the current last heading above is no longer the last heading. Do not rewrite it. This is still the synchronization half.
-
-Do not upgrade synchronization_contracts.worker_to_capm. Do not change the gate status. The MD5 of maps/vector_ownership/anomaly_vector_mutator_table.json is 3C05BBB66D1463CB3B7CA0F1EDC78AEB. Leave that file untouched and report this same MD5 before and after, and whether a lock file remains in v3d_files_uncomp_copy.
+Do not upgrade synchronization_contracts.worker_to_capm. Do not change the gate status. The MD5 of maps/vector_ownership/anomaly_vector_mutator_table.json is 3C05BBB66D1463CB3B7CA0F1EDC78AEB. Leave that file untouched. Report the MD5 before and after, and whether a lock file remains in v3d_files_uncomp_copy.
