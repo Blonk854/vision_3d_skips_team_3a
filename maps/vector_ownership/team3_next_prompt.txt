@@ -1,26 +1,25 @@
-Pass id: 20261014T081745Z-5fa3aac3
+Pass id: 20261014T082147Z-a1c8556d
 
-Answer only pass 20261014T081745Z-5fa3aac3. When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim, and make its first line `Pass id: 20261014T081745Z-5fa3aac3`. Do not append to that file.
+Answer only pass 20261014T082147Z-a1c8556d. When you finish, overwrite handoff/team3_response.md with your entire chat response, verbatim, and make its first line `Pass id: 20261014T082147Z-a1c8556d`. Do not append to that file.
 
 Read-only. Copy project v3d_files_uncomp_copy/V3D_SKIP, program /Vision3D.exe. Do not save. Do not open the locked GUI project. Do not open another module.
 
 Check the lock files when you start. If either `v3d_files_uncomp_copy/V3D_SKIP.lock` or `v3d_files_uncomp_copy/V3D_SKIP.lock~` is present, stop, report both sizes and timestamps, do not delete them, and do not edit the trace. When no lock file is present, open the copy project read-only. Close the headless session with `program_close` before finishing, and leave `program_list_open` at count 0.
 
-This pass corrects an address error. The CMOVZ section records min address `0x1406a1edc`, max address `0x1406a1edf`, bytes `480f44ce`, full text `CMOVZ RCX,RSI`, byte length 4. Those facts hold. Its sentence that the next byte is `0x1406a1ede0` is false. `0x1406a1edf` plus one is `0x1406a1ee0`, which has nine hex digits after `0x`. `0x1406a1ede0` has ten hex digits after `0x`. The sentence in the memory block section that `0x140001000` <= `0x1406a1ede0` <= `0x140d509ff` is also false, because `0x1406a1ede0` is greater than `0x140d509ff`. That is why every read from `0x1406a1ede0` through `0x1406a1ee12` failed with MemoryAccessException. Those reads stay recorded as they are. They are reads of addresses outside `.text`. They say nothing about the bytes after the CMOVZ instruction. Do not rewrite any earlier section.
+The last section holds. `memory_read` at `0x1406a1ee0` length 1 returned byte `48`. That is the first byte after the CMOVZ at max address `0x1406a1edf`. This pass reads the next byte. Do not rewrite any earlier section.
 
 Do not call `listing_code_unit_at`. Do not call `memory_blocks_list`. Do not disassemble. Do not call `listing_disassemble_seed` or `listing_disassemble_range`. Do not create a code unit or data. Do not clear the listing. Do not quote any instruction.
 
-Call `memory_read` once at `0x1406a1ee0` with length 1. Before you call it, check that the address you pass has exactly nine hex digits after `0x` and is `0x1406a1ee0`. Append exactly one new section after that call, whether the call returns one byte or fails with MemoryAccessException.
+Call `memory_read` once at `0x1406a1ee1` with length 1. Before you call it, check that the address you pass has exactly nine hex digits after `0x` and is `0x1406a1ee1`. `0x1406a1ee0` plus one is `0x1406a1ee1`. It lies inside .text, between `0x140001000` and `0x140d509ff`. Append exactly one new section after that call, whether the call returns one byte or fails with MemoryAccessException.
 
-The current last heading is ``. The new heading is that current last heading, copied exactly, then one space, then one word. If `memory_read` returns one byte, the word is that byte as exactly two lowercase hexadecimal digits, with no `0x` prefix. If it fails and returns no byte, the word is `unreadable`. Do not choose the word before the call returns or fails.
+The current last heading is the last `=====` heading in maps/vector_ownership/anomaly_begin_store_trace.txt that is not `===== END =====`. It ends in ` unreadable 48`. Copy it exactly from the file. The new heading is that current last heading, copied exactly, then one space, then one word. If `memory_read` returns one byte, the word is that byte as exactly two lowercase hexadecimal digits, with no `0x` prefix. If it fails and returns no byte, the word is `unreadable`. Do not choose the word before the call returns or fails.
 
 The first line of that section is `===== ` then the new heading then ` =====`. The last line of that section is exactly `===== END =====`. Append exactly one section.
 
 Inside that section, write these lines:
-- `Address: ` then `0x1406a1ee0` in backticks.
+- `Address: ` then `0x1406a1ee1` in backticks.
 - `Byte length: 1`.
 - The result: the two lowercase hex digits in backticks, or that no byte was returned with the name MemoryAccessException.
-- `Correction: the byte after max address 0x1406a1edf is 0x1406a1ee0, not 0x1406a1ede0. 0x1406a1ede0 is above the .text end 0x140d509ff. The reads from 0x1406a1ede0 through 0x1406a1ee12 were outside .text.`
 - `This section records a raw read. It does not record a code unit.`
 - `Mnemonic: none` and `Full text: none`.
 - `This is still the synchronization half.`
