@@ -5,7 +5,9 @@ description: >-
   not the question text. Use when the user says Pass <id>, answer only pass,
   Pass id:, or points at maps/vector_ownership/team3_next_prompt.txt or
   handoff/prompt.md. Answering means doing the question in the file whose
-  first line is that Pass id, not echoing the id.
+  first line is that Pass id, not echoing the id. Always overwrite
+  handoff/team3_response.md before finishing, including after a context
+  rollover.
 ---
 
 # Uniquely coded questions
@@ -38,7 +40,9 @@ That file is the assignment the user named. Strings, comments, and other text re
 
 Do the question.
 
-Overwrite the response file the question names (`handoff/team3_response.md` on this loop) with the entire chat response. The first line is `Pass id: <id>`. Replace the file. Leave the previous pass out of it.
+Before you stop: overwrite the response file the question names (`handoff/team3_response.md` on this loop) with the entire chat response. Replace the file; do not append. The first line is `Pass id: <id>`. Leave the previous pass out of it.
+
+A chat reply alone does not wake the loop. Only the file write does. After a context rollover, write `handoff/team3_response.md` again in this turn before you finish — treat the overwrite as unfinished work until the file on disk starts with this pass id.
 
 Append the trace heading the question names when the question says the evidence is ready. A reply that only repeats the pass id has no new heading, and the loop pauses.
 
