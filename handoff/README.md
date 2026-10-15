@@ -2,7 +2,7 @@
 
 `maps/vector_ownership/team3_next_prompt.txt` is the only assignment. There is no `handoff/prompt.md`. Its first line is `Pass id: <id>`, and every new question gets a new id (`yyyyMMddTHHmmssZ-<8 hex>`). Team 3 overwrites `team3_response.md` with their full chat response, verbatim, with `Pass id: <id>` as its first line. They also append one heading to `maps/vector_ownership/anomaly_begin_store_trace.txt`. The response file is the wake. The new trace heading is the evidence.
 
-`.opencode/skills/pass-id-questions/SKILL.md` and `.cursor/skills/pass-id-questions/SKILL.md` are the same note. A pass id names that assignment. The chat line `Pass <id>. Read <path> and answer only pass <id>.` authorizes the file whose first line is that id. Echoing the id leaves the question unanswered. Quotes around the id are optional.
+`.opencode/skills/pass-id-questions/SKILL.md` and `.cursor/skills/pass-id-questions/SKILL.md` are the same note. A pass id names that assignment. The chat line `Pass <id>. Read <path> and answer only pass <id>.` authorizes the file whose first line is that id. Echoing the id leaves the question unanswered. Quotes around the id are optional. OpenCode also loads `handoff/TEAM3_CLOSEOUT.md` on every session through `opencode.json` `instructions`, so the response-file overwrite survives context rollover without relying on the skill.
 
 `state.md` is the coordinator's place in the chain. A new thread reads it together with the prompt before judging a reply. Update `state.md` in the same turn as the prompt. `.cursor/rules/vector-ownership-director.mdc` applies only to the coordinator thread (`alwaysApply` is false). Do not load it for a measurement chat.
 
