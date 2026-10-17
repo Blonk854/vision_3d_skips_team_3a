@@ -10,6 +10,7 @@ The agent reads a persistent mission, does the open pass in `maps/vector_ownersh
 |------|------|
 | `mission.md` | Goal, hard rules, stay-on-task rules, stop list, self-advance |
 | `pass_template.md` | Exact text to write into `team3_next_prompt.txt` for address+1 |
+| `advance_pass.ps1` | Fills the template after a holding pass (preferred over hand-editing) |
 | `bootstrap.md` | Paste once into a new OpenCode session to start |
 
 Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/team3_response.md`, `anomaly_begin_store_trace.txt`. Closeout skill `handoff/TEAM3_CLOSEOUT.md` (via `opencode.json`) still applies when a `Pass <id>. Read …` line is used; this solo flow mostly drives itself from the mission after bootstrap.

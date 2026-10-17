@@ -17,7 +17,7 @@ You are still in the synchronization half. Do not prove or disprove the gate. Do
 3. Append exactly one new `=====` section to the trace (response text alone is not enough).
 4. Overwrite `handoff/team3_response.md` with your entire reply. First line: `Pass id: <id>`.
 5. Close the headless session (`program_close`, then `program_list_open` count 0).
-6. If the pass held, write the next pass into `team3_next_prompt.txt` from `handoff_solo/pass_template.md`, then immediately start that new pass in the same turn. Do not wait for a human. Do not open a new session unless the chat context is exhausted.
+6. If the pass held, run `handoff_solo/advance_pass.ps1` (fills the next prompt from the template; do not hand-edit placeholders), then immediately start that new pass in the same turn. Do not wait for a human. Do not open a new session unless the chat context is exhausted.
 
 ## Hard rules (every pass)
 
@@ -55,12 +55,12 @@ A successful byte or a successful `unreadable` is progress. Write the next pass 
 
 ## Self-advance (only after a holding pass)
 
-1. Confirm the new trace section exists and ends with `===== END =====`.
-2. Next address = current pass address + 1 (hex). Example: `0x1406a1fd6` → `0x1406a1fd7`.
-3. Mint a new pass id (never reuse).
-4. Overwrite `maps/vector_ownership/team3_next_prompt.txt` using `handoff_solo/pass_template.md`, filling every placeholder. The “current last heading ends in …” clause must be taken from the real last heading after your append (usually now ends with the word you just added).
-5. Optionally commit and push only `team3_next_prompt.txt` when the new heading holds. Leave the trace and `handoff/team3_response.md` unstaged.
-6. Immediately perform the new pass in this same turn.
+1. Confirm the new trace section exists and ends with `===== END =====`, and its `Address:` matches the pass you just did.
+2. Run:
+   `powershell -NoProfile -ExecutionPolicy Bypass -File handoff_solo/advance_pass.ps1`
+   That script checks the last trace `Address:` against the open prompt, mints a new pass id, copies the heading tail from the trace, and overwrites `team3_next_prompt.txt`. If it exits nonzero, stop and tell the user. Do not pass `-Force` unless a human asked you to repair a stuck prompt.
+3. Optionally commit and push only `team3_next_prompt.txt` when the new heading holds. Leave the trace and `handoff/team3_response.md` unstaged.
+4. Immediately perform the new pass in this same turn.
 
 ## Open work right now
 

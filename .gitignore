@@ -17,6 +17,7 @@ _ghidra*
 v3d_files_uncomp_copy/*.lock
 handoff/.rotated
 handoff_oc/.rotated
+handoff_solo/.advanced
 __pycache__/
 .venv/
 *~
