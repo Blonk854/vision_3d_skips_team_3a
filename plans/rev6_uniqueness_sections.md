@@ -71,6 +71,7 @@ section iteration only.
 ## Follow-on options
 
 1. Data-side: prove zone analyse / grey-zone membership partitions by section bit.
-2. Patch-side sketch (started): `plans/rev6_uniqueness_count_guard_sketch.md`
-   — Option A multi-section fail-open; Option B seen-set once `component_id` is proven.
+2. Patch-side sketch: `plans/rev6_uniqueness_count_guard_sketch.md`
+   — Option A multi-section fail-open; Option B seen-set on proven
+   `CCAD_Base*` (`rdi`) — `plans/rev6_uniqueness_component_id_proof.md`.
 3. Scope: document Feature-1 as single-section-only until (1) or Option A/B lands.

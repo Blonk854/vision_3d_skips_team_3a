@@ -49,36 +49,32 @@ Missing does **not** auto-skip (document as waived / out of scope).
 a per-CAO seen structure. If present → `normal` (still run stock path; do not
 count). If absent → insert, then existing count/threshold logic.
 
-### Identity (must prove before bytes)
+### Identity (load proven — see companion proof)
 
 At the count hook (`0x140736f47` inside `ExecuteOne_Component`):
 
-| Register / field | Role today |
+| Register / field | Role |
 | --- | --- |
 | `[r15+0x10]` | CAO — already the context key |
-| `[rdi+0x14]` | Sub-panel slot index for the cell |
-| `r13` | `CAnomalie*` (`mov r13, r9` at function entry) |
-| Stock / decomp | `CCAD_Base` / `CComposant` carries `+0x14` used as sub-panel / identity material; written to `CAnomalie+0x28` before some exits |
+| `[rdi+0x14]` | **Sub-panel** cell index only — **not** component id |
+| `rdi` / `[rbp+0x730]` | **`CCAD_Base*`** param_7 from `ExecuteAll` — proven component pointer |
+| `r13` | `CAnomalie*` (RazRes target just before hook) |
 
-**Candidate key (to prove):**
+**Key (for assembly once Option B lands):**
 
 ```
-key = (cao, component_id)
-component_id = dword or qword stable across section re-entry for the same CAD part
+key = (cao, component_ptr)   ; component_ptr = rdi at cave entry
 ```
 
-Proof obligations before assembly:
+Proof status (`plans/rev6_uniqueness_component_id_proof.md`):
 
-1. Name the exact load at the hook (or a short, register-safe sequence) that
-   yields `component_id`.
-2. Show two section iterations of the same CAD part produce the **same**
-   `component_id` (pointer equality only if the object is not reconstructed).
-3. Show distinct parts do not collide under the chosen width (e.g. 32-bit id in
-   `0..N` vs pointer).
-4. Show reset / CAO retirement clears the seen-set (tie to existing reset cave /
-   context retire path).
+1. Exact load — **done** (`rdi` or reload `[rbp+0x730]`).
+2. Same pointer across section re-entry for the same CAD part — **still open**
+   (document-owned objects expected; not PE-closed).
+3. Distinct parts — distinct pointers on one CAO — **accepted** for heap CAD objects.
+4. Reset clears seen-set — **still required** when implementing (tie to reset cave).
 
-If (2) fails for pointers, prefer a CAD index / id field over `CComposant*`.
+If (2) fails, fall back to Option A or a field-backed id (not `+0x14`).
 
 ### Storage (illustrative — sizes not final)
 
@@ -127,9 +123,10 @@ unnecessary for uniqueness (still useful as defense in depth).
 
 1. **Land Option A** in a future Rev7 (or rev6.1) as an explicit single-section
    scope bit — unblocks a honest gate note for multi-section.
-2. **Prove component_id** offline (short PE/decomp note).
-3. **Land Option B** only after (2); keep A as compile-time or runtime fallback
-   when id proof is missing.
+2. ~~Prove component_id load~~ — done in
+   `plans/rev6_uniqueness_component_id_proof.md` (`rdi` = `CCAD_Base*`).
+3. **Land Option B** with `(cao, rdi)` seen-set; keep A as fallback if
+   cross-section pointer aliasing is disproven.
 
 ## Non-goals
 
