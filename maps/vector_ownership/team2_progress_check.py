@@ -26,7 +26,7 @@ IMAGE_BASE = 0x140000000
 
 EXE_SHA256 = "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4"
 EXE_SIZE = 28_738_048
-GATE_MD5 = "3C05BBB66D1463CB3B7CA0F1EDC78AEB"
+GATE_MD5 = "3BA575CF438D29374562CABDB052E10C"
 
 SNAPSHOT_PASS = "20261018T202924Z-755a7879"
 SNAPSHOT_HEADING = "Destructor vs workers judgment"
@@ -176,9 +176,16 @@ def main() -> int:
         dtor.get("join_point", ""),
     )
     check(
-        "destructor mitigation still no join",
-        "WITHOUT ProductionStop join" in dtor.get("mitigation", ""),
+        "destructor mitigation Rev6 join",
+        "Rev6 patches ProductionDoc_dtor to CALL ProductionStop" in dtor.get(
+            "mitigation", ""
+        ),
         dtor.get("mitigation", ""),
+    )
+    check(
+        "gate status mentions Rev6 close-path",
+        "Rev6 close-path" in gate["gate_status"],
+        gate["gate_status"],
     )
 
     locks = list((ROOT / "v3d_files_uncomp_copy").glob("V3D_SKIP.lock*"))

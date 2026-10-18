@@ -1,116 +1,60 @@
 # Team 3a progress for Team 2
 
-Recorded 2026-10-18. Pull `3613433` or a descendant that still contains it. That commit is the judgment snapshot: `maps/vector_ownership/anomaly_begin_store_trace.txt` ends with `Destructor vs workers judgment` (`JOIN_ABSENT`), and `handoff/team3_response.md` starts with pass `20261018T202924Z-755a7879`. An earlier byte-frontier snapshot lived at `9a19df2` (trace ending at `0x1406a1d9b`). The checker and this page first landed in `1ab2683`. The executable is not in git. Recompute the numbers before relying on them:
+Recorded 2026-10-18 (Rev6 close-path). Pull a commit that contains
+`plans/rev6_close_path_charter.md` and gate MD5 `3BA575CF438D29374562CABDB052E10C`.
 
 ```
 python maps/vector_ownership/team2_progress_check.py
+python tools/verify_hardened_patch.py --revision rev6 --code-only
 ```
 
-Run that from the repository root. Exit 0 means the gate file, the latest judgment heading, the latest response pass, and the stock bytes in `v3d_files_\Vision3D.exe` still match this brief. The script only reads. It does not open Ghidra, and it does not write the trace, the gate, or the executable.
-
-`v3d_files_\Vision3D.exe` is the file this brief uses: 28,738,048 bytes, SHA-256 `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`. Image base `0x140000000`.
+`v3d_files_\Vision3D.exe`: 28,738,048 bytes, SHA-256
+`ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`.
 
 ## Gate
 
-`maps/vector_ownership/anomaly_vector_mutator_table.json` is unchanged. MD5 `3C05BBB66D1463CB3B7CA0F1EDC78AEB`.
+`maps/vector_ownership/anomaly_vector_mutator_table.json` MD5
+`3BA575CF438D29374562CABDB052E10C`.
 
 | Field | Value |
 | --- | --- |
-| `gate_status` | `CLOSED - outer vector one-shot; inner vector FIXED-CAPACITY (no growth during panel load); synchronization risk documented` |
-| `gate_requirements.outer_vector` | CLOSED. One-shot allocation in the constructor, no later stores. |
-| `gate_requirements.inner_vector_growth` | CLOSED. Fixed capacity. Growth during panel load is disproved in that file. |
-| `gate_requirements.synchronization` | PARTIAL. Torn-write risk remains. Destructor versus in-flight workers remains. No proved fence between the worker write and the CAPM read. |
-| `synchronization_contracts.worker_to_capm.barrier` | `NONE PROVEN` — judged 2026-10-18; no memory fence, atomic, or lock on the inner vector |
-| `synchronization_contracts.destructor_vs_workers` | `JOIN_ABSENT` — judged 2026-10-18; ProductionDoc_dtor frees via DeleteVector / Zone_dtor without a ProductionStop join |
+| `gate_status` | CLOSED on growth; torn-write residual accepted; Rev6 close-path join/snapshot patched |
+| `worker_to_capm.barrier` | **NONE PROVEN** — residual accepted under fixed-capacity |
+| `destructor_vs_workers` | **Patched in Rev6** — ProductionStop at dtor entry before free |
+| Late SKIP callback / `+0x5838` | **Patched in Rev6** — snapshot swap + view clear |
 
-Team 3a has not upgraded either sync contract and has not changed `gate_status`. Rev6 stays blocked on this half.
+## Rev6 close-path (offline)
 
-## Bytes Team 2 can re-read in the executable
+Builder: `tools/patch_f1_missing_n_rev6.py` →
+`Updated/Vision3D_concurrency_fix_rev6.exe`.
 
-The checker maps each virtual address through the PE sections and compares the file bytes. It also resolves the two indirect calls through the import directory. These still underwrite the `worker_to_capm` `NONE PROVEN` judgment.
-
-| Check | Address | File bytes | What it establishes |
-| --- | --- | --- | --- |
-| Slot store | `0x140737411` | `f2 41 0f 11 85 b8 02 00 00` | Last `ExecuteOne_Component` slot store is `MOVSD`. First byte is `F2`, so this instruction has no `LOCK` prefix. |
-| Component epilogue | `0x1407374e8` | `c3` | `ExecuteOne_Component` ends at this `RET`. The trace range `0x14073741a` through this `RET` records no `MFENCE` and no instruction whose first byte is `F0`. |
-| Worker wait | `0x1406a1b6f` | `ff 15 1b 35 6b 00` | `CALL qword ptr [0x140d55090]`. That IAT slot is `KERNEL32.dll::WaitForMultipleObjects`. |
-| Treatment call | `0x1406a1c09` | `ff 50 18` | `CALL qword ptr [RAX + 0x18]` inside `FUN_1406a1a50`. |
-| Completion signal | `0x1406a1c16` | `ff 15 0c 34 6b 00` | `CALL qword ptr [0x140d55028]`. That IAT slot is `KERNEL32.dll::SetEvent`. The three instructions `0x1406a1c0c` through this call record no `MFENCE` and no first byte `F0`. |
-| Instruction after SetEvent | `0x1406a1c1c` | `44 8b 4b 70` | `MOV R9D, dword ptr [RBX + 0x70]`. It does not read `EAX`. |
-| EAX clear | `0x1406a1c6e` | `33 c0` | `XOR EAX, EAX` in the handler epilogue. It clears `EAX`. It is not a test of the `SetEvent` return. |
-| Handler body end | `0x1406a1c7b` | `c3` | `FUN_1406a1a50` returns here. |
-| Later return | `0x1406a1d92` | `c3` | A later `RET`, after the handler body. |
-| Padding | `0x1406a1d93` .. `0x1406a1d9b` | `cc cc cc cc cc cc cc cc cc` | Nine undefined `CC` bytes. The solo sync-byte walk stopped before `0x1406a3000`; this padding is no longer the open frontier. |
-
-Destructor-join anchors (listing / xrefs; not a single-byte frontier):
-
-| Anchor | Address | Role |
+| Hook | Stock VA | Role |
 | --- | --- | --- |
-| ProductionDoc_dtor | `0x14067fc20` | Document destruction; no CALL to ProductionStop |
-| DeleteVector site in dtor | `0x14067fd30` | `CALL 0x140527b50` |
-| Zone_dtor site in dtor | `0x14067ff01` | `CALL 0x14066e530` |
-| ProductionStop | `0x1406920f0` | Sole measured join point |
-| Sole code caller of ProductionStop | `0x14068da61` inside `FUN_14068da40` | Not on the dtor path |
+| ProductionDoc_dtor | `0x14067fc20` | CALL `ProductionStop` (`0x1406920f0`) then stock body |
+| View dtor | `0x1406abc60` | Clear `document+0x5838` via `view+0xe8` |
+| SKIP refresh | `0x1406adaf0` | Swap `document+0x23e0` to patch snapshot for stock body |
+| SkipList_Reset | `0x140541050` | After stock return, publish empty snapshot |
+
+Charter/inventory: `plans/rev6_close_path_charter.md`,
+`plans/rev6_close_path_inventory.md`.
+
+Native install is not authorized by this brief.
+
+## Follow-ons
+
+- Final-mask uniqueness (sections sharing a component)
+- DWORD wider-intermediate product
+- Optional extra snapshot capture sites (Add/ReloadDoc/RegistryRead)
+
+## Bytes Team 2 can still re-read
+
+The worker→CAPM stock bytes in the executable (slot store, SetEvent, waits) are
+unchanged and still underwrite **NONE PROVEN**. See
+`python maps/vector_ownership/team2_progress_check.py`.
 
 ## Frontier
 
-Latest response: `handoff/team3_response.md`, pass `20261018T202924Z-755a7879`.
-
-Latest trace heading, at the end of `maps/vector_ownership/anomaly_begin_store_trace.txt`:
-
-`Destructor vs workers judgment`
-
-That section records:
-
-- `Verdict: JOIN_ABSENT`
-- `JSON edited: no`
-- Evidence that ProductionDoc_dtor does not call ProductionStop before DeleteVector / Zone_dtor
-
-Immediately above it, `Worker to CAPM judgment` records `Verdict: NONE PROVEN` and the same gate MD5 with `JSON edited: no`.
-
-The copy project `v3d_files_uncomp_copy` had no `V3D_SKIP.lock` or `V3D_SKIP.lock~` when that response was written, and the response records `program_list_open` count 0.
-
-Every trace line of the form `Is mnemonic MFENCE or first byte F0?` in the current file is answered `No`. The synchronization requirement stays PARTIAL: `worker_to_capm` is `NONE PROVEN`, and `destructor_vs_workers` is `JOIN_ABSENT`.
-
-## Sentences left incorrect on purpose
-
-The measurement loop does not rewrite old sections. These sentences are still in the trace, and they are the wrong reading:
-
-- `Completion signal target`: the sentence that says the lock status was reported in the response.
-- `Store tail fence`: the parenthetical that places `0x140780c80`, `FUN_14066e530`, and `FUN_1406803c0` under `Element destructor call`. Those three stay with `Element count`.
-- `Worker wait handles`: the count sentence.
-- `Wait flag branch end`: the sentence that replaces `0x1406a1bec` with `0x1406a1bed`. `Wait flag inclusive end` is the later section that keeps both addresses.
-- `Wait flag taken lea` and `Wait flag taken after ret`: the byte quotes.
-- `Wait flag taken after the rsi mov` and `Wait flag taken after the r8 mov`: the first-byte sentences. In the `r8 mov` section the character before `x48` has code point 0.
-- The sections for `0x1406a1d93` and `0x1406a1d94`: the sentence that says the listing returned the unit with no mnemonic. The mnemonic line in those sections is `??`.
-
-Use the `Answer:` line of a section, then confirm the bytes with the checker, when a later sentence in that same section disagrees.
-
-## Team 2, checked 2026-10-12
-
-Their handoff copy in `handoff_Team3` answers pass `20261009T222402Z-6eb2ddbb` (§563). The open prompt there is pass `20261010T010440Z-6d5efb74` (§564), and the response file does not answer it.
-
-`[0x140735f57, 0x140735f81)` in `v3d_files_\Vision3D.exe` matches the 42 bytes in that §563 reply: `90498b4510448b882439000040887c24204c8d8424a00300008d5710488d8c2480000000ff1537d76100`. Eight instructions. The only store is `mov byte ptr [rsp + 0x20], dil` at `0x140735f63`. The bound ends at the `call` at `0x140735f7b`. That call stays closed here.
-
-The straight line at `0x140735f81` is `[0x140735f81, 0x140735f90)`, 3 instructions and 15 bytes, ending at `call qword ptr [rip + 0x629168]`. Zero stores. That stretch is not shown to write the loaded qword's bytes at `+0x18` or `+0x19`.
-
-The straight line at `0x140735f90` is `[0x140735f90, 0x140735fbc)`, 6 instructions and 44 bytes, ending at `call qword ptr [rip + 0x61f45c]`. Two stores, both through `rsp`, at `0x170` and `0x180`. That stretch is not shown to write those bytes.
-
-The straight line at `0x140735fbc` is `[0x140735fbc, 0x140735fe1)`, 6 instructions and 37 bytes, ending at `call qword ptr [rip + 0x61f617]`. One store, through `rsp`, at `0x3a0`. That stretch is not shown to write those bytes.
-
-The straight line at `0x140735fe1` is `[0x140735fe1, 0x140736034)`, 13 instructions and 83 bytes, ending at `call qword ptr [rip + 0x61f35c]`. Three stores, all through `rsp`, at `0x170`, `0x16c`, and `0x3b8`. That stretch is not shown to write those bytes.
-
-The straight line at `0x140736034` is `[0x140736034, 0x140736064)`, 8 instructions and 48 bytes, ending at the relative `call` at `0x14073605f`. Three stores, all through `rsp`, at `0x188`, `0x1f0`, and `0x1f8`. That stretch is not shown to write those bytes.
-
-The straight line at `0x140736064` is `[0x140736064, 0x140736075)`, 4 instructions and 17 bytes, ending at the relative `call` at `0x140736070`. Zero stores. That stretch is not shown to write those bytes. The instruction after `0x140736070` stays unread. The full bounds are in the status note.
-
-Their uniqueness row stays Partial. The same sentence is now in [Team 2 uniqueness check](../../plans/robust_patch_revision_2a_status.md#team-2-uniqueness-check-2026-10-12). Their reported §563 plan section and test are absent from this repo, so they were left in their tree. This does not move `gate_status`, `worker_to_capm`, or `destructor_vs_workers`.
-
-## What is still open
-
-The outer vector and inner-vector growth gates in the JSON are closed. The synchronization half is still open, and both contracts have been judged without upgrading the gate:
-
-- `worker_to_capm.barrier`: **NONE PROVEN** (no memory fence, atomic, or lock on the inner vector).
-- `destructor_vs_workers`: **JOIN_ABSENT** (document destruction frees inner vectors without a proved ProductionStop join).
-
-`gate_status` stays CLOSED on the allocation/growth side with synchronization risk documented. Rev6 remains blocked until those risks are accepted or mitigated outside this measurement loop.
+Latest judgment response remains pass `20261018T202924Z-755a7879`
+(`JOIN_ABSENT` on stock). Rev6 patch is the remediation, not a new judgment
+pass. Trace last heading: `Destructor vs workers judgment`.
+`team3_next_prompt.txt` is a closed stub.

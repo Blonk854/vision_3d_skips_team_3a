@@ -2,7 +2,7 @@
   "source_sha256": "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4",
   "image_base": "0x140000000",
   "analysis_date": "2026-09-27",
-  "gate_status": "CLOSED - outer vector one-shot; inner vector FIXED-CAPACITY (no growth during panel load); synchronization risk documented",
+  "gate_status": "CLOSED - outer vector one-shot; inner vector FIXED-CAPACITY (no growth during panel load); torn-write residual accepted; Rev6 close-path join/snapshot patched",
   "outer_vector": {
     "address": "CAO+0x5878",
     "type": "CProdCarte[11]",
@@ -30,7 +30,7 @@
         "offset": "0x5878",
         "operation": "READ then NULL",
         "caller": "document destruction",
-        "synchronization": "NO ProductionStop join - UNSAFE if workers in-flight"
+        "synchronization": "Rev6: ProductionStop join at dtor entry before free; stock had none"
       }
     ]
   },
@@ -74,7 +74,7 @@
         "offsets": "zone+0x18/0x20 (begin/end)",
         "operation": "WALK + DESTROY (stride 0x370)",
         "caller": "zone destruction",
-        "synchronization": "NO ProductionStop join - UNSAFE if workers in-flight",
+        "synchronization": "Reached only after Rev6 ProductionStop join on ProductionDoc_dtor; stock had no join",
         "inner_vector_ops": {
           "zeroes_begin_end": false,
           "calls_slot_8": true,
@@ -230,9 +230,9 @@
     "destructor_vs_workers": {
       "path": "ProductionDoc_dtor frees inner vectors via Zone_dtor",
       "join_point": "ProductionStop (0x1406920f0) is ONLY join point",
-      "production_stop_callers": "ONLY from document vtable slot +0x28 with magic 0x004EB1CF - NEVER from close/destruction",
-      "risk": "Document destruction can free inner vectors while workers still writing - USE-AFTER-FREE",
-      "mitigation": "Ensure ProductionStop called before document destruction. Current code path: document dtor calls DeleteVector WITHOUT ProductionStop join."
+      "production_stop_callers": "Stock: document vtable slot +0x28 with magic 0x004EB1CF. Rev6: also ProductionDoc_dtor entry (0x14067fc20) before DeleteVector / Zone_dtor",
+      "risk": "Stock document destruction can free inner vectors while workers still writing - USE-AFTER-FREE",
+      "mitigation": "Rev6 patches ProductionDoc_dtor to CALL ProductionStop (0x1406920f0) before continuing into DeleteVector / Zone_dtor. See plans/rev6_close_path_charter.md and tools/patch_f1_missing_n_rev6.py."
     },
     "inner_vector_locks": {
       "ccapm_critical_section": "Protects document table only (CAO+0x5878 zone array)",
@@ -244,13 +244,13 @@
   "gate_requirements": {
     "outer_vector": "CLOSED - proven one-shot allocated in constructor, no later stores",
     "inner_vector_growth": "CLOSED - DISPROVEN; fixed-capacity contract established; all panel-load-path functions decompiled and verified",
-    "synchronization": "PARTIAL - torn write risk remains; use-after-free risk in dtor; no memory fence between worker write and CAPM read"
+    "synchronization": "PARTIAL - torn write residual accepted under fixed-capacity; Rev6 patches dtor join and SKIP snapshot refresh"
   },
   "next_steps_for_synchronization": [
-    "Add memory fence (compiler barrier or MFENCE) after ExecuteOne_Component writes and before event signal",
-    "Add memory fence in CAPM_SetInspectionStatus before reading anomaly vectors",
-    "Ensure ProductionStop is called before document destruction (join workers)",
-    "Consider epoch counter or seqlock if torn writes are unacceptable for anomaly data"
+    "Optional: accept or harden torn writes (epoch/seqlock) if CAPM readers require stronger consistency",
+    "Follow-on: final-mask uniqueness and DWORD wider-intermediate product",
+    "Follow-on: capture snapshot on remaining skip mutators (Add/ReloadDoc/RegistryRead) if single-lane traffic uses them",
+    "Native authorization before station install of Vision3D_concurrency_fix_rev6.exe"
   ],
   "decompilation_evidence_files": {
     "ExecuteOne_Component": "maps/decomp/ExecuteOne_Component.c",

@@ -30,11 +30,13 @@ from unicorn import x86_const as registers
 from unicorn.unicorn_py3.unicorn import UcContext
 
 import patch_f1_missing_n_rev5 as patcher
+import patch_f1_missing_n_rev6 as patcher_rev6
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "v3d_files_" / "Vision3D.exe"
 OUTPUT = ROOT / "Updated" / "Vision3D_concurrency_fix.exe"
+OUTPUT_REV6 = ROOT / "Updated" / "Vision3D_concurrency_fix_rev6.exe"
 
 STATE_OPEN = 0
 STATE_CLAIMING = 1
@@ -692,33 +694,143 @@ def verify_binary(output_path: pathlib.Path = OUTPUT) -> None:
                for offset, (before, after) in enumerate(zip(source, output)))
 
 
+def verify_rev6_close_path_code() -> None:
+    """Assemble Rev6 close-path caves and check call/clear/snapshot shape."""
+    payload, sizes = patcher_rev6.build_code()
+    dtor = payload[
+        patcher_rev6.DTOR_JOIN_CAVE - patcher_rev6.CAVE :
+        patcher_rev6.DTOR_JOIN_CAVE - patcher_rev6.CAVE + sizes["dtor_size"]
+    ]
+    view = payload[
+        patcher_rev6.VIEW_CLEAR_CAVE - patcher_rev6.CAVE :
+        patcher_rev6.VIEW_CLEAR_CAVE - patcher_rev6.CAVE + sizes["view_size"]
+    ]
+    refresh = payload[
+        patcher_rev6.REFRESH_SNAP_CAVE - patcher_rev6.CAVE :
+        patcher_rev6.REFRESH_SNAP_CAVE
+        - patcher_rev6.CAVE
+        + sizes["refresh_size"]
+    ]
+    reset = payload[
+        patcher.RESET_CAVE - patcher.CAVE :
+        patcher.RESET_CAVE - patcher.CAVE + sizes["reset_size"]
+    ]
+
+    dtor_ops = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(
+        dtor, patcher_rev6.DTOR_JOIN_CAVE
+    ))
+    require(
+        any(
+            i.mnemonic == "call"
+            and patcher_rev6.PRODUCTION_STOP
+            == int(i.op_str, 16)
+            for i in dtor_ops
+            if i.op_str.startswith("0x")
+        )
+        or any(
+            i.mnemonic == "call" and hex(patcher_rev6.PRODUCTION_STOP)[2:] in i.op_str
+            for i in dtor_ops
+        ),
+        "dtor cave calls ProductionStop",
+    )
+    require(
+        any(i.mnemonic == "jmp" for i in dtor_ops),
+        "dtor cave resumes stock prologue",
+    )
+
+    view_text = " ".join("%s %s" % (i.mnemonic, i.op_str) for i in Cs(
+        CS_ARCH_X86, CS_MODE_64
+    ).disasm(view, patcher_rev6.VIEW_CLEAR_CAVE))
+    require("0x5838" in view_text or "5838" in view_text, "view cave clears +0x5838")
+    require("0xe8" in view_text or "0xe8," in view_text or "+ 0xe8" in view_text,
+            "view cave loads document from view+0xe8")
+
+    refresh_text = " ".join("%s %s" % (i.mnemonic, i.op_str) for i in Cs(
+        CS_ARCH_X86, CS_MODE_64
+    ).disasm(refresh, patcher_rev6.REFRESH_SNAP_CAVE))
+    require(
+        "0x23e0" in refresh_text or "23e0" in refresh_text,
+        "refresh cave swaps document+0x23e0",
+    )
+
+    # Rev6 reset must return to caller after publishing (ret), not only jmp CONT.
+    reset_ops = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(reset, patcher.RESET_CAVE))
+    require(any(i.mnemonic == "ret" for i in reset_ops), "rev6 reset publishes then rets")
+    require(sizes["dtor_size"] > 0 and sizes["view_size"] > 0, "close-path sizes present")
+    require(sizes["refresh_size"] > 0 and sizes["capture_size"] > 0, "snapshot sizes present")
+
+
+def verify_rev6_binary(path: pathlib.Path) -> None:
+    source = SOURCE.read_bytes()
+    output = path.read_bytes()
+    require(digest(SOURCE) == patcher.SOURCE_SHA256, "source identity")
+    require(len(output) > len(source), "rev6 image grew with patch sections")
+
+    def text_off(va: int) -> int:
+        return patcher.va_to_text_off(va)
+
+    dtor_off = text_off(patcher_rev6.DTOR_HOOK)
+    view_off = text_off(patcher_rev6.VIEW_DTOR_HOOK)
+    refresh_off = text_off(patcher_rev6.REFRESH_HOOK)
+    require(output[dtor_off] == 0xE9, "dtor site is jmp to cave")
+    require(output[view_off] == 0xE9, "view site is jmp to cave")
+    require(output[refresh_off] == 0xE9, "refresh site is jmp to cave")
+    require(output[text_off(patcher.RESET_HOOK)] == 0xE9, "reset site still hooked")
+    require(output[text_off(patcher.COUNT_HOOK)] == 0xE8, "count site still hooked")
+
+    dtor_rel = struct.unpack_from("<i", output, dtor_off + 1)[0]
+    dtor_target = patcher_rev6.DTOR_HOOK + 5 + dtor_rel
+    require(dtor_target == patcher_rev6.DTOR_JOIN_CAVE, "dtor jmp lands in join cave")
+
+    view_rel = struct.unpack_from("<i", output, view_off + 1)[0]
+    view_target = patcher_rev6.VIEW_DTOR_HOOK + 5 + view_rel
+    require(view_target == patcher_rev6.VIEW_CLEAR_CAVE, "view jmp lands in clear cave")
+
+    refresh_rel = struct.unpack_from("<i", output, refresh_off + 1)[0]
+    refresh_target = patcher_rev6.REFRESH_HOOK + 5 + refresh_rel
+    require(
+        refresh_target == patcher_rev6.REFRESH_SNAP_CAVE,
+        "refresh jmp lands in snapshot cave",
+    )
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--revision", choices=("rev5",), required=True)
+    parser.add_argument("--revision", choices=("rev5", "rev6"), required=True)
     parser.add_argument("--code-only", action="store_true")
-    parser.add_argument("--output", type=pathlib.Path, default=OUTPUT)
+    parser.add_argument("--output", type=pathlib.Path, default=None)
     parser.add_argument("--force-failure", action="store_true", help=argparse.SUPPRESS)
     arguments = parser.parse_args()
+    if arguments.output is None:
+        arguments.output = OUTPUT_REV6 if arguments.revision == "rev6" else OUTPUT
     require(not arguments.force_failure, "forced verifier regression")
     verify_optimized_execution_refusal(arguments.revision)
     verify_forced_failure_refusal(arguments.revision)
     verify_model()
     verify_machine_code()
+    if arguments.revision == "rev6":
+        verify_rev6_close_path_code()
     print("interpreter=%s" % sys.executable)
     print("python=%s" % sys.version.replace("\n", " "))
     print("PYTHONOPTIMIZE=%r" % os.environ.get("PYTHONOPTIMIZE"))
     print("verifier integrity regressions: PASS")
     print("state model: PASS")
     print("machine-code concurrency regressions: PASS (stock calls stubbed)")
+    if arguments.revision == "rev6":
+        print("rev6 close-path caves: PASS")
     if arguments.code_only:
         print("verifier_exit_status=0")
         return 0
-    verify_binary(arguments.output)
-    print("PE sections and hooks: PASS")
-    print("handler decoding and targets: PASS")
-    print("runtime-function metadata: PASS")
-    print("source/DLL identities and intended byte-diff spans: PASS")
-    print("global RazRes calls: ABSENT")
+    if arguments.revision == "rev6":
+        verify_rev6_binary(arguments.output)
+        print("PE close-path hooks: PASS")
+    else:
+        verify_binary(arguments.output)
+        print("PE sections and hooks: PASS")
+        print("handler decoding and targets: PASS")
+        print("runtime-function metadata: PASS")
+        print("source/DLL identities and intended byte-diff spans: PASS")
+        print("global RazRes calls: ABSENT")
     print("verifier_exit_status=0")
     return 0
 
