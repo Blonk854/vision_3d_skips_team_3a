@@ -100,6 +100,7 @@ owner sign-off).
 
 ## Related
 
+- Window checklist: `plans/rev7_maintenance_window_checklist.md` (commands + hashes)
 - Owner cover memo: `plans/rev6_owner_cover_memo.md` (authorized 2026-10-18)
 - Rev7 note: `plans/rev7_multi_section_fail_open.md`
 - Charter: `plans/rev6_close_path_charter.md`

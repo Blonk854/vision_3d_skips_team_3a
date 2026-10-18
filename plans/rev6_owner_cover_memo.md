@@ -25,9 +25,10 @@ under this memo.
 ## Attachments (read before signing)
 
 1. `plans/rev6_native_install_authorization.md` — scope, Rev7 hashes, rollback  
-2. `plans/rev6_station_run_sheet.md` — F1-A–L + smoke (fill during trial)  
-3. `plans/rev7_multi_section_fail_open.md` — single-section Feature-1 scope  
-4. `maps/vector_ownership/TEAM2_WHERE_WE_ARE.md` — brief
+2. `plans/rev7_maintenance_window_checklist.md` — commands + hash verify  
+3. `plans/rev6_station_run_sheet.md` — F1-A–L + smoke (fill during trial)  
+4. `plans/rev7_multi_section_fail_open.md` — single-section Feature-1 scope  
+5. `maps/vector_ownership/TEAM2_WHERE_WE_ARE.md` — brief
 
 ## Decision
 

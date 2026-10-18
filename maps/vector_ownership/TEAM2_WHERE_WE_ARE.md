@@ -46,9 +46,10 @@ Charter/inventory: `plans/rev6_close_path_charter.md`,
 `plans/rev6_close_path_inventory.md`.
 
 Controlled **Rev7** trial authorized 2026-10-18 (owner-delegated; not production).
-Memo: `plans/rev6_owner_cover_memo.md`. Checklist:
-`plans/rev6_native_install_authorization.md`. Operator still confirms station ID
-+ single-lane at the maintenance window before copy.
+Memo: `plans/rev6_owner_cover_memo.md`. Auth:
+`plans/rev6_native_install_authorization.md`. Window commands:
+`plans/rev7_maintenance_window_checklist.md`. Operator confirms station ID +
+single-lane at the window before copy.
 
 ## Follow-ons
 
