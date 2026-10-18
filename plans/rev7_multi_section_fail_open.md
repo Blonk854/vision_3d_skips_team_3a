@@ -31,9 +31,11 @@ Output: `Updated/Vision3D_concurrency_fix_rev7.exe` (gitignored).
 
 ## Trial packaging
 
-Rev7 is the unsigned station-trial candidate. See
+Rev7 is the station-trial candidate. Controlled trial authorized 2026-10-18
+(owner-delegated; not production). See
 `plans/rev6_native_install_authorization.md` and
-`plans/rev6_owner_cover_memo.md`. Native install still requires owner sign-off.
+`plans/rev6_owner_cover_memo.md`. Operator confirms station + single-lane at
+the maintenance window before copy.
 
 ## Related
 

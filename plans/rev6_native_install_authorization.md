@@ -1,17 +1,17 @@
 # Native-install authorization note (Rev7 trial candidate)
 
-Recorded 2026-10-18; retargeted to **Rev7** the same day. This note is a
-**request checklist**, not approval. Building or verifying
-`Updated/Vision3D_concurrency_fix_rev7.exe` does not authorize station
-install, native execution, or production release.
+Recorded 2026-10-18; retargeted to **Rev7** the same day. Owner authorized a
+**controlled Rev7 trial** (delegated sign-off 2026-10-18) — see Sign-off below.
+Building the PE alone still does not perform install; the operator must run the
+maintenance-window steps. This is **not** production release.
 
 W7-QUAL-01 (waived-unverified native qualification) remains in force. See
 `plans/robust_patch_revision_2a.md` § W7-QUAL-01 and § 5.
 
 Rev6 (`Vision3D_concurrency_fix_rev6.exe`) remains an offline close-path
-baseline only; it is **not** the signed trial candidate.
+baseline only; it is **not** the trial candidate.
 
-## Scope requested (when signed)
+## Scope (authorized controlled trial)
 
 | In scope | Out of scope |
 | --- | --- |
@@ -85,13 +85,13 @@ Rehearse with the process stopped before reopen:
 6. Resolve pending or uncertain results through existing station procedure before
    production resumes. Binary rollback does **not** reverse data effects.
 
-## Sign-off (blank until owner fills)
+## Sign-off
 
 | Role | Name | Date | Decision |
 | --- | --- | --- | --- |
-| Trial authorizer | | | ☐ authorize controlled trial / ☐ deny |
-| Rollback owner | | | ☐ rollback plan accepted |
-| Station operator | | | ☐ station identity + single-lane confirmed |
+| Trial authorizer | Owner (delegated in Cursor chat) | 2026-10-18 | ☑ authorize controlled **Rev7** trial |
+| Rollback owner | Owner (delegated in Cursor chat) | 2026-10-18 | ☑ rollback plan accepted |
+| Station operator | | | ☐ station identity + single-lane confirmed (at window) |
 
 Authorizing a controlled trial does **not** grant production release. Production
 requires the Production tier in `plans/robust_patch_revision_2a.md` § Acceptance
@@ -100,10 +100,10 @@ owner sign-off).
 
 ## Related
 
-- Owner cover memo: `plans/rev6_owner_cover_memo.md` (sign-off ask only)
+- Owner cover memo: `plans/rev6_owner_cover_memo.md` (authorized 2026-10-18)
 - Rev7 note: `plans/rev7_multi_section_fail_open.md`
 - Charter: `plans/rev6_close_path_charter.md`
 - Inventory: `plans/rev6_close_path_inventory.md`
-- Run sheet stub: `plans/rev6_station_run_sheet.md` (fill only after auth sign-off)
+- Run sheet: `plans/rev6_station_run_sheet.md` (fill at maintenance window)
 - Team 2 brief: `maps/vector_ownership/TEAM2_WHERE_WE_ARE.md`
 - Station procedure detail: `plans/robust_patch_revision_2a.md` § 5

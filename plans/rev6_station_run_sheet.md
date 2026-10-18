@@ -1,10 +1,8 @@
 # Station run sheet stub (Rev7 trial candidate)
 
-Recorded 2026-10-18; retargeted to **Rev7**. Fill during an **authorized**
-controlled trial only. Prerequisite: signed
-`plans/rev6_native_install_authorization.md` for
-`Vision3D_concurrency_fix_rev7.exe`. This stub does not authorize install or
-production release.
+Recorded 2026-10-18; retargeted to **Rev7**. Owner authorized a controlled Rev7
+trial on 2026-10-18 (`plans/rev6_owner_cover_memo.md`). Fill remaining header
+fields and results during the maintenance window. Not production release.
 
 Definitions: `README.md` Acceptance; matrix detail:
 `version.md` § Station history and required release matrix;
@@ -16,11 +14,11 @@ Rev7 multi-section policy: `plans/rev7_multi_section_fail_open.md`.
 | Field | Value |
 | --- | --- |
 | Candidate revision | **Rev7** (`Vision3D_concurrency_fix_rev7.exe`) |
-| Station name / ID | |
-| Single-lane confirmed | ☐ yes (required) |
+| Station name / ID | (operator: name at window) |
+| Single-lane confirmed | ☐ yes (required at window) |
 | Operator | |
-| Rollback owner | |
-| Auth note signed | ☐ date: |
+| Rollback owner | Owner / 2026-10-18 (plan accepted) |
+| Auth note signed | ☑ 2026-10-18 (owner-delegated) |
 | Stock `Vision3D.exe` SHA-256 (pre-install) | |
 | Installed candidate SHA-256 | |
 | Companion DLL hashes unchanged | ☐ AvVTraitLib ☐ StructSupport |

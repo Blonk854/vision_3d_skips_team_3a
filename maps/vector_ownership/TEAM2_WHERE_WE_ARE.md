@@ -45,9 +45,10 @@ Feature-1 fail-open). Auth: `plans/rev6_native_install_authorization.md`.
 Charter/inventory: `plans/rev6_close_path_charter.md`,
 `plans/rev6_close_path_inventory.md`.
 
-Native install is not authorized by this brief. Owner sign-off ask (Rev7):
-`plans/rev6_owner_cover_memo.md`. Request checklist:
-`plans/rev6_native_install_authorization.md` (unsigned; Rev7 candidate).
+Controlled **Rev7** trial authorized 2026-10-18 (owner-delegated; not production).
+Memo: `plans/rev6_owner_cover_memo.md`. Checklist:
+`plans/rev6_native_install_authorization.md`. Operator still confirms station ID
++ single-lane at the maintenance window before copy.
 
 ## Follow-ons
 

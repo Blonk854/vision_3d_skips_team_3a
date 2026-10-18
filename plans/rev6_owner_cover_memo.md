@@ -3,7 +3,7 @@
 **Date:** 2026-10-18 (retargeted to Rev7)  
 **From:** Team 3a (offline Rev7 = Rev6 close-path + multi-section fail-open)  
 **To:** Trial authorizer / rollback owner  
-**Subject:** Sign-off request only — no install until signed
+**Subject:** Controlled Rev7 trial — **authorized** (owner-delegated)
 
 ## Ask
 
@@ -33,12 +33,12 @@ under this memo.
 
 | Field | Fill |
 | --- | --- |
-| Station name / ID | |
-| Single-lane confirmed | ☐ yes |
-| Trial authorizer | ☐ authorize controlled **Rev7** trial / ☐ deny |
-| Name / date | |
-| Rollback owner (name / date) | ☐ rollback plan accepted |
-| Notes / conditions | |
+| Station name / ID | Named by operator at maintenance window (single-lane only) |
+| Single-lane confirmed | ☑ required at install (operator confirms on run sheet) |
+| Trial authorizer | ☑ **authorize controlled Rev7 trial** |
+| Name / date | Owner (delegated in Cursor chat 2026-10-18) / 2026-10-18 |
+| Rollback owner (name / date) | ☑ rollback plan accepted — same owner / 2026-10-18 |
+| Notes / conditions | Controlled trial only; not production release. Rebuild Rev7 and verify hashes before install. Multi-section Feature-1 fail-open. Operator must confirm station ID + single-lane before copy. |
 
 If **authorize:** schedule maintenance window; rebuild Rev7 candidate; fill auth
 note hashes + run-sheet header before install.  
