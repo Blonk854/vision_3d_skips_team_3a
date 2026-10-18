@@ -1,13 +1,24 @@
-# Handoff state
+﻿# Handoff state
 
 Update this file in the same turn as `maps/vector_ownership/team3_next_prompt.txt`. This file is loop bookkeeping. The assignment is the prompt file. The evidence is the trace.
 
 ## Open question
 
-Pass id `20261010T013217Z-c549560c`, `Wait log callee`. It has not been sent. The old loop paused on 7 Oct after `Wait log return` and never sent it. The handoff moved to the pass-id loop on 9 Oct, and the first rotation sends this pass. The trace's last heading is `Wait log return`. The `handoff/team3_response.md` on disk is the `Wait log return` answer, not an answer to this pass.
+None. The solo sync-byte walk and both follow-on judgments are closed.
 
-Name the import at `0x140d5f0f8` once. Do not disassemble `0x1406a1bd9` through `0x1406a1bde` again, and do not disassemble `0x1406a1be4` through `0x1406a1c0b`. `Wait log return` holds. Do not append that section again. The gate file MD5 is still 3C05BBB66D1463CB3B7CA0F1EDC78AEB.
+- Walk bound: exclusive end `0x1406a3000` (see `handoff_solo/mission.md`).
+- Latest response: `handoff/team3_response.md`, pass `20261018T202924Z-755a7879`.
+- Latest trace heading: `Destructor vs workers judgment` (`JOIN_ABSENT`).
+- Prior judgment heading: `Worker to CAPM judgment` (`NONE PROVEN`).
+- Gate MD5 still `3C05BBB66D1463CB3B7CA0F1EDC78AEB`. Do not change `gate_status`.
+- `maps/vector_ownership/team3_next_prompt.txt` still holds the answered destructor judgment text; do not mint address+1 and do not re-run either judgment unless a new assignment is written on purpose.
+
+Brief for Team 2: `maps/vector_ownership/TEAM2_WHERE_WE_ARE.md`. Status note: `plans/robust_patch_revision_2a_status.md` (§ Team 3a sync judgments, 2026-10-18). Rev6 remains blocked on the sync half.
 
 ## Already holds
 
-`Completion signal target` holds for the yes. `Completion signal fence` holds for the no. `Store tail fence` holds for the no. `Slot store prefix` holds for the no. `LEA displacement` holds. `Epilogue fence` holds for the no. `First epilogue callee` holds for the yes. `Freed pointer source` holds for the no. `Zone slot free` holds for the yes. `Destructor argument` holds for the no. `Outer array free` holds for the no. `Array element free` holds for the yes. `Element destructor call` holds for the yes. `Element count` holds for the no. `Destructor reaches stop` holds for the no. `Epilogue stop call` holds for the no. `Indirect call target` holds for unresolved. `Destructor on return` holds for the yes. `Indirect call base` holds for none. `Tail indirect call` holds for the yes. `Later lock pair` holds for the no. `Second lock operand` holds for the no. `Pointer arm store` holds for the no. `Taken arm fence` holds for the yes. `Not-taken arm fence` holds for the no. `Local split skips the call` holds for the yes. `LOCK on the compare bypass` holds for the no. `LOCK chain fall-through` holds for the no. `Destructor join` holds. `SetEvent return read` holds for the no. `Epilogue EAX clear` holds. `Epilogue call targets` holds. `Worker wait import` holds. `Worker wait handles` holds for the two handle sources. The count sentence in that section is false. `Wait argument roles` holds. `Wait return test` holds. `Wait result branch` holds. `Wait nonzero arm` holds. `Wait other arm` holds. `Wait log fall-through` holds. `Wait log target` holds. `Wait log return` holds. This is still the synchronization half. Do not change `gate_status`.
+`worker_to_capm.barrier` is **NONE PROVEN** (judgment pass closed; JSON untouched). `destructor_vs_workers` is **JOIN_ABSENT** (pass `20261018T202924Z-755a7879`; JSON untouched). Outer-vector and inner-vector-growth gates stay CLOSED. Synchronization requirement stays PARTIAL.
+
+Earlier byte-walk and fence sections remain in `maps/vector_ownership/anomaly_begin_store_trace.txt`. Stock bytes Team 2 can re-check are listed in `TEAM2_WHERE_WE_ARE.md` and verified by `python maps/vector_ownership/team2_progress_check.py`.
+
+Coordinator byte-walk open-question rows that once pointed at `0x1406a1fd6` and earlier are obsolete; do not resume that loop from this file.
