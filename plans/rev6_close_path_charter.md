@@ -31,7 +31,8 @@ lands. Until then it may stay `3C05BBB66D1463CB3B7CA0F1EDC78AEB`.
 
 - Final-mask uniqueness (sections sharing a component)
 - DWORD wider-intermediate product
-- Native station install / W7 qualification (still waived-unverified)
+- Native station install / W7 qualification (still waived-unverified);
+  request checklist: `plans/rev6_native_install_authorization.md` (unsigned)
 
 ## Success
 

@@ -41,13 +41,15 @@ Builder: `tools/patch_f1_missing_n_rev6.py` →
 Charter/inventory: `plans/rev6_close_path_charter.md`,
 `plans/rev6_close_path_inventory.md`.
 
-Native install is not authorized by this brief.
+Native install is not authorized by this brief. Request checklist:
+`plans/rev6_native_install_authorization.md` (unsigned).
 
 ## Follow-ons
 
 - Final-mask uniqueness (sections sharing a component)
 - DWORD wider-intermediate product
 - Optional ReloadDoc/RegistryRead capture if single-lane traffic needs them
+- Owner sign-off on `plans/rev6_native_install_authorization.md` before any station trial
 
 ## Bytes Team 2 can still re-read
 
