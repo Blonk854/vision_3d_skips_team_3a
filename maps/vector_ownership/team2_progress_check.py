@@ -28,13 +28,13 @@ EXE_SHA256 = "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4"
 EXE_SIZE = 28_738_048
 GATE_MD5 = "3C05BBB66D1463CB3B7CA0F1EDC78AEB"
 
-SNAPSHOT_PASS = "20261013T003814Z-5713b20b"
-SNAPSHOT_HEADING = (
-    "Wait flag taken after the second rcx rbx jmp mov mov lea mov call "
-    "mov mov lea call mov mov call nop lea call xor lea mov mov pop pop "
-    "pop pop ret cc cc cc cc cc cc cc cc"
-)
-SNAPSHOT_FRONTIER = 0x1406A1D9B
+SNAPSHOT_PASS = "20261018T202924Z-755a7879"
+SNAPSHOT_HEADING = "Destructor vs workers judgment"
+SNAPSHOT_VERDICT = "JOIN_ABSENT"
+WORKER_JUDGMENT_HEADING = "Worker to CAPM judgment"
+WORKER_VERDICT = "NONE PROVEN"
+# Stock padding byte still checked in the exe; no longer the open frontier heading.
+PADDING_BYTE_VA = 0x1406A1D9B
 
 failures: list[str] = []
 
@@ -169,6 +169,17 @@ def main() -> int:
     )
     barrier = gate["synchronization_contracts"]["worker_to_capm"]["barrier"]
     check("worker-to-capm barrier", barrier.startswith("NONE PROVEN"), barrier)
+    dtor = gate["synchronization_contracts"]["destructor_vs_workers"]
+    check(
+        "destructor join_point still ProductionStop",
+        "0x1406920f0" in dtor.get("join_point", ""),
+        dtor.get("join_point", ""),
+    )
+    check(
+        "destructor mitigation still no join",
+        "WITHOUT ProductionStop join" in dtor.get("mitigation", ""),
+        dtor.get("mitigation", ""),
+    )
 
     locks = list((ROOT / "v3d_files_uncomp_copy").glob("V3D_SKIP.lock*"))
     check("copy project lock", locks == [], "absent" if not locks else ", ".join(p.name for p in locks))
@@ -183,16 +194,42 @@ def main() -> int:
     text = TRACE.read_text(encoding="utf-8")
     heading, body = last_section(text)
     check("frontier heading", heading == SNAPSHOT_HEADING, heading)
-    addr = re.search(r"Address: `([^`]+)` \.\. `([^`]+)`", body)
-    mnemonic = re.search(r"^Mnemonic: (.+)$", body, re.M)
-    byte_match = re.search(r"bytes: `([^`]+)`", body)
-    check("frontier min", addr is not None and addr.group(1).lower() == "0x1406a1d9b", addr.group(1) if addr else "missing")
-    check("frontier max", addr is not None and addr.group(2).lower() == "0x1406a1d9b", addr.group(2) if addr else "missing")
-    check("frontier bytes in trace", byte_match is not None and byte_match.group(1).lower() == "cc", byte_match.group(1) if byte_match else "missing")
-    check("frontier mnemonic", mnemonic is not None and mnemonic.group(1).strip() == "??", mnemonic.group(1).strip() if mnemonic else "missing")
+    verdict = re.search(r"^Verdict:\s*(.+)$", body, re.M)
+    check(
+        "destructor verdict",
+        verdict is not None and verdict.group(1).strip() == SNAPSHOT_VERDICT,
+        verdict.group(1).strip() if verdict else "missing",
+    )
+    check("destructor JSON untouched", "JSON edited: no" in body, "present" if "JSON edited: no" in body else "missing")
 
-    file_frontier = read_va(exe, sections, SNAPSHOT_FRONTIER, 1)
-    check("frontier byte in exe", file_frontier == b"\xcc", file_frontier.hex())
+    worker_heading = re.search(
+        rf"^===== {re.escape(WORKER_JUDGMENT_HEADING)} =====\r?$",
+        text,
+        re.M,
+    )
+    check(
+        "worker judgment heading present",
+        worker_heading is not None,
+        WORKER_JUDGMENT_HEADING if worker_heading else "missing",
+    )
+    if worker_heading is not None:
+        worker_body_start = worker_heading.start()
+        worker_end = re.search(r"^===== END =====\r?$", text[worker_body_start:], re.M)
+        worker_body = (
+            text[worker_body_start : worker_body_start + worker_end.end()]
+            if worker_end
+            else ""
+        )
+        worker_verdict = re.search(r"^Verdict:\s*(.+)$", worker_body, re.M)
+        check(
+            "worker-to-capm verdict",
+            worker_verdict is not None
+            and worker_verdict.group(1).strip() == WORKER_VERDICT,
+            worker_verdict.group(1).strip() if worker_verdict else "missing",
+        )
+
+    padding_byte = read_va(exe, sections, PADDING_BYTE_VA, 1)
+    check("padding byte in exe", padding_byte == b"\xcc", padding_byte.hex())
 
     explicit = re.findall(r"^Is mnemonic MFENCE or first byte F0\? (.+)$", text, re.M)
     yes = [line for line in explicit if line.startswith("Yes")]

@@ -1,12 +1,12 @@
 # Team 3a progress for Team 2
 
-Recorded 2026-10-12. Pull `9a19df2` or a descendant that still contains it. That commit is the measurement snapshot: `maps/vector_ownership/anomaly_begin_store_trace.txt` ends at `0x1406a1d98`, and `handoff/team3_response.md` starts with pass `20261013T003814Z-5713b20b`. The checker and this page first landed in `1ab2683`. The executable is not in git. Recompute the numbers before relying on them:
+Recorded 2026-10-18. Pull `3613433` or a descendant that still contains it. That commit is the judgment snapshot: `maps/vector_ownership/anomaly_begin_store_trace.txt` ends with `Destructor vs workers judgment` (`JOIN_ABSENT`), and `handoff/team3_response.md` starts with pass `20261018T202924Z-755a7879`. An earlier byte-frontier snapshot lived at `9a19df2` (trace ending at `0x1406a1d9b`). The checker and this page first landed in `1ab2683`. The executable is not in git. Recompute the numbers before relying on them:
 
 ```
 python maps/vector_ownership/team2_progress_check.py
 ```
 
-Run that from the repository root. Exit 0 means the gate file, the trace frontier, and the stock bytes in `v3d_files_\Vision3D.exe` still match this brief. The script only reads. It does not open Ghidra, and it does not write the trace, the gate, or the executable.
+Run that from the repository root. Exit 0 means the gate file, the latest judgment heading, the latest response pass, and the stock bytes in `v3d_files_\Vision3D.exe` still match this brief. The script only reads. It does not open Ghidra, and it does not write the trace, the gate, or the executable.
 
 `v3d_files_\Vision3D.exe` is the file this brief uses: 28,738,048 bytes, SHA-256 `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`. Image base `0x140000000`.
 
@@ -20,13 +20,14 @@ Run that from the repository root. Exit 0 means the gate file, the trace frontie
 | `gate_requirements.outer_vector` | CLOSED. One-shot allocation in the constructor, no later stores. |
 | `gate_requirements.inner_vector_growth` | CLOSED. Fixed capacity. Growth during panel load is disproved in that file. |
 | `gate_requirements.synchronization` | PARTIAL. Torn-write risk remains. Destructor versus in-flight workers remains. No proved fence between the worker write and the CAPM read. |
-| `synchronization_contracts.worker_to_capm.barrier` | `NONE PROVEN - no memory fence, no atomic, no lock on inner vector` |
+| `synchronization_contracts.worker_to_capm.barrier` | `NONE PROVEN` — judged 2026-10-18; no memory fence, atomic, or lock on the inner vector |
+| `synchronization_contracts.destructor_vs_workers` | `JOIN_ABSENT` — judged 2026-10-18; ProductionDoc_dtor frees via DeleteVector / Zone_dtor without a ProductionStop join |
 
-Team 3a has not upgraded `worker_to_capm` and has not changed `gate_status`. Rev6 stays blocked on this half.
+Team 3a has not upgraded either sync contract and has not changed `gate_status`. Rev6 stays blocked on this half.
 
 ## Bytes Team 2 can re-read in the executable
 
-The checker maps each virtual address through the PE sections and compares the file bytes. It also resolves the two indirect calls through the import directory.
+The checker maps each virtual address through the PE sections and compares the file bytes. It also resolves the two indirect calls through the import directory. These still underwrite the `worker_to_capm` `NONE PROVEN` judgment.
 
 | Check | Address | File bytes | What it establishes |
 | --- | --- | --- | --- |
@@ -39,27 +40,37 @@ The checker maps each virtual address through the PE sections and compares the f
 | EAX clear | `0x1406a1c6e` | `33 c0` | `XOR EAX, EAX` in the handler epilogue. It clears `EAX`. It is not a test of the `SetEvent` return. |
 | Handler body end | `0x1406a1c7b` | `c3` | `FUN_1406a1a50` returns here. |
 | Later return | `0x1406a1d92` | `c3` | A later `RET`, after the handler body. |
-| Padding | `0x1406a1d93` .. `0x1406a1d9b` | `cc cc cc cc cc cc cc cc cc` | Nine undefined `CC` bytes. The open measurement is the last of them. |
+| Padding | `0x1406a1d93` .. `0x1406a1d9b` | `cc cc cc cc cc cc cc cc cc` | Nine undefined `CC` bytes. The solo sync-byte walk stopped before `0x1406a3000`; this padding is no longer the open frontier. |
+
+Destructor-join anchors (listing / xrefs; not a single-byte frontier):
+
+| Anchor | Address | Role |
+| --- | --- | --- |
+| ProductionDoc_dtor | `0x14067fc20` | Document destruction; no CALL to ProductionStop |
+| DeleteVector site in dtor | `0x14067fd30` | `CALL 0x140527b50` |
+| Zone_dtor site in dtor | `0x14067ff01` | `CALL 0x14066e530` |
+| ProductionStop | `0x1406920f0` | Sole measured join point |
+| Sole code caller of ProductionStop | `0x14068da61` inside `FUN_14068da40` | Not on the dtor path |
 
 ## Frontier
 
-Latest response: `handoff/team3_response.md`, pass `20261013T003814Z-5713b20b`.
+Latest response: `handoff/team3_response.md`, pass `20261018T202924Z-755a7879`.
 
 Latest trace heading, at the end of `maps/vector_ownership/anomaly_begin_store_trace.txt`:
 
-`Wait flag taken after the second rcx rbx jmp mov mov lea mov call mov mov lea call mov mov call nop lea call xor lea mov mov pop pop pop pop ret cc cc cc cc cc cc cc cc`
+`Destructor vs workers judgment`
 
-That section quotes one existing code unit:
+That section records:
 
-- `0x1406a1d9b` .. `0x1406a1d9b`
-- bytes `cc`
-- mnemonic `??`
-- full text `?? CCh`
-- next byte `0x1406a1d9c`
+- `Verdict: JOIN_ABSENT`
+- `JSON edited: no`
+- Evidence that ProductionDoc_dtor does not call ProductionStop before DeleteVector / Zone_dtor
+
+Immediately above it, `Worker to CAPM judgment` records `Verdict: NONE PROVEN` and the same gate MD5 with `JSON edited: no`.
 
 The copy project `v3d_files_uncomp_copy` had no `V3D_SKIP.lock` or `V3D_SKIP.lock~` when that response was written, and the response records `program_list_open` count 0.
 
-Every trace line of the form `Is mnemonic MFENCE or first byte F0?` in the current file is answered `No`. The synchronization requirement stays PARTIAL because those local windows do not by themselves prove a fence on the worker-to-CAPM path.
+Every trace line of the form `Is mnemonic MFENCE or first byte F0?` in the current file is answered `No`. The synchronization requirement stays PARTIAL: `worker_to_capm` is `NONE PROVEN`, and `destructor_vs_workers` is `JOIN_ABSENT`.
 
 ## Sentences left incorrect on purpose
 
@@ -93,8 +104,13 @@ The straight line at `0x140736034` is `[0x140736034, 0x140736064)`, 8 instructio
 
 The straight line at `0x140736064` is `[0x140736064, 0x140736075)`, 4 instructions and 17 bytes, ending at the relative `call` at `0x140736070`. Zero stores. That stretch is not shown to write those bytes. The instruction after `0x140736070` stays unread. The full bounds are in the status note.
 
-Their uniqueness row stays Partial. The same sentence is now in [Team 2 uniqueness check](../../plans/robust_patch_revision_2a_status.md#team-2-uniqueness-check-2026-10-12). Their reported §563 plan section and test are absent from this repo, so they were left in their tree. This does not move `gate_status` or `worker_to_capm`.
+Their uniqueness row stays Partial. The same sentence is now in [Team 2 uniqueness check](../../plans/robust_patch_revision_2a_status.md#team-2-uniqueness-check-2026-10-12). Their reported §563 plan section and test are absent from this repo, so they were left in their tree. This does not move `gate_status`, `worker_to_capm`, or `destructor_vs_workers`.
 
 ## What is still open
 
-The outer vector and inner-vector growth gates in the JSON are closed. The synchronization half is the open half: `worker_to_capm` still has no proved memory fence, atomic, or lock on the inner vector, and document destruction still has no proved `ProductionStop` join before it frees those vectors. The live measurement is the byte at `0x1406a1d9b`.
+The outer vector and inner-vector growth gates in the JSON are closed. The synchronization half is still open, and both contracts have been judged without upgrading the gate:
+
+- `worker_to_capm.barrier`: **NONE PROVEN** (no memory fence, atomic, or lock on the inner vector).
+- `destructor_vs_workers`: **JOIN_ABSENT** (document destruction frees inner vectors without a proved ProductionStop join).
+
+`gate_status` stays CLOSED on the allocation/growth side with synchronization risk documented. Rev6 remains blocked until those risks are accepted or mitigated outside this measurement loop.
