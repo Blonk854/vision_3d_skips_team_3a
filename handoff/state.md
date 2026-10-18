@@ -11,7 +11,7 @@ None. The solo sync-byte walk and both follow-on judgments are closed.
 - Latest trace heading: `Destructor vs workers judgment` (`JOIN_ABSENT`).
 - Prior judgment heading: `Worker to CAPM judgment` (`NONE PROVEN`).
 - Gate MD5 still `3C05BBB66D1463CB3B7CA0F1EDC78AEB`. Do not change `gate_status`.
-- `maps/vector_ownership/team3_next_prompt.txt` still holds the answered destructor judgment text; do not mint address+1 and do not re-run either judgment unless a new assignment is written on purpose.
+- `maps/vector_ownership/team3_next_prompt.txt` is a closed stub (no Pass id). Do not mint address+1 and do not re-run either judgment unless a new assignment is written on purpose.
 
 Brief for Team 2: `maps/vector_ownership/TEAM2_WHERE_WE_ARE.md`. Status note: `plans/robust_patch_revision_2a_status.md` (§ Team 3a sync judgments, 2026-10-18). Rev6 remains blocked on the sync half.
 
