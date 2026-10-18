@@ -90,6 +90,7 @@ owner sign-off).
 
 ## Related
 
+- Owner cover memo: `plans/rev6_owner_cover_memo.md` (sign-off ask only)
 - Charter: `plans/rev6_close_path_charter.md`
 - Inventory: `plans/rev6_close_path_inventory.md`
 - Run sheet stub: `plans/rev6_station_run_sheet.md` (fill only after auth sign-off)

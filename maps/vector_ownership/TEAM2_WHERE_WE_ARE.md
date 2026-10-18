@@ -41,7 +41,8 @@ Builder: `tools/patch_f1_missing_n_rev6.py` →
 Charter/inventory: `plans/rev6_close_path_charter.md`,
 `plans/rev6_close_path_inventory.md`.
 
-Native install is not authorized by this brief. Request checklist:
+Native install is not authorized by this brief. Owner sign-off ask:
+`plans/rev6_owner_cover_memo.md`. Request checklist:
 `plans/rev6_native_install_authorization.md` (unsigned).
 
 ## Follow-ons

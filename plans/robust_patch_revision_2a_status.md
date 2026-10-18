@@ -44,11 +44,11 @@ Rev6 close-path retirement is implemented offline (2026-10-18): see
 `tools/patch_f1_missing_n_rev6.py`. ProductionStop join on document dtor, view
 `+0x5838` clear, and SKIP snapshot swap for refresh are in the Rev6 image.
 `python tools/verify_hardened_patch.py --revision rev6 --code-only` passes.
-Native install/execution is still a separate authorization; request checklist is
-[rev6_native_install_authorization.md](rev6_native_install_authorization.md)
-(unsigned). Station trial stub:
-[rev6_station_run_sheet.md](rev6_station_run_sheet.md). Uniqueness and DWORD
-arithmetic remain follow-ons.
+Native install/execution is still a separate authorization; owner cover memo is
+[rev6_owner_cover_memo.md](rev6_owner_cover_memo.md) (unsigned). Checklist:
+[rev6_native_install_authorization.md](rev6_native_install_authorization.md).
+Station trial stub: [rev6_station_run_sheet.md](rev6_station_run_sheet.md).
+Uniqueness and DWORD arithmetic remain follow-ons.
 
 Team 3a sync judgments, 2026-10-18: `worker_to_capm.barrier` is **NONE PROVEN**
 (residual accepted under fixed-capacity); stock `destructor_vs_workers` was
