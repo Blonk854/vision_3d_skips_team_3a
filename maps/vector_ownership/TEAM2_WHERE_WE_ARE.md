@@ -50,6 +50,7 @@ Native install is not authorized by this brief. Request checklist:
 - DWORD wider-intermediate product
 - Optional ReloadDoc/RegistryRead capture if single-lane traffic needs them
 - Owner sign-off on `plans/rev6_native_install_authorization.md` before any station trial
+- Fill `plans/rev6_station_run_sheet.md` during that trial (stub until authorized)
 
 ## Bytes Team 2 can still re-read
 

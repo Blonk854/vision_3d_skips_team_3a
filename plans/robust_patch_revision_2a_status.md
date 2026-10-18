@@ -46,7 +46,9 @@ Rev6 close-path retirement is implemented offline (2026-10-18): see
 `python tools/verify_hardened_patch.py --revision rev6 --code-only` passes.
 Native install/execution is still a separate authorization; request checklist is
 [rev6_native_install_authorization.md](rev6_native_install_authorization.md)
-(unsigned). Uniqueness and DWORD arithmetic remain follow-ons.
+(unsigned). Station trial stub:
+[rev6_station_run_sheet.md](rev6_station_run_sheet.md). Uniqueness and DWORD
+arithmetic remain follow-ons.
 
 Team 3a sync judgments, 2026-10-18: `worker_to_capm.barrier` is **NONE PROVEN**
 (residual accepted under fixed-capacity); stock `destructor_vs_workers` was

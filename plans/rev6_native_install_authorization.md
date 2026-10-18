@@ -92,5 +92,6 @@ owner sign-off).
 
 - Charter: `plans/rev6_close_path_charter.md`
 - Inventory: `plans/rev6_close_path_inventory.md`
+- Run sheet stub: `plans/rev6_station_run_sheet.md` (fill only after auth sign-off)
 - Team 2 brief: `maps/vector_ownership/TEAM2_WHERE_WE_ARE.md`
 - Station procedure detail: `plans/robust_patch_revision_2a.md` § 5
