@@ -72,7 +72,7 @@ Stop and end the turn when any of these hold:
 
 A successful byte or a successful `unreadable` (unless the 8-in-a-row rule fires) is progress. Write the next pass and continue only while `address+1 < 0x1406a3000`.
 
-When the sync-walk end is reached, say so clearly. Do not invent a new +1 mission. The next phase is a judgment call outside this template.
+When the sync-walk end is reached, say so clearly. Do not invent a new +1 mission. The next phase is `handoff_solo/judgment_worker_to_capm.md` (fresh session / human), not this template.
 
 ## Self-advance (only after a holding pass below the end)
 

@@ -12,6 +12,7 @@ The agent reads a persistent mission, does the open pass in `maps/vector_ownersh
 | `pass_template.md` | Exact text to write into `team3_next_prompt.txt` for address+1 |
 | `advance_pass.ps1` | Fills the template after a holding pass (preferred over hand-editing) |
 | `bootstrap.md` | Paste once into a new OpenCode session to start |
+| `judgment_worker_to_capm.md` | After sync-walk end: one judgment pass for `worker_to_capm.barrier` (not address+1) |
 
 Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/team3_response.md`, `anomaly_begin_store_trace.txt`. Closeout skill `handoff/TEAM3_CLOSEOUT.md` (via `opencode.json`) still applies when a `Pass <id>. Read …` line is used; this solo flow mostly drives itself from the mission after bootstrap.
 
@@ -34,4 +35,4 @@ Primary finish line is **`0x1406a3000` (exclusive)** in `mission.md`. `advance_p
 
 ## Later upgrade
 
-When the sync walk hits `0x1406a3000` (or another mission stop), stop using this template. The next phase needs a real judgment call (human or a stronger model), not address+1.
+When the sync walk hits `0x1406a3000` (or another mission stop), stop using the +1 template. Open `judgment_worker_to_capm.md`, mint a pass id, paste the fenced assignment into a fresh strong-model session (or do it yourself). Default: leave the gate JSON untouched unless the upgrade bar is met.
