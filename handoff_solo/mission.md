@@ -1,5 +1,7 @@
 # Solo sync-byte mission (no director)
 
+**CLOSED (2026-10-18):** sync walk and both judgments finished (`worker_to_capm` NONE PROVEN; `destructor_vs_workers` JOIN_ABSENT). Do not run `advance_pass.ps1`, do not resume address+1, and do not re-mint judgment prompts unless a human writes a new assignment.
+
 One OpenCode session owns the whole loop. There is no OpenCode Dev coordinator, no Cursor director, no `rotate_threads.ps1`, and no response watcher. You measure, you append evidence, you write the next pass, and you continue.
 
 `handoff/` (Cursor director) and `handoff_oc/` (OpenCode Dev director) stay untouched. Run only one flow at a time. If either director flow is active, ignore this file.
@@ -69,6 +71,7 @@ Stop and end the turn when any of these hold:
 - Next address would be outside `0x140001000` .. `0x140d509ff`
 - The last 8 consecutive trace `Result:` values are `unreadable`
 - The same failure repeats twice in a row (same stop reason)
+- This mission is marked **CLOSED** at the top of this file (judgments already landed)
 
 A successful byte or a successful `unreadable` (unless the 8-in-a-row rule fires) is progress. Write the next pass and continue only while `address+1 < 0x1406a3000`.
 
@@ -86,4 +89,4 @@ When the sync-walk end is reached, say so clearly. Do not invent a new +1 missio
 
 ## Open work right now
 
-Open pass in `maps/vector_ownership/team3_next_prompt.txt` (read its `Pass id:` and `memory_read` address). After it holds, continue with address+1 until a stop condition fires — normally the sync-walk end at `0x1406a3000`.
+None. See the **CLOSED** line at the top. `team3_next_prompt.txt` is a closed stub; `handoff/state.md` says open question none.
