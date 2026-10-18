@@ -2,7 +2,9 @@
 
 Use this **only after** the solo sync-byte walk has stopped at the sync-walk end (`0x1406a3000` exclusive) or another mission stop. Do **not** use `pass_template.md` or `advance_pass.ps1` for this. This is one judgment pass, not address+1.
 
-Paste the fenced block below into a **fresh** OpenCode / strong-model session (or hand it to a human). Replace `{{PASS_ID}}` with a new id (`yyyyMMddTHHmmssZ-` + 8 hex). Do not leave braces in the pasted assignment.
+Preferred: run `handoff_solo/write_judgment_pass.ps1` (after the last sync byte `0x1406a2fff` is in the trace). That mints `{{PASS_ID}}` and overwrites `maps/vector_ownership/team3_next_prompt.txt`. Then answer that file in a fresh strong-model session.
+
+Manual fallback: paste the fenced block below yourself, replacing `{{PASS_ID}}` with a new id (`yyyyMMddTHHmmssZ-` + 8 hex). Do not leave braces in the pasted assignment.
 
 ## What this pass decides
 

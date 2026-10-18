@@ -13,6 +13,7 @@ The agent reads a persistent mission, does the open pass in `maps/vector_ownersh
 | `advance_pass.ps1` | Fills the template after a holding pass (preferred over hand-editing) |
 | `bootstrap.md` | Paste once into a new OpenCode session to start |
 | `judgment_worker_to_capm.md` | After sync-walk end: one judgment pass for `worker_to_capm.barrier` (not address+1) |
+| `write_judgment_pass.ps1` | Mints a pass id and writes that judgment into `team3_next_prompt.txt` |
 
 Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/team3_response.md`, `anomaly_begin_store_trace.txt`. Closeout skill `handoff/TEAM3_CLOSEOUT.md` (via `opencode.json`) still applies when a `Pass <id>. Read …` line is used; this solo flow mostly drives itself from the mission after bootstrap.
 
@@ -35,4 +36,10 @@ Primary finish line is **`0x1406a3000` (exclusive)** in `mission.md`. `advance_p
 
 ## Later upgrade
 
-When the sync walk hits `0x1406a3000` (or another mission stop), stop using the +1 template. Open `judgment_worker_to_capm.md`, mint a pass id, paste the fenced assignment into a fresh strong-model session (or do it yourself). Default: leave the gate JSON untouched unless the upgrade bar is met.
+When the sync walk hits `0x1406a3000` (or another mission stop), stop using the +1 template. Then:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File handoff_solo/write_judgment_pass.ps1
+```
+
+That overwrites `team3_next_prompt.txt` with a minted judgment pass. Open a fresh strong-model session on that file (or answer it yourself). Default: leave the gate JSON untouched unless the upgrade bar in `judgment_worker_to_capm.md` is met. Use `-Force` only to rewrite before the walk is finished or after a prior judgment heading.
