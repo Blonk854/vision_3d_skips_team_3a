@@ -27,8 +27,13 @@ Output: `Updated/Vision3D_concurrency_fix_rev7.exe` (gitignored).
 ## Non-goals
 
 - Option B seen-set (`CCAD_Base*` in `rdi`) — not in this revision
-- Native install — still requires owner sign-off
 - Changing Rev6 close-path caves — retained unchanged
+
+## Trial packaging
+
+Rev7 is the unsigned station-trial candidate. See
+`plans/rev6_native_install_authorization.md` and
+`plans/rev6_owner_cover_memo.md`. Native install still requires owner sign-off.
 
 ## Related
 

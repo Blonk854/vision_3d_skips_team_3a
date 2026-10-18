@@ -25,8 +25,12 @@ python tools/verify_hardened_patch.py --revision rev6 --code-only
 
 ## Rev6 close-path (offline)
 
-Builder: `tools/patch_f1_missing_n_rev6.py` →
+Offline close-path builder: `tools/patch_f1_missing_n_rev6.py` →
 `Updated/Vision3D_concurrency_fix_rev6.exe`.
+
+**Trial candidate (unsigned):** `tools/patch_f1_missing_n_rev7.py` →
+`Updated/Vision3D_concurrency_fix_rev7.exe` (Rev6 close-path + multi-section
+Feature-1 fail-open). Auth: `plans/rev6_native_install_authorization.md`.
 
 | Hook | Stock VA | Role |
 | --- | --- | --- |
@@ -41,9 +45,9 @@ Builder: `tools/patch_f1_missing_n_rev6.py` →
 Charter/inventory: `plans/rev6_close_path_charter.md`,
 `plans/rev6_close_path_inventory.md`.
 
-Native install is not authorized by this brief. Owner sign-off ask:
+Native install is not authorized by this brief. Owner sign-off ask (Rev7):
 `plans/rev6_owner_cover_memo.md`. Request checklist:
-`plans/rev6_native_install_authorization.md` (unsigned).
+`plans/rev6_native_install_authorization.md` (unsigned; Rev7 candidate).
 
 ## Follow-ons
 

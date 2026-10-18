@@ -1,17 +1,21 @@
-# Rev6 station run sheet (stub)
+# Station run sheet stub (Rev7 trial candidate)
 
-Recorded 2026-10-18. Fill during an **authorized** controlled trial only.
-Prerequisite: signed `plans/rev6_native_install_authorization.md`. This stub does
-not authorize install or production release.
+Recorded 2026-10-18; retargeted to **Rev7**. Fill during an **authorized**
+controlled trial only. Prerequisite: signed
+`plans/rev6_native_install_authorization.md` for
+`Vision3D_concurrency_fix_rev7.exe`. This stub does not authorize install or
+production release.
 
 Definitions: `README.md` Acceptance; matrix detail:
 `version.md` § Station history and required release matrix;
 procedure: `plans/robust_patch_revision_2a.md` § 5.
+Rev7 multi-section policy: `plans/rev7_multi_section_fail_open.md`.
 
 ## Trial header (fill before window)
 
 | Field | Value |
 | --- | --- |
+| Candidate revision | **Rev7** (`Vision3D_concurrency_fix_rev7.exe`) |
 | Station name / ID | |
 | Single-lane confirmed | ☐ yes (required) |
 | Operator | |
@@ -23,7 +27,7 @@ procedure: `plans/robust_patch_revision_2a.md` § 5.
 | Maintenance window start / end | |
 | Global counters at start | |
 
-## Close-path smoke (Rev6-specific)
+## Close-path smoke (Rev6/Rev7)
 
 Run after install, before or interleaved with F1 cases. Record evidence paths.
 
@@ -33,11 +37,13 @@ Run after install, before or interleaved with F1 cases. Record evidence paths.
 | CP-2 | Reset skip list / reopen next panel | No stale skip counts; no hang on open | ☐ pass ☐ fail ☐ skip | |
 | CP-3 | Close production document / stop production | No AV; workers join before free (no hang) | ☐ pass ☐ fail ☐ skip | |
 | CP-4 | View close after skip refresh posted | No AV on late refresh; UI returns | ☐ pass ☐ fail ☐ skip | |
+| CP-5 | Multi-section panel (if available) | No Feature-1 auto-skip; no crash (Rev7 fail-open) | ☐ pass ☐ fail ☐ N/A | |
 
 ## F1-A through F1-L
 
-TST: ≥2 sub-panels, ≥12 presence checks each. Note `[Computing]` skip/mire/code
-order from station `DefaultValue.ini` (read-only).
+TST: ≥2 sub-panels, ≥12 presence checks each; **single-section** for threshold
+cases (Rev7). Note `[Computing]` skip/mire/code order from station
+`DefaultValue.ini` (read-only).
 
 | ID | Required result | Status | Lot / panel IDs | Evidence |
 | --- | --- | --- | --- | --- |
