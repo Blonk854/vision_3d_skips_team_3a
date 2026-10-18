@@ -1,7 +1,7 @@
 # Team 3a progress for Team 2
 
 Recorded 2026-10-18 (Rev6 close-path). Pull a commit that contains
-`plans/rev6_close_path_charter.md` and gate MD5 `3BA575CF438D29374562CABDB052E10C`.
+`plans/rev6_close_path_charter.md` and gate MD5 `8AB5FE5E5ECBAE540F8AD829E0B417E7`.
 
 ```
 python maps/vector_ownership/team2_progress_check.py
@@ -14,7 +14,7 @@ python tools/verify_hardened_patch.py --revision rev6 --code-only
 ## Gate
 
 `maps/vector_ownership/anomaly_vector_mutator_table.json` MD5
-`3BA575CF438D29374562CABDB052E10C`.
+`8AB5FE5E5ECBAE540F8AD829E0B417E7`.
 
 | Field | Value |
 | --- | --- |
@@ -34,6 +34,9 @@ Builder: `tools/patch_f1_missing_n_rev6.py` →
 | View dtor | `0x1406abc60` | Clear `document+0x5838` via `view+0xe8` |
 | SKIP refresh | `0x1406adaf0` | Swap `document+0x23e0` to patch snapshot for stock body |
 | SkipList_Reset | `0x140541050` | After stock return, publish empty snapshot |
+| SkipList_Add | `0x140541020` | After SetAtGrow thunk, capture live `+0x23e0` |
+| SkipAllSubPanels | `0x140540ef0` | After stock body, capture live `+0x23e0` |
+| SkipSubPanel wrap | `0x140736fcb` | After stock skip, capture via `rbx` document |
 
 Charter/inventory: `plans/rev6_close_path_charter.md`,
 `plans/rev6_close_path_inventory.md`.
@@ -44,7 +47,7 @@ Native install is not authorized by this brief.
 
 - Final-mask uniqueness (sections sharing a component)
 - DWORD wider-intermediate product
-- Optional extra snapshot capture sites (Add/ReloadDoc/RegistryRead)
+- Optional ReloadDoc/RegistryRead capture if single-lane traffic needs them
 
 ## Bytes Team 2 can still re-read
 

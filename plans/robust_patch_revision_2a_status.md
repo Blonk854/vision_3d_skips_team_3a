@@ -532,14 +532,15 @@ hash-matching wheels.
 
 Stock judgments: `worker_to_capm` **NONE PROVEN** (residual accepted);
 `destructor_vs_workers` **JOIN_ABSENT** on stock. Rev6 remediates the dtor join
-and SKIP live-array refresh path. Gate MD5 after close-path update:
-`3BA575CF438D29374562CABDB052E10C`.
+and SKIP live-array refresh path, with live capture on Add / SkipAll /
+SkipSubPanel. Gate MD5 after capture update:
+`8AB5FE5E5ECBAE540F8AD829E0B417E7`.
 
 | Contract | Stock verdict | Rev6 |
 | --- | --- | --- |
 | `worker_to_capm.barrier` | **NONE PROVEN** | Residual accepted under fixed-capacity |
 | `destructor_vs_workers` | **JOIN_ABSENT** | Patched: ProductionStop at dtor entry |
-| Late SKIP / `+0x5838` | Blocked (live array) | Patched: snapshot swap + view clear |
+| Late SKIP / `+0x5838` | Blocked (live array) | Patched: snapshot swap + view clear + mutator capture |
 
 Checker: `python maps/vector_ownership/team2_progress_check.py`.
 Verifier: `python tools/verify_hardened_patch.py --revision rev6 --code-only`.

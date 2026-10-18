@@ -25,17 +25,20 @@ Rev5 caves live in added `.patch` code at `IMAGE_BASE+0x1C98000`.
 | SKIP refresh | `0x1406adaf0` | `40 55 56 57 48 83 ec 30` | `0x1406adaf8` | Swap `document+0x23e0` to snapshot object for body |
 | SkipList_Reset | `0x140541050` | (rev5) | after stock ret | Publish empty snapshot on normal return |
 | SkipSubPanel wrap | `0x140736fcb` / stock cave | (rev5) | after stock skip | Recapture snapshot from live array |
+| SkipList_Add | `0x140541020` | `48 81 c1 e0 23 00 00 44` | cave | SetAtGrow then capture |
+| SkipAllSubPanels | `0x140540ef0` | `48 89 5c 24 08` | cave | Stock body then capture |
 
-## Snapshot capture set (design)
+## Snapshot capture set
 
 | Mutator | Entry | Capture |
 | --- | --- | --- |
 | SkipList_Reset | `0x140541050` | Empty after stock return |
 | SkipSubPanel | via `0x140736fcb` wrap | Copy live `+0x23e0` after stock return |
-| SkipList_Add | `0x140541020` | Copy live after stock (rev6 add hook) |
+| SkipList_Add | `0x140541020` | Copy live after SetAtGrow thunk |
+| SkipAllSubPanels | `0x140540ef0` | Copy live after stock body |
 
-Other mutators from the 2026-09-24 candidate remain follow-on attach points if
-skip traffic uses them on the supported single lane.
+ReloadDoc / RegistryRead capture sites remain optional follow-ons if single-lane
+traffic needs them.
 
 ## Patch data (Rev6 additions in `.patch` data)
 

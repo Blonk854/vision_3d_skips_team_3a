@@ -6,7 +6,7 @@ Adds:
 * Patch-owned SKIP snapshot; refresh swaps document+0x23e0 to the snapshot
   object for the duration of the stock refresh body
 * Empty snapshot publish after SkipList_Reset returns
-* Live capture after the stock SkipSubPanel wrapper returns
+* Live capture after SkipSubPanel (stock-skip wrap), SkipList_Add, and SkipAllSubPanels
 """
 from __future__ import annotations
 
@@ -40,6 +40,8 @@ DTOR_JOIN_CAVE = CAVE + 0x2000
 VIEW_CLEAR_CAVE = CAVE + 0x2200
 REFRESH_SNAP_CAVE = CAVE + 0x2400
 CAPTURE_HELPER_CAVE = CAVE + 0x2700
+ADD_CAPTURE_CAVE = CAVE + 0x2900
+SKIPALL_CAPTURE_CAVE = CAVE + 0x2B00
 
 PRODUCTION_STOP = 0x1406920F0
 DTOR_HOOK = 0x14067FC20
@@ -53,6 +55,16 @@ VIEW_DTOR_ORIG = bytes.fromhex("48894c2408535657")
 REFRESH_HOOK = 0x1406ADAF0
 REFRESH_CONT = 0x1406ADAF8
 REFRESH_ORIG = bytes.fromhex("405556574883ec30")
+
+# SkipList_Add stub: add rcx,0x23e0; mov r8d,edx; mov rdx,[rcx+0x10]; jmp SetAtGrow
+SKIPLIST_ADD_HOOK = 0x140541020
+SKIPLIST_ADD_ORIG = bytes.fromhex("4881c1e023000044")  # 8 bytes
+SETATGROW_THUNK = 0x14077FDD2
+
+# SkipAllSubPanels — document in rcx; uses +0x23e0
+SKIPALL_HOOK = 0x140540EF0
+SKIPALL_ORIG = bytes.fromhex("48895c2408")  # mov [rsp+8], rbx
+SKIPALL_BODY = 0x140540EFF  # after full stock prologue
 
 DOC_SKIP_ARRAY = 0x23E0
 DOC_VIEW_PTR = 0x5838
@@ -300,47 +312,144 @@ done:
 
 
 def stock_skip_wrapper_source_rev6() -> str:
-    """Rev5 skip wrapper with snapshot capture after a successful stock skip."""
-    base = rev5.stock_skip_wrapper_source()
-    # Append capture by rewriting the normal return path: call helper with CAO's
-    # owning document. The rev5 wrapper keeps the CAO in a register; document is
-    # not always available. Capture from the production document held in the
-    # ExecuteOne path via [r14]-style is fragile. Instead, after SKIPSUB returns,
-    # use RCX restored from the CAO's parent — SkipSubPanel's RCX is the CAO
-    # (CDataCaoTraitement), and document is not the same object.
-    #
-    # Practical approach: capture using document pointer saved at wrapper entry
-    # from the thread/document slot used by ExecuteOne. Rev5 stock_skip receives
-    # CAO in rcx. The live skip array lives on the production document; the CAO
-    # is at a fixed relationship. For Rev6 we capture from [cao + offset] only if
-    # known. Safer: call capture with document from GET path.
-    #
-    # Minimal honest capture: after successful skip, load document from
-    # known ExecuteOne frame is unavailable here. Publish by reading the CAO's
-    # owner document pointer at cao+0 (often the outer object). Status maps skip
-    # list on the production document. SkipSubPanel(CAO, index) mutates the
-    # document array through the CAO.
-    #
-    # Use: mov rcx, qword ptr [CAO + 0x0] is wrong. Alternative — capture empty
-    # skip on failure only and on success call helper with document recovered
-    # from SkipSubPanel's internal use. Too fragile.
-    #
-    # Instead: hook SkipList_Add-style path is separate. For SkipSubPanel wrap,
-    # after stock returns, set SNAP_FLAGS and leave buffer; refresh swap still
-    # protects reset UAF. Capture from document is done in reset (empty) and
-    # via an Add hook. Extend this wrapper to accept document in r8 if present.
-    #
-    # Keep rev5 stock_skip as-is; capture helper is invoked from reset and from
-    # a small Add hook. Stock skip success still mutates live array — refresh
-    # uses last published snapshot until next capture. Between SkipSubPanel and
-    # capture, refresh may see stale snapshot (safe) not freed live (also safe
-    # if reset publishes empty first).
-    return base
+    """Rev5 SkipSubPanel wrap; capture live +0x23e0 from the same object (rbx)."""
+    data_delta = DATA_VA - rev5.STOCK_SKIP_CAVE
+    return f"""
+code_base:
+    push rbx
+    push rsi
+    sub rsp, 0x38
+    mov rbx, rcx
+    mov esi, edx
+    mov qword ptr [rsp + 0x20], 0
+    mov dword ptr [rsp + 0x28], 0
+    mov dword ptr [rsp + 0x2c], 0
+    mov qword ptr [rsp + 0x30], 0
+
+    lea r10, [rip + code_base]
+    add r10, {data_delta}
+table_lock_spin:
+    xor eax, eax
+    mov edx, 1
+    lock cmpxchg dword ptr [r10 + {rev5.GLOBAL_TABLE_LOCK}], edx
+    jnz table_lock_spin
+    mov ecx, {rev5.CONTEXT_COUNT}
+find_context:
+    cmp qword ptr [r10], rbx
+    je context_match
+    add r10, {rev5.CONTEXT_STRIDE}
+    dec ecx
+    jnz find_context
+    jmp table_locked_call
+context_match:
+    cmp dword ptr [r10 + {rev5.CONTEXT_STATUS}], 1
+    jne table_unlock_done
+    lock inc dword ptr [r10 + {rev5.CONTEXT_REFCOUNT}]
+    mov qword ptr [rsp + 0x20], r10
+    jmp table_unlock_call
+table_locked_call:
+    lea rax, [rip + code_base]
+    add rax, {data_delta}
+    mov qword ptr [rsp + 0x30], rax
+    mov dword ptr [rsp + 0x2c], 1
+    jmp call_stock
+table_unlock_call:
+    lea rax, [rip + code_base]
+    add rax, {data_delta}
+    mov dword ptr [rax + {rev5.GLOBAL_TABLE_LOCK}], 0
+
+    mov r10, qword ptr [rsp + 0x20]
+    test r10, r10
+    jz call_stock
+skip_lock_spin:
+    xor eax, eax
+    mov edx, 1
+    lock cmpxchg dword ptr [r10 + {rev5.CONTEXT_SKIP_LOCK}], edx
+    jnz skip_lock_spin
+    mov dword ptr [rsp + 0x28], 1
+call_stock:
+    mov rcx, rbx
+    mov edx, esi
+    call {rev5.SKIPSUB}
+    jmp stock_return
+
+table_unlock_done:
+    lea rax, [rip + code_base]
+    add rax, {data_delta}
+    mov dword ptr [rax + {rev5.GLOBAL_TABLE_LOCK}], 0
+    jmp done
+
+stock_return:
+    cmp dword ptr [rsp + 0x2c], 0
+    je no_table_lock
+    mov rax, qword ptr [rsp + 0x30]
+    mov dword ptr [rax + {rev5.GLOBAL_TABLE_LOCK}], 0
+    mov dword ptr [rsp + 0x2c], 0
+no_table_lock:
+    mov r10, qword ptr [rsp + 0x20]
+    test r10, r10
+    jz capture
+    mov dword ptr [r10 + {rev5.CONTEXT_SKIP_LOCK}], 0
+    mov dword ptr [rsp + 0x28], 0
+    mov qword ptr [rsp + 0x20], 0
+    lock dec dword ptr [r10 + {rev5.CONTEXT_REFCOUNT}]
+capture:
+    mov rcx, rbx
+    call {CAPTURE_HELPER_CAVE}
+done:
+    add rsp, 0x38
+    pop rsi
+    pop rbx
+    ret
+"""
 
 
-def skiplist_add_hook_source() -> str:
-    """Not used as full replacement — Add starts with add rcx,0x23e0."""
-    return ""
+def skiplist_add_capture_source() -> str:
+    """Run stock SetAtGrow path for SkipList_Add, then capture."""
+    return f"""
+code_base:
+    push rbx
+    push rsi
+    sub rsp, 0x28
+    mov rbx, rcx
+    mov esi, edx
+    mov rcx, rbx
+    add rcx, {DOC_SKIP_ARRAY}
+    mov r8d, esi
+    mov rdx, qword ptr [rcx + 0x10]
+    call {SETATGROW_THUNK}
+    mov rcx, rbx
+    call {CAPTURE_HELPER_CAVE}
+    add rsp, 0x28
+    pop rsi
+    pop rbx
+    ret
+"""
+
+
+def skipall_capture_source() -> str:
+    """Run stock SkipAllSubPanels body, then capture."""
+    return f"""
+code_base:
+    push rbx
+    push rsi
+    sub rsp, 0x28
+    mov rbx, rcx
+    mov rcx, rbx
+    call skipall_stock
+    mov rcx, rbx
+    call {CAPTURE_HELPER_CAVE}
+    add rsp, 0x28
+    pop rsi
+    pop rbx
+    ret
+skipall_stock:
+    mov qword ptr [rsp + 8], rbx
+    mov qword ptr [rsp + 0x10], rsi
+    push rdi
+    sub rsp, 0x20
+    jmp {SKIPALL_BODY}
+"""
 
 
 _REV5_BUILD_CODE = rev5.build_code
@@ -357,6 +466,7 @@ def build_code() -> tuple[bytes, dict[str, int]]:
         "FINAL_UNWIND_OFFSET": rev5.FINAL_UNWIND_OFFSET,
         "STOCK_SKIP_UNWIND_OFFSET": rev5.STOCK_SKIP_UNWIND_OFFSET,
         "reset_handler_source": rev5.reset_handler_source,
+        "stock_skip_wrapper_source": rev5.stock_skip_wrapper_source,
     }
     rev5.CODE_SIZE = CODE_SIZE
     rev5.DATA_RVA = DATA_RVA
@@ -366,6 +476,7 @@ def build_code() -> tuple[bytes, dict[str, int]]:
     rev5.FINAL_UNWIND_OFFSET = FINAL_UNWIND_OFFSET
     rev5.STOCK_SKIP_UNWIND_OFFSET = STOCK_SKIP_UNWIND_OFFSET
     rev5.reset_handler_source = reset_handler_source_rev6
+    rev5.stock_skip_wrapper_source = stock_skip_wrapper_source_rev6
 
     try:
         global DATA_VA
@@ -379,12 +490,21 @@ def build_code() -> tuple[bytes, dict[str, int]]:
         view = assemble(view_clear_source(), VIEW_CLEAR_CAVE)
         refresh = assemble(refresh_snap_source(), REFRESH_SNAP_CAVE)
         capture = assemble(capture_helper_source(), CAPTURE_HELPER_CAVE)
+        add_cap = assemble(skiplist_add_capture_source(), ADD_CAPTURE_CAVE)
+        skipall_cap = assemble(skipall_capture_source(), SKIPALL_CAPTURE_CAVE)
 
         for name, blob, start, limit in (
             ("dtor", dtor, DTOR_JOIN_CAVE, VIEW_CLEAR_CAVE),
             ("view", view, VIEW_CLEAR_CAVE, REFRESH_SNAP_CAVE),
             ("refresh", refresh, REFRESH_SNAP_CAVE, CAPTURE_HELPER_CAVE),
-            ("capture", capture, CAPTURE_HELPER_CAVE, CAVE + COUNT_UNWIND_OFFSET),
+            ("capture", capture, CAPTURE_HELPER_CAVE, ADD_CAPTURE_CAVE),
+            ("add_capture", add_cap, ADD_CAPTURE_CAVE, SKIPALL_CAPTURE_CAVE),
+            (
+                "skipall_capture",
+                skipall_cap,
+                SKIPALL_CAPTURE_CAVE,
+                CAVE + COUNT_UNWIND_OFFSET,
+            ),
         ):
             if len(blob) > limit - start:
                 raise RuntimeError("%s handler overlaps next cave (%d > %d)" % (
@@ -404,6 +524,7 @@ def build_code() -> tuple[bytes, dict[str, int]]:
         rev5.FINAL_UNWIND_OFFSET = saved["FINAL_UNWIND_OFFSET"]
         rev5.STOCK_SKIP_UNWIND_OFFSET = saved["STOCK_SKIP_UNWIND_OFFSET"]
         rev5.reset_handler_source = saved["reset_handler_source"]
+        rev5.stock_skip_wrapper_source = saved["stock_skip_wrapper_source"]
 
 
 def patch(src: pathlib.Path, dst: pathlib.Path) -> dict[str, object]:
@@ -432,6 +553,7 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict[str, object]:
         "FINAL_UNWIND_OFFSET": rev5.FINAL_UNWIND_OFFSET,
         "STOCK_SKIP_UNWIND_OFFSET": rev5.STOCK_SKIP_UNWIND_OFFSET,
         "reset_handler_source": rev5.reset_handler_source,
+        "stock_skip_wrapper_source": rev5.stock_skip_wrapper_source,
     }
     rev5.CODE_SIZE = CODE_SIZE
     rev5.DATA_RVA = DATA_RVA
@@ -442,6 +564,7 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict[str, object]:
     rev5.FINAL_UNWIND_OFFSET = FINAL_UNWIND_OFFSET
     rev5.STOCK_SKIP_UNWIND_OFFSET = STOCK_SKIP_UNWIND_OFFSET
     rev5.reset_handler_source = reset_handler_source_rev6
+    rev5.stock_skip_wrapper_source = stock_skip_wrapper_source_rev6
 
     try:
         count_off = va_to_text_off(rev5.COUNT_HOOK)
@@ -452,6 +575,8 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict[str, object]:
         dtor_off = va_to_text_off(DTOR_HOOK)
         view_off = va_to_text_off(VIEW_DTOR_HOOK)
         refresh_off = va_to_text_off(REFRESH_HOOK)
+        add_off = va_to_text_off(SKIPLIST_ADD_HOOK)
+        skipall_off = va_to_text_off(SKIPALL_HOOK)
 
         expected_sites = [
             (count_off, rev5.COUNT_HOOK_ORIG, "count hook"),
@@ -462,6 +587,8 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict[str, object]:
             (dtor_off, DTOR_ORIG, "dtor join"),
             (view_off, VIEW_DTOR_ORIG, "view clear"),
             (refresh_off, REFRESH_ORIG, "refresh snap"),
+            (add_off, SKIPLIST_ADD_ORIG, "skiplist add"),
+            (skipall_off, SKIPALL_ORIG, "skipall"),
         ]
         for offset, wanted, name in expected_sites:
             actual = bytes(data[offset : offset + len(wanted)])
@@ -519,6 +646,16 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict[str, object]:
         )
         data[refresh_off : refresh_off + len(REFRESH_ORIG)] = refresh_patch
 
+        add_patch = (
+            b"\xE9"
+            + rel32(SKIPLIST_ADD_HOOK, ADD_CAPTURE_CAVE)
+            + b"\x90" * (len(SKIPLIST_ADD_ORIG) - 5)
+        )
+        data[add_off : add_off + len(SKIPLIST_ADD_ORIG)] = add_patch
+
+        skipall_patch = b"\xE9" + rel32(SKIPALL_HOOK, SKIPALL_CAPTURE_CAVE)
+        data[skipall_off : skipall_off + len(SKIPALL_ORIG)] = skipall_patch
+
         output_hash = sha256(bytes(data))
         dst.parent.mkdir(parents=True, exist_ok=True)
         dst.write_bytes(data)
@@ -537,6 +674,10 @@ def patch(src: pathlib.Path, dst: pathlib.Path) -> dict[str, object]:
             "refresh_snap_va": "0x%X" % REFRESH_HOOK,
             "refresh_handler_va": "0x%X" % REFRESH_SNAP_CAVE,
             "capture_helper_va": "0x%X" % CAPTURE_HELPER_CAVE,
+            "skiplist_add_va": "0x%X" % SKIPLIST_ADD_HOOK,
+            "skiplist_add_handler_va": "0x%X" % ADD_CAPTURE_CAVE,
+            "skipall_va": "0x%X" % SKIPALL_HOOK,
+            "skipall_handler_va": "0x%X" % SKIPALL_CAPTURE_CAVE,
             "production_stop_va": "0x%X" % PRODUCTION_STOP,
             "code_section_rva": "0x%X" % CODE_RVA,
             "code_section_raw": "0x%X" % code_raw,

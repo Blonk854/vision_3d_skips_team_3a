@@ -249,7 +249,7 @@
   "next_steps_for_synchronization": [
     "Optional: accept or harden torn writes (epoch/seqlock) if CAPM readers require stronger consistency",
     "Follow-on: final-mask uniqueness and DWORD wider-intermediate product",
-    "Follow-on: capture snapshot on remaining skip mutators (Add/ReloadDoc/RegistryRead) if single-lane traffic uses them",
+    "Follow-on: optional ReloadDoc/RegistryRead snapshot capture if single-lane traffic needs them (Add/SkipAll/SkipSubPanel capture is in Rev6)",
     "Native authorization before station install of Vision3D_concurrency_fix_rev6.exe"
   ],
   "decompilation_evidence_files": {

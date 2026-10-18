@@ -758,6 +758,46 @@ def verify_rev6_close_path_code() -> None:
     require(any(i.mnemonic == "ret" for i in reset_ops), "rev6 reset publishes then rets")
     require(sizes["dtor_size"] > 0 and sizes["view_size"] > 0, "close-path sizes present")
     require(sizes["refresh_size"] > 0 and sizes["capture_size"] > 0, "snapshot sizes present")
+    require(sizes.get("add_capture_size", 0) > 0, "SkipList_Add capture present")
+    require(sizes.get("skipall_capture_size", 0) > 0, "SkipAll capture present")
+    def _calls_capture(ops) -> bool:
+        target = f"{patcher_rev6.CAPTURE_HELPER_CAVE:x}"
+        return any(
+            i.mnemonic == "call" and target in i.op_str.lower().replace("0x", "")
+            for i in ops
+        )
+
+    add_ops = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(
+        payload[
+            patcher_rev6.ADD_CAPTURE_CAVE - patcher_rev6.CAVE :
+            patcher_rev6.ADD_CAPTURE_CAVE
+            - patcher_rev6.CAVE
+            + sizes["add_capture_size"]
+        ],
+        patcher_rev6.ADD_CAPTURE_CAVE,
+    ))
+    require(_calls_capture(add_ops), "Add cave calls capture helper")
+    skipall_ops = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(
+        payload[
+            patcher_rev6.SKIPALL_CAPTURE_CAVE - patcher_rev6.CAVE :
+            patcher_rev6.SKIPALL_CAPTURE_CAVE
+            - patcher_rev6.CAVE
+            + sizes["skipall_capture_size"]
+        ],
+        patcher_rev6.SKIPALL_CAPTURE_CAVE,
+    ))
+    require(_calls_capture(skipall_ops), "SkipAll cave calls capture helper")
+    stock_skip_ops = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(
+        payload[
+            patcher.STOCK_SKIP_CAVE - patcher.CAVE :
+            patcher.STOCK_SKIP_CAVE - patcher.CAVE + sizes["stock_skip_size"]
+        ],
+        patcher.STOCK_SKIP_CAVE,
+    ))
+    require(
+        _calls_capture(stock_skip_ops),
+        "stock-skip wrap captures after SkipSubPanel",
+    )
 
 
 def verify_rev6_binary(path: pathlib.Path) -> None:
@@ -775,6 +815,14 @@ def verify_rev6_binary(path: pathlib.Path) -> None:
     require(output[dtor_off] == 0xE9, "dtor site is jmp to cave")
     require(output[view_off] == 0xE9, "view site is jmp to cave")
     require(output[refresh_off] == 0xE9, "refresh site is jmp to cave")
+    require(
+        output[text_off(patcher_rev6.SKIPLIST_ADD_HOOK)] == 0xE9,
+        "SkipList_Add site is jmp to cave",
+    )
+    require(
+        output[text_off(patcher_rev6.SKIPALL_HOOK)] == 0xE9,
+        "SkipAll site is jmp to cave",
+    )
     require(output[text_off(patcher.RESET_HOOK)] == 0xE9, "reset site still hooked")
     require(output[text_off(patcher.COUNT_HOOK)] == 0xE8, "count site still hooked")
 
