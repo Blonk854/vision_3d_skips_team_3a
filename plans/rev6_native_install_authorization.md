@@ -48,7 +48,7 @@ python maps/vector_ownership/team2_progress_check.py
 python tools/verify_hardened_patch.py --revision rev7
 ```
 
-Gate MD5 at this retarget: `34BE5DD0E25B15A03C5447FB70641964`.
+Gate MD5 at Team2 sync (authorized trial note): `239631F19B27CA0311BFA5E9186A5C14`.
 Rebuild the candidate immediately before install; if the hash differs from the
 table above, record the new hash in the run sheet and do not reuse this row
 blindly.

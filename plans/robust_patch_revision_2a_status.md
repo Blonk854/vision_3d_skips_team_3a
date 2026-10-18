@@ -538,17 +538,19 @@ hash-matching wheels.
 Stock judgments: `worker_to_capm` **NONE PROVEN** (residual accepted);
 `destructor_vs_workers` **JOIN_ABSENT** on stock. Rev6 remediates the dtor join
 and SKIP live-array refresh path, with live capture on Add / SkipAll /
-SkipSubPanel. Gate MD5 after capture update:
-`34BE5DD0E25B15A03C5447FB70641964`.
+SkipSubPanel. Rev7 adds multi-section Feature-1 fail-open; controlled trial
+authorized (not production). Gate MD5 at Team2 sync:
+`239631F19B27CA0311BFA5E9186A5C14`.
 
-| Contract | Stock verdict | Rev6 |
+| Contract | Stock verdict | Rev6 / Rev7 |
 | --- | --- | --- |
 | `worker_to_capm.barrier` | **NONE PROVEN** | Residual accepted under fixed-capacity |
 | `destructor_vs_workers` | **JOIN_ABSENT** | Patched: ProductionStop at dtor entry |
 | Late SKIP / `+0x5838` | Blocked (live array) | Patched: snapshot swap + view clear + mutator capture |
+| Feature-1 multi-section | Threshold skip | Rev7 fail-open (`FUN_140695200` → 2) |
 
 Checker: `python maps/vector_ownership/team2_progress_check.py`.
-Verifier: `python tools/verify_hardened_patch.py --revision rev6 --code-only`.
+Verifier: `python tools/verify_hardened_patch.py --revision rev7 --code-only`.
 Brief: [TEAM2_WHERE_WE_ARE.md](../maps/vector_ownership/TEAM2_WHERE_WE_ARE.md).
 Charter: [rev6_close_path_charter.md](rev6_close_path_charter.md).
 

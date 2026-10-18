@@ -20,13 +20,20 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 EXE = ROOT / "v3d_files_" / "Vision3D.exe"
 GATE = ROOT / "maps" / "vector_ownership" / "anomaly_vector_mutator_table.json"
+BRIEF = ROOT / "maps" / "vector_ownership" / "TEAM2_WHERE_WE_ARE.md"
+OWNER_MEMO = ROOT / "plans" / "rev6_owner_cover_memo.md"
+AUTH_NOTE = ROOT / "plans" / "rev6_native_install_authorization.md"
+REV7_BUILDER = ROOT / "tools" / "patch_f1_missing_n_rev7.py"
 TRACE = ROOT / "maps" / "vector_ownership" / "anomaly_begin_store_trace.txt"
 RESPONSE = ROOT / "handoff" / "team3_response.md"
 IMAGE_BASE = 0x140000000
 
 EXE_SHA256 = "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4"
 EXE_SIZE = 28_738_048
-GATE_MD5 = "34BE5DD0E25B15A03C5447FB70641964"
+GATE_MD5 = "239631F19B27CA0311BFA5E9186A5C14"
+REV7_CANDIDATE_SHA256 = (
+    "208e7f471dc7f7443ead3cc00ed3db9a7aeca51fc99e77aaf84436b851fe1d47"
+)
 
 SNAPSHOT_PASS = "20261018T202924Z-755a7879"
 SNAPSHOT_HEADING = "Destructor vs workers judgment"
@@ -187,6 +194,56 @@ def main() -> int:
         "Rev6 close-path" in gate["gate_status"],
         gate["gate_status"],
     )
+    next_steps = "\n".join(gate.get("next_steps_for_synchronization", []))
+    check(
+        "gate native follow-on names Rev7 PE",
+        "Vision3D_concurrency_fix_rev7.exe" in next_steps,
+        "rev7.exe present" if "Vision3D_concurrency_fix_rev7.exe" in next_steps else next_steps[:120],
+    )
+
+    brief = BRIEF.read_text(encoding="utf-8")
+    check("brief present", BRIEF.is_file(), str(BRIEF))
+    check(
+        "brief pins gate MD5",
+        GATE_MD5 in brief,
+        "MD5 in TEAM2_WHERE_WE_ARE.md",
+    )
+    check(
+        "brief pins stock sha256",
+        EXE_SHA256 in brief,
+        "stock hash in brief",
+    )
+    check(
+        "brief names Rev7 trial candidate",
+        "Vision3D_concurrency_fix_rev7.exe" in brief
+        and "authorized" in brief.lower(),
+        "Rev7 authorized trial in brief",
+    )
+    check(
+        "brief pins Rev7 candidate sha256",
+        REV7_CANDIDATE_SHA256 in brief,
+        REV7_CANDIDATE_SHA256,
+    )
+    check("rev7 builder present", REV7_BUILDER.is_file(), str(REV7_BUILDER))
+    owner = OWNER_MEMO.read_text(encoding="utf-8")
+    owner_l = owner.lower()
+    check(
+        "owner memo authorizes Rev7 trial",
+        "authorize controlled rev7 trial" in owner_l,
+        "authorized" if "authorize" in owner_l else "missing",
+    )
+    auth = AUTH_NOTE.read_text(encoding="utf-8")
+    auth_l = auth.lower()
+    check(
+        "auth note authorizes Rev7 trial",
+        "authorize controlled" in auth_l and "rev7" in auth_l and "trial" in auth_l,
+        "sign-off present",
+    )
+    check(
+        "auth note pins Rev7 candidate sha256",
+        REV7_CANDIDATE_SHA256 in auth,
+        REV7_CANDIDATE_SHA256,
+    )
 
     locks = list((ROOT / "v3d_files_uncomp_copy").glob("V3D_SKIP.lock*"))
     check("copy project lock", locks == [], "absent" if not locks else ", ".join(p.name for p in locks))
@@ -277,7 +334,10 @@ def main() -> int:
     if failures:
         print(f"{len(failures)} check(s) failed: {', '.join(failures)}")
         return 1
-    print("All checks passed. The brief matches these files and v3d_files_/Vision3D.exe.")
+    print(
+        "All checks passed. Brief, gate, Rev7 auth pins, and "
+        "v3d_files_/Vision3D.exe match Team 2 sync."
+    )
     return 0
 
 
