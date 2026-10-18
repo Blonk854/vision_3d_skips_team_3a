@@ -250,7 +250,7 @@
     "Optional: accept or harden torn writes (epoch/seqlock) if CAPM readers require stronger consistency",
     "Follow-on: final-mask uniqueness residual (section zone-set partition or patch guard; execute-path filter absent — plans/rev6_uniqueness_sections.md) and DWORD wider-intermediate product",
     "Follow-on: optional ReloadDoc/RegistryRead snapshot capture if single-lane traffic needs them (Add/SkipAll/SkipSubPanel capture is in Rev6)",
-    "Native authorization before station install of Vision3D_concurrency_fix_rev6.exe"
+    "Native authorization before station install of Vision3D_concurrency_fix_rev7.exe"
   ],
   "decompilation_evidence_files": {
     "ExecuteOne_Component": "maps/decomp/ExecuteOne_Component.c",

@@ -1,7 +1,7 @@
 # Team 3a progress for Team 2
 
 Recorded 2026-10-18 (Rev6 close-path). Pull a commit that contains
-`plans/rev6_close_path_charter.md` and gate MD5 `FAE48EA3F85684EF0B69A542FF06CBED`.
+`plans/rev6_close_path_charter.md` and gate MD5 `34BE5DD0E25B15A03C5447FB70641964`.
 
 ```
 python maps/vector_ownership/team2_progress_check.py
@@ -14,7 +14,7 @@ python tools/verify_hardened_patch.py --revision rev6 --code-only
 ## Gate
 
 `maps/vector_ownership/anomaly_vector_mutator_table.json` MD5
-`FAE48EA3F85684EF0B69A542FF06CBED`.
+`34BE5DD0E25B15A03C5447FB70641964`.
 
 | Field | Value |
 | --- | --- |
