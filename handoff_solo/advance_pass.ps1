@@ -23,6 +23,9 @@ $ledgerPath = Join-Path $PSScriptRoot '.advanced'
 $lockDir = Join-Path $repoRoot 'v3d_files_uncomp_copy'
 $AddrMin = [uint64]0x140001000
 $AddrMax = [uint64]0x140d509ff
+# Exclusive sync-walk end (mission.md). Last measurable address is end-1.
+$SyncWalkEnd = [uint64]0x1406a3000
+$UnreadableStopStreak = 8
 $HeadingAnchor = ' 89 75 67 '
 
 function Format-Addr([uint64]$n) {
@@ -95,6 +98,16 @@ function Get-HeadingTail([string]$inner) {
     return $inner
 }
 
+function Get-TrailingUnreadableCount {
+    $streak = 0
+    foreach ($line in [System.IO.File]::ReadAllLines($tracePath)) {
+        if ($line -match '^Result:\s*`([^`]+)`\s*$') {
+            if ($Matches[1] -eq 'unreadable') { $streak++ } else { $streak = 0 }
+        }
+    }
+    return $streak
+}
+
 function New-PassId {
     $utc = [DateTime]::UtcNow.ToString('yyyyMMddTHHmmssZ')
     $bytes = New-Object byte[] 4
@@ -134,9 +147,17 @@ if (-not $Force -and $sectionAddr -ne $prevAddr) {
     throw ("last trace Address {0} does not match open prompt {1}. Finish the open pass (or pass -Force). Not advancing." -f (Format-Addr $sectionAddr), (Format-Addr $prevAddr))
 }
 
+$unreadableStreak = Get-TrailingUnreadableCount
+if ($unreadableStreak -ge $UnreadableStopStreak) {
+    throw ("last {0} consecutive Result lines are unreadable. Sync walk stopped early." -f $UnreadableStopStreak)
+}
+
 $nextAddr = $prevAddr + [uint64]1
+if ($nextAddr -ge $SyncWalkEnd) {
+    throw ("next address {0} reaches sync-walk end {1} (exclusive). Sync walk finished; do not advance." -f (Format-Addr $nextAddr), (Format-Addr $SyncWalkEnd))
+}
 if ($nextAddr -lt $AddrMin -or $nextAddr -gt $AddrMax) {
-    throw ("next address {0} is outside .text {1}..{2}. Sync walk bound reached." -f (Format-Addr $nextAddr), (Format-Addr $AddrMin), (Format-Addr $AddrMax))
+    throw ("next address {0} is outside .text {1}..{2}. Safety bound reached." -f (Format-Addr $nextAddr), (Format-Addr $AddrMin), (Format-Addr $AddrMax))
 }
 
 $headingInner = Get-LastHeadingInner

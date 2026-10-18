@@ -20,7 +20,11 @@ Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/
 1. Stop any Cursor/`handoff` or OpenCode Dev/`handoff_oc` loop (no watcher, no second director window).
 2. Open this repo in one OpenCode window. Open a session.
 3. Paste `handoff_solo/bootstrap.md` and send it.
-4. Leave it alone until it stops (lock, range end, repeated failure, or it asks nothing and just stops per mission).
+4. Leave it alone until it stops (sync-walk end `0x1406a3000`, lock, `.text` safety bound, 8× `unreadable`, repeated failure, or mission stop list).
+
+## Walk end
+
+Primary finish line is **`0x1406a3000` (exclusive)** in `mission.md`. `advance_pass.ps1` refuses to mint a pass at or past that address. The full `.text` end (`0x140d509ff`) stays only as a safety bound.
 
 ## Do not
 
@@ -30,4 +34,4 @@ Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/
 
 ## Later upgrade
 
-When the sync walk ends, stop using this template. The next phase needs a real judgment call (human or a stronger model), not address+1.
+When the sync walk hits `0x1406a3000` (or another mission stop), stop using this template. The next phase needs a real judgment call (human or a stronger model), not address+1.
