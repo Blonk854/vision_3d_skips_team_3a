@@ -3,15 +3,17 @@
 Controlled trial only (authorized 2026-10-18). Not production release.
 Full scope: `plans/rev6_native_install_authorization.md`.
 
-Set these once at the window:
+Station ID: **L3PSTAOI** (pinned 2026-10-18). Confirm single-lane on the run
+sheet before copy. Set install path once at the window:
 
 ```powershell
 $Repo = "C:\Users\s_sme\Documents\VS_Project_LapTop\vision_3d_skips - team 3a"
-$StationExe = "C:\PATH\TO\INSTALL\Vision3D.exe"   # operator: real path
+$StationId = "L3PSTAOI"
+$StationExe = "C:\PATH\TO\INSTALL\Vision3D.exe"   # operator: real path on L3PSTAOI
 $Py = Join-Path $Repo ".venv\Scripts\python.exe"
 ```
 
-Record on `plans/rev6_station_run_sheet.md`: station ID, operator, single-lane ☑.
+Record on `plans/rev6_station_run_sheet.md`: operator, single-lane ☑, hashes.
 
 ## 1. Rebuild + offline verify (build host)
 

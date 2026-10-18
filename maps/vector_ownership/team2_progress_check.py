@@ -30,7 +30,7 @@ IMAGE_BASE = 0x140000000
 
 EXE_SHA256 = "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4"
 EXE_SIZE = 28_738_048
-GATE_MD5 = "239631F19B27CA0311BFA5E9186A5C14"
+GATE_MD5 = "156D664599DE1A05EA9E590DDB7F438F"
 REV7_CANDIDATE_SHA256 = (
     "208e7f471dc7f7443ead3cc00ed3db9a7aeca51fc99e77aaf84436b851fe1d47"
 )
@@ -200,6 +200,11 @@ def main() -> int:
         "Vision3D_concurrency_fix_rev7.exe" in next_steps,
         "rev7.exe present" if "Vision3D_concurrency_fix_rev7.exe" in next_steps else next_steps[:120],
     )
+    check(
+        "gate native follow-on names station L3PSTAOI",
+        "L3PSTAOI" in next_steps,
+        "L3PSTAOI" if "L3PSTAOI" in next_steps else next_steps[:120],
+    )
 
     brief = BRIEF.read_text(encoding="utf-8")
     check("brief present", BRIEF.is_file(), str(BRIEF))
@@ -218,6 +223,11 @@ def main() -> int:
         "Vision3D_concurrency_fix_rev7.exe" in brief
         and "authorized" in brief.lower(),
         "Rev7 authorized trial in brief",
+    )
+    check(
+        "brief pins trial station L3PSTAOI",
+        "L3PSTAOI" in brief,
+        "L3PSTAOI",
     )
     check(
         "brief pins Rev7 candidate sha256",

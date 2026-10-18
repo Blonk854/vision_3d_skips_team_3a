@@ -539,8 +539,8 @@ Stock judgments: `worker_to_capm` **NONE PROVEN** (residual accepted);
 `destructor_vs_workers` **JOIN_ABSENT** on stock. Rev6 remediates the dtor join
 and SKIP live-array refresh path, with live capture on Add / SkipAll /
 SkipSubPanel. Rev7 adds multi-section Feature-1 fail-open; controlled trial
-authorized (not production). Gate MD5 at Team2 sync:
-`239631F19B27CA0311BFA5E9186A5C14`.
+authorized (not production) on station **L3PSTAOI**. Gate MD5 at Team2 sync:
+`156D664599DE1A05EA9E590DDB7F438F`.
 
 | Contract | Stock verdict | Rev6 / Rev7 |
 | --- | --- | --- |

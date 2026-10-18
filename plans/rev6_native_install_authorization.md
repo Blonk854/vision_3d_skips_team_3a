@@ -48,7 +48,7 @@ python maps/vector_ownership/team2_progress_check.py
 python tools/verify_hardened_patch.py --revision rev7
 ```
 
-Gate MD5 at Team2 sync (authorized trial note): `239631F19B27CA0311BFA5E9186A5C14`.
+Gate MD5 at Team2 sync (station L3PSTAOI pinned): `156D664599DE1A05EA9E590DDB7F438F`.
 Rebuild the candidate immediately before install; if the hash differs from the
 table above, record the new hash in the run sheet and do not reuse this row
 blindly.
@@ -91,7 +91,7 @@ Rehearse with the process stopped before reopen:
 | --- | --- | --- | --- |
 | Trial authorizer | Owner (delegated in Cursor chat) | 2026-10-18 | ☑ authorize controlled **Rev7** trial |
 | Rollback owner | Owner (delegated in Cursor chat) | 2026-10-18 | ☑ rollback plan accepted |
-| Station operator | | | ☐ station identity + single-lane confirmed (at window) |
+| Station operator | L3PSTAOI | | ☐ station identity + single-lane confirmed (at window) |
 
 Authorizing a controlled trial does **not** grant production release. Production
 requires the Production tier in `plans/robust_patch_revision_2a.md` § Acceptance

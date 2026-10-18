@@ -14,7 +14,7 @@ Rev7 multi-section policy: `plans/rev7_multi_section_fail_open.md`.
 | Field | Value |
 | --- | --- |
 | Candidate revision | **Rev7** (`Vision3D_concurrency_fix_rev7.exe`) |
-| Station name / ID | (operator: name at window) |
+| Station name / ID | **L3PSTAOI** |
 | Single-lane confirmed | ☐ yes (required at window) |
 | Operator | |
 | Rollback owner | Owner / 2026-10-18 (plan accepted) |

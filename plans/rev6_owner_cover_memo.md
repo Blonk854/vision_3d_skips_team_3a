@@ -34,7 +34,7 @@ under this memo.
 
 | Field | Fill |
 | --- | --- |
-| Station name / ID | Named by operator at maintenance window (single-lane only) |
+| Station name / ID | **L3PSTAOI** (single-lane only) |
 | Single-lane confirmed | ☑ required at install (operator confirms on run sheet) |
 | Trial authorizer | ☑ **authorize controlled Rev7 trial** |
 | Name / date | Owner (delegated in Cursor chat 2026-10-18) / 2026-10-18 |
