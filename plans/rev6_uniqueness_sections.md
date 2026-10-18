@@ -68,9 +68,9 @@ section iteration only.
   `maps/rev2a_entry_gate_second_pass.json` (ReceiveGreyZones decomp)
 - Source PE: SHA-256 `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4`
 
-## Follow-on options (not started)
+## Follow-on options
 
 1. Data-side: prove zone analyse / grey-zone membership partitions by section bit.
-2. Patch-side: Feature-1 count ignores a second final-mask for the same component
-   identity within a panel generation (or disable threshold on multi-section).
-3. Scope: document Feature-1 as single-section-only until (1) or (2) lands.
+2. Patch-side sketch (started): `plans/rev6_uniqueness_count_guard_sketch.md`
+   — Option A multi-section fail-open; Option B seen-set once `component_id` is proven.
+3. Scope: document Feature-1 as single-section-only until (1) or Option A/B lands.
