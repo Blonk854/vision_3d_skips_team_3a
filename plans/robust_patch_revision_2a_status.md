@@ -524,7 +524,7 @@ hash-matching wheels.
 
 | Proof obligation | Status | Existing evidence and missing proof |
 | --- | --- | --- |
-| Final-mask hook multiplicity / result uniqueness | Partial | One `ExecuteOne_Component` call reaches `0x140736f47` at most once, and that call is once per component-vector slot per zone execution. `HandlerProduction` can enter `PanelInspect` on two section iterations when `0x140695200` returns 2, before the cycle back edge reaches reset. Whether those sections share a component is still open. See [Final-mask multiplicity](#final-mask-multiplicity-2026-09-25). Team 2's accepted §563 bytes match the executable. The straight lines at `0x140735f81`, `0x140735f90`, `0x140735fbc`, `0x140735fe1`, `0x140736034`, and `0x140736064` are also not shown to write the loaded qword's bytes at `+0x18` or `+0x19`, and the row stays Partial. See [Team 2 uniqueness check](#team-2-uniqueness-check-2026-10-12). |
+| Final-mask hook multiplicity / result uniqueness | Partial | Per-call multiplicity closed. Multi-section still open on **data partition** only: execute path has **no** `document+0x3978` filter in `ExecuteAll` / `ExecuteOne` / `GetZoneAnalyse`; section dword is loop induction + logs / ConveyorNext. Same component reaching final-mask on both section iterations is not disproven. See [rev6_uniqueness_sections.md](rev6_uniqueness_sections.md) and [Final-mask multiplicity](#final-mask-multiplicity-2026-09-25). Team 2 §563 stretches stay as recorded under [Team 2 uniqueness check](#team-2-uniqueness-check-2026-10-12). |
 | Worker drain before CAPM reconciliation, supported single lane | Blocked: callback and exception containment | The stock unchecked `CreateEventA`/`WAIT_FAILED` path remains defective, but the startup-only synchronous candidate makes it unreachable from every retained executable caller on the supported lane. The export-thread descendant copies its payload before return and does not retain CAO/result pointers. Existing work, the posted UI callback, exception handling, and remaining ownership before release or reuse remain unproved. |
 | Production/anomaly vector ownership and immutability | **CLOSED** (torn-write residual accepted; dtor join patched in Rev6) | Outer/inner growth CLOSED. `worker_to_capm` NONE PROVEN accepted under fixed-capacity. Rev6 calls `ProductionStop` at `ProductionDoc_dtor` entry before DeleteVector / Zone_dtor. Evidence: maps/vector_ownership/anomaly_vector_mutator_table.json, plans/rev6_close_path_charter.md, tools/patch_f1_missing_n_rev6.py. |
 | No late callbacks after CAO retirement | **Patched in Rev6** (offline) | Rev6 publishes a patch-owned SKIP snapshot (empty after `SkipList_Reset`) and swaps `document+0x23e0` to that snapshot for the stock refresh body; view dtor clears `document+0x5838`. Stock live-array UAF path is no longer the refresh source. Native delivery of queued HWND messages remains waived-unverified under W7-QUAL-01. See plans/rev6_close_path_inventory.md. |
@@ -537,7 +537,7 @@ Stock judgments: `worker_to_capm` **NONE PROVEN** (residual accepted);
 `destructor_vs_workers` **JOIN_ABSENT** on stock. Rev6 remediates the dtor join
 and SKIP live-array refresh path, with live capture on Add / SkipAll /
 SkipSubPanel. Gate MD5 after capture update:
-`8AB5FE5E5ECBAE540F8AD829E0B417E7`.
+`FAE48EA3F85684EF0B69A542FF06CBED`.
 
 | Contract | Stock verdict | Rev6 |
 | --- | --- | --- |
@@ -650,7 +650,11 @@ The `call` at `0x140736070` is a defined write of `rax` and an undetermined writ
 
 Zero stores on the stretch. No store at displacement `0x18` or `0x19` through the loaded qword. The `call` at `0x140736070` is not shown to receive the loaded qword or the address of those bytes. This stretch is not shown to write those bytes. The instruction after `0x140736070` stays unread.
 
-The uniqueness row stays Partial. Rev6 stays blocked. This repo has no `plans/failed_drain_containment.md`, and `tools/verify_worker_admission.py` has no `UniquenessArithmeticRecordTests` class, so no §564 section or test was added here.
+The uniqueness row stays Partial. Execute-path section filter is disproven; residual
+is acquisition/zone-set disjointness (or a patch guard). See
+[rev6_uniqueness_sections.md](rev6_uniqueness_sections.md). This repo has no
+`plans/failed_drain_containment.md`, and `tools/verify_worker_admission.py` has no
+`UniquenessArithmeticRecordTests` class, so no §564 section or test was added here.
 
 ## Entry-gate investigation, 2026-09-21
 

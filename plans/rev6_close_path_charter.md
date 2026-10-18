@@ -29,7 +29,8 @@ lands. Until then it may stay `3C05BBB66D1463CB3B7CA0F1EDC78AEB`.
 
 ## Follow-ons (not this workstream)
 
-- Final-mask uniqueness (sections sharing a component)
+- Final-mask uniqueness (sections sharing a component) — narrowed in
+  `plans/rev6_uniqueness_sections.md` (execute-path filter absent; data partition open)
 - DWORD wider-intermediate product
 - Native station install / W7 qualification (still waived-unverified);
   request checklist: `plans/rev6_native_install_authorization.md` (unsigned)

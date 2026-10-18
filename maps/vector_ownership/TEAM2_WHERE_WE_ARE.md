@@ -1,7 +1,7 @@
 # Team 3a progress for Team 2
 
 Recorded 2026-10-18 (Rev6 close-path). Pull a commit that contains
-`plans/rev6_close_path_charter.md` and gate MD5 `8AB5FE5E5ECBAE540F8AD829E0B417E7`.
+`plans/rev6_close_path_charter.md` and gate MD5 `FAE48EA3F85684EF0B69A542FF06CBED`.
 
 ```
 python maps/vector_ownership/team2_progress_check.py
@@ -14,7 +14,7 @@ python tools/verify_hardened_patch.py --revision rev6 --code-only
 ## Gate
 
 `maps/vector_ownership/anomaly_vector_mutator_table.json` MD5
-`8AB5FE5E5ECBAE540F8AD829E0B417E7`.
+`FAE48EA3F85684EF0B69A542FF06CBED`.
 
 | Field | Value |
 | --- | --- |
@@ -47,7 +47,9 @@ Native install is not authorized by this brief. Owner sign-off ask:
 
 ## Follow-ons
 
-- Final-mask uniqueness (sections sharing a component)
+- Final-mask uniqueness: execute-path section filter **DISPROVEN absent**; residual
+  is whether section grey-zone/component sets can intersect — see
+  `plans/rev6_uniqueness_sections.md` (gate row still Partial)
 - DWORD wider-intermediate product
 - Optional ReloadDoc/RegistryRead capture if single-lane traffic needs them
 - Owner sign-off on `plans/rev6_native_install_authorization.md` before any station trial
