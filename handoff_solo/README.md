@@ -14,6 +14,7 @@ The agent reads a persistent mission, does the open pass in `maps/vector_ownersh
 | `bootstrap.md` | Paste once into a new OpenCode session to start |
 | `judgment_worker_to_capm.md` | After sync-walk end: one judgment pass for `worker_to_capm.barrier` (not address+1) |
 | `write_judgment_pass.ps1` | Mints a pass id and writes that judgment into `team3_next_prompt.txt` |
+| `watch_and_write_judgment.ps1` | Polls until `0x1406a2fff` holds, then runs `write_judgment_pass.ps1` |
 
 Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/team3_response.md`, `anomaly_begin_store_trace.txt`. Closeout skill `handoff/TEAM3_CLOSEOUT.md` (via `opencode.json`) still applies when a `Pass <id>. Read …` line is used; this solo flow mostly drives itself from the mission after bootstrap.
 
