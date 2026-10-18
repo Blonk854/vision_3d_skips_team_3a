@@ -15,6 +15,8 @@ The agent reads a persistent mission, does the open pass in `maps/vector_ownersh
 | `judgment_worker_to_capm.md` | After sync-walk end: one judgment pass for `worker_to_capm.barrier` (not address+1) |
 | `write_judgment_pass.ps1` | Mints a pass id and writes that judgment into `team3_next_prompt.txt` |
 | `watch_and_write_judgment.ps1` | Polls until `0x1406a2fff` holds, then runs `write_judgment_pass.ps1` |
+| `judgment_destructor_vs_workers.md` | After worker_to_capm judgment: one pass for `destructor_vs_workers` |
+| `write_destructor_judgment_pass.ps1` | Mints a pass id and writes the destructor judgment into `team3_next_prompt.txt` |
 
 Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/team3_response.md`, `anomaly_begin_store_trace.txt`. Closeout skill `handoff/TEAM3_CLOSEOUT.md` (via `opencode.json`) still applies when a `Pass <id>. Read …` line is used; this solo flow mostly drives itself from the mission after bootstrap.
 
@@ -44,3 +46,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File handoff_solo/write_judgment_
 ```
 
 That overwrites `team3_next_prompt.txt` with a minted judgment pass. Open a fresh strong-model session on that file (or answer it yourself). Default: leave the gate JSON untouched unless the upgrade bar in `judgment_worker_to_capm.md` is met. Use `-Force` only to rewrite before the walk is finished or after a prior judgment heading.
+
+After that judgment lands, run:
+
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File handoff_solo/write_destructor_judgment_pass.ps1
+```
+
+Then answer the new `destructor_vs_workers` pass the same way (see `judgment_destructor_vs_workers.md`).
