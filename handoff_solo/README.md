@@ -1,5 +1,7 @@
 # Solo sync-byte flow (no director)
 
+**CLOSED (2026-10-18):** sync walk and both judgments finished (`worker_to_capm` NONE PROVEN; `destructor_vs_workers` JOIN_ABSENT). Do not paste `bootstrap.md`, do not run `advance_pass.ps1`, do not resume address+1, and do not re-mint judgment prompts unless a human writes a new assignment. See `mission.md`, `handoff/state.md`, and `maps/vector_ownership/TEAM2_WHERE_WE_ARE.md`.
+
 One OpenCode window. No OpenCode Dev, no Cursor coordinator, no rotator, no response watcher.
 
 The agent reads a persistent mission, does the open pass in `maps/vector_ownership/team3_next_prompt.txt`, appends evidence, writes the next pass from a template, and continues in the same session.
@@ -22,6 +24,8 @@ Worker artifacts stay where they already are: `team3_next_prompt.txt`, `handoff/
 
 ## Start
 
+Do **not** start this flow now — it is **CLOSED** (banner above). Historical steps, for a future re-open only:
+
 1. Stop any Cursor/`handoff` or OpenCode Dev/`handoff_oc` loop (no watcher, no second director window).
 2. Open this repo in one OpenCode window. Open a session.
 3. Paste `handoff_solo/bootstrap.md` and send it.
@@ -38,6 +42,8 @@ Primary finish line is **`0x1406a3000` (exclusive)** in `mission.md`. `advance_p
 - Upgrade the gate from this flow
 
 ## Later upgrade
+
+Done for this campaign (both judgment passes answered; `team3_next_prompt.txt` is a closed stub). Historical steps:
 
 When the sync walk hits `0x1406a3000` (or another mission stop), stop using the +1 template. Then:
 
