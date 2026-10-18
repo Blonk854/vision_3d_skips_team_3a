@@ -31,12 +31,14 @@ from unicorn.unicorn_py3.unicorn import UcContext
 
 import patch_f1_missing_n_rev5 as patcher
 import patch_f1_missing_n_rev6 as patcher_rev6
+import patch_f1_missing_n_rev7 as patcher_rev7
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 SOURCE = ROOT / "v3d_files_" / "Vision3D.exe"
 OUTPUT = ROOT / "Updated" / "Vision3D_concurrency_fix.exe"
 OUTPUT_REV6 = ROOT / "Updated" / "Vision3D_concurrency_fix_rev6.exe"
+OUTPUT_REV7 = ROOT / "Updated" / "Vision3D_concurrency_fix_rev7.exe"
 
 STATE_OPEN = 0
 STATE_CLAIMING = 1
@@ -800,6 +802,56 @@ def verify_rev6_close_path_code() -> None:
     )
 
 
+def verify_rev7_multi_section_code() -> None:
+    """Rev7 count cave classifies multi-section once and fail-opens."""
+    payload, sizes = patcher_rev7.build_code()
+    count = payload[
+        patcher.COUNT_CAVE - patcher.CAVE :
+        patcher.COUNT_CAVE - patcher.CAVE + sizes["count_size"]
+    ]
+    require(sizes["count_size"] > 0, "rev7 count size present")
+    require(
+        sizes["count_size"] <= patcher.RESET_CAVE - patcher.COUNT_CAVE,
+        "rev7 count fits before reset cave",
+    )
+    ops = list(Cs(CS_ARCH_X86, CS_MODE_64).disasm(count, patcher.COUNT_CAVE))
+    bound = f"{patcher_rev7.SECTION_BOUND:x}"
+    require(
+        any(
+            i.mnemonic == "call" and bound in i.op_str.lower().replace("0x", "")
+            for i in ops
+        ),
+        "rev7 count calls section-bound helper",
+    )
+    bit = str(patcher_rev7.CONTEXT_FLAG_MULTI_SECTION_BIT)
+    require(
+        any("bts" in i.mnemonic and bit in i.op_str for i in ops),
+        "rev7 count sets multi-section context flag on claim",
+    )
+    require(
+        any(
+            i.mnemonic.replace("lock ", "") == "bt" and bit in i.op_str for i in ops
+        ),
+        "rev7 count tests multi-section flag before counting",
+    )
+    dtor = payload[
+        patcher_rev6.DTOR_JOIN_CAVE - patcher_rev6.CAVE :
+        patcher_rev6.DTOR_JOIN_CAVE - patcher_rev6.CAVE + sizes["dtor_size"]
+    ]
+    require(
+        any(
+            i.mnemonic == "call"
+            and hex(patcher_rev6.PRODUCTION_STOP)[2:] in i.op_str
+            for i in Cs(CS_ARCH_X86, CS_MODE_64).disasm(
+                dtor, patcher_rev6.DTOR_JOIN_CAVE
+            )
+        ),
+        "rev7 retains ProductionStop dtor join",
+    )
+    require(sizes.get("add_capture_size", 0) > 0, "rev7 keeps Add capture")
+    require(sizes.get("skipall_capture_size", 0) > 0, "rev7 keeps SkipAll capture")
+
+
 def verify_rev6_binary(path: pathlib.Path) -> None:
     source = SOURCE.read_bytes()
     output = path.read_bytes()
@@ -844,13 +896,18 @@ def verify_rev6_binary(path: pathlib.Path) -> None:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--revision", choices=("rev5", "rev6"), required=True)
+    parser.add_argument("--revision", choices=("rev5", "rev6", "rev7"), required=True)
     parser.add_argument("--code-only", action="store_true")
     parser.add_argument("--output", type=pathlib.Path, default=None)
     parser.add_argument("--force-failure", action="store_true", help=argparse.SUPPRESS)
     arguments = parser.parse_args()
     if arguments.output is None:
-        arguments.output = OUTPUT_REV6 if arguments.revision == "rev6" else OUTPUT
+        if arguments.revision == "rev7":
+            arguments.output = OUTPUT_REV7
+        elif arguments.revision == "rev6":
+            arguments.output = OUTPUT_REV6
+        else:
+            arguments.output = OUTPUT
     require(not arguments.force_failure, "forced verifier regression")
     verify_optimized_execution_refusal(arguments.revision)
     verify_forced_failure_refusal(arguments.revision)
@@ -858,6 +915,8 @@ def main() -> int:
     verify_machine_code()
     if arguments.revision == "rev6":
         verify_rev6_close_path_code()
+    elif arguments.revision == "rev7":
+        verify_rev7_multi_section_code()
     print("interpreter=%s" % sys.executable)
     print("python=%s" % sys.version.replace("\n", " "))
     print("PYTHONOPTIMIZE=%r" % os.environ.get("PYTHONOPTIMIZE"))
@@ -866,10 +925,12 @@ def main() -> int:
     print("machine-code concurrency regressions: PASS (stock calls stubbed)")
     if arguments.revision == "rev6":
         print("rev6 close-path caves: PASS")
+    elif arguments.revision == "rev7":
+        print("rev7 multi-section fail-open + close-path: PASS")
     if arguments.code_only:
         print("verifier_exit_status=0")
         return 0
-    if arguments.revision == "rev6":
+    if arguments.revision in ("rev6", "rev7"):
         verify_rev6_binary(arguments.output)
         print("PE close-path hooks: PASS")
     else:

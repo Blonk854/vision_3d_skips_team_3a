@@ -1,8 +1,8 @@
 # Sketch — once-per-component count guard (multi-section)
 
-Recorded 2026-10-18. Design only. No Keystone bytes, no Rev7 generator, no PE
-rebuild. Depends on `plans/rev6_uniqueness_sections.md` (execute-path section
-filter absent).
+Recorded 2026-10-18. Option A is implemented in Rev7
+(`tools/patch_f1_missing_n_rev7.py`, `plans/rev7_multi_section_fail_open.md`).
+Option B remains design-only. Depends on `plans/rev6_uniqueness_sections.md`.
 
 ## Problem
 
@@ -121,8 +121,7 @@ unnecessary for uniqueness (still useful as defense in depth).
 
 ## Recommended sequence
 
-1. **Land Option A** in a future Rev7 (or rev6.1) as an explicit single-section
-   scope bit — unblocks a honest gate note for multi-section.
+1. ~~Land Option A~~ — Rev7 (`plans/rev7_multi_section_fail_open.md`).
 2. ~~Prove component_id load~~ — done in
    `plans/rev6_uniqueness_component_id_proof.md` (`rdi` = `CCAD_Base*`).
 3. **Land Option B** with `(cao, rdi)` seen-set; keep A as fallback if

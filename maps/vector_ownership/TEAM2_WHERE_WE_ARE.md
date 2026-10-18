@@ -50,8 +50,10 @@ Native install is not authorized by this brief. Owner sign-off ask:
 - Final-mask uniqueness: execute-path section filter **DISPROVEN absent**; residual
   is whether section grey-zone/component sets can intersect — see
   `plans/rev6_uniqueness_sections.md` (gate row still Partial). Count-guard sketch:
-  `plans/rev6_uniqueness_count_guard_sketch.md`; component id load proof:
-  `plans/rev6_uniqueness_component_id_proof.md` (`rdi` = `CCAD_Base*`; not implemented)
+  `plans/rev6_uniqueness_count_guard_sketch.md`. Rev7 Option A (multi-section
+  fail-open) in `tools/patch_f1_missing_n_rev7.py` /
+  `plans/rev7_multi_section_fail_open.md`. Component id for Option B:
+  `plans/rev6_uniqueness_component_id_proof.md` (`rdi` = `CCAD_Base*`)
 - DWORD wider-intermediate product
 - Optional ReloadDoc/RegistryRead capture if single-lane traffic needs them
 - Owner sign-off on `plans/rev6_native_install_authorization.md` before any station trial
