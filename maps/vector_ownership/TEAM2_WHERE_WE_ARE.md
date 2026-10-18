@@ -14,7 +14,7 @@ python tools/verify_hardened_patch.py --revision rev7 --code-only
 | Pin | Value |
 | --- | --- |
 | Gate file | `maps/vector_ownership/anomaly_vector_mutator_table.json` |
-| Gate MD5 | `156D664599DE1A05EA9E590DDB7F438F` |
+| Gate MD5 | `39A266A53B3EEE56A9304C433FDA0835` |
 | Stock `v3d_files_/Vision3D.exe` size | 28,738,048 bytes |
 | Stock SHA-256 | `ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4` |
 | Latest judgment pass | `20261018T202924Z-755a7879` (`JOIN_ABSENT` on stock) |
@@ -73,8 +73,9 @@ trial of Rev7. Not fleet / production release.
 | Window commands + hashes | `plans/rev7_maintenance_window_checklist.md` |
 | Run sheet | `plans/rev6_station_run_sheet.md` |
 
-Trial station: **L3PSTAOI**. Operator confirms single-lane and `$StationExe`
-path at the window before copy. Patched binaries stay gitignored under `Updated/`.
+Trial station: **L3PSTAOI**. `$StationExe` = `C:\VIT\Vision3D.exe` (exe only).
+Operator confirms single-lane at the window before copy. Patched binaries stay
+gitignored under `Updated/`.
 
 ## Follow-ons (not blocking this sync)
 

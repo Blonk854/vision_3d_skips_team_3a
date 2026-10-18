@@ -30,7 +30,7 @@ IMAGE_BASE = 0x140000000
 
 EXE_SHA256 = "ccca11b2f05084b484fa5556c67f8874065dbc0b6265177d2517f81265af00f4"
 EXE_SIZE = 28_738_048
-GATE_MD5 = "156D664599DE1A05EA9E590DDB7F438F"
+GATE_MD5 = "39A266A53B3EEE56A9304C433FDA0835"
 REV7_CANDIDATE_SHA256 = (
     "208e7f471dc7f7443ead3cc00ed3db9a7aeca51fc99e77aaf84436b851fe1d47"
 )
@@ -205,6 +205,11 @@ def main() -> int:
         "L3PSTAOI" in next_steps,
         "L3PSTAOI" if "L3PSTAOI" in next_steps else next_steps[:120],
     )
+    check(
+        "gate native follow-on names C:\\VIT\\Vision3D.exe",
+        "C:\\VIT\\Vision3D.exe" in next_steps,
+        "C:\\VIT\\Vision3D.exe" if "C:\\VIT\\Vision3D.exe" in next_steps else next_steps[:120],
+    )
 
     brief = BRIEF.read_text(encoding="utf-8")
     check("brief present", BRIEF.is_file(), str(BRIEF))
@@ -228,6 +233,11 @@ def main() -> int:
         "brief pins trial station L3PSTAOI",
         "L3PSTAOI" in brief,
         "L3PSTAOI",
+    )
+    check(
+        "brief pins C:\\VIT\\Vision3D.exe",
+        "C:\\VIT\\Vision3D.exe" in brief,
+        "C:\\VIT\\Vision3D.exe",
     )
     check(
         "brief pins Rev7 candidate sha256",

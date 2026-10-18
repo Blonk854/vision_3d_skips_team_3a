@@ -35,6 +35,7 @@ under this memo.
 | Field | Fill |
 | --- | --- |
 | Station name / ID | **L3PSTAOI** (single-lane only) |
+| Install path | `C:\VIT\Vision3D.exe` (exe only; no companion/`C:\VIT` tree edits) |
 | Single-lane confirmed | ☑ required at install (operator confirms on run sheet) |
 | Trial authorizer | ☑ **authorize controlled Rev7 trial** |
 | Name / date | Owner (delegated in Cursor chat 2026-10-18) / 2026-10-18 |

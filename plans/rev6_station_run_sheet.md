@@ -15,6 +15,7 @@ Rev7 multi-section policy: `plans/rev7_multi_section_fail_open.md`.
 | --- | --- |
 | Candidate revision | **Rev7** (`Vision3D_concurrency_fix_rev7.exe`) |
 | Station name / ID | **L3PSTAOI** |
+| Install path | `C:\VIT\Vision3D.exe` (replace exe only; leave `C:\VIT` companions) |
 | Single-lane confirmed | ☐ yes (required at window) |
 | Operator | |
 | Rollback owner | Owner / 2026-10-18 (plan accepted) |

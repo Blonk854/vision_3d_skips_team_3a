@@ -250,7 +250,7 @@
     "Optional: accept or harden torn writes (epoch/seqlock) if CAPM readers require stronger consistency",
     "Follow-on: final-mask uniqueness residual (section zone-set partition or patch guard; execute-path filter absent — plans/rev6_uniqueness_sections.md) and DWORD wider-intermediate product",
     "Follow-on: optional ReloadDoc/RegistryRead snapshot capture if single-lane traffic needs them (Add/SkipAll/SkipSubPanel capture is in Rev6)",
-    "Controlled Rev7 trial authorized (not production) on station L3PSTAOI: rebuild/verify Updated/Vision3D_concurrency_fix_rev7.exe; confirm single-lane + $StationExe path at window — plans/rev7_maintenance_window_checklist.md"
+    "Controlled Rev7 trial authorized (not production) on station L3PSTAOI: rebuild/verify Updated/Vision3D_concurrency_fix_rev7.exe; install only to C:\\VIT\\Vision3D.exe; confirm single-lane at window — plans/rev7_maintenance_window_checklist.md"
   ],
   "decompilation_evidence_files": {
     "ExecuteOne_Component": "maps/decomp/ExecuteOne_Component.c",

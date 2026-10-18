@@ -48,7 +48,7 @@ python maps/vector_ownership/team2_progress_check.py
 python tools/verify_hardened_patch.py --revision rev7
 ```
 
-Gate MD5 at Team2 sync (station L3PSTAOI pinned): `156D664599DE1A05EA9E590DDB7F438F`.
+Gate MD5 at Team2 sync (L3PSTAOI / `C:\VIT\Vision3D.exe`): `39A266A53B3EEE56A9304C433FDA0835`.
 Rebuild the candidate immediately before install; if the hash differs from the
 table above, record the new hash in the run sheet and do not reuse this row
 blindly.

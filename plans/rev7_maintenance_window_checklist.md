@@ -3,13 +3,13 @@
 Controlled trial only (authorized 2026-10-18). Not production release.
 Full scope: `plans/rev6_native_install_authorization.md`.
 
-Station ID: **L3PSTAOI** (pinned 2026-10-18). Confirm single-lane on the run
-sheet before copy. Set install path once at the window:
+Station ID: **L3PSTAOI**. Install root: **`C:\VIT`** (exe only — do not replace
+companions under that tree). Confirm single-lane on the run sheet before copy.
 
 ```powershell
 $Repo = "C:\Users\s_sme\Documents\VS_Project_LapTop\vision_3d_skips - team 3a"
 $StationId = "L3PSTAOI"
-$StationExe = "C:\PATH\TO\INSTALL\Vision3D.exe"   # operator: real path on L3PSTAOI
+$StationExe = "C:\VIT\Vision3D.exe"
 $Py = Join-Path $Repo ".venv\Scripts\python.exe"
 ```
 
